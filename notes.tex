@@ -1,0 +1,282 @@
+\documentclass[11pt]{scrreprt}
+\usepackage[sexy]{evan}
+\begin{document}
+\title{Notes on 0xPARC Stuff}
+
+\maketitle
+
+\chapter{PCP}
+\section{Goal}
+Imagine that Peggy has a long proof of some mathematical theorem, and Victor wants to verify it.
+\emph{A priori}, this would require Victor to actually read every line of the proof.
+As anyone who has experience grading students knows, that's a whole lot of work.
+A lazy grader might try to save time by only ``spot checking''
+a small number of lines of the proof.
+However, it would be really easy to cheat such a grader:
+all you have to do is make a single wrong step somewhere
+and hope that particular step is not one of the ones examined by Victor.
+
+A probabilistically checkable proof is a way to try to circumvent this issue.
+It provides a protocol where Peggy can format her proof such that
+Victor can get high-probability confidence of its confidence
+by only checking $K$ bits of the proof at random, for some absolute constant $K$.
+This result is one part of the \emph{PCP theorem} which is super famous.
+
+The purpose of this post is to give a high level summary of the ideas that go into the
+protocol and convince you that the result is possible, because at first glance it seems
+absurd that a single universal constant $K$ is going to be enough.
+As this is a big picture overview, we will generally not prove things;
+detailed proofs are usually spelled out in textbooks,
+and I no longer have any desire to continue writing more textbooks than I already have.
+
+\section{Q-SAT}
+As all NP-complete problems are equivalent, we can pick any one which is convenient.
+We are going to use QSAT,
+in which one has a bunch of variables over a finite field $\FF_q$,
+a bunch of equations in these variables of degree at most two,
+and one wishes to find a satisfying assignment.
+
+\begin{remark*}
+  [QSAT is pretty obviously NP-complete]
+  If you can't see right away that QSAT is NP-complete,
+  the following example instance can help,
+  showing how to convert any instance of 3-SAT into a QSAT problem:
+  \begin{align*}
+    x_i^2 &= x_i \qquad \text{ for each } i=1,2,\dots,10000 \\
+    y_1 &= (1-x_{42}) \cdot x_{17}, \hspace{3.5em} 0 = y_1 \cdot x_{53} \\
+    y_2 &= (1-x_{19}) \cdot (1-x_{52}), \hspace{1em} 0 = y_2 \cdot (1-x_{75}) \\
+    y_3 &= x_{25} \cdot x_{64}, \hspace{6em} 0 = y_3 \cdot x_{81} \\
+    &\vdotswithin= \qquad\text{(imagine many more such pairs of equations)}
+  \end{align*}
+  The $x_i$'s are variables which are seen to either be $0$ or $1$.
+  And then each pair of equations with $y_i$ corresponds to a clause of 3-SAT.
+\end{remark*}
+
+Anyway, Peggy has worked really hard and figured out a satisfying assignment,
+and wants to convince Victor of this, but Victor really hates reading/grading.
+Victor neither wants to read all $10000$ values of the $x_i$
+nor plug them into every equation.
+
+\todo{roadmap}
+
+\section{Combining the system into a single equation}
+The first step of the reduction is to try and generate just a single equation to check,
+Rather than have to check all of them.
+Here the technique turns out to be surprisingly simple:
+\alert{take all the given equations
+and sums a ``random-looking'' linear combination of them}.
+One would then reasonably expect that if there are any false equations at all,
+then the summed equation would be true only with probability $1/q$.
+
+It turns out there is actually a well-developed theory of how to take
+the ``random-looking'' linear combination,
+and it comes from the study of \emph{error-correcting codes}.
+
+\subsection{Definition of error-correcting codes}
+An \alert{error-correcting code} is a bunch of codewords
+with the property that any two differ in ``many'' places.
+An example is the following set of sixteen bit-strings of length $7$:
+\begin{align*}
+  C = \big\{
+    & 0000000, \; 1101000, \; 0110100, \; 0011010, \\
+    & 0001101, \; 1000110, \; 0100011, \; 1010001, \\
+    & 0010111, \; 1001011, \; 1100101, \; 1110010 \\
+    & 0111001, \; 1011100, \; 0101110, \; 1111111 \big\} \subseteq \FF_2^7
+\end{align*}
+which has the nice property that any two of the codewords in it differ in at least $3$ bits.
+This particular $C$ also enjoys the nice property that it's actually
+a vector subspace of $\FF_2^7$ (i.e.\ it is closed under addition).
+In practice, all the examples we consider will be subspaces,
+and we call them \alert{linear error-correcting codes} to reflect this.
+
+When designing an error-correcting code, broadly your goal is to make sure the
+minimum distance of the code is as large as possible,
+while still trying to squeeze in as many codewords as possible.
+The notations used for this
+\begin{itemize}
+  \ii Usually we let $q$ denote the alphabet size and $n$ the block length
+  (the length of the codewords),
+  so the codewords live in the set of $q^n$ possible length $n$ strings.
+
+  \ii The \alert{relative distance} is defined as the minimum Hamming distance divided by $n$;
+  Higher relative distance is better (more error corrections).
+
+  \ii The \alert{rate} is the $\log_{q^n}(\text{num codewords})$.
+  Higher rates are better (more densely packed codewords).
+\end{itemize}
+So the example $C$ has relative distance $\frac 37$,
+and rate $\log_{2^7}(16) = \frac 47$.
+
+\subsection{Examples of error-correcting codes}
+\todo{Hadamard, \dots}
+
+\subsection{Composition}
+\todo{define, put in example from paper}
+
+\subsection{Usage here}
+Return to Q-SAT.
+
+\todo{compose two codes}
+
+\section{The sum-check protocol}
+So now, we have this single equation that we want to verify rather than a system.
+The problem is the this equation was obtained by mashing together a really long sequence
+of equations in tons of variables,
+so it's really not fun to verify even if the individual equations
+in the original instance were reasonable.
+
+\subsection{Setup}
+Let's abstract a bit further away and imagine our equation takes the form
+\[ Z_1 + Z_2 + \dots + Z_{\text{big}} = H \]
+for some variables $Z_i$ and constant $H \in \FF_q$, all over $\FF_q$,
+and assume further that $q$ is really big.
+(In the context of Q-SAT, each $Z_i$ is either a multiple of $x_i x_j$ or $x_i$,
+but this protocol works more broadly for any sort of long addition
+no matter what context the $Z_i$ arise from.)
+We are imagining Peggy has a value assigned to each $Z_i$,
+and is asserting to Victor they $Z_i$'s sum to $H$.
+Victor wants to know that Peggy computed the sum $H$ correctly,
+but Victor doesn't want to actually read all the values of $Z_i$.
+
+Well, at face value, this is an obviously impossible task.
+Even if Victor knew all but one of Peggy's $Z_i$'s, that wouldn't be good enough.
+So to get anywhere, we need to to give Victor at least one magic power.
+
+\subsection{An oracle to a multilinear polynomial}
+Assume for convenience that the number of $Z$'s happens to be $2^n$
+and change notation to a function $f \colon \{0,1\}^n \to \FF_q$, so our equation becomes
+\[ \sum_{\vec v \in \{0,1\}^n} f(\vec v) = H. \]
+In other words, we have changed notation so that our variables are indexed over a
+hypercube: from $f(0, \dots, 0)$ to $f(1, \dots, 1)$.
+
+Now here's the magic power we're granting.
+By polynomial interpolation, no matter what function $f$ we had initially,
+we can view it as multilinear polynomial $P \in \FF_q[X_1, \dots, X_n]$.
+For example, suppose $n=3$ and the eight (arbitrary) variable values were given
+\begin{align*}
+  f(0,0,0) &= 8 \\
+  f(0,0,1) &= 15 \\
+  f(0,1,0) &= 8 \\
+  f(0,1,1) &= 15 \\
+  f(1,0,0) &= 8 \\
+  f(1,0,1) &= 15 \\
+  f(1,1,0) &= 17 \\
+  f(1,1,1) &= 29.
+\end{align*}
+(So $H = 8+15+8+15+8+15+17+29 = 115$.)
+Then we'd be trying to fill in the blanks in the equation
+\[ P(x,y,z) = {\square} + {\square} x + {\square} y + {\square} z
+  + {\square} xy + {\square} yz + {\square} zx + {\square} xyz \]
+so that $P$ agrees with $f$ on the cube.
+This comes down to solving a system of linear equations;
+in this case it turns out that $P(x,y,z) = 5xyz + 9xy + 7z + 8$ works,
+and I've cherry-picked the numbers so a lot of the squares work out to $0$ for
+convenience, but math majors should be able to verify that $P$ exists and is unique
+no matter what eight initial numbers I would have picked (by induction on $n$).
+
+Now here's the magic power:
+we are going to let Victor make \emph{one} call to a magic oracle
+that can tell Victor the value of $P(r_1,\dots,r_n)$,
+for his choice of $(r_1, \dots, r_n) \in \FF_q^n$.
+Note importantly that the $r_i$'s do not have to $0$/$1$,
+in fact we will say Victor just chooses them randomly from the much larger $\FF_q$.
+But he can only ask the oracle for that single value of $P$,
+and otherwise has no idea what any of the $Z_i$'s are.
+The punch line of the protocol is that this single oracle call is good enough.
+If Victor has this oracle, he only needs to read one value for
+Peggy to convince him that $H$ was computed correctly.
+
+\subsection{A playthrough of the sum-check protocol}
+Let's use the example above with $n=3$:
+Peggy has chosen those eight values with $H = 115$,
+and wants to convince Victor without actually sending all eight values.
+Peggy has done her homework and computed the coefficients of $P$ as well
+(after all, she chose the values of $f$), so Peggy can evaluate $P$ anywhere she wants.
+But Victor can only ask the oracle about a single value of the polynomial $P$
+on a point (probably) outside the hypercube.
+
+Here's how they do it.
+(All the information sent by Peggy to Victor is boxed.)
+
+\begin{enumerate}
+  \ii Peggy announces her claim $\boxed{H = 115}$.
+
+  \ii They now discuss the first coordinate:
+  \begin{itemize}
+    \ii Victor asks Peggy to evaluate the linear one-variable polynomial
+    \[ g_1(T) \coloneqq P(T,0,0) + P(T,0,1) + P(T,1,0) + P(T,1,1) \]
+    and send the result. In our example, it equals
+    \[ g_1(T) = 8 + 15 + (9T+8) + (14T+15) = \boxed{23T+46}. \]
+
+    \ii Victor then checks that this $g_1$ is consistent with the claim $H=115$;
+    it should satisfy $H = g_1(0) + g_1(1)$ by definition.
+    Indeed, $g_1(0)+g_1(1) = 46+69 = 115 = H$.
+
+    \ii Finally, Victor commits to a random choice of $r_1 \in \FF_q$; let's say $r_1 = 7$.
+    From now on, he'll always use $7$ for the first argument to $P$.
+  \end{itemize}
+
+  \ii With the first coordinate fixed at $r_1 = 7$, they talk about the second coordinate:
+  \begin{itemize}
+    \ii Victor asks Peggy to evaluate the linear polynomial
+    \[ g_2(U) \coloneqq P(7,U,0) + P(7,U,1). \]
+    and send the result. In our example, it equals
+    \[ g_2(U) = (63U+8) + (98U+15) = \boxed{161U + 23}. \]
+
+    \ii Victor makes sure the claimed $g_2$ is consistent with $g_1$;
+    it should satisfy $g_1(r_1) = g_2(0)+g_2(1)$.
+    Indeed, it does $g_1(7) = 23 \cdot 7 + 46 = 23 + 184 = g_2(0) + g_2(1)$.
+
+    \ii Finally, Victor commits to a random choice of $r_2 \in \FF_q$; let's say $r_1 = 3$.
+    From now on, he'll always use $3$ for the second argument to $P$.
+  \end{itemize}
+
+  \ii They now settle the last coordinate:
+  \begin{itemize}
+    \ii Victor asks Peggy to evaluate the linear polynomial
+    \[ g_3(U) \coloneqq P(7,3,V) \]
+    and send the result. In our example, it equals
+    \[ g_3(U) = \boxed{112V+197}. \]
+
+    \ii Victor makes sure the claimed $g_3$ is consistent with $g_2$;
+    it should satisfy $g_2(r_2) = g_3(0)+g_3(1)$.
+    Indeed, it does $g_2(3) = 161 \cdot 3 + 23 = 197 + 309 = g_3(0) + g_3(1)$.
+
+    \ii Finally, Victor commits to a random choice of $r_3 \in \FF_q$; let's say $r_3 = -1$.
+  \end{itemize}
+
+  \ii Victor has picked all three coordinates, and is ready consults the oracle.
+  He gets $P(7,3,-1) = 85$.
+  This matches $g_3(-1) = 85$, and the protocol ends.
+\end{enumerate}
+
+\subsection{General procedure}
+The previous transcript should generalize obviously to any $n > 3$,
+but we spell it out anyways.
+Peggy has already announced $H$ and pre-computed $P$.
+Now for $i = 1, \dots, n$,
+\begin{itemize}
+\ii Victor asks Peggy to compute the univariate polynomial $g_i$
+corresponding to partial sum, where the $i$th parameter is a free parameter
+while all the $r_1$, \dots, $r_{i-1}$ have been fixed already.
+\ii Victor sanity-checks each of Peggy's answer by making sure $g_i$ is consistent
+with (that is, $g_{i-1}(r_{i-1}) = g_i(0) + g_i(1)$,
+or for the edge case $i=1$ that $H = g_1(0) + g_1(1)$).
+\ii Then Victor commits to a random $r_i \in \FF_q$ and moves on to the next coordinate.
+\end{itemize}
+Once Victor has decided on every $r_i$, he asks the oracle for $P(r_1, \dots, r_n)$
+and makes sure that it matches the value of $g_n(r_n)$.
+If so, Victor believes Peggy.
+
+Up until now, we wrote the sum-check protocol as a sum over $\{0,1\}^n$.
+However, actually there is nothing in particular special about $\{0,1\}^n$
+and it would work equally well with $\mathbb H^n$ for any small finite set $\mathbb H$;
+the only change is that the polynomial $P$
+would now have degree at most $|\mathbb H|-1$ in each variable,
+rather than being multilinear.
+Accordingly, the $g_i$'s change from being linear to up to degree $|\mathbb H|-1$.
+Everything else stays the same.
+
+\section{Low degree testing}
+
+\end{document}
