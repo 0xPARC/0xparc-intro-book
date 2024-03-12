@@ -549,9 +549,10 @@ but it suffers from several issues.
   \ii The amount of reading on Victor's part is not $O(1)$ like we promised.
   The low-degree testing step with the posters used $O(1)$ entries,
   but the sum-check required reading roughly
-  \[ (|\mathbb H| + O(1)) \cdot (m+O(1)) \approx \frac{(\log N)^2}{\log \log N} \]
+  \[ O(|\mathbb H|^2) \cdot (m+O(1)) \approx \frac{(\log N)^3}{\log \log N} \]
   entries from the phone book.
-  The PCP theorem promises we can get that down to $O(1)$.
+  The PCP theorem promises we can get that down to $O(1)$,
+  but that's beyond this post's scope.
 
   \ii The procedure above involved mailing $q^E$ phone books,
   which is what we in the business call either ``unacceptably inefficient''
