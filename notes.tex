@@ -460,16 +460,16 @@ Then instead of picking an $r_2$, he picks a pair $(i_2, j_2)$ and so on.
 
 Then, to run the protocol, the entries of the phone book are going to correspond to
 \begin{align*}
-  P &\colon \FF_q^m \times \FF_q^m \to \FF_q \\
-  P(\vec i, \vec j) &\coloneqq
-    {\wt a}_{\vec i, \vec j} \wt A(\vec i) \wt A(\vec j)
-    + \frac{1}{|\HH|^m} {\wt b}_{\vec i} \wt A(\vec i)
+  P &\in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m] \\
+  P(T_1, \dots, T_m, U_1, \dots, U_m) &\coloneqq
+    {\wt a}(T_1, \dots, T_m, U_1, \dots, U_m) \wt A(T_1, \dots, T_m) \wt A(U_1, \dots,
+    U_m) \\
+    &\qquad + \frac{1}{|\HH|^m} {\wt b}(T_1, \dots, T_m) \wt A(T_1, \dots, T_m)
 \end{align*}
-in place of what we called $P$ in the sum-check section.
+in place of what we called $P(x,y,z)$ in the sum-check section.
 
 I want to stress now the tilde's above are actually hiding a lot of work.
-Let's unpack it a bit: what does ${\wt a}_{\vec i, \vec j}$ mean
-when $\vec i \notin \HH^m$?
+Let's unpack it a bit: what does $\wt a$ mean?
 After all, when you unwind this notational mess we wrote,
 we realize that the $a$'s and $b$'s came out of the coefficients of the original
 equations $\mathcal E_k$.
@@ -481,8 +481,9 @@ needs to apply the extension result three times:
 \begin{itemize}
   \ii Peggy views $a_{\vec i, \vec j}$ as a function $\HH^{2m} \to \FF_q$
   and extends it to a polynomial using the above;
-  this lets us define $\wt a_{\vec i, \vec j}$ for $\vec i$ and $\vec j$
-  outside the hypercube.
+  this lets us define
+  $\wt a \in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m]$
+  as a \emph{bona fide} $2m$-variate polynomial.
 
   \ii Peggy does the same for $\wt b_{\vec i}$.
 
@@ -505,7 +506,9 @@ So the contents of this phone book include, for every index $k$,
 every single possible result that Victor would need to run sum-check at the $k$th step.
 That is, the $k$th part of this phone book are a big directory where,
 for each possible choice of indices $(i_1, \dots, i_{k-1}, j_1, \dots, j_{k-1})$,
-Peggy has printed the single-variable polynomial that arises from sum-check.
+Peggy has printed the two-variable polynomial in $\FF_q[T,U]$ that arises from sum-check.
+(There are two variables rather than one now,
+because $(i_k, j_k)$ are selected in pairs.)
 
 This gives Victor a non-interactive way to run sum-check.
 Rather than ask Penny, consult the already printed phone book.
@@ -528,11 +531,11 @@ So Victor has to do one more check:
 he makes sure that the value of $P(\vec i, \vec j)$ he got from the phone book
 in fact matches the value corresponding to the poster $B_0$.
 In other words, he does the arduous task of computing the extensions
-$\wt a_{\vec i, \vec j}$ and $\wt b_{\vec i}$, and finally verifies that
+$\wt a$ and $\wt b$, and finally verifies that
 \[
   P(\vec i, \vec j) \coloneqq
-  {\wt a}_{\vec i, \vec j} B_0[\vec i] B_0[\vec j]
-  + \frac{1}{|\HH|^m} {\wt b}_{\vec i} B_0[\vec i]
+  {\wt a}(\vec i, \vec j) B_0[\vec i] B_0[\vec j]
+  + \frac{1}{|\HH|^m} \wt b(\vec i) B_0[\vec i]
 \]
 is actually true.
 
