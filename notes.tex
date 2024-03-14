@@ -9,7 +9,7 @@
 
 \chapter{PCP}
 \section{Overview}
-Imagine that Peggy has a long proof of some mathematical theorem, and Victor wants to verify it.
+Imagine that Penny has a long proof of some mathematical theorem, and Victor wants to verify it.
 \emph{A priori}, this would require Victor to actually read every line of the proof.
 As anyone who has experience grading students knows, that's a whole lot of work.
 A lazy grader might try to save time by only ``spot checking''
@@ -19,7 +19,7 @@ all you have to do is make a single wrong step somewhere
 and hope that particular step is not one of the ones examined by Victor.
 
 A probabilistically checkable proof is a way to try to circumvent this issue.
-It provides a protocol where Peggy can format her proof such that
+It provides a protocol where Penny can format her proof such that
 Victor can get high-probability confidence of its confidence
 by only checking $K$ bits of the proof at random, for some absolute constant $K$.
 This result is one part of the \emph{PCP theorem} which is super famous.
@@ -61,13 +61,13 @@ Before worrying about systems of equations, let's imagine we just have a
 for some variables $Z_i$ and constant $H \in \FF_q$, all over $\FF_q$,
 and assume further that $q$ is not too small.
 
-Imagine a prover Peggy has a value assigned to each $Z_i$,
+Imagine a prover Penny has a value assigned to each $Z_i$,
 and is asserting to the verifier Victor they $Z_i$'s sum to $H$.
-Victor wants to know that Peggy computed the sum $H$ correctly,
+Victor wants to know that Penny computed the sum $H$ correctly,
 but Victor doesn't want to actually read all the values of $Z_i$.
 
 Well, at face value, this is an obviously impossible task.
-Even if Victor knew all but one of Peggy's $Z_i$'s, that wouldn't be good enough.
+Even if Victor knew all but one of Penny's $Z_i$'s, that wouldn't be good enough.
 
 So to get anywhere, we need to to give Victor at least one magic power.
 
@@ -113,26 +113,26 @@ But he can only ask the oracle for that single value of $P$,
 and otherwise has no idea what any of the $Z_i$'s are.
 The punch line of the protocol is that this single oracle call is good enough.
 If Victor has this oracle, he only needs to read one value for
-Peggy to convince him that $H$ was computed correctly.
+Penny to convince him that $H$ was computed correctly.
 
 \subsection{A playthrough of the sum-check protocol}
 Let's use the example above with $n=3$:
-Peggy has chosen those eight values with $H = 115$,
+Penny has chosen those eight values with $H = 115$,
 and wants to convince Victor without actually sending all eight values.
-Peggy has done her homework and computed the coefficients of $P$ as well
-(after all, she chose the values of $f$), so Peggy can evaluate $P$ anywhere she wants.
+Penny has done her homework and computed the coefficients of $P$ as well
+(after all, she chose the values of $f$), so Penny can evaluate $P$ anywhere she wants.
 But Victor can only ask the oracle about a single value of the polynomial $P$
 on a point (probably) outside the hypercube.
 
 Here's how they do it.
-(All the information sent by Peggy to Victor is boxed.)
+(All the information sent by Penny to Victor is boxed.)
 
 \begin{enumerate}
-  \ii Peggy announces her claim $\boxed{H = 115}$.
+  \ii Penny announces her claim $\boxed{H = 115}$.
 
   \ii They now discuss the first coordinate:
   \begin{itemize}
-    \ii Victor asks Peggy to evaluate the linear one-variable polynomial
+    \ii Victor asks Penny to evaluate the linear one-variable polynomial
     \[ g_1(T) \coloneqq P(T,0,0) + P(T,0,1) + P(T,1,0) + P(T,1,1) \]
     and send the result. In our example, it equals
     \[ g_1(T) = 8 + 15 + (9T+8) + (14T+15) = \boxed{23T+46}. \]
@@ -147,7 +147,7 @@ Here's how they do it.
 
   \ii With the first coordinate fixed at $r_1 = 7$, they talk about the second coordinate:
   \begin{itemize}
-    \ii Victor asks Peggy to evaluate the linear polynomial
+    \ii Victor asks Penny to evaluate the linear polynomial
     \[ g_2(U) \coloneqq P(7,U,0) + P(7,U,1). \]
     and send the result. In our example, it equals
     \[ g_2(U) = (63U+8) + (98U+15) = \boxed{161U + 23}. \]
@@ -162,7 +162,7 @@ Here's how they do it.
 
   \ii They now settle the last coordinate:
   \begin{itemize}
-    \ii Victor asks Peggy to evaluate the linear polynomial
+    \ii Victor asks Penny to evaluate the linear polynomial
     \[ g_3(U) \coloneqq P(7,3,V) \]
     and send the result. In our example, it equals
     \[ g_3(U) = \boxed{112V+197}. \]
@@ -182,20 +182,20 @@ Here's how they do it.
 \subsection{General procedure}
 The previous transcript should generalize obviously to any $n > 3$,
 but we spell it out anyways.
-Peggy has already announced $H$ and pre-computed $P$.
+Penny has already announced $H$ and pre-computed $P$.
 Now for $i = 1, \dots, n$,
 \begin{itemize}
-\ii Victor asks Peggy to compute the univariate polynomial $g_i$
+\ii Victor asks Penny to compute the univariate polynomial $g_i$
 corresponding to partial sum, where the $i$th parameter is a free parameter
 while all the $r_1$, \dots, $r_{i-1}$ have been fixed already.
-\ii Victor sanity-checks each of Peggy's answer by making sure $g_i$ is consistent
+\ii Victor sanity-checks each of Penny's answer by making sure $g_i$ is consistent
 with (that is, $g_{i-1}(r_{i-1}) = g_i(0) + g_i(1)$,
 or for the edge case $i=1$ that $H = g_1(0) + g_1(1)$).
 \ii Then Victor commits to a random $r_i \in \FF_q$ and moves on to the next coordinate.
 \end{itemize}
 Once Victor has decided on every $r_i$, he asks the oracle for $P(r_1, \dots, r_n)$
 and makes sure that it matches the value of $g_n(r_n)$.
-If so, Victor believes Peggy.
+If so, Victor believes Penny.
 
 Up until now, we wrote the sum-check protocol as a sum over $\{0,1\}^n$.
 However, actually there is nothing in particular special about $\{0,1\}^n$
@@ -331,7 +331,7 @@ and one wishes to find a satisfying assignment.
 \end{remark*}
 
 Let's say there are $N$ variables and $E$ equations, and $N$ and $E$ are both large.
-Peggy has worked really hard and figured out a satisfying assignment
+Penny has worked really hard and figured out a satisfying assignment
 \[ A \colon \{x_1, \dots, x_N\} \to \FF_q \]
 and wants to convince Victor she has this $A$.
 Victor really hates reading,
@@ -420,7 +420,7 @@ Then, for any fixed choice of $\lambda_2$, \dots, $\lambda_E$, there is always
 exactly one choice of $\lambda_1$ which makes the collated equation true,
 while the other $q-1$ all fail.)
 
-To emphasize again: Peggy is printing $q^E$ phone books right now and we only use one.
+To emphasize again: Penny is printing $q^E$ phone books right now and we only use one.
 Look, I'm sorry, okay?
 
 \subsection{Sum-checking the equation (or: how to print the phone book)}
@@ -453,7 +453,7 @@ our variables will be indexed instead in the following way:
     a_{\vec\imath, \vec\jmath} A(\vec\imath) A(\vec\jmath)
     + \frac{1}{|\HH|^m} b_{\vec\imath} A(\vec\imath).
 \end{align*}
-Hence Peggy is trying to convince Victor that
+Hence Penny is trying to convince Victor that
 \[ \sum_{\vec\imath \in \FF_q^m}
   \sum_{\vec\jmath \in \FF_q^m} f(\vec\imath, \vec\jmath) = c. \]
 
@@ -478,20 +478,20 @@ After all, when you unwind this notational mess we wrote,
 we realize that the $a$'s and $b$'s came out of the coefficients of the original
 equations $\mathcal E_k$.
 
-The answer is that both Victor and Peggy have a lot of arithmetic to do.
-Specifically, for Peggy,
+The answer is that both Victor and Penny have a lot of arithmetic to do.
+Specifically, for Penny,
 when she's printing this phone book for $(\lambda_1, \dots, \lambda_E)$,
 needs to apply the extension result three times:
 \begin{itemize}
-  \ii Peggy views $a_{\vec\imath, \vec\jmath}$ as a function $\HH^{2m} \to \FF_q$
+  \ii Penny views $a_{\vec\imath, \vec\jmath}$ as a function $\HH^{2m} \to \FF_q$
   and extends it to a polynomial using the above;
   this lets us define
   $\wt a \in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m]$
   as a \emph{bona fide} $2m$-variate polynomial.
 
-  \ii Peggy does the same for $\wt b_{\vec\imath}$.
+  \ii Penny does the same for $\wt b_{\vec\imath}$.
 
-  \ii Finally, Peggy does the same on $A \colon \HH^m \to \FF_q$,
+  \ii Finally, Penny does the same on $A \colon \HH^m \to \FF_q$,
   extending it to $\wt A \in \FF_q[T_1, \dots, T_m]$.
   (However, this step is the same across all the phone books, so it only happens once.)
 \end{itemize}
@@ -510,7 +510,7 @@ So the contents of this phone book include, for every index $k$,
 every single possible result that Victor would need to run sum-check at the $k$th step.
 That is, the $k$th part of this phone book are a big directory where,
 for each possible choice of indices $(i_1, \dots, i_{k-1}, j_1, \dots, j_{k-1})$,
-Peggy has printed the two-variable polynomial in $\FF_q[T,U]$ that arises from sum-check.
+Penny has printed the two-variable polynomial in $\FF_q[T,U]$ that arises from sum-check.
 (There are two variables rather than one now,
 because $(i_k, j_k)$ are selected in pairs.)
 
@@ -581,7 +581,7 @@ but it suffers from several issues (which is why we it's as a toy example).
   \end{itemize}
 
   \ii One other weird thing about this result is that,
-  even though Victor has to read only a small part of Peggy's proof,
+  even though Victor has to read only a small part of Penny's proof,
   he still has to read the entire \emph{problem statement},
   that is, the entire system of equations from the original Quad-SAT.
   This can feel strange because for Quad-SAT,
