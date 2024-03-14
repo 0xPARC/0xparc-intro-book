@@ -428,9 +428,9 @@ Let's zoom in on one linear combination to use sum-check on.
 (In other words, pick only one of the phone books at random.)
 Let's agree to describe the equation using the notation
 \[
-  c = \sum_{\vec i \in \HH^m} \sum_{\vec j \in \HH^m}
-  a_{\vec i, \vec j} x_{\vec i} \cdot x_{\vec j}
-  + \sum_{\vec i \in \HH^m} b_{\vec i} x_{\vec i}.
+  c = \sum_{\vec\imath \in \HH^m} \sum_{\vec\jmath \in \HH^m}
+  a_{\vec\imath, \vec\jmath} x_{\vec\imath} \cdot x_{\vec\jmath}
+  + \sum_{\vec\imath \in \HH^m} b_{\vec\imath} x_{\vec\imath}.
 \]
 In other words, we've changed notation so both the variables
 and the coefficients are indexed by vectors in $\HH^m$.
@@ -444,18 +444,18 @@ Our sum-check protocol that we talked about earlier
 used a sequence $(r_1, \dots, r_n) \in \{0,1\}^n$.
 For our purposes, we have these quadratic equations,
 and so it'll be convenient for us if we alter the protocol to use pairs
-$(\vec i, \vec j) \in \FF_q^m \times \FF_q^m$ instead.
+$(\vec\imath, \vec\jmath) \in \FF_q^m \times \FF_q^m$ instead.
 In other words, rather than $f(\vec v)$
 our variables will be indexed instead in the following way:
 \begin{align*}
   f &\colon \HH^m \times \HH^m \to \FF_q \\
-  f(\vec i, \vec j) &\coloneqq
-    a_{\vec i, \vec j} A(\vec i) A(\vec j)
-    + \frac{1}{|\HH|^m} b_{\vec i} A(\vec i).
+  f(\vec\imath, \vec\jmath) &\coloneqq
+    a_{\vec\imath, \vec\jmath} A(\vec\imath) A(\vec\jmath)
+    + \frac{1}{|\HH|^m} b_{\vec\imath} A(\vec\imath).
 \end{align*}
 Hence Peggy is trying to convince Victor that
-\[ \sum_{\vec i \in \FF_q^m}
-  \sum_{\vec j \in \FF_q^m} f(\vec i, \vec j) = c. \]
+\[ \sum_{\vec\imath \in \FF_q^m}
+  \sum_{\vec\jmath \in \FF_q^m} f(\vec\imath, \vec\jmath) = c. \]
 
 In this modified sum-check protocol, Victor picks the indices two at a time.
 So in the step where Victor picked $r_1$ in the previous step,
@@ -483,19 +483,19 @@ Specifically, for Peggy,
 when she's printing this phone book for $(\lambda_1, \dots, \lambda_E)$,
 needs to apply the extension result three times:
 \begin{itemize}
-  \ii Peggy views $a_{\vec i, \vec j}$ as a function $\HH^{2m} \to \FF_q$
+  \ii Peggy views $a_{\vec\imath, \vec\jmath}$ as a function $\HH^{2m} \to \FF_q$
   and extends it to a polynomial using the above;
   this lets us define
   $\wt a \in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m]$
   as a \emph{bona fide} $2m$-variate polynomial.
 
-  \ii Peggy does the same for $\wt b_{\vec i}$.
+  \ii Peggy does the same for $\wt b_{\vec\imath}$.
 
   \ii Finally, Peggy does the same on $A \colon \HH^m \to \FF_q$,
   extending it to $\wt A \in \FF_q[T_1, \dots, T_m]$.
   (However, this step is the same across all the phone books, so it only happens once.)
 \end{itemize}
-Victor has to do the same work for $a_{\vec i, \vec j}$ and $b_{\vec i}$.
+Victor has to do the same work for $a_{\vec\imath, \vec\jmath}$ and $b_{\vec\imath}$.
 Victor can do this, because he picked the $\lambda$'s,
 as he computed the coefficients of his linear combination too.
 But Victor does \emph{not} do the last step of computing $\wt A$:
@@ -520,8 +520,8 @@ Inefficient? Yes. Works? Also yes.
 
 \subsection{Finishing up}
 Once Victor runs through the sum-check protocol,
-at the end he has a random $(\vec i, \vec j)$ and received
-the checked the phone book for $P(\vec i, \vec j)$.
+at the end he has a random $(\vec\imath, \vec\jmath)$ and received
+the checked the phone book for $P(\vec\imath, \vec\jmath)$.
 
 Assuming it checks out, his other task is to
 verify that the accompanying posters that Penny sent ---
@@ -532,14 +532,14 @@ this step is a direct application of line-versus-point test, without modificatio
 
 Up until now the phone book and posters haven't interacted.
 So Victor has to do one more check:
-he makes sure that the value of $P(\vec i, \vec j)$ he got from the phone book
+he makes sure that the value of $P(\vec\imath, \vec\jmath)$ he got from the phone book
 in fact matches the value corresponding to the poster $B_0$.
 In other words, he does the arduous task of computing the extensions
 $\wt a$ and $\wt b$, and finally verifies that
 \[
-  P(\vec i, \vec j) \coloneqq
-  {\wt a}(\vec i, \vec j) B_0[\vec i] B_0[\vec j]
-  + \frac{1}{|\HH|^m} \wt b(\vec i) B_0[\vec i]
+  P(\vec\imath, \vec\jmath) \coloneqq
+  {\wt a}(\vec\imath, \vec\jmath) B_0[\vec\imath] B_0[\vec\jmath]
+  + \frac{1}{|\HH|^m} \wt b(\vec\imath) B_0[\vec\imath]
 \]
 is actually true.
 
@@ -576,7 +576,7 @@ but it suffers from several issues (which is why we it's as a toy example).
   Penny and Victor both do quite a bit of computation.
   For example,
   \begin{itemize}
-  \ii Victor has to compute $\wt a_{\vec i, \vec j}$ for his one phone book.
+  \ii Victor has to compute $\wt a_{\vec\imath, \vec\jmath}$ for his one phone book.
   \ii Penny needs to do it for \emph{every} phone book.
   \end{itemize}
 
