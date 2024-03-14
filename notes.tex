@@ -59,7 +59,7 @@ Before worrying about systems of equations, let's imagine we just have a
 \emph{single} equation
 \[ Z_1 + Z_2 + \dots + Z_{\text{big}} = H \]
 for some variables $Z_i$ and constant $H \in \FF_q$, all over $\FF_q$,
-and assume further that $q$ is a really big prime power.
+and assume further that $q$ is not too small.
 
 Imagine a prover Peggy has a value assigned to each $Z_i$,
 and is asserting to the verifier Victor they $Z_i$'s sum to $H$.
@@ -544,9 +544,10 @@ is actually true.
 
 \section{Reasons to not be excited by the above protocol}
 The previous section describes a long procedure that has a PCP flavor,
-but it suffers from several issues.
+but it suffers from several issues (which is why we it's as a toy example).
 \begin{itemize}
-  \ii The amount of reading on Victor's part is not $O(1)$ like we promised.
+  \ii \textbf{Amount of reading}:
+  The amount of reading on Victor's part is not $O(1)$ like we promised.
   The low-degree testing step with the posters used $O(1)$ entries,
   but the sum-check required reading roughly
   \[ O(|\mathbb H|^2) \cdot (m+O(1)) \approx \frac{(\log N)^3}{\log \log N} \]
@@ -554,15 +555,26 @@ but it suffers from several issues.
   The PCP theorem promises we can get that down to $O(1)$,
   but that's beyond this post's scope.
 
-  \ii The procedure above involved mailing $q^E$ phone books,
+  \ii \textbf{Length of proof}:
+  The procedure above involved mailing $q^E$ phone books,
   which is what we in the business call either ``unacceptably inefficient''
   or ``fucking terrible'', depending on whether you're in polite company or not.
   The next section will show how to get this down to $qEN$ if $q$ is large enough.
 
-  \ii Even though Victor doesn't read much,
+  For context, in this protocol one wants a reasonably small prime $q$
+  which is about polynomial in $\log(EN)$.
+  After all, Quad-SAT is already an NP-complete problem for $q=2$.
+  (In contrast, in other unrelated more modern ecosystems,
+  the prime $q$ often instead denotes a fixed large prime $q \approx 2^{256}$.)
+
+  \ii \textbf{Time complexity}:
+  Even though Victor doesn't read much,
   Penny and Victor both do quite a bit of computation.
-  Victor has to compute $\wt a_{\vec i, \vec j}$ for his one phone book;
-  Penny needs to do it for \emph{every} phone book.
+  For example,
+  \begin{itemize}
+  \ii Victor has to compute $\wt a_{\vec i, \vec j}$ for his one phone book.
+  \ii Penny needs to do it for \emph{every} phone book.
+  \end{itemize}
 
   \ii One other weird thing about this result is that,
   even though Victor has to read only a small part of Peggy's proof,
