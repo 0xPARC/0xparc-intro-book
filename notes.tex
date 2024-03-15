@@ -604,6 +604,11 @@ We will use this to show that if $q \ge 4(\log (EN))^2$ is large enough,
 one can do this with only $q \cdot EN$ combinations.
 That's much better than the $q^E$ we had before.
 
+\subsection{A hint}
+So uh.
+\[ k^1 \mathcal E_1 + k^2 \mathcal E_2 + \dots + k^E \mathcal E_E
+  \qquad k = 1, 2, \dots, 100E. \]
+
 \subsection{Definition of error-correcting codes}
 An \alert{error-correcting code} is a bunch of codewords
 with the property that any two differ in ``many'' places.
@@ -655,6 +660,56 @@ This gives a linear code corresponding to an $s \times m$ matrix $M$,
 where $s \coloneqq q \cdot EN$, which has relative distance at least $1 - 1/\sqrt q$.
 The rows of this matrix (just the rows, not their row span)
 then correspond to the desired linear combinations.
+
+\appendix
+
+\chapter{PLONK stuff (March 14 office hours, rough live notes)}
+\begin{itemize}
+  \ii A form of Quad-SAT proving as well, but with shorter proof length
+  \ii Yan: zero-knowledge and non-interactivity can be added on afterwards
+  usually for cheap
+  (hash functions e.g.\ for non-interactivity).
+  \ii Needs commitment schemes
+\end{itemize}
+
+\section{Choice of NP-complete problem: PLONK}
+The ``PLONK equation'' is the standard form
+\[ \square a_i + \square b_i + \square c_i + \square a_i b_i = \square \]
+where the $\square$ are constants.
+We also have a bunch of equalities like $c_7 = a_8$ called copy constraints.
+Should be able to massage any Quad-SAT into this form.
+
+So an instance of PLONK problem consists of several PLONK equations
+together with some equivalence classes of variables that should be equal.
+
+\section{Polynomial commitment}
+Assume $q \equiv 1 \pmod{2^n}$
+and let $\omega$ be a $(2^n)$\ts{th} root of unity.
+Suppose we have a table that we view as a function
+\[ f \colon \{0,1,\dots,2^n-1\} \to \FF_q. \]
+Our goal is to make a commitment scheme that allows us to unblind one value.
+
+To do this, we construct a polynomial $P$ of degree $2^n$ satisfying
+\[ P(\omega^i) = f(i). \]
+There's a primitive that lets us commit $P$.
+To be described later.
+
+\section{Back to PLONK instance}
+Given PLONK instance, we can assume the number of equations is $2^n$.
+Denote the $i$th equation
+\[ Q_{L_i} a_i + Q_{R_i} b_i + Q_{O_i} c_i + Q_{M_1} a_i b_i + Q_{c_i}. \]
+For each of the eight things, interpolate a polynomial:
+e.g.\ for $a_i$, create a polynomial $A$ such that $a_i = A(\omega^i)$.
+Then to check all the equations at once,
+we plug in random values that aren't powers of $\omega$.
+
+\section{Permutation check}
+Copy constraints are a permutation trick.
+\begin{align*}
+  X(k) &= (\lambda - A(k)) X(k-1) \\
+  X'(k) &= (\lambda - A'(k)) X'(k-1)
+\end{align*}
+Use ordered pairs instead: $(i,a_i) \mapsto i \beta + a_i$.
 
 \end{document}
 
