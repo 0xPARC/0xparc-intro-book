@@ -11,6 +11,10 @@
 
 = Discrete logarithm is hard
 
+== The discrete log problem
+
+== Petersen commitments
+
 TODO write me
 
 #pagebreak()
@@ -23,7 +27,7 @@ TODO write me
 
 We fix an elliptic curve $E$ over a finite field $FF_q$
 and a globally known generator $g in E$.
-For each integer $n$ define
+For $n in ZZ$ define
 $ [n] := n dot g. $
 The hardness of discrete logarithm means that, given $[n]$, we cannot easily recover $g$.
 You can almost think of the notation as an "armor" on the integer $n$:
@@ -34,16 +38,22 @@ Multiplication can't be done directly, in the sense there isn't a way to get
 $[a b]$ given $[a]$ and $[b]$.
 However, the _pairing_ on the elliptic curve allows us to sidestep this by
 defining a nondegenerate bilinear function
-$ e : E times E -> ZZ slash n ZZ. $
+$ e : E times E -> ZZ slash N ZZ $
+for some large $N$.
+(This seems to be most commonly done via the Weil pairing.
+It may require replacing $FF_q$ with $FF_(q^n)$ or something?
+I'm unsure of the details.)
 
 === Trusted calculation
 
-For the Kate commitment to scheme,
-a trusted computer picks a secret scalar $s in FF_p$
-and computes $[s^i]$ for $i=0,1,...,N$ where $N$ is large.
-These points are published and considered globally known.
+To set up the Kate commitment scheme,
+a trusted computer needs to pick a secret scalar $s in FF_p$ and publishes
+$ [s^0], [s^1], ..., [s^N] $
+for some large $N$.
 (This only needs to be done once for the curve $E$.)
-The secret scalar $s$ is not known to either party.
+These published points are considered globally known
+so anyone can evaluate $[P(s)]$ for any given polynomial $P$.
+Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
 == Commitment scheme
 
@@ -64,12 +74,12 @@ from the globally known trusted calculation.
 Victor then verifies by checking
 $ e([Q(s)], [s-x]) = e([P(s)-y], [1]). $
 
-=== Soundness
+=== Soundness (heuristic argument)
 
 If $y != P(x)$, then Peggy can't do the polynomial long division described above.
-So to cheat Victor, she needs to find
-$ 1/(s-x) ([P(s)]-[y]). $
-Since $s$ is a secret nobody knows, this seems hard to do.
+So to cheat Victor, she needs to otherwise find an element
+$ 1/(s-x) ([P(s)]-[y]) in E. $
+Since $s$ is a secret nobody knows, there isn't any known way to do this.
 
 = IPA stuff
 
@@ -91,11 +101,11 @@ is practically a vector of length $2n + 1$, as discussed earlier.
 ]
 
 The Inner Product Argument (IPA) is a protocol that kind of
-resembles Sum-Check in spirit:
-Penny and Victor will do a series of interactions which allow Peggy
-to prove to Victor that $v$ is good.
+resembles Sum-Check in spirit: Penny and Victor will do a series of interactions
+which allow Peggy to prove to Victor that $v$ is good
+(without having to reveal all $a_i$'s, $b_i$'s, and $c$).
 
-== The interactive induction
+== The interactive induction of IPA
 
 (I think we missed a chance to call this "Inner Product Interactive Proof
 Inductive Protocol" or something cute like this,
@@ -144,15 +154,14 @@ The interesting part is soundness:
 
 #claim[
   Suppose $v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u$ is given.
-  Assume further that Peggy can provide any $w_L, w_R in E$
-  in this basis such that
+  Assume further that Peggy can provide some $w_L, w_R in E$ in this basis such that
   $ w(x) := v + x dot w_L + x^(-1) dot w_R $
   is good for at least four values of $x$.
 
   Then all of the following statements hold:
-  - $w_L = a_2 g_1 + b_1 h_2 + a_2 b_1 u$
+  - $w_L = a_2 g_1 + b_1 h_2 + a_2 b_1 u$,
   - $w_R = a_1 g_2 + b_2 h_1 + a_1 b_2 u$,
-  - $c = a_1 b_1 + a_2 b_2$, i.e. $v$ is good.
+  - $c = a_1 b_1 + a_2 b_2$, i.e., $v$ is good.
 ]
 
 #proof[
@@ -208,3 +217,7 @@ $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
   w_R &= (a_1 g_4 + a_2 g_5 + a_3 g_6) + (b_4 h_1 + b_5 h_2 + b_6 h_3)
   + (a_4 b_1 + a_5 b_2 + a_6 b_3) u. $
 And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
+
+== Using IPA for a polynomial commitment scheme
+
+TODO
