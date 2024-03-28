@@ -661,6 +661,20 @@ where $s \coloneqq q \cdot EN$, which has relative distance at least $1 - 1/\sqr
 The rows of this matrix (just the rows, not their row span)
 then correspond to the desired linear combinations.
 
+%Phone book = content needed
+%
+%So now, we have this single equation that we want to verify rather than a system.
+%The problem is the this equation was obtained by mashing together a really long sequence
+%of equations in tons of variables,
+%so it's really not fun to verify even if the individual equations
+%in the original instance were reasonable.
+%
+%\subsection{Setup}
+%
+%(In the context of Quad-SAT, each $Z_i$ is either a multiple of $x_i x_j$ or $x_i$,
+%but this protocol works more broadly for any sort of long addition
+%no matter what context the $Z_i$ arise from.)
+
 \appendix
 
 \chapter{PLONK stuff (March 14 office hours, rough live notes)}
@@ -711,19 +725,52 @@ Copy constraints are a permutation trick.
 \end{align*}
 Use ordered pairs instead: $(i,a_i) \mapsto i \beta + a_i$.
 
+\chapter{Fully holomorphic encryption office hours}
+\section{What is FHE?}
+Fully holomorphic encryption (FHE) is a method of encryption
+$\opname{enc}$ and $\opname{dec}$ such that for a general function $f$ such that
+\[ \opname{dec}(f(\opname{enc}(x))) = f(x). \]
+The idea is that if you can use this to outsource a calculation without decrypting data.
+For example, if I have this machine learning model $f$ that analyzes some data,
+I can give it $\opname{enc}(x)$ to an external cloud provider.
+
+This is already starting to approach ``practical''.
+Right now the overhead seems like it will turn out to be 1000x or 10000x
+(which is still a lot but actually better than current-state ZK-SNARK).
+
+\section{FHE easily gives multi party computation}
+If you have fully holomorphic encryption (FHE) gives 2-party computation with 1 round.
+
+\section{Functional encryption}
+\url{https://en.wikipedia.org/wiki/Functional_encryption}
+
+Generate an encrypt key $E$.
+Given a function $f$, and a ``decrypt key'' $D_f$ (also depending on $E$)
+and methods $\opname{enc}$ and $\opname{dec}$ such that if
+\[ c \coloneqq \opname{enc}(x, E) \]
+then
+\[ \opname{dec}(c, D_f) = f(x). \]
+So Alice can send $c$ to Bob and Bob can recover $f(x)$ from it.
+
+This initially seems like a convoluted way of sending $y \coloneqq f(x)$.
+Why not just send $y \coloneqq f(x)$ directly using a normal public-key scheme?
+Well, the additional benefit here is that you implicitly have a proof you know
+a pre-image of $y$, i.e., it's almost like a ZK proof that $f\inv(y)$ exists.
+
+\section{Witness encryption}
+Idea: encrypt a secret with a Boolean-output program rather than a key.
+The ``password'' is any accepting input to this program.
+
+Example: program is ``correct proof of Riemann hypothesis''.
+One can then encrypt a Bitcoin address to claim the Millennium Prize (or other message),
+such that whoever first proves the Riemann hypothesis can retrieve this message.
+
+\section{Obfuscation}
+In theory, perfect obfuscation would be a black box $f$ such that you can feed
+an input into it (un-interactively) and get $f(x)$ without learning about $f$.
+This can be proven impossible in theory but some approximations are possible.
+
+This can be thought of as ``functional witness'' encryption.
+It generalizes both functional encryption and witness encryption.
+
 \end{document}
-
-Phone book = content needed
-
-
-So now, we have this single equation that we want to verify rather than a system.
-The problem is the this equation was obtained by mashing together a really long sequence
-of equations in tons of variables,
-so it's really not fun to verify even if the individual equations
-in the original instance were reasonable.
-
-\subsection{Setup}
-
-(In the context of Quad-SAT, each $Z_i$ is either a multiple of $x_i x_j$ or $x_i$,
-but this protocol works more broadly for any sort of long addition
-no matter what context the $Z_i$ arise from.)
