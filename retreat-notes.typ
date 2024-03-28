@@ -29,11 +29,10 @@ We fix an elliptic curve $E$ over a finite field $FF_q$
 and a globally known generator $g in E$.
 For $n in ZZ$ define
 $ [n] := n dot g. $
-The hardness of discrete logarithm means that, given $[n]$, we cannot easily recover $g$.
+The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
 You can almost think of the notation as an "armor" on the integer $n$:
 it conceals the integer, but still allows us to perform (armored) addition:
-$ [a+b] = [a] + [b] $
-
+$ [a+b] = [a] + [b]. $
 Multiplication can't be done directly, in the sense there isn't a way to get
 $[a b]$ given $[a]$ and $[b]$.
 However, the _pairing_ on the elliptic curve allows us to sidestep this by
