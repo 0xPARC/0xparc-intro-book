@@ -9,21 +9,52 @@
 
 #toc
 
-= Discrete logarithm is hard
+= Commitment schemes
 
-== The discrete log problem
+== Discrete logarithm is hard
 
-== Petersen commitments
+=== The discrete log problem
 
-TODO write me
+Let $E$ be an elliptic curve.
+Given arbitrary nonzero $g, g' in E$,
+it's hard to find $n$ such that $n dot g = g'$.
 
-#pagebreak()
+In other words, if one only
+sees $g in E$ and $n dot g in E$, one cannot find $n$.
 
-= Kate commitment
+(This is called discrete log because when $E$ is replaced by an abelian group
+written multiplicatively, it looks like solving $g^n = g'$ instead.
+We will never use this multiplicative notation.)
 
-== Elliptic curve setup
+=== Vectors
 
-=== Generator
+One upshot of this is that if $g_1, ..., g_m in E$ are a bunch of points,
+then it's infeasible to find
+$(a_1, ..., a_m) != (b_1, ..., b_m) in ZZ^m$ such that
+$ a_1 g_1 + ... + a_m g_m = b_1 g_1 + ... + b_m g_m. $
+Indeed, even if one fixes any choice of $2m-1$ of the $2m$ coefficients above,
+one cannot find the last coefficient.
+
+In these notes, if there's a globally known elliptic curve $E$
+and points $g_1, ..., g_n$ with no known dependencies between them,
+we'll say they're "practically independent".
+
+=== Petersen commitments
+
+Let $g_1, ..., g_n in E$ be "practically independent".
+If one has a vector $angle.l a_1, ..., a_n angle.r in FF_p^n$ of scalars,
+one can "commit" the vector by sending $sum a_i g_i in E$.
+This actually acts like a hash of the vector with shorter length
+(with "practically independent" now being phrased as
+"we can't find a collision").
+
+It turns out the Petersen commitment will work natively with IPA later on.
+
+== Kate commitment
+
+=== Elliptic curve setup
+
+==== Generator
 
 We fix an elliptic curve $E$ over a finite field $FF_q$
 and a globally known generator $g in E$.
@@ -43,7 +74,7 @@ for some large $N$.
 It may require replacing $FF_q$ with $FF_(q^n)$ or something?
 I'm unsure of the details.)
 
-=== Trusted calculation
+==== Trusted calculation
 
 To set up the Kate commitment scheme,
 a trusted computer needs to pick a secret scalar $s in FF_p$ and publishes
@@ -52,46 +83,48 @@ for some large $N$.
 (This only needs to be done once for the curve $E$.)
 These published points are considered globally known
 so anyone can evaluate $[P(s)]$ for any given polynomial $P$.
+(For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
 Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
-== Commitment scheme
+=== Commitment scheme
 
-=== Protocol
+==== Protocol
 
 Suppose Peggy has a polynomial $P(T) in FF_p [T]$.
 She commits to it by evaluating $[P(s)]$,
 which she may do because $[s^i]$ is globally known.
 
 Now consider an input $x in FF_p$,
-where Peggy wishes to convince Victor that $P(x) = y$.
+where Peggy wishes to convince Victor that $P(z) = y$.
 To show $y in FF_p$, Peggy does polynomial division to derive $Q$ such that
-$ P(T)-y = (T-x) Q(T) $
+$ P(T)-y = (T-z) Q(T) $
 and sends the value of $[Q(s)]$,
 which again she can compute (without knowing $s$)
 from the globally known trusted calculation.
 
 Victor then verifies by checking
-$ e([Q(s)], [s-x]) = e([P(s)-y], [1]). $
+$ e([Q(s)], [s-z]) = e([P(s)-y], [1]). $
 
-=== Soundness (heuristic argument)
+==== Soundness (heuristic argument)
 
-If $y != P(x)$, then Peggy can't do the polynomial long division described above.
+If $y != P(z)$, then Peggy can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
 $ 1/(s-x) ([P(s)]-[y]) in E. $
 Since $s$ is a secret nobody knows, there isn't any known way to do this.
 
-= IPA stuff
-
-== Goal of Inner Product Argument
+== IPA stuff
 
 Let $E$ be an elliptic curve over $FF_p$
 and we have fixed globally known generators
-$g_1, ..., g_n, h_1, ..., h_n, u in E$.
-Because of the difficulty of discrete logarithm, this means that
-an element of the form
+$g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
+
+=== Goal of Inner Product Argument
+
+As we mentioned before, an element of the form
 $ a_1 g_1 + ... + a_n g_n + b_1 h_1 + ... + b_n h_n + c u in E $
 where $a_1, ..., a_n, b_1, ..., b_n, c in FF_p$,
 is practically a vector of length $2n + 1$, as discussed earlier.
+(If you like terminology, it's a Petersen commitment of such a vector.)
 
 #definition[
   Let's say that an element
@@ -104,11 +137,11 @@ resembles Sum-Check in spirit: Penny and Victor will do a series of interactions
 which allow Peggy to prove to Victor that $v$ is good
 (without having to reveal all $a_i$'s, $b_i$'s, and $c$).
 
-== The interactive induction of IPA
-
 (I think we missed a chance to call this "Inner Product Interactive Proof
 Inductive Protocol" or something cute like this,
 but I'm late to the party.)
+
+=== The interactive induction of IPA
 
 The way IPA is done is by induction:
 one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
@@ -157,7 +190,7 @@ The interesting part is soundness:
   $ w(x) := v + x dot w_L + x^(-1) dot w_R $
   is good for at least four values of $x$.
 
-  Then all of the following statements hold:
+  Then all of the following statements must hold for this property to occur:
   - $w_L = a_2 g_1 + b_1 h_2 + a_2 b_1 u$,
   - $w_R = a_1 g_2 + b_2 h_1 + a_1 b_2 u$,
   - $c = a_1 b_1 + a_2 b_2$, i.e., $v$ is good.
@@ -217,6 +250,36 @@ $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
   + (a_4 b_1 + a_5 b_2 + a_6 b_3) u. $
 And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 
-== Using IPA for a polynomial commitment scheme
+=== Using IPA for a polynomial commitment scheme
 
-TODO
+Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
+Then Peggy could get a scheme resembling Kate commitments as follows:
+
+- Peggy publishes Petersen commitment of the coefficients of $P$,
+  that is $v = sum a_i g_i in E$.
+- Suppose Victor wants to open the commitment at a value $z$,
+  and Peggy asserts that $P(z) = y$.
+- Victor picks a random constant $lambda in FF_p$.
+- Both parties compute
+  $ underbrace((a_1 g_1 + ... + a_n g_n), v)
+  + (lambda z^0 h_1 + ... + lambda z^(n-1) h_n) + lambda y u $
+  and run IPA on it.
+
+When Peggy does a vanilla IPA, she can keep all $2n+1$ coefficients secret.
+Here, Peggy is fine to reveal the latter $n+1$ numbers
+(because they are just powers of $z$ and the claimed $y$)
+as they don't leak any other information;
+she still gets to keep her coefficients $a_n$ private from Victor.
+
+The introduction of the hacked constant $c$ might be a bit of a surprise.
+The reason is that without it, there is an amusing loophole that Peggy can exploit:
+Peggy can pick the vector $v$ after all.
+So suppose Peggy tries to swindle Victor by reporting
+$v = a_1 g_1 + ... + a_n g_n - 10 u$ instead
+of the honest $v = a_1 g_1 + ... + a_n g_n$.
+Then, Peggy inflates all the values of $y$ she claims to Victor by $10$.
+This would allow Peggy to cheat Victor into committing the polynomial $P$
+but given any $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$.
+The addition of the shift $lambda$ prevents this attack.
+
+#pagebreak()
