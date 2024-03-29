@@ -1,52 +1,8 @@
-#import "@preview/ctheorems:1.1.2": *
-#show: thmrules
+#import "preamble.typ":*
 
-#let theorem = thmplain(
-  "theorem",
-  "Theorem",
-  base_level: 0,
-  titlefmt: strong
-)
+= Implementing R1CS using the IPA
 
-#let definition = thmplain(
-  "theorem",
-  "Definition",
-  base_level: 0,
-  titlefmt: strong
-)
-
-#let proposition = thmplain(
-  "theorem",
-  "Proposition",
-  base_level: 0,
-  titlefmt: strong
-)
-
-#let lemma = thmplain(
-  "theorem",
-  "Lemma",
-  base_level: 0,
-  titlefmt: strong
-)
-
-#let corollary = thmplain(
-  "theorem",
-  "Corollary",
-  base_level: 0,
-  titlefmt: strong
-)
-
-#let proof = thmproof(
-  "proof",
-  "Proof"
-)
-
-#set par(
-  justify: true,
-)
-
-
-= IPA #sym.arrow.r Proof System
+TODO: Clean this up and merge some stuff together
 
 We will implement the R1CS system using IPA.
 Recall that in R1CS, we wish to do the following:

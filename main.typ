@@ -21,4 +21,5 @@
 #chapter("src/ec.typ")
 #chapter("src/kzg.typ")
 #chapter("src/ipa.typ")
+#chapter("src/r1cs.typ")
 #chapter("src/mpc.typ")

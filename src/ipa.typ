@@ -10,10 +10,7 @@ $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
 
 We'll start by describing the goal of the general IPA protocol
 and how to implement it.,
-Then we'll show some use cases for IPA:
-
-- Polynomial commitments in the style of KZG are a special case.
-- TODO: Problem 6 applications go here
+Then we'll show some use cases for IPA.
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$ and $b_i$
 
@@ -150,7 +147,26 @@ And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 
 TODO (this is the argument with $mu$ and $lambda$ that Aard mentioned)
 
-== Polynomial commitment scheme is a special case of IPA
+== Application: revealing an element of a Petersen commitment
+
+One easy special case:
+suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
+and a Petersen commitment $C = sum a_i g_i$ to it.
+Then Penny can reveal any single element to Victor by running IPA
+to show the dot product of $arrow(a)$ with the vector $arrow(b)$
+which has a $1$ in the position of interest and $0$'s elsewhere.
+
+== Application: showing two Petersen commitments coincide
+
+Suppose there are two Petersen commitments
+$C = sum a_i g_i$ and $C' = sum a_i' g_i'$
+and Penny wants to prove that $a_i = a_i'$ for all $i$
+(i.e. they are the same vector)
+without revealing anything else about the two vectors.
+
+TODO: write this.
+
+== Application: polynomial commitment scheme is a special case of IPA
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
 Then Penny could get a scheme resembling KGZ commitments as follows:
