@@ -118,7 +118,7 @@ in which one has a bunch of variables over a finite field $FF_q$,
 a bunch of polynomial equations in these variables of degree at most two,
 and one wishes to find a satisfying assignment.
 
-#remark("QSAT is pretty obviously NP-complete")[
+#remark([QSAT is pretty obviously NP-complete])[
   If you can't see right away that QSAT is NP-complete,
   the following example instance can help,
   showing how to convert any instance of 3-SAT into a QSAT problem:
@@ -142,6 +142,17 @@ Victor really hates reading,
 so Victor neither wants to read all $N$ values of the $x_i$
 nor plug them into each of the $E$ equations.
 He's fine receiving lots of stuff in the mail; he just doesn't want to read it.
+
+#remark([$q$ is not too big])[
+  In earlier chapters, $q$ was usually a large prime like $q approx 2^255$.
+  This is actually not desirable here: Quad-SAT is already interesting even
+  when $q = 2$.
+  So in this chapter, large $q$ is a bug and not a feature.
+
+  For our protocol to work, we do need $q$ to be modestly large,
+  but its size will turn out to be around $(log N E)^O(1)$.
+]
+
 
 == Description of the toy PCP protocol for Quad-SAT
 
@@ -349,13 +360,9 @@ $
 $
 is actually true.
 
-=== Soundness analysis
-
-TODO: write this
-
 == Reasons to not be excited by this protocol
 The previous section describes a long procedure that has a PCP flavor,
-but it suffers from several issues (which is why we it's as a toy example).
+but it suffers from several issues (which is why we call it a toy example).
 
 - *Amount of reading*:
   The amount of reading on Victor's part is not $O(1)$ like we promised.
