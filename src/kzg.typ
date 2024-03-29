@@ -1,12 +1,12 @@
 #import "preamble.typ":*
 
-= Kate-Zaverucha-Goldberg (KGZ) commitments
+= Kate-Zaverucha-Goldberg (KZG) commitments
 
 This chapter requires reading the earlier chapter on discrete logarithm.
 
 == Pitch: KZG lets you commit a polynomial and reveal individual values
 
-The goal of the KGZ commitment schemes is to have the following API:
+The goal of the KZG commitment schemes is to have the following API:
 
 - Penny has a secret polynomial $P(T) in FF_q [T]$.
 - Penny sends a short "commitment" the polynomial, which is a hash.

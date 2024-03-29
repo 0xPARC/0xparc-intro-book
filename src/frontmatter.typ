@@ -13,7 +13,7 @@ unified format rather than a textbook.
 
 - The sum-check protocol
 - A toy version of the Probabilistically Checkable Proof (PCP) protocol
-- The Kate-Zaverucha-Goldberg (KGZ) commitment scheme
+- The Kate-Zaverucha-Goldberg (KZG) commitment scheme
 - The Inner Product Argument (IPA) commitment scheme
 - Oblivious transfer and multi-party computation
 - Bullet proofs

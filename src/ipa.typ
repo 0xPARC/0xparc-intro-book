@@ -169,7 +169,7 @@ TODO: write this.
 == Application: polynomial commitment scheme is a special case of IPA
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
-Then Penny could get a scheme resembling KGZ commitments as follows:
+Then Penny could get a scheme resembling KZG commitments as follows:
 
 - Penny publishes Petersen commitment of the coefficients of $P$,
   that is Penny publishes $ g := sum a_i g_i in E. $
