@@ -11,6 +11,23 @@
 
 = Commitment schemes
 
+The goal of commitment schemes is for Peggy to be able to take a long
+polynomial $P(T) in FF_q [T]$ and send some "commitment" to it, much like a hash.
+Then she should be able to "open" the commitment at any $z in FF_q$:
+specifically, if Victor sends Peggy an input $z in FF_q$,
+then Peggy can compute $y = P(z)$ and then convince Victor of this value $y$
+without having to reveal the original polynomial $P$.
+
+This section describes two commitment schemes that use an elliptic curve $E$
+over $FF_q$.
+
+- KGZ (Kate): needs a shared secret and a bilinear operator on $E$,
+  but is really simple and efficient.
+- IPA: more involved, but fewer assumption.
+
+Both of these rely depend on the discrete logarithm problem,
+which we briefly describe.
+
 == Discrete logarithm is hard
 
 === The discrete log problem
@@ -41,14 +58,16 @@ we'll say they're "practically independent".
 
 === Petersen commitments
 
+Here's one application of practical independence.
 Let $g_1, ..., g_n in E$ be "practically independent".
 If one has a vector $angle.l a_1, ..., a_n angle.r in FF_p^n$ of scalars,
-one can "commit" the vector by sending $sum a_i g_i in E$.
+one can "commit" the vector $arrow(a)$ by sending $sum a_i g_i in E$.
 This actually acts like a hash of the vector with shorter length
 (with "practically independent" now being phrased as
 "we can't find a collision").
 
-It turns out the Petersen commitment will work natively with IPA later on.
+It turns out the Petersen commitment will work natively with IPA later on
+if we choose $a_i$ to be the coefficients of the polynomial.
 
 == Kate commitment
 
@@ -86,11 +105,9 @@ so anyone can evaluate $[P(s)]$ for any given polynomial $P$.
 (For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
 Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
-=== Commitment scheme
+=== The KGZ commitment scheme
 
-==== Protocol
-
-Suppose Penny has a polynomial $P(T) in FF_p [T]$.
+Penny has a polynomial $P(T) in FF_p [T]$.
 She commits to it by evaluating $[P(s)]$,
 which she may do because $[s^i]$ is globally known.
 
@@ -105,7 +122,7 @@ from the globally known trusted calculation.
 Victor then verifies by checking
 $ e([Q(s)], [s-z]) = e([P(s)-y], [1]). $
 
-==== Soundness (heuristic argument)
+=== Soundness of protocol (heuristic argument)
 
 If $y != P(z)$, then Penny can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
@@ -225,8 +242,9 @@ The interesting part is soundness:
   other than the $ell_5$ and $r_5$ in front of $u$.
   Then indeed the condition that $w(x)$ is good is that
   $ (a_1 + x a_2) (b_1 + x^(-1) b_2) = c + x ell_5 + x^(-1) r_5. $
-  Comparing the constant coefficients we see that $c = a_1 b_1 + a_2 b_2$ as
-  desired. (One also can recover $ell_5$ and $r_5$, but we never use this.)
+  Comparing the constant coefficients we see that $c = a_1 b_1 + a_2 b_2$ as desired.
+  (One also can recover $ell_5 = a_2 b_1$ and $r_5 = a_1 b_2$,
+  but we never actually use this.)
 ]
 
 So we've shown completeness and soundness for our protocol reducing $n=2$ to $n=1$.
@@ -253,7 +271,7 @@ And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 === Using IPA for a polynomial commitment scheme
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
-Then Penny could get a scheme resembling Kate commitments as follows:
+Then Penny could get a scheme resembling KGZ commitments as follows:
 
 - Penny publishes Petersen commitment of the coefficients of $P$,
   that is Penny publishes $ v := sum a_i g_i in E. $
