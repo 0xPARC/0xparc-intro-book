@@ -8,6 +8,13 @@ Let $E$ be an elliptic curve over $FF_p$
 and we have fixed globally known generators
 $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
 
+We'll start by describing the goal of the general IPA protocol
+and how to implement it.,
+Then we'll show some use cases for IPA:
+
+- Polynomial commitments in the style of KZG are a special case.
+- TODO: Problem 6 applications go here
+
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$ and $b_i$
 
 As we mentioned before, an element of the form
@@ -31,10 +38,6 @@ having to reveal all of the $a_i$'s, $b_i$'s, and $c$.
 (I think we missed a chance to call this "Inner Product Interactive Proof
 Inductive Protocol" or something cute like this,
 but I'm late to the party.)
-
-We'll start by describing the vanilla IPA protocol,
-and then mention at the end that polynomial commitments in the style of KZG
-are a special case.
 
 == The interactive induction of IPA
 

@@ -1,3 +1,5 @@
+#import "preamble.typ":*
+
 = Kate-Zaverucha-Goldberg (KGZ) commitments
 
 This chapter requires reading the earlier chapter on discrete logarithm.
