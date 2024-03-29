@@ -198,8 +198,6 @@ However, in real life, sum-check gives you leverage because of the ambient
 context giving us a way to rope in polynomials.
 We'll give two examples below.
 
-TODO: Credit wherever the triangle example is from
-
 === Verifying a triangle count
 
 This example was communicated to us by
