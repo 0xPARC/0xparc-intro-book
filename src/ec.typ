@@ -2,7 +2,7 @@
 
 = The discrete logarithm problem on an elliptic curve
 
-== Pitch
+== Pitch: Discrete logarithm is hard
 
 In the public-key cryptography system RSA, one key assumption
 is that there is no efficient method to factor large semiprimes.
@@ -26,9 +26,10 @@ sees $g in E$ and $n dot g in E$, one cannot find $n$.
 like in RSA, it looks like solving $g^n = g'$ instead.
 We will never use this multiplicative notation in these notes.)
 
-=== Vectors
+== Vectors
 
-One upshot of this is that if $g_1, ..., g_n in E$ are a bunch of random points,
+One quick application of this is that if $g_1, ..., g_n in E$
+are a bunch of random points,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
 $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
@@ -54,7 +55,7 @@ one cannot find the last coefficient.
   and this is a critical standing assumption for this entire framework.
 ]
 
-=== Petersen commitments
+== Petersen commitments
 
 One application of this injectivity is that
 we can have a hash of the vector with shorter length

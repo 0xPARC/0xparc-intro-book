@@ -37,15 +37,10 @@ The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
 You can almost think of the notation as an "armor" on the integer $n$:
 it conceals the integer, but still allows us to perform (armored) addition:
 $ [a+b] = [a] + [b]. $
+
 Multiplication can't be done directly, in the sense there isn't a way to get
 $[a b]$ given $[a]$ and $[b]$.
-However, the _pairing_ on the elliptic curve allows us to sidestep this by
-defining a nondegenerate bilinear function
-$ e : E times E -> ZZ slash N ZZ $
-for some large $N$.
-(This seems to be most commonly done via the Weil pairing.
-It may require replacing $FF_q$ with $FF_(q^n)$ or something?
-I'm unsure of the details.)
+We work around this with a so-called _pairing_, defined a bit later.
 
 === Trusted calculation
 
@@ -58,6 +53,25 @@ These published points are considered globally known
 so anyone can evaluate $[P(s)]$ for any given polynomial $P$.
 (For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
 Meanwhile, the secret scalar $s$ is never revealed to anyone.
+
+=== Pairing
+
+In addition to the elements $[s^i]$, one needs a *pairing* on $E$,
+which is a nondegenerate bilinear function
+$ "pair" : E times E -> ZZ slash N ZZ $
+for some large integer $N$.
+One example of a construction is the so-called
+#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing").
+Like with the previous setup,
+this only needs to be done once for the curve $E$,
+and then anyone in the world can use the published curve for their protocol.
+
+The exact details of how this pairing is constructed won't matter below.
+But the upshot is that the equation
+$ "pair"([m], [n]) = "pair"([m'], [n']) $
+will be true whenever $m n = m' n'$,
+because both sides will equal $m n "pair"([1], [1])$.
+So this gives us at least a way to verify multiplication.
 
 == The KZG commitment scheme
 
@@ -76,7 +90,8 @@ from the globally known trusted calculation.
 Victor then verifies by checking
 $ e([Q(s)], [s-z]) = e([P(s)-y], [1]). $
 
-== Soundness of protocol (heuristic argument)
+If Penny is truthful, then this will certainly check out.
+Essentially, the pariing
 
 If $y != P(z)$, then Penny can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
