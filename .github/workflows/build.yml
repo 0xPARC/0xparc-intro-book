@@ -11,3 +11,8 @@ jobs:
         uses: lvignoli/typst-action@main
         with:
           source_file: main.typ
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: main.pdf
