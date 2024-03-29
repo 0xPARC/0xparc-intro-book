@@ -256,7 +256,7 @@ Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
 Then Peggy could get a scheme resembling Kate commitments as follows:
 
 - Peggy publishes Petersen commitment of the coefficients of $P$,
-  that is $v = sum a_i g_i in E$.
+  that is Peggy publishes $ v := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
   and Peggy asserts that $P(z) = y$.
 - Victor picks a random constant $lambda in FF_p$.
