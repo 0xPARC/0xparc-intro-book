@@ -29,6 +29,13 @@
   titlefmt: strong
 )
 
+#let corollary = thmplain(
+  "theorem",
+  "Corollary",
+  base_level: 0,
+  titlefmt: strong
+)
+
 #let proof = thmproof(
   "proof", 
   "Proof"
@@ -86,11 +93,18 @@ We thus have:
 
 #proposition[
   There exists a protocol that runs in $O(n)$ verifier time, which lets the verifier get the value of $a dot b$ for some commited $a$.
+  The proof size can be made to take $O(log n)$ space with Fiat-Shamir.
+] <dot_product>
+
+By doing the following with $b = e_i$ for some standard basis vector $e_i$, we have the following:
+
+#corollary[
+  There exists a protocol that runs in $O(n)$ verifier time (and $O(log n)$ space with Fiat-Shamir)
+  that reveals 
 ]
 
 == Basic Primitives
 
-Notice that if we require the prover to Pedersen commit to $x$, then Proposition 4 already allows us to extract $x_i$, by running the protocol with $x = e_i$.
 We also have the following:
 
 #theorem[
@@ -98,14 +112,14 @@ We also have the following:
   $(G_1, G_2, dots, G_n)$.
   Then, there exists a protocol that lets the prover show that some public $C'$ can be written in the form $C' = a_1 H_1 + dots.c + a_n H_n$, where $(H_1, H_2, dots, H_n)$ are #emph("any") publicly known elements of $E$ (in particular, they may have known linear combinations).
   This protocol requires $O(n)$ verifier work.
-] <change_basis>
+] <check_vector>
 
 Before describing the protocol, we first need the following gadget:
 
 #lemma[
   Suppose $C$, $C'$ are publicly known commitments with respect to $(G_1, G_2, dots, G_n)$ and $(H_1, H_2, dots, H_n)$, respectively, where, $(G_i)$ and $(H_i)$ are bases, but can overlap (in particular, they are not required to be linearly independent of each other).
   Then, it is possible to check, in $O(n)$ verifier time complexity, that $C$ and $C'$ are commitments of the same vector.
-]
+] <change_basis>
 
 #proof[
   Suppose that $C$ is the commitment of $a = (a_1, a_2, dots, a_n)$, and $C'$ is the commitment 
@@ -113,32 +127,32 @@ Before describing the protocol, we first need the following gadget:
   
   The verifier picks a random challenge $lambda = (lambda_1, lambda_2, dots, lambda_n) in FF_p^n$, 
   and sends it to the prover.
-  The prover then computes $a dot lambda$ and $b dot lambda$ with IPA (see Proposition 4).
+  The prover then computes $a dot lambda$ and $b dot lambda$ with IPA (see @dot_product).
   If $a$ and $b$ are not the same, this passes with probability $p^(-1)$.
 ]
 
-Now we are ready to prove Theorem 5.
+Now we are ready to prove @check_vector.
 
-#proof([of @change_basis])[
+#proof([of @check_vector])[
   The verifier picks some random challenge $mu in FF_p$, 
   and computes $C'' = C + mu C'$.
   If $C = a_1 G_1 + a_2 G_2 + dots + a_n G_n$, and $C' = a_1 H_1 + a_2 H_2 + dots + a_n H_n$, 
   then $ C'' = a_1(G_1 + mu H_1) + a_2 (G_2 + mu H_2) + dots.c + a_n (G_n + mu H_n). $
   Now, for randomly chosen $mu$, we also have that $(G_1 + mu H_1, G_2 + mu H_2, dots, G_n + mu H_n)$
-  have no known linear dependencies (why?), so we can use Lemma 6 on $C$ and $C''$.
+  have no known linear dependencies, so we can use @change_basis on $C$ and $C''$.
 ]
 
-We also have the following extension of Lemma 6:
+We also have the following extension of @change_basis:
 
 #lemma[
   Suppose $C$ and $C'$ are publicly known commitments of $a = (a_1, a_2, dots, a_n)$ and $b = (b_1, b_2, dots, b_n)$ with respect to the bases $(G_1, G_2, dots, G_n)$ and $(H_1, H_2, dots, H_n)$ (again, the bases $(G_i)$ and $(H_i)$ can have dependencies).
   Then, there exists a protocol with $O(n)$ verifier time complexity that checks that $a = b dot.circle c$, where $c$ is some publicly known vector.
-]
+] <check_public_hadamard>
 
 #proof[
   The idea is for the verifier to pick a random challenge $lambda in FF_p^n$ and then to check that 
   $ a dot lambda = (b dot.circle c) dot lambda <=> a dot lambda = b dot (c dot.circle lambda). $
-  Since $c$ is publicly known, we can run Proposition 4 to reveal the values of both $a dot lambda$ and $b dot (c dot.circle lambda)$.
+  Since $c$ is publicly known, we can run @dot_product to reveal the values of both $a dot lambda$ and $b dot (c dot.circle lambda)$.
 ]
 
 == Towards R1CS
@@ -174,20 +188,20 @@ Now, we describe how to prove the propositions.
   So, if $C' = y_1 H_1 + y_2 H_2 + dots + y_n H_n$, we must have 
   $ C' = sum_(i=1)^n sum_(j=1)^n M_(i, j) x_j H_i = sum_(j=1)^n x_j sum_(i=1)^n M_(i, j) H_i. $
   So, letting $T_j = sum_(i=1)^n M_(i, j) H_i$, we see that we require $C' = x_1 T_1 + x_2 T_2 + dots.c + x_n T_n$.
-  This can be done with Theorem 5.
+  This can be done with @check_vector.
 ]
 
 #proof([of @hadamard_commit])[
   As usual, our general proof strategy will be for the verifier to generate random $lambda$, and then 
   the prover will show that $(a dot.circle b) dot lambda = c dot lambda$.
-  The prover can reveal $t = c dot lambda$ (this is just Proposition 4), 
+  The prover can reveal $t = c dot lambda$ (this is just @dot_product), 
   so it remains to show that the prover can show that $(a dot.circle b) dot lambda = t$.
 
   Note that $(a dot.circle b) dot lambda = a dot (b dot.circle lambda)$.
   So, we can do the following: For some basis $(G_1, G_2, dots, G_n, H_1, H_2, dots, H_n, Q)$, 
   the verifier performs the following proofs:
   1. $C = a_1 G_1 + a_2 G_2 + dots + a_n G_n$ is the commitment of the same vector as $C_a$.
-  2. $C' = v_1 H_1 + v_2 H_2 + dots + v_n H_n$ is the commitment of some vector $v$ satisfying $v = b dot.circle lambda$ (using Lemma 7).
+  2. $C' = v_1 H_1 + v_2 H_2 + dots + v_n H_n$ is the commitment of some vector $v$ satisfying $v = b dot.circle lambda$ (using @check_public_hadamard).
   3. $C + C' + t Q$ satisfies the IPA condition.
   This shows that $t = a dot v = (a dot.circle b) dot lambda$.
 ]
