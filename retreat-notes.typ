@@ -45,16 +45,28 @@ We will never use this multiplicative notation.)
 
 === Vectors
 
-One upshot of this is that if $g_1, ..., g_m in E$ are a bunch of points,
+One upshot of this is that if $g_1, ..., g_n in E$ are a bunch of random points,
 then it's infeasible to find
-$(a_1, ..., a_m) != (b_1, ..., b_m) in ZZ^m$ such that
-$ a_1 g_1 + ... + a_m g_m = b_1 g_1 + ... + b_m g_m. $
-Indeed, even if one fixes any choice of $2m-1$ of the $2m$ coefficients above,
+$(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
+$ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
+Indeed, even if one fixes any choice of $2n-1$ of the $2n$ coefficients above,
 one cannot find the last coefficient.
 
 In these notes, if there's a globally known elliptic curve $E$
-and points $g_1, ..., g_n$ with no known dependencies between them,
+and points $g_1, ..., g_n$ with no known linear dependencies between them,
 we'll say they're "practically independent".
+
+#remark[
+  This may horrify pure mathematicians because we're pretending the map
+  $ FF_q^n -> FF_q " by " (a_1, ..., a_n) |-> sum_1^n a_i g_i $
+  is injective,
+  even though the domain is an $n$-dimensional $FF_q$-vector space
+  and the codomain is one-dimensional.
+  This can feel weird because our instincts from linear algebra in pure math
+  are wrong now --- this map, while not injective in theory,
+  ends up being injective _in practice_ (because we can't find collisions),
+  and this is a critical standing assumption for this entire framework.
+]
 
 === Petersen commitments
 
@@ -274,20 +286,20 @@ Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
 Then Penny could get a scheme resembling KGZ commitments as follows:
 
 - Penny publishes Petersen commitment of the coefficients of $P$,
-  that is Penny publishes $ v := sum a_i g_i in E. $
+  that is Penny publishes $ g := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
   and Penny asserts that $P(z) = y$.
 - Victor picks a random constant $lambda in FF_p$.
 - Both parties compute
-  $ underbrace((a_1 g_1 + ... + a_n g_n), v)
+  $ v := underbrace((a_1 g_1 + ... + a_n g_n), C)
   + (lambda z^0 h_1 + ... + lambda z^(n-1) h_n) + lambda y u $
   and run IPA on it.
 
-When Penny does a vanilla IPA, she can keep all $2n+1$ coefficients secret.
-Here, Penny is fine to reveal the latter $n+1$ numbers
-(because they are just powers of $z$ and the claimed $y$)
-as they don't leak any other information;
-she still gets to keep her coefficients $a_n$ private from Victor.
+(When Penny does a vanilla IPA protocol, she can keep all $2n+1$ coefficients secret.
+In this context, Penny has published the first part $g$
+and still gets to keep her coefficients $a_n$ private from Victor.
+The other $n+1$ coefficients are globally known because
+they're inputs to the protocol for opening the commitment at $z$.)
 
 The introduction of the hacked constant $lambda$ might be a bit of a surprise.
 The reason is that without it, there is an amusing loophole that Penny can exploit:
