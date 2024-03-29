@@ -21,7 +21,7 @@ without having to reveal the original polynomial $P$.
 This section describes two commitment schemes that use an elliptic curve $E$
 over $FF_q$.
 
-- KGZ (Kate): needs a shared secret and a bilinear operator on $E$,
+- KZG (Kate): needs a shared secret and a bilinear operator on $E$,
   but is really simple and efficient.
 - IPA: more involved, but fewer assumption.
 

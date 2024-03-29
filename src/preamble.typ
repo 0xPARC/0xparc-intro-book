@@ -1,5 +1,4 @@
 // https://github.com/vEnhance/dotfiles/blob/main/typst/packages/local/evan/1.0.0/evan.typ
-
 #import "@preview/ctheorems:1.1.2": *
 
 #let fonts = (
