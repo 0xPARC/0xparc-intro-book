@@ -1,4 +1,9 @@
 #import "src/preamble.typ":*
+#let chapter(filename) = {
+  include filename
+  pagebreak(weak:true)
+}
+
 
 #show: evan.with(
   title: "Topics in Programmable Cryptography",
@@ -10,7 +15,10 @@
 #toc
 #pagebreak()
 
-#include "src/frontmatter.typ"
-#pagebreak()
-
-#pagebreak()
+#chapter("src/frontmatter.typ")
+#chapter("src/sumcheck.typ")
+#chapter("src/pcp.typ")
+#chapter("src/kgz.typ")
+#chapter("src/ipa.typ")
+#chapter("src/mpc.typ")
+#chapter("src/bullet.typ")
