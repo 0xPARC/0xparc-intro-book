@@ -202,6 +202,8 @@ TODO: Credit wherever the triangle example is from
 
 === Verifying a triangle count
 
+This example was communicated to us by
+#link("https://zkproof.org/2020/03/16/sum-checkprotocol/", "Justin Thaler").
 Suppose Penny and Victor have a finite simple graph $G = (V,E)$ on $n$ vertices
 and want to count the number of triangles in it.
 Penny has done the count, and wants to convince a lazy verifier Victor
@@ -254,7 +256,8 @@ because he needs to read the input graph $G$, so this is pretty good.
 ]
 
 You could in principle check for counts of any
-more complicated subgraph as opposed to just $K_3$.
+more complicated subgraph as opposed to just the triangle $K_3$.
+Just modify the indicator function above.
 
 === Verifying a polynomial vanishes
 
@@ -270,7 +273,7 @@ We'd like to get this down:
 
 #proposition[
   Penny can convince Victor that $f(x_1, ..., x_n) = 0$ for all $x_i in {0,1}$.
-  with only $O(3^n + 2^n)$ work for Victor.
+  with only a single evaluation to $f$ and a single evaluation to a random multilinear polynomial.
 ]
 
 #proof[
@@ -286,8 +289,8 @@ We'd like to get this down:
 
   The polynomial $f g$ is degree up to $3$ in each variable, so that's fine.
   The final "oracle" call is then straightforward,
-  because the coefficients of both $f$ and $g$ are known;
-  it takes only $3^n + 2^n$ operations
-  (i.e. one evaluates two polynomials each at one point,
-  rather than $2^n$ evaluations).
+  because the coefficients of both $f$ and $g$ are known.
 ]
+
+This takes only $3^n + 2^n$ operations
+(i.e. one evaluates two polynomials each at one point, rather than $2^n$ evaluations).

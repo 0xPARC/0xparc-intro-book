@@ -19,9 +19,10 @@ Victor can get high-probability confidence of its confidence
 by only checking $K$ bits of the proof at random, for some absolute constant $K$.
 This result is one part of the _PCP theorem_ which is super famous.
 
-The purpose of this post is to give a high level summary of the ideas that go into the
-protocol and convince you that the result is possible, because at first glance it seems
-absurd that a single universal constant $K$ is going to be enough.
+The section hopes to give a high level summary of the ideas that go into the
+protocol and convince you that the result is possible,
+because at first glance it seems absurd that a single universal constant $K$
+is going to be enough.
 Our toy protocol uses the following parts:
 
 - Sum-check from the previous chapter.
@@ -457,7 +458,7 @@ and we call them *linear error-correcting codes* to reflect this.
 When designing an error-correcting code, broadly your goal is to make sure the
 minimum distance of the code is as large as possible,
 while still trying to squeeze in as many codewords as possible.
-The notations used for this
+The notations used for this are:
 
 - Usually we let $q$ denote the alphabet size and $n$ the block length
   (the length of the codewords),
