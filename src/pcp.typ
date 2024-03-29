@@ -109,6 +109,7 @@ and requires a lot of math.
 But the statement of the theorem is simple:
 
 == Quad-SAT
+
 As all NP-complete problems are equivalent, we can pick any one which is convenient.
 Systems of linear equations don't make for good NP-complete problems,
 but quadratic equations do.
@@ -122,12 +123,13 @@ and one wishes to find a satisfying assignment.
   the following example instance can help,
   showing how to convert any instance of 3-SAT into a QSAT problem:
   $
-    x_i^2 &= x_i & " for each " i=1,2,...,10000 \
-    y_1 &= (1-x_(42)) dot x_(17), & 0 = y_1 dot x_(53) \
-    y_2 &= (1-x_(19)) dot (1-x_(52)) & 0 = y_2 dot (1-x_(75)) \
-    y_3 &= x_(25) dot x_(64), & 0 = y_3 dot x_(81) \
-    &....v "... (imagine many more such pairs of equations)"
+    x_i^2 &= x_i #h(1em) forall 1 <= i <= 1000 & \
+    y_1 &= (1-x_(42)) dot x_(17), & #h(1em) & 0 = y_1 dot x_(53) & \
+    y_2 &= (1-x_(19)) dot (1-x_(52)) & #h(1em) & 0 = y_2 dot (1-x_(75)) & \
+    y_3 &= x_(25) dot x_(64), &#h(1em) & 0 = y_3 dot x_(81) & \
+    &dots.v
   $
+  (imagine many more such pairs of equations).
   The $x_i$'s are variables which are seen to either be $0$ or $1$.
   And then each pair of equations with $y_i$ corresponds to a clause of 3-SAT.
 ]
@@ -343,7 +345,7 @@ $tilde(a)$ and $tilde(b)$, and finally verifies that
 $
   P(arrow(i), arrow(j)) :=
   tilde(a)(arrow(i), arrow(j)) B_0[arrow(i)] B_0[arrow(j)]
-  + 1/|HH|^m tilde(b)(arrow(i)) B_0[arrow(i)]
+  + 1/(|HH|^m) tilde(b)(arrow(i)) B_0[arrow(i)]
 $
 is actually true.
 
@@ -409,10 +411,23 @@ We will use this to show that if $q >= 4(log (E N))^2$ is large enough,
 one can do this with only $q dot E N$ combinations.
 That's much better than the $q^E$ we had before.
 
-=== A hint
-So uh.
+=== (Optional) A hint of the idea: polynomial combinations
+
+Rather than simply doing a random linear combination,
+one could imagine considering the following $100 E$ combinations
+
 $ k^1 cal(E)_1 + k^2 cal(E)_2 + ... + k^E cal(E)_E
-  " for " k = 1, 2, ..., 100E. $
+  " for " k = 1, 2, ..., 100 E. $
+
+If any of the equations $cal(E)_i$ are wrong,
+then we can view this as a degree $E$ polynomial in $k$,
+and hence it will have at most $E$ roots.
+Since we have $100 E$ combinations,
+that means at least 99% of the combinations will fail.
+
+So why don't we just do that?
+Well, the issue is that we are working over $FF_q$.
+And this argument only works if $q >= 100 E$, which is too big.
 
 === Definition of error-correcting codes
 
