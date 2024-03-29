@@ -90,13 +90,13 @@ Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
 ==== Protocol
 
-Suppose Peggy has a polynomial $P(T) in FF_p [T]$.
+Suppose Penny has a polynomial $P(T) in FF_p [T]$.
 She commits to it by evaluating $[P(s)]$,
 which she may do because $[s^i]$ is globally known.
 
 Now consider an input $x in FF_p$,
-where Peggy wishes to convince Victor that $P(z) = y$.
-To show $y in FF_p$, Peggy does polynomial division to derive $Q$ such that
+where Penny wishes to convince Victor that $P(z) = y$.
+To show $y in FF_p$, Penny does polynomial division to derive $Q$ such that
 $ P(T)-y = (T-z) Q(T) $
 and sends the value of $[Q(s)]$,
 which again she can compute (without knowing $s$)
@@ -107,7 +107,7 @@ $ e([Q(s)], [s-z]) = e([P(s)-y], [1]). $
 
 ==== Soundness (heuristic argument)
 
-If $y != P(z)$, then Peggy can't do the polynomial long division described above.
+If $y != P(z)$, then Penny can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
 $ 1/(s-x) ([P(s)]-[y]) in E. $
 Since $s$ is a secret nobody knows, there isn't any known way to do this.
@@ -134,7 +134,7 @@ is practically a vector of length $2n + 1$, as discussed earlier.
 
 The Inner Product Argument (IPA) is a protocol that kind of
 resembles Sum-Check in spirit: Penny and Victor will do a series of interactions
-which allow Peggy to prove to Victor that $v$ is good
+which allow Penny to prove to Victor that $v$ is good
 (without having to reveal all $a_i$'s, $b_i$'s, and $c$).
 
 (I think we missed a chance to call this "Inner Product Interactive Proof
@@ -147,7 +147,7 @@ The way IPA is done is by induction:
 one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
 by verifying a vector for $n/2$ is good (of length $n+1$).
 The base case $n=1$ (with three basis elements $g_1$, $h_1$, $u$) is straightforward:
-Victor simply demands from Peggy the values of $a_1$ and $b_1$
+Victor simply demands from Penny the values of $a_1$ and $b_1$
 and verifies $v = a_1 g_1 + b_1 h_1 + a_1 b_1 u$.
 
 Now, to illustrate the induction, we'll first show how to get from $n=2$ to $n=1$.
@@ -173,12 +173,12 @@ Note that, importantly, $w_L$ and $w_R$ don't depend on $x$.
 So this gives a way to provide a construction of a good vector $w$
 of half the length (in the new basis) given a good vector $v$.
 
-This suggests the following protocol: Peggy, who knows the $a_i$'s, computes
+This suggests the following protocol: Penny, who knows the $a_i$'s, computes
 $w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u$ and $w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u$,
 and sends those values to Victor (this doesn't depend on $x$).
 Then Victor picks a random value of $x$ and defines
 $ w(x) = v + x dot w_L + x^(-1) dot w_R. $
-Assume Peggy is truthful and $v$ was indeed good with respect
+Assume Penny is truthful and $v$ was indeed good with respect
 to the original 5-element basis for $n=2$, the resulting $w(x)$
 is good with respect to the smaller $3$-element basis for $n=1$.
 
@@ -186,7 +186,7 @@ The interesting part is soundness:
 
 #claim[
   Suppose $v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u$ is given.
-  Assume further that Peggy can provide some $w_L, w_R in E$ in this basis such that
+  Assume further that Penny can provide some $w_L, w_R in E$ in this basis such that
   $ w(x) := v + x dot w_L + x^(-1) dot w_R $
   is good for at least four values of $x$.
 
@@ -253,32 +253,32 @@ And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 === Using IPA for a polynomial commitment scheme
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
-Then Peggy could get a scheme resembling Kate commitments as follows:
+Then Penny could get a scheme resembling Kate commitments as follows:
 
-- Peggy publishes Petersen commitment of the coefficients of $P$,
-  that is Peggy publishes $ v := sum a_i g_i in E. $
+- Penny publishes Petersen commitment of the coefficients of $P$,
+  that is Penny publishes $ v := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
-  and Peggy asserts that $P(z) = y$.
+  and Penny asserts that $P(z) = y$.
 - Victor picks a random constant $lambda in FF_p$.
 - Both parties compute
   $ underbrace((a_1 g_1 + ... + a_n g_n), v)
   + (lambda z^0 h_1 + ... + lambda z^(n-1) h_n) + lambda y u $
   and run IPA on it.
 
-When Peggy does a vanilla IPA, she can keep all $2n+1$ coefficients secret.
-Here, Peggy is fine to reveal the latter $n+1$ numbers
+When Penny does a vanilla IPA, she can keep all $2n+1$ coefficients secret.
+Here, Penny is fine to reveal the latter $n+1$ numbers
 (because they are just powers of $z$ and the claimed $y$)
 as they don't leak any other information;
 she still gets to keep her coefficients $a_n$ private from Victor.
 
 The introduction of the hacked constant $lambda$ might be a bit of a surprise.
-The reason is that without it, there is an amusing loophole that Peggy can exploit:
-Peggy can pick the vector $v$ after all.
-So suppose Peggy tries to swindle Victor by reporting
+The reason is that without it, there is an amusing loophole that Penny can exploit:
+Penny can pick the vector $v$ after all.
+So suppose Penny tries to swindle Victor by reporting
 $v = a_1 g_1 + ... + a_n g_n - 10 u$ instead
 of the honest $v = a_1 g_1 + ... + a_n g_n$.
-Then, Peggy inflates all the values of $y$ she claims to Victor by $10$.
-This would allow Peggy to cheat Victor into committing the polynomial $P$
+Then, Penny inflates all the values of $y$ she claims to Victor by $10$.
+This would allow Penny to cheat Victor into committing the polynomial $P$
 but given any $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$
 (though the cheating offset would be the same at every value she opened).
 The addition of the offset $lambda$ prevents this attack.
@@ -319,10 +319,10 @@ So you don't want $d$ to be huge, but e.g. $d = 3$ is totally fine.
 
 == Verifying a triangle count
 
-Suppose Peggy and Victor have a finite simple graph $G = (V,E)$ on $n$ vertices
+Suppose Penny and Victor have a finite simple graph $G = (V,E)$ on $n$ vertices
 and want to count the number of triangles in it.
 Victor can count this in $O(n^3)$ time, but that's a lot of work.
-We'd like to have Peggy provide a proof to Victor that Victor can check in less time.
+We'd like to have Penny provide a proof to Victor that Victor can check in less time.
 Victor will always need at least $O(n^2)$ time because he needs to read the
 entire input; our protocol will require only $O(n^2 log n)$ time from Bob.
 
@@ -347,7 +347,7 @@ they can just run the Sum-Check protocol on:
 $ "number triangles"
   = sum_(arrow(x) in {0,1}^m) sum_(arrow(y) in {0,1}^m) sum_(arrow(z) in {0,1}^m)
   f(arrow(x), arrow(y), arrow(z)) $
-This requires some work from Peggy, but for Victor,
+This requires some work from Penny, but for Victor,
 the steps in between don't require much work.
 The final oracle call requires Victor to evaluate
 $ g(arrow(x), arrow(y)) g(arrow(y), arrow(z)) g(arrow(z), arrow(x)) $
@@ -370,7 +370,7 @@ But then Victor just multiplies those three numbers together.)
 Suppose $f(T_1, ..., T_n) in FF_q [T_1, ..., T_n]$
 is a polynomial of degree up to $2$ in each variable,
 specified by the coefficients.
-Now Peggy wants to convince Victor that
+Now Penny wants to convince Victor that
 $f(x_1, ..., x_n) = 0$ whenever $x_i in {0,1}$.
 
 Of course, Victor could verify this himself by plugging in all $2^n$ pairs.
