@@ -271,7 +271,7 @@ Here, Peggy is fine to reveal the latter $n+1$ numbers
 as they don't leak any other information;
 she still gets to keep her coefficients $a_n$ private from Victor.
 
-The introduction of the hacked constant $c$ might be a bit of a surprise.
+The introduction of the hacked constant $lambda$ might be a bit of a surprise.
 The reason is that without it, there is an amusing loophole that Peggy can exploit:
 Peggy can pick the vector $v$ after all.
 So suppose Peggy tries to swindle Victor by reporting
@@ -279,8 +279,9 @@ $v = a_1 g_1 + ... + a_n g_n - 10 u$ instead
 of the honest $v = a_1 g_1 + ... + a_n g_n$.
 Then, Peggy inflates all the values of $y$ she claims to Victor by $10$.
 This would allow Peggy to cheat Victor into committing the polynomial $P$
-but given any $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$.
-The addition of the shift $lambda$ prevents this attack.
+but given any $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$
+(though the cheating offset would be the same at every value she opened).
+The addition of the offset $lambda$ prevents this attack.
 
 #pagebreak()
 
