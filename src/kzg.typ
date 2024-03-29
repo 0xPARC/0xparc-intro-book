@@ -20,8 +20,6 @@ The goal of the KZG commitment schemes is to have the following API:
   - Peggy can then send a short "proof" convincing Victor that $y$ is the
     correct value, without having to reveal $P$.
 
-We describe the protocol here.
-
 == Elliptic curve setup done once
 
 For this scheme we need an elliptic curve $E$ and a fixed generator $g$ of it,
@@ -44,22 +42,9 @@ Multiplication can't be done directly, in the sense there isn't a way to get
 $[a b]$ given $[a]$ and $[b]$.
 We work around this with a so-called _pairing_, defined a bit later.
 
-=== Trusted calculation
-
-To set up the Kate commitment scheme,
-a trusted computer needs to pick a secret scalar $s in FF_p$ and publishes
-$ [s^0], [s^1], ..., [s^N] $
-for some large $N$.
-(This only needs to be done once for the curve $E$.)
-These published points are considered globally known
-so anyone can evaluate $[P(s)]$ for any given polynomial $P$.
-(For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
-Meanwhile, the secret scalar $s$ is never revealed to anyone.
-
 === Pairing
 
-In addition to the elements $[s^i]$, one needs a *pairing* on $E$,
-which is a nondegenerate bilinear function
+On the curve $E$ one needs a *pairing* which is a nondegenerate bilinear function
 $ "pair" : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
 One example of a construction is the so-called
@@ -74,6 +59,19 @@ $ "pair"([m], [n]) = "pair"([m'], [n']) $
 will be true whenever $m n = m' n'$,
 because both sides will equal $m n "pair"([1], [1])$.
 So this gives us at least a way to verify multiplication.
+
+=== Trusted calculation
+
+To set up the Kate commitment scheme,
+a trusted party also needs to pick a secret scalar $s in FF_p$ and publishes
+$ [s^0], [s^1], ..., [s^N] $
+for some large $N$.
+This means anyone can evaluate $[P(s)]$ for any given polynomial $P$.
+(For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
+Meanwhile, the secret scalar $s$ is never revealed to anyone.
+
+This only needs to be done by a trusted party once for the curve $E$.
+Then anyone in the world can use the resulting sequence for KZG commitments.
 
 == The KZG commitment scheme
 
