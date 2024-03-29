@@ -1,0 +1,178 @@
+\documentclass{scrartcl}
+\usepackage[sexy]{evan}
+\usepackage[utf8]{inputenc}
+
+\usepackage{tabularx}
+\usepackage{blindtext}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{xcolor,colortbl}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{positioning}    
+
+\title{Progcrypto Spring Break Problems}
+\author{Claire Zhang}
+\date{}
+
+\begin{document}
+
+\maketitle
+\begin{problem}[Problem 3: Applications of the Sum-Check Protocol**]
+    **How would you use sum-check to build interactive protocols for the following prover-verifier interactions?**
+
+    \begin{enumerate}[A.]
+        \item 
+        Count the number of triangles in a graph.  A prover and a verifier both know a graph (in the graph-theory sense), and the verifier wants to know how many triangles the graph contains (i.e. triples $(A, B, C)$ of vertices, every two of which are connected by an edge).  The prover has done the count, and wants to convince the lazy verifier that the count was done honestly…
+
+        \item 
+        Prove that $f(x) = 0$ for every $x \in \{ 0, 1\}^n$, where $f$ is a polynomial of degree (say) 2 in each variable.
+        \begin{itemize}
+            \item One way this can arise: Suppose you have two vectors $(a_1, \ldots, a_{2^n})$ and $(b_1, \ldots, b_{2^n})$, and you want to prove that for each $i$, we have $a_i b_i = 0$.  First compute the multilinear extensions of $a$ and $b$ (and commit them somehow), then let $f$ be the product of those two multilinear polynomials…
+        \end{itemize}
+    \end{enumerate}
+\end{problem}
+
+\begin{sol}
+    \begin{enumerate}[A.]
+        \item 
+        Let the graph be $G=G(V, E)$ with $|V|=n$.
+        Let $f: \{0, 1\}^n \rightarrow \{0,1\}$ represent edges:
+        \[f(x) = 1 \iff \exists i, j \in [n] \text{ s.t. } x_i = x_j = 1 \text{ and } (i, j) \in E \text{ and } x_{k\not \in \{i,j\}}=0\]
+        Let's run sum check to check the sum
+        \[S \defeq \sum_{x, y, z \in [n]^3} f(x, y) f(y, z) f(z, x)\]
+        where $k = \floor{\log{n}}$ and we view a tuple of 3 vertices the concatenation of their binary representations.
+
+        The protocol runs as follows between prover P and verifier V:
+        \begin{enumerate}
+            \item 
+            V interpolates $f$ to be a degree-$n$ polynomial $f': \FF_q^3 \rightarrow \FF_q$ (all boolean functions have a unique degree-$n$ polynomial representation).
+            \item 
+            P sends the claimed sum and $w^1(t) = \sum_{y, z \in [n]^2} f(t, y) f(y, z) f(z, t)$, which is a quadratic as $f$ is linear in $t$.
+            \item 
+            V verifies $w^1(1) + \ldots + w^1(n) = S$. V chooses $r_1 \sim \FF_q$ and resets $S=w^1(r_1)$.
+            \item
+            P sends $w^2(t) = \sum_{z \in [n]} f(r_1, t) f(t, z) f(z, r_1)$.
+            \item 
+            V verifies $w^2(1) + \ldots + w^2(n) = S$. V chooses $r_3 \sim \FF_q$ and resets $S=w^2(r_3)$.
+            \item
+            V verifies $S = f'(r_1, r_2)f'(r_2, r_3) f'(r_3, r_1)$. 
+        \end{enumerate}
+
+        \item 
+        We run the following protocol:
+        \begin{enumerate}
+            \item 
+            Choose u.a.r $g: \{0, 1\{^n \rightarrow \FF_q$ from degree 2 polynomials.
+            
+            \begin{fact}
+                $g(x_0) \sim \text{Unif}(\FF_q)$ for every $x_0 \in \{0, 1\}^n$. 
+            \end{fact}
+            \begin{proof}
+                Symmetry.
+            \end{proof}
+
+            We run sum-check on 
+            \[h(x) = f(x)g(x)\]
+
+            We verify
+            \begin{itemize}
+                \item Completeness.
+                If $f$ is identically 0, then $h$ is identically 0, and the sum-check protocol will pass.
+                \item Soundness.
+                If $f$ is not identically 0, say $f(x_0) \ne 0$. Then, $h(x_0) = f(x_0)g(x_0)$ is uniform over $\FF_q$ so with $1-1/q$ probability, $\sum_x h(x)=0$.
+
+                If we choose $g$ and run this protocal $t=\log n$ times, whp (Chebyshev(t) on top of sum check probabilistic guaruntees) we will catch the prover cheating.
+            \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
+\end{sol}
+
+\begin{problem}[Problem 5: Reinventing Garbled Circuits, OT, and MPC**]
+    **How would you use sum-check to build interactive protocols for the following prover-verifier interactions?**
+
+    \begin{enumerate}[A.]
+        \item 
+        Describe a protocol to perform oblivious transfer, using encryption / decryption.
+        \begin{itemize}
+            \item
+            Concretely: suppose you have an ordered tuple of two numbers. You want to let your friend learn the number at a specific index (i.e. either 0 or 1), without you learning anything about the index they’re querying, and without them learning anything about the number they did not retrieve. How can you do this using cryptography ?
+            \item
+            What are the minimum bandwidth requirements?
+        \end{itemize}
+
+        \item 
+        Using oblivious transfer, figure out how to perform simple two-party computations.
+        \begin{itemize}
+            \item Suppose that Alice has two secret numbers A_1 and A_2, and that Bob has a secret number B.
+            \item Alice and Bob want a protocol to compute ((A_1 XOR B) AND (A_2 AND B)) jointly, without revealing their inputs to each other (except when the input can be determined from the output).
+        \end{itemize}
+
+        \item So far we have assumed that Alice and Bob are honest. If they were dishonest, what attacks could they do? How can we force them to be honest?
+    \end{enumerate}
+\end{problem}
+
+\begin{sol}
+    \begin{enumerate}[A.]
+        \item 
+        Say Alice has $X[0], X[1]$ and Bob has bit $b$. 
+        \begin{itemize}
+            \item Alice chooses $r \leftarrow \mathcal{K}$. Bob chooses $s \leftarrow \mathcal{K}$.
+            \item Alice sends $\textsf{Enc}_r(X[0]), \textsf{Enc}_r(X[1])$ to Bob. 
+            \item Bob sends $\textsf{Enc}_s \textsf{Enc}_r(X[b])$ to Alice.
+            \item Alice decrypts and sends $\textsf{Dec}_r(\textsf{Enc}_s(\textsf{Enc}_r(X[b])))=\textsf{Enc}_s(\textsf{Enc}_r(X[b]))$.
+            \item Bob decrypts to know $\textsf{Dec}_s(\textsf{Enc}_s(X[b]))=X[b]$.
+        \end{itemize}
+
+        In this protocol,
+        \begin{itemize}
+            \item Alice learns nothing about $b$; if she did, she'd break perfect indisinguishability of the encryption scheme.
+            \item Bob learns nothing about $X[1-b]$, assuming he asks for what he wants...
+            % \item The bandwidth is $2\cdot \text{size}(X)$.
+        \end{itemize}
+
+        \item 
+        Lol so this expression is only 1 on one $(A_1, A_2, B)$ so it suffices to run one 2PC AND. But let's describe a protocol for general 2PC of circuits involving XOR, AND, and OR.
+
+        \begin{claim*}
+            There exists secure 2PC for XOR, AND, and OR.
+        \end{claim*}
+        \begin{proof}
+            \mbox{}
+            \begin{itemize}
+                \item XOR
+
+                \item AND
+
+                \item OR
+                Run the AND protocol on the not of the inputs and then negate the output.
+            \end{itemize}
+        \end{proof}
+
+        \begin{claim*}
+            Say Alice has secret randomness $A$ and Bob has secret randomness $B$; Alice has $\textsf{Enc}_{A, B}(x)$, $\textsf{Enc}_{A, B}(\bar{x})$; Bob has $\textsf{Enc}_{A, B}(y)$, $\textsf{Enc}_{A, B}(\bar{y})$.
+            There exists secure 2PC computation of $(\textsf{Enc}_{A|a', B|b'}(x\oplus y), \textsf{Enc}_{A|a', B|b'}(x\oplus y))$, and the like for OR and AND ($a'$ secret to Alice, $b'$ secret to Bob).
+        \end{claim*}
+        \begin{proof}
+            XOR:
+            \begin{itemize}
+                \item Alice first decrypts the inputs to obtain
+                \[Z = [\textsf{Enc}_B(X[0]), \textsf{Enc}_B(\X[1])]\]w
+                where
+                \[X[0] = x\]
+                \[X[1] = \bar{x}\]
+                \item Alice randomly permutes $Z$ and sends it to Bob.
+                \item Bob sends $\textsf{Enc}_{B|b'}(X[y])$ (note $X[y] = x\oplus y$ iff $Z$ was identically permuted).
+                \item Alice computes $\textsf{Enc}_{A|a', B|b'}(X[y])$ and saves it if $Z$ was identically permuted.
+                \item Repeat with $Z$ permuted in the other way.
+            \end{itemize}
+
+            % AND: if I'm not too lazy to type
+        \end{proof}
+
+        Now, to compute a circuit, we compute gates from the leaves. Initially, Alice computes $\textsf{Enc}_a(x)$ and $\textsf{Enc}_a(\bat{x})$ and similarly for Bob. Now we can compute up the tree, maintaining (public) $\textsf{Enc}_{A,B}(x)$ and $\textsf{Enc}_{A, B}(\bar{x})$ at each node where $x$ is the evaluation and $A$ and $B$ are the random keys in subtree $x$.
+    \end{enumerate}
+\end{sol}
+\end{document}
