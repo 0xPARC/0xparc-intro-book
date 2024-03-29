@@ -9,7 +9,7 @@ This chapter requires reading the earlier chapter on discrete logarithm.
 The goal of the KZG commitment schemes is to have the following API:
 
 - Penny has a secret polynomial $P(T) in FF_q [T]$.
-- Penny sends a short "commitment" the polynomial, which is a hash.
+- Penny sends a short "commitment" to the polynomial (like a hash).
 - This commitment should have the additional property that
   Penny should be able to "open" the commitment at any $z in FF_q$:
   Specifically:

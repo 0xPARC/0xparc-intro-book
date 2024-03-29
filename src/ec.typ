@@ -55,7 +55,7 @@ one cannot find the last coefficient.
   and this is a critical standing assumption for this entire framework.
 ]
 
-== Petersen commitments
+== Pedersen commitments
 
 One application of this injectivity is that
 we can have a hash of the vector with shorter length
@@ -67,7 +67,7 @@ This is named:
   Given a vector $angle.l a_1, ..., a_n angle.r in FF_q^n$ of scalars,
   the vector
   $ arrow(a) = sum a_i g_i in E$
-  is called the *Petersen commitment*.
+  is called the *Pedersen commitment*.
 ]
 
-We will see Petersen commitments later on in IPA.
+We will see Pedersen commitments later on in IPA.

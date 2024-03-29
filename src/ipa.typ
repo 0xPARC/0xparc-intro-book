@@ -3,7 +3,7 @@
 = Inner product arguments (IPA)
 
 This chapter requires the earlier chapter on the discrete logarithm problem and
-Petersen commitments.
+Pedersen commitments.
 Let $E$ be an elliptic curve over $FF_p$
 and we have fixed globally known generators
 $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
@@ -12,13 +12,13 @@ We'll start by describing the goal of the general IPA protocol
 and how to implement it.,
 Then we'll show some use cases for IPA.
 
-== Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$ and $b_i$
+== Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$
 
 As we mentioned before, an element of the form
 $ a_1 g_1 + ... + a_n g_n + b_1 h_1 + ... + b_n h_n + c u in E $
 where $a_1, ..., a_n, b_1, ..., b_n, c in FF_p$,
 is practically a vector of length $2n + 1$, as discussed earlier.
-(If you like terminology, it's a Petersen commitment.)
+(If you like terminology, it's a Pedersen commitment.)
 
 #definition[
   Let's say that an element
@@ -147,18 +147,18 @@ And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 
 TODO (this is the argument with $mu$ and $lambda$ that Aard mentioned)
 
-== Application: revealing an element of a Petersen commitment
+== Application: revealing an element of a Pedersen commitment
 
 One easy special case:
 suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
-and a Petersen commitment $C = sum a_i g_i$ to it.
+and a Pedersen commitment $C = sum a_i g_i$ to it.
 Then Penny can reveal any single element to Victor by running IPA
 to show the dot product of $arrow(a)$ with the vector $arrow(b)$
 which has a $1$ in the position of interest and $0$'s elsewhere.
 
-== Application: showing two Petersen commitments coincide
+== Application: showing two Pedersen commitments coincide
 
-Suppose there are two Petersen commitments
+Suppose there are two Pedersen commitments
 $C = sum a_i g_i$ and $C' = sum a_i' g_i'$
 and Penny wants to prove that $a_i = a_i'$ for all $i$
 (i.e. they are the same vector)
@@ -171,7 +171,7 @@ TODO: write this.
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
 Then Penny could get a scheme resembling KZG commitments as follows:
 
-- Penny publishes Petersen commitment of the coefficients of $P$,
+- Penny publishes Pedersen commitment of the coefficients of $P$,
   that is Penny publishes $ g := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
   and Penny asserts that $P(z) = y$.
