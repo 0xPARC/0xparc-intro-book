@@ -11,7 +11,6 @@
 #pagebreak()
 
 #include "src/frontmatter.typ"
-
 #pagebreak()
 
 #pagebreak()
