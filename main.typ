@@ -1,7 +1,7 @@
 #import "src/preamble.typ":*
 #let chapter(filename) = {
   include filename
-  pagebreak()
+  pagebreak(weak: true)
 }
 
 
