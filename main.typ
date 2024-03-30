@@ -16,10 +16,11 @@
 #pagebreak()
 
 #chapter("src/frontmatter.typ")
+#chapter("src/sumcheck.typ")
+#chapter("src/pcp.typ")
 #chapter("src/ec.typ")
 #chapter("src/kzg.typ")
+#chapter("src/plonk.typ")
 #chapter("src/ipa.typ")
 #chapter("src/r1cs.typ")
 #chapter("src/mpc.typ")
-#chapter("src/sumcheck.typ")
-#chapter("src/pcp.typ")
