@@ -292,3 +292,5 @@ We'd like to get this down:
 
 This takes only $3^n + 2^n$ operations
 (i.e. one evaluates two polynomials each at one point, rather than $2^n$ evaluations).
+
+TODO: improvement with $"eq"_w$, mention context in which this comes up

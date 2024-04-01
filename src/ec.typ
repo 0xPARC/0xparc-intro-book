@@ -26,6 +26,8 @@ sees $g in E$ and $n dot g in E$, one cannot find $n$.
 like in RSA, it looks like solving $g^n = g'$ instead.
 We will never use this multiplicative notation in these notes.)
 
+TODO: repeat squaring
+
 == Vectors
 
 One quick application of this is that if $g_1, ..., g_n in E$
