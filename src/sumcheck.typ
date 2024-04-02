@@ -218,7 +218,7 @@ because he needs to read the input graph $G$, so this is pretty good.
 #proof[
   Assume for convenience $n = 2^m$ and biject $V$ to ${0,1}^m$.
   Both parties then compute the coefficients of the multilinear function
-  $g : {0,1}^2m -> {0,1}$ defined by
+  $g : {0,1}^(2m) -> {0,1}$ defined by
   $
     g(x_1, ..., x_m, y_1, ..., y_m)
     =
