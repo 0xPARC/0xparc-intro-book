@@ -1,8 +1,6 @@
 #import "preamble.typ":*
 
-= Kate-Zaverucha-Goldberg (KZG) commitments
-
-This chapter requires reading the earlier chapter on discrete logarithm.
+= Kate-Zaverucha-Goldberg (KZG) commitments <kzg>
 
 == Pitch: KZG lets you commit a polynomial and reveal individual values
 
@@ -77,7 +75,7 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
 
 Penny has a polynomial $P(T) in FF_p [T]$.
 She commits to it by evaluating $[P(s)]$,
-which she may do because $[s^i]$ is published and globally known.
+which she may do because $[s^i]$ are published and globally known.
 
 Now consider an input $x in FF_p$,
 where Penny wishes to convince Victor that $P(z) = y$.

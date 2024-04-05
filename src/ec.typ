@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= The discrete logarithm problem on an elliptic curve
+= The discrete logarithm problem on an elliptic curve <ec>
 
 == Pitch: Discrete logarithm is hard
 

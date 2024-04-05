@@ -80,7 +80,7 @@ hypercube: from $f(0, \dots, 0)$ to $f(1, \dots, 1)$.
 
 Now here's the magic power we're granting.
 By polynomial interpolation, no matter what function $f$ we had initially,
-we can view it as multilinear polynomial $P \in \FF_q[X_1, \dots, X_n]$.
+we can view it as multilinear polynomial $P \in \FF_q [X_1, \dots, X_n]$.
 For example, suppose $n=3$ and the eight (arbitrary) variable values were given
 \begin{align*}
   f(0,0,0) &= 8 \\
@@ -278,7 +278,7 @@ whose contents are defined as follows:
   \ii In the table $B_1$, for each \emph{line}
   \[ \left\{ \vec b + t \vec m \mid t \in \FF_q \right\}. \]
   the prover writes the restriction of $g$ to the line $\ell$,
-  which is a single-variable polynomial of degree at most $d$ in $\FF_q[t]$.
+  which is a single-variable polynomial of degree at most $d$ in $\FF_q [t]$.
   We denote the entry of the table by $B_1[\ell]$.
 \end{itemize}
 The verifier then does the obvious thing:
@@ -391,7 +391,7 @@ eight initial values.
 In any case, the posters are generated as follows.
 Penny takes her known assignment $A \colon \HH^m \to \FF_q$
 and extends it to a polynomial
-\[ \wt A \in \FF_q[T_1, \dots, T_m] \]
+\[ \wt A \in \FF_q [T_1, \dots, T_m] \]
 using the above theorem;
 by abuse of notation, we'll also write $\wt A \colon \FF_q^m \to \FF_q$.
 She then prints the two posters we described earlier for the point-versus-line test.
@@ -464,7 +464,7 @@ Then instead of picking an $r_2$, he picks a pair $(i_2, j_2)$ and so on.
 
 Then, to run the protocol, the entries of the phone book are going to correspond to
 \begin{align*}
-  P &\in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m] \\
+  P &\in \FF_q [T_1, \dots, T_m, U_1, \dots, U_m] \\
   P(T_1, \dots, T_m, U_1, \dots, U_m) &\coloneqq
     {\wt a}(T_1, \dots, T_m, U_1, \dots, U_m) \wt A(T_1, \dots, T_m) \wt A(U_1, \dots,
     U_m) \\
@@ -486,13 +486,13 @@ needs to apply the extension result three times:
   \ii Penny views $a_{\vec\imath, \vec\jmath}$ as a function $\HH^{2m} \to \FF_q$
   and extends it to a polynomial using the above;
   this lets us define
-  $\wt a \in \FF_q[T_1, \dots, T_m, U_1, \dots, U_m]$
+  $\wt a \in \FF_q [T_1, \dots, T_m, U_1, \dots, U_m]$
   as a \emph{bona fide} $2m$-variate polynomial.
 
   \ii Penny does the same for $\wt b_{\vec\imath}$.
 
   \ii Finally, Penny does the same on $A \colon \HH^m \to \FF_q$,
-  extending it to $\wt A \in \FF_q[T_1, \dots, T_m]$.
+  extending it to $\wt A \in \FF_q [T_1, \dots, T_m]$.
   (However, this step is the same across all the phone books, so it only happens once.)
 \end{itemize}
 Victor has to do the same work for $a_{\vec\imath, \vec\jmath}$ and $b_{\vec\imath}$.
@@ -510,7 +510,7 @@ So the contents of this phone book include, for every index $k$,
 every single possible result that Victor would need to run sum-check at the $k$th step.
 That is, the $k$th part of this phone book are a big directory where,
 for each possible choice of indices $(i_1, \dots, i_{k-1}, j_1, \dots, j_{k-1})$,
-Penny has printed the two-variable polynomial in $\FF_q[T,U]$ that arises from sum-check.
+Penny has printed the two-variable polynomial in $\FF_q [T,U]$ that arises from sum-check.
 (There are two variables rather than one now,
 because $(i_k, j_k)$ are selected in pairs.)
 

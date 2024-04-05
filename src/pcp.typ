@@ -1,14 +1,9 @@
 #import "preamble.typ":*
 
-= The classical PCP protocol (optional)
+= The classical PCP protocol <pcp>
 
 This entire chapter describes the first construction to PCP's.
-However, it's not used later on;
-so you can think of it as "really long example of sum-check application".
-But you can skip it in favor of the more modern protocols like zkSNARK's
-which are both better
-(according to metrics like message length or verifier complexity)
-and simpler (fewer moving parts).
+You can think of it as "really long example of sum-check application".
 
 == Pitch: How to grade papers without reading them
 

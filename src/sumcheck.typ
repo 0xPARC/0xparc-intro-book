@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= The sum-check protocol
+= The sum-check protocol <sumcheck>
 
 == Pitch: Sum-check lets you prove a calculation without having the verifier redo it
 
@@ -29,7 +29,7 @@ In other words, we have changed notation so that our variables are indexed over 
 hypercube: from $f(0, dots, 0)$ to $f(1, dots, 1)$.
 
 But suppose that the values of $f$ coincide with a polynomial
-$P in FF_q[X_1, ..., X_n]$
+$P in FF_q [X_1, ..., X_n]$
 of degree at most $d$ in each variable.
 
 #theorem("Sum-check")[

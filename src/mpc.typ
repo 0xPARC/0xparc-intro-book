@@ -81,3 +81,5 @@ It suffices to implement a single gate.
   Alice picks $a_3 in {0,1}$ at random and prepares four envelopes
   for the four cases of $(b_1, b_2)$ describing what Bob should set $b_3$ as.
 ]
+
+#todo[Don't do an OT every gate]

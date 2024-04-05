@@ -32,6 +32,12 @@
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
+
+#let problem = thmplain("main", "Problem", base_level: 1)
+#let exercise = thmplain("main", "Problem", base_level: 1)
+
+#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
+
 #let proof = thmproof("proof", "Proof")
 
 // Main entry point to use in a global show rule
@@ -96,15 +102,32 @@
   show heading: it => {
     set text(font:fonts.sans)
     block([
-      #text(fill:colors.headers, "§" + counter(heading).display())
-      #h(0.2em)
+      #if (it.numbering != none) [
+        #text(fill:colors.headers, "§" + counter(heading).display())
+        #h(0.2em)
+      ]
       #it.body
       #v(0.4em)
     ])
   }
 
   // Hyperlinks in blue text
-  show link: set text(fill:blue)
+  show link: it => {
+    if (type(it.dest) == "label") {
+      set text(fill:red)
+      it
+    } else {
+      set text(fill:blue)
+      it
+    }
+  }
+  show ref: it => {
+    if (it.supplement == auto) {
+      link(it.target, it)
+    } else {
+      link(it.target, it.supplement)
+    }
+  }
 
   // Title page, if maketitle is true
   if maketitle {

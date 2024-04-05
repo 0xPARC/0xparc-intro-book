@@ -1,18 +1,20 @@
 #import "preamble.typ":*
 
-= Inner product arguments (IPA)
+= Inner product arguments (IPA) <ipa>
 
-This chapter requires the earlier chapter on the discrete logarithm problem and
-Pedersen commitments.
+IPA is actually a lot more general than polynomial commitment.
+So the roadmap is as follows:
+
+- In @ipa-pitch, describe the API of the inner product argument.
+- In @ipa-induct and @ipa-base, describe the protocol.
+- In @ipa-app, show two other applications of IPA, as a side demo.
+- In @ipa-poly, show how IPA can be used as a polynomial commitment scheme.
+
 Let $E$ be an elliptic curve over $FF_p$
 and we have fixed globally known generators
 $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
 
-We'll start by describing the goal of the general IPA protocol
-and how to implement it.,
-Then we'll show some use cases for IPA.
-
-== Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$
+== Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
 
 As we mentioned before, an element of the form
 $ a_1 g_1 + ... + a_n g_n + b_1 h_1 + ... + b_n h_n + c u in E $
@@ -27,7 +29,8 @@ is practically a vector of length $2n + 1$, as discussed earlier.
 ]
 
 The Inner Product Argument (IPA) is a protocol that kind of
-resembles Sum-Check in spirit: Penny and Victor will do a series of interactions
+resembles the older Sum-Check (described in @sumcheck) in spirit:
+Penny and Victor will do a series of interactions
 which allow Penny to prove to Victor that $v$ is good.
 And Penny will be able to do this without
 having to reveal all of the $a_i$'s, $b_i$'s, and $c$.
@@ -36,7 +39,7 @@ having to reveal all of the $a_i$'s, $b_i$'s, and $c$.
 Inductive Protocol" or something cute like this,
 but I'm late to the party.)
 
-== The interactive induction of IPA
+== The interactive induction of IPA <ipa-induct>
 
 The way IPA is done is by induction:
 one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
@@ -143,20 +146,24 @@ $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
   + (a_4 b_1 + a_5 b_2 + a_6 b_3) u. $
 And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 
-== The base case
+== The base case <ipa-base>
 
 TODO (this is the argument with $mu$ and $lambda$ that Aard mentioned)
 
-== Application: revealing an element of a Pedersen commitment
+== Two simple applications <ipa-app>
 
-One easy special case:
-suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
+As we mentioned before, IPA can actually do a lot more than just
+polynomial commitments.
+
+=== Application: revealing an element of a Pedersen commitment
+
+Suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
 and a Pedersen commitment $C = sum a_i g_i$ to it.
 Then Penny can reveal any single element to Victor by running IPA
 to show the dot product of $arrow(a)$ with the vector $arrow(b)$
 which has a $1$ in the position of interest and $0$'s elsewhere.
 
-== Application: showing two Pedersen commitments coincide
+=== Application: showing two Pedersen commitments coincide
 
 Suppose there are two Pedersen commitments
 $C = sum a_i g_i$ and $C' = sum a_i' g_i'$
@@ -164,9 +171,9 @@ and Penny wants to prove that $a_i = a_i'$ for all $i$
 (i.e. they are the same vector)
 without revealing anything else about the two vectors.
 
-TODO: write this.
+#todo[Write this]
 
-== Application: polynomial commitment scheme is a special case of IPA
+== Using IPA for polynomial commitments <ipa-poly>
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
 Then Penny could get a scheme resembling KZG commitments as follows:
