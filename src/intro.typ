@@ -57,7 +57,7 @@ The name stands for:
 - *Succinct*: the proof length is short (actually constant length).
 - *Non-interactive*: the protocol is not interactive.
 - *Argument of Knowledge*: a six-syllable synonym for "proof" that makes the
-  acronym cuter and allows us to quote
+  acronym "SNARK" cuter and allows us to quote
   #link("https://w.wiki/9fY8", "Lewis Carroll") repeatedly.
 
 So, you can think of these as generalizing something like a group signature
@@ -99,7 +99,7 @@ for _any_ function $F$ as long as we implement it in code.
 
 #todo[Brian's tree. Talk about reduction?]
 
-== Beyond zero-knowledge
+== What's all the fuss about zero-knowledge anyhow?
 
 #figure(
   image("../figures/care-about.png", width:90%),
