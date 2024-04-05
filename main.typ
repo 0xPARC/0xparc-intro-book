@@ -5,7 +5,7 @@
 }
 
 #show: evan.with(
-  title: "Introduction to Programmable Cryptography",
+  title: "Intro to Programmable Cryptography",
   subtitle: "Notes from a spring 2024 reading group",
   author: "0xPARC",
   date: datetime.today(),

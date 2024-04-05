@@ -9,7 +9,7 @@ The goal of the KZG commitment schemes is to have the following API:
 - Penny has a secret polynomial $P(T) in FF_q [T]$.
 - Penny sends a short "commitment" to the polynomial (like a hash).
 - This commitment should have the additional property that
-  Penny should be able to "open" the commitment at any $z in FF_q$:
+  Penny should be able to "open" the commitment at any $z in FF_q$.
   Specifically:
 
   - Victor has an input $z in FF_q$ and wants to know $P(z)$.

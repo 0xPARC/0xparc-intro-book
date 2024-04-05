@@ -26,7 +26,7 @@ sees $g in E$ and $n dot g in E$, one cannot find $n$.
 like in RSA, it looks like solving $g^n = g'$ instead.
 We will never use this multiplicative notation in these notes.)
 
-TODO: repeat squaring
+#todo[repeated squaring]
 
 == Vectors
 
@@ -42,7 +42,7 @@ one cannot find the last coefficient.
   In these notes, if there's a globally known elliptic curve $E$
   and points $g_1, ..., g_n$ with no known nontrivial
   linear dependencies between them,
-  we'll say they're *"practically independent"*.
+  we'll say they're a *"computational basis"*.
 ]
 
 #remark[
@@ -65,11 +65,12 @@ we can have a hash of the vector with shorter length
 This is named:
 
 #definition[
-  Let $g_1, ..., g_n in E$ be "practically independent".
-  Given a vector $angle.l a_1, ..., a_n angle.r in FF_q^n$ of scalars,
-  the vector
-  $ arrow(a) = sum a_i g_i in E$
-  is called the *Pedersen commitment*.
+  Let $g_1, ..., g_n in E$ be a computational basis.
+  Given a vector $arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n$ of scalars,
+  the group element
+  $ sum a_i g_i in E$
+  is called the *Pedersen commitment* of our vector $arrow(a)$.
 ]
 
-We will see Pedersen commitments later on in IPA.
+Pedersen commitments aren't used in the KZG scheme covered in @kzg,
+but they feature extensively in the IPA scheme covered in @ipa.

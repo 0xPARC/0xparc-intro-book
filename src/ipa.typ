@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Inner product arguments (IPA) <ipa>
+= The inner product argument (IPA) <ipa>
 
 IPA is actually a lot more general than polynomial commitment.
 So the roadmap is as follows:
@@ -12,7 +12,7 @@ So the roadmap is as follows:
 
 Let $E$ be an elliptic curve over $FF_p$
 and we have fixed globally known generators
-$g_1, ..., g_n, h_1, ..., h_n, u in E$ which are "practically independent".
+$g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis.
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
 
@@ -73,7 +73,7 @@ $w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u$ and $w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u
 and sends those values to Victor (this doesn't depend on $x$).
 Then Victor picks a random value of $x$ and defines
 $ w(x) = v + x dot w_L + x^(-1) dot w_R. $
-Assume Penny is truthful and $v$ was indeed good with respect
+Assuming Penny was truthful and $v$ was indeed good with respect
 to the original 5-element basis for $n=2$, the resulting $w(x)$
 is good with respect to the smaller $3$-element basis for $n=1$.
 
@@ -176,10 +176,10 @@ without revealing anything else about the two vectors.
 == Using IPA for polynomial commitments <ipa-poly>
 
 Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
-Then Penny could get a scheme resembling KZG commitments as follows:
+Then Penny can use IPA to commit the polynomial $P$ as follows:
 
-- Penny publishes Pedersen commitment of the coefficients of $P$,
-  that is Penny publishes $ g := sum a_i g_i in E. $
+- Penny publishes Pedersen commitment of the coefficients of $P$;
+  that is, Penny publishes $ g := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
   and Penny asserts that $P(z) = y$.
 - Victor picks a random constant $lambda in FF_p$.
@@ -195,13 +195,12 @@ The other $n+1$ coefficients are globally known because
 they're inputs to the protocol for opening the commitment at $z$.)
 
 The introduction of the hacked constant $lambda$ might be a bit of a surprise.
-The reason is that without it, there is an amusing loophole that Penny can exploit:
-Penny can pick the vector $v$ after all.
-So suppose Penny tries to swindle Victor by reporting
+The reason is that without it, there is an amusing loophole that Penny can exploit.
+Penny can pick the vector $v$, so imagine she tries to swindle Victor by reporting
 $v = a_1 g_1 + ... + a_n g_n - 10 u$ instead
 of the honest $v = a_1 g_1 + ... + a_n g_n$.
 Then, Penny inflates all the values of $y$ she claims to Victor by $10$.
 This would allow Penny to cheat Victor into committing the polynomial $P$
-but given any $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$
+but for each input $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$
 (though the cheating offset would be the same at every value she opened).
-The addition of the offset $lambda$ prevents this attack.
+The offset $lambda$ prevents this attack.

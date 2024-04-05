@@ -6,7 +6,7 @@
 
 Cryptography is everywhere now and needs no introduction.
 "Programmable cryptography" is a term coined by 0xPARC for a second-generation
-of cryptographic primitives that have arisen in the last few years.
+of cryptographic primitives that have arisen in the last 15 or so years.
 
 To be concrete, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
@@ -22,7 +22,7 @@ classical cryptography can achieve:
   where Alice and Bob wants to know which of them has more money
   without learning the actual incomes.
 
-Classically, cryptography relied on coming up for a protocol
+Classically, first-generation cryptography relied on coming up for a protocol
 for solving given problems or computing certain functions.
 The goal of the second-generation "programmable cryptography" can
 then be described as:
@@ -60,7 +60,12 @@ The name stands for:
   acronym cuter and allows us to quote
   #link("https://w.wiki/9fY8", "Lewis Carroll") repeatedly.
 
-For example,
+So, you can think of these as generalizing something like a group signature
+scheme to authenticating any sort of transaction.
+
+#todo[gubsheep's slide had a funny example with emoji]
+
+These notes focus on two constructions, PLONK and Groth16.
 
 === Multi-party computation (MPC)
 
