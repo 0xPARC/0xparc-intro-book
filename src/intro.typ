@@ -91,7 +91,7 @@ This is the case where $n=2$, $F = max$, and $x_i$ is the $i$'th person's income
 Multi-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we implement it in code.
 
-=== Fully holomorphic encryption (FHE)
+=== Fully homomorphic encryption (FHE)
 
 #todo[Needs writing.]
 
