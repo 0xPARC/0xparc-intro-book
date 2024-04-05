@@ -68,7 +68,8 @@ scheme to authenticating any sort of transaction:
 - A group signature scheme can be construed as a succinct proof that
   "I know one of Alice, Bob, or Charlie's private keys".
 - But you could also use a zkSNARK to prove a statement like
-  "I know a message $M$ such that $"sha"(M) = "91af3ac..."$".
+  "I know a message $M$ such that $"sha"(M) = "91af3ac..."$",
+  of course without revealing $M$ or anything about $M$.
 - ... Or really any arbitrarily complicated statement.
 
 #todo[gubsheep's slide had a funny example with emoji, link it]
