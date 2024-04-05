@@ -3,6 +3,10 @@
   include filename
   pagebreak(weak: true)
 }
+#let part(s) = {
+  set text(size:1.4em, fill: rgb("#002299"))
+  heading(numbering: none, s)
+}
 
 #show: evan.with(
   title: "Intro to Programmable Cryptography",
@@ -17,7 +21,7 @@
 #chapter("src/frontmatter.typ")
 #chapter("src/intro.typ")
 
-#heading(numbering: none)[zkSNARK constructions]
+#part[zkSNARK constructions]
 #chapter("src/h-zksnark.typ")
 #chapter("src/ec.typ")
 #chapter("src/kzg.typ")
@@ -25,14 +29,14 @@
 #chapter("src/plonk.typ")
 #chapter("src/groth16.typ")
 
-#heading(numbering: none)[Multi-party computation and garbled circuits]
+#part[Multi-party computation and garbled circuits]
 #chapter("src/h-mpc.typ")
 #chapter("src/mpc.typ")
 
-#heading(numbering: none)[Classical PCP]
+#part[Classical PCP]
 #chapter("src/h-classical-pcp.typ")
 #chapter("src/sumcheck.typ")
 #chapter("src/pcp.typ")
 
-#heading(numbering: none)[Appendix]
+#part[Appendix]
 #chapter("src/backmatter.typ")
