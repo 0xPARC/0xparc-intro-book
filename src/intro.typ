@@ -61,9 +61,17 @@ The name stands for:
   #link("https://w.wiki/9fY8", "Lewis Carroll") repeatedly.
 
 So, you can think of these as generalizing something like a group signature
-scheme to authenticating any sort of transaction.
+scheme to authenticating any sort of transaction:
 
-#todo[gubsheep's slide had a funny example with emoji]
+- A normal signature scheme is a (zero-knowledge, succinct, non-interactive)
+  proof that "I know Alice's private key".
+- A group signature scheme can be construed as a succinct proof that
+  "I know one of Alice, Bob, or Charlie's private keys".
+- But you could also use a zkSNARK to prove a statement like
+  "I know a message $M$ such that $"sha"(M) = "91af3ac..."$".
+- ... Or really any arbitrarily complicated statement.
+
+#todo[gubsheep's slide had a funny example with emoji, link it]
 
 These notes focus on two constructions, PLONK and Groth16.
 
