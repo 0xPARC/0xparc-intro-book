@@ -10,8 +10,8 @@ So the roadmap is as follows:
 - In @ipa-app, show two other applications of IPA, as a side demo.
 - In @ipa-poly, show how IPA can be used as a polynomial commitment scheme.
 
-Let $E$ be an elliptic curve over $FF_p$
-and we have fixed globally known generators
+Throughout this section, $E$ is an elliptic curve over $FF_q$.
+Moreover, there are fixed globally known generators
 $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis.
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
@@ -68,16 +68,26 @@ Note that, importantly, $w_L$ and $w_R$ don't depend on $x$.
 So this gives a way to provide a construction of a good vector $w$
 of half the length (in the new basis) given a good vector $v$.
 
-This suggests the following protocol: Penny, who knows the $a_i$'s, computes
-$w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u$ and $w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u$,
-and sends those values to Victor (this doesn't depend on $x$).
-Then Victor picks a random value of $x$ and defines
-$ w(x) = v + x dot w_L + x^(-1) dot w_R. $
+This suggests the following protocol:
+#algorithm[Reducing IPA for $n=2$ to $n=1$][
+  1. Penny, who knows the $a_i$'s, computes
+    $ w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u in E
+    #h(1em) "and" #h(1em)
+    w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u in E, $
+    and sends those values to Victor.
+    (Note there is no dependence on $x$.)
+  2. Victor picks a random challenge $x in FF_q$ and sends it.
+  3. Both Penny and Victor calculate the point
+    $ w(x) = v + x dot w_L + x^(-1) dot w_R in E. $
+  4. Penny and Victor run the $n=1$ case of IPA to verify whether
+    $w(x)$ is good with respect the smaller $3$-element basis
+    $ angle.l (g_1 + x^(-1) g_2), (h_1 + x h_2), u angle.r . $
+    Victor accepts if and only if this IPA is accepted.
+]
 Assuming Penny was truthful and $v$ was indeed good with respect
-to the original 5-element basis for $n=2$, the resulting $w(x)$
-is good with respect to the smaller $3$-element basis for $n=1$.
-
-The interesting part is soundness:
+to the original 5-element basis for $n=2$,
+the resulting $w(x)$ is good with respect to the basis.
+So the interesting part is soundness:
 
 #claim[
   Suppose $v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u$ is given.
@@ -126,25 +136,27 @@ The interesting part is soundness:
 ]
 
 So we've shown completeness and soundness for our protocol reducing $n=2$ to $n=1$.
-The general situation is basically the same with more notation:
-if $n = 6$, for example, and we have
+The general situation is basically the same with more notation.
+We write this out for $n=6$:
+suppose Penny wishes to prove
 $v = a_1 g_1 + ... + a_6 g_6 + b_1 h_1 + ... + b_6 h_6 + c u $
-then we replace the length-thirteen basis with the length-seven one
-$ angle.l
-  g_1 + x^(-1) g_4,
-  g_2 + x^(-1) g_5,
-  g_3 + x^(-1) g_6,
-  h_1 + x h_4,
-  h_2 + x h_5,
-  h_3 + x h_6,
-  u
-  angle.r $
-and the relevant $w_L$ and $w_R$ are
-$ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
-  + (a_1 b_4 + a_2 b_5 + a_3 b_6) u \
-  w_R &= (a_1 g_4 + a_2 g_5 + a_3 g_6) + (b_4 h_1 + b_5 h_2 + b_6 h_3)
-  + (a_4 b_1 + a_5 b_2 + a_6 b_3) u. $
-And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
+is good with respect to the length-thirteen basis
+$angle.l g_1, ..., h_, u angle.r$.
+
+#algorithm[Reducing IPA for $n=6$ to $n=3$][
+  1. Penny computes
+    $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
+      + (a_1 b_4 + a_2 b_5 + a_3 b_6) u \
+      w_R &= (a_1 g_4 + a_2 g_5 + a_3 g_6) + (b_4 h_1 + b_5 h_2 + b_6 h_3)
+      + (a_4 b_1 + a_5 b_2 + a_6 b_3) u $
+    and sends these to Victor.
+  2. Victor picks a random challenge $x in FF_q$.
+  3. Both parties compute $w(x) = v + x dot w_L + x^(-1) dot w_R$.
+  4. Penny runs IPA for $n=3$ on $w(x)$ to convince Victor it's good
+    with respect to the length-seven basis
+    $ angle.l g_1 + x^(-1) g_4, g_2 + x^(-1) g_5, g_3 + x^(-1) g_6,
+      h_1 + x h_4, h_2 + x h_5, h_3 + x h_6, u angle.r . $
+]
 
 == The base case <ipa-base>
 
@@ -159,9 +171,16 @@ polynomial commitments.
 
 Suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
 and a Pedersen commitment $C = sum a_i g_i$ to it.
-Then Penny can reveal any single element to Victor by running IPA
-to show the dot product of $arrow(a)$ with the vector $arrow(b)$
-which has a $1$ in the position of interest and $0$'s elsewhere.
+Suppose Penny wishes to reveal $a_1$.
+The right way to think of this is as the dot product $arrow(a) dot arrow(b)$,
+where $ arrow(b) = angle.l 1, 0, ..., 0 angle.r $
+has a $1$ in the $1$st position and $0$'s elsewhere.
+To spell this out:
+
+#algorithm[Revealing $a_1$ in a Pedersen commitment][
+  1. Both parties compute $w = C + h_1 + a_1 u$.
+  2. Penny runs IPA on $w$ to convince Victor that $w$ is good.
+]
 
 === Application: showing two Pedersen commitments coincide
 
