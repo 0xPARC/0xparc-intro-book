@@ -60,8 +60,8 @@ So this gives us at least a way to verify multiplication.
 
 === Trusted calculation
 
-To set up the Kate commitment scheme,
-a trusted party also needs to pick a secret scalar $s in FF_p$ and publishes
+To set up the KZG commitment scheme,
+a trusted party needs to pick a secret scalar $s in FF_p$ and publishes
 $ [s^0], [s^1], ..., [s^N] $
 for some large $N$.
 This means anyone can evaluate $[P(s)]$ for any given polynomial $P$.
