@@ -94,14 +94,17 @@ is a polynomial $H(T) in FF_q [T]$ such that
   <plonkpoly>
 ]
 
-And this can be done using polynomial commitments pretty easily:
+And this can be done using polynomial commitments pretty easily.
 
 #algorithm("Proving PLONK satisfies the gate constraints")[
-  1. Penny computes $H(T) in FF_q [T]$ and sends a commitment of $H(T)$ to Victor.
+  1. Penny computes $H(T) in FF_q [T]$
+     and sends a polynomial commitment of $H(T)$ to Victor.
   2. Victor picks a random challenge $x in FF_q$.
   3. Penny opens the commitments of $A$, $B$, $C$, and $H$ at $x$,
-     revealing the values of $A(x)$, $B(x)$, $C(x)$, and $H(x)$.
-  4. Victor verifies that the equation @plonkpoly is true.
+     revealing the values of $A(x)$, $B(x)$, $C(x)$, and $H(x)$ to Victor.
+  4. Victor accepts if and only if @plonkpoly is true for those values.
 ]
 
 == Step 3: Proving the copy constraints
+
+#todo[write this]

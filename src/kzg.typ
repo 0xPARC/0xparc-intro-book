@@ -88,8 +88,7 @@ If Penny wishes to convince Victor that $P(z) = y$, then:
   1. Penny does polynomial division to compute $Q(T) in FF_q [T]$ such that
     $ P(T)-y = (T-z) Q(T). $
   2. Penny computes and sends Victor $[Q(s)]$,
-    which again she can compute (without knowing $s$)
-    from the globally known trusted calculation.
+    which again she can compute from the globally known $[s^i]$.
   3. Victor verifies by checking
     #eqn[
       $ e([Q(s)], [s-z]) = e([P(s)-y], [1]) $
