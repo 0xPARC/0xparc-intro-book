@@ -148,7 +148,7 @@ And $w(x) = v + x dot w_L + x^(-1) dot w_R$ as before.
 
 == The base case <ipa-base>
 
-TODO (this is the argument with $mu$ and $lambda$ that Aard mentioned)
+#todo[This is the argument with $mu$ and $lambda$ that Aard mentioned]
 
 == Two simple applications <ipa-app>
 

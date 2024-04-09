@@ -405,7 +405,7 @@ but it suffers from several issues (which is why we call it a toy example).
   This can feel strange because for Quad-SAT,
   the problem statement is of similar length to the satisfying assignment!
 
-  TODO: some comments from Telegram here
+#todo[some comments from Telegram here]
 
 == Reducing the number of phone books --- error correcting codes
 
@@ -478,11 +478,11 @@ and rate $log_(2^7)(16) = 4/7$.
 
 === Examples of error-correcting codes
 
-TODO: Hadamard, ...
+#todo[Hadamard, ...]
 
 === Composition
 
-TODO: Define this
+#todo[define this]
 
 === Recipe
 Compose the Reed-Solomon codes

@@ -185,7 +185,7 @@ Everything else stays the same.
 
 === Soundness
 
-TODO: Can Penny cheat?
+#todo[Can Penny cheat?]
 
 == Two simple applications of sum-check
 
@@ -267,10 +267,11 @@ $f(x_1, ..., x_n) = 0$ whenever $x_i in {0,1}$.
 
 Of course, Victor could verify this himself by plugging in all $2^n$ pairs.
 Because $f$ is the sum of $3^n$ terms, this takes about $6^n$ operations.
-We'd like to get this down:
+We'd like to get this down.
+Here's one toy example of how we could do this.
 
 #proposition[
-  Penny can convince Victor that $f(x_1, ..., x_n) = 0$ for all $x_i in {0,1}$.
+  Penny can convince Victor that $f(x_1, ..., x_n) = 0$ for all $x_i in {0,1}$
   with only a single evaluation to $f$ and a single evaluation to a random multilinear polynomial.
 ]
 
@@ -293,4 +294,4 @@ We'd like to get this down:
 This takes only $3^n + 2^n$ operations
 (i.e. one evaluates two polynomials each at one point, rather than $2^n$ evaluations).
 
-TODO: improvement with $"eq"_w$, mention context in which this comes up
+#todo[improvement with $"eq"_w$, mention context in which this comes up]

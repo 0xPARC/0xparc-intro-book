@@ -2,9 +2,9 @@
 
 = Oblivious transfer and multi-party computations
 
-== Pitch: TODO
+== Pitch
 
-TODO
+#todo[this whole section needs to be written]
 
 == How to do oblivious transfer
 

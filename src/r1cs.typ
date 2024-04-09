@@ -2,7 +2,7 @@
 
 = Implementing R1CS using the IPA
 
-TODO: Clean this up and merge some stuff together
+#todo[Clean this up and merge some stuff together]
 
 We will implement the R1CS system using IPA.
 Recall that in R1CS, we wish to do the following:
