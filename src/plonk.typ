@@ -54,7 +54,7 @@ we can fix $omega in FF_q$ to be a primitive $N$th root of unity.
 Then, by polynomial interpolation, Penny constraints polynomials $A(T)$, $B(T)$,
 and $C(T)$ in $FF_q [T]$ each of degree $N-1$ such that
 $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
-  " for all " i = 0, 1, 2, ..., N-1. $
+  " for all " i = 1, 2, ..., N. $
 (We'll explain next section why we like powers of $omega$.)
 Then:
 #algorithm("Commitment step of PLONK")[
@@ -67,7 +67,7 @@ that can later be "opened" at any value $x in FF_q$.
 
 Both Penny and Victor knows the PLONK instance, so they can interpolate a polynomial
 $Q_L(T) in FF_q [T]$ of degree $N-1$ such that
-$ Q_L(omega^i) = q_(L,i) #h(1em) " for " i = 0, ..., N-1. $
+$ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., N. $
 Then the analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
 are defined in the same way.
 
@@ -81,7 +81,7 @@ is true for the $N$ numbers $x = 1, omega, omega^2, ..., omega^(N-1)$.
 However, that's equivalent to the _polynomial_
 $ Q_L (T) A_i (T) + Q_R (T) B_i (T) + Q_O (T) C_i (T)
   + Q_M (T) A_i (T) B_i (T) + Q_C (T) in FF_q [T] $
-which has degree (up to) $3(N-1)$ being divisible by the degree $N$ polynomial
+being divisible by the degree $N$ polynomial
 $ Z(T) = (T-omega)(T-omega^2) ... (T-omega^N) = T^N - 1. $
 (And now it's revealed why we liked powers of $omega$: it makes the $Z$
 polynomial really simple.)
@@ -94,7 +94,13 @@ is a polynomial $H(T) in FF_q [T]$ such that
   <plonkpoly>
 ]
 
-And this can be done using polynomial commitments pretty easily.
+And this can be done using polynomial commitments pretty easily:
+Penny should send a commitment to $H(T)$,
+and then Victor just verifies @plonkpoly at random values in $FF_q$.
+As both sides are polynomials of degree up to $3(N-1)$,
+either the equation holds for every input
+or there are at most $3N-4$ values for which it's true
+(two different polynomials of degree $3(N-1)$ can agree at up to $3N-4$ points).
 
 #algorithm("Proving PLONK satisfies the gate constraints")[
   1. Penny computes $H(T) in FF_q [T]$

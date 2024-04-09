@@ -182,13 +182,14 @@ To spell this out:
   2. Penny runs IPA on $w$ to convince Victor that $w$ is good.
 ]
 
-=== Application: showing two Pedersen commitments coincide
+=== Application: showing two Pedersen commitments have the same vector
 
 Suppose there are two Pedersen commitments
-$C = sum a_i g_i$ and $C' = sum a_i' g_i'$
-and Penny wants to prove that $a_i = a_i'$ for all $i$
-(i.e. they are the same vector)
+$C = sum a_i g_i$ and $C' = sum a'_i g'_i$
+and Penny wants to prove that $a_i = a'_i$ for all $i$
+(i.e. the vectors $arrow(a)$ and $arrow(a')$ coincide)
 without revealing anything else about the two vectors.
+Here $g'_1$, ..., $g'_n$ is a different computational basis.
 
 #todo[Write this]
 
