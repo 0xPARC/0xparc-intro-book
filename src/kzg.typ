@@ -74,22 +74,31 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
 == The KZG commitment scheme
 
 Penny has a polynomial $P(T) in FF_p [T]$.
-She commits to it by evaluating $[P(s)]$,
-which she may do because $[s^i]$ are published and globally known.
+To commit to it:
 
-Now consider an input $x in FF_p$,
-where Penny wishes to convince Victor that $P(z) = y$.
-To show $y in FF_p$, Penny does polynomial division to derive $Q$ such that
-$ P(T)-y = (T-z) Q(T) $
-and sends the value of $[Q(s)]$,
-which again she can compute (without knowing $s$)
-from the globally known trusted calculation.
+#algorithm("Creating a KZG commitment")[
+  1. Penny computes and publishes $[P(s)]$.
+     (This computation is possible as $[s^i]$ are globally known.)
+]
 
-Victor then verifies by checking
-$ e([Q(s)], [s-z]) = e([P(s)-y], [1]). $
+Now consider an input $z in FF_p$; Victor wants to know the value of $P(z)$.
+If Penny wishes to convince Victor that $P(z) = y$, then:
 
-If Penny is truthful, then this will certainly check out.
-Essentially, the pariing
+#algorithm("Opening a KZG commitment")[
+  1. Penny does polynomial division to compute $Q(T) in FF_q [T]$ such that
+    $ P(T)-y = (T-z) Q(T). $
+  2. Penny computes and sends Victor $[Q(s)]$,
+    which again she can compute (without knowing $s$)
+    from the globally known trusted calculation.
+  3. Victor verifies by checking
+    #eqn[
+      $ e([Q(s)], [s-z]) = e([P(s)-y], [1]) $
+      <kzg-verify>
+    ]
+    and accepts if and only if @kzg-verify is true.
+]
+
+If Penny is truthful, then @kzg-verify will certainly check out.
 
 If $y != P(z)$, then Penny can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
