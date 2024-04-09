@@ -171,7 +171,7 @@ Now for $i = 1, ..., n$,
 - Then Victor commits to a random $r_i in FF_q$ and moves on to the next coordinate.
 
 Once Victor has decided on every $r_i$, he asks the oracle for $P(r_1, ..., r_n)$
-and makes sure that it matches the value of $g_n(r_n)$.
+and makes sure that it matches the value of $g_n (r_n)$.
 If so, Victor believes Penny.
 
 Up until now, we wrote the sum-check protocol as a sum over ${0,1}^n$.
