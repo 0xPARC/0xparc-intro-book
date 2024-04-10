@@ -1,3 +1,5 @@
+#import "preamble.typ":*
+
 = Frontmatter
 
 These are lightly edited notes from a reading group hosted by the
