@@ -1,7 +1,7 @@
-# 0xPARC ProgCrypto Notes
+# Introduction to Programmable Cryptography
 
-These are notes written by attendees of the Spring 2024 reading group
-for 0xPARC, hosted by [0xPARC](https://0xparc.org/).
+This is an attempt at an introductory lecture notes on programmable cryptography.
+It is developed by [0xPARC](https://0xparc.org/).
 The source files are written in [Typst](https://typst.app).
 
 You can download PDF's from the releases on the right
