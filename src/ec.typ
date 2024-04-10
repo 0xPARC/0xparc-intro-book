@@ -9,7 +9,9 @@ is that there is no efficient method to factor large semiprimes.
 RSA can be thought of as working with the abelian group $(ZZ slash N ZZ)^times$.
 
 In many modern protocols, one replaces $(ZZ slash N ZZ)^times$ with
-an elliptic curve $E$ defined over a finite field $FF_q$.
+an elliptic curve $E$ defined over a finite field $FF$.
+As mentioned in @notation,
+we assume that the resulting group on $E$ is isomorphic to $FF_q$.
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called *discrete logarithm* problem.
 
@@ -31,7 +33,7 @@ We will never use this multiplicative notation in these notes.)
 == Vectors
 
 One quick application of this is that if $g_1, ..., g_n in E$
-are a bunch of random points,
+are a bunch of randomly chosen points of $E$,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
 $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $

@@ -18,19 +18,16 @@ The goal of the KZG commitment schemes is to have the following API:
   - Peggy can then send a short "proof" convincing Victor that $y$ is the
     correct value, without having to reveal $P$.
 
-#todo[I screwed up and there are two primes in play, need to rework fml]
-
 == Elliptic curve setup done once
 
 For this scheme we need an elliptic curve $E$ and a fixed generator $g$ of it,
-and some points on the curve.
+as well as some additional points on the curve.
 The good news is that this can be done just once, period.
 After that, anyone in the world can use the published data to run this protocol.
 
 === The notation $[n]$
 
-Fix an elliptic curve $E$ over a finite field $FF_q$
-and a globally known generator $g in E$.
+Fix $E$ as in @notation and a globally known generator $g in E$.
 For $n in ZZ$ define
 $ [n] := n dot g. $
 The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
@@ -74,7 +71,7 @@ So this gives us at least a way to verify multiplication.
 === Trusted calculation
 
 To set up the KZG commitment scheme,
-a trusted party needs to pick a secret scalar $s in FF_p$ and publishes
+a trusted party needs to pick a secret scalar $s in FF_q$ and publishes
 $ [s^0], [s^1], ..., [s^N] $
 for some large $N$.
 This means anyone can evaluate $[P(s)]$ for any given polynomial $P$.

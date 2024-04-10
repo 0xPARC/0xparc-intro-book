@@ -10,8 +10,8 @@ So the roadmap is as follows:
 - In @ipa-app, show two other applications of IPA, as a side demo.
 - In @ipa-poly, show how IPA can be used as a polynomial commitment scheme.
 
-Throughout this section, $E$ is an elliptic curve over $FF_q$.
-Moreover, there are fixed globally known generators
+Throughout this section, $E$ is defined as in @notation,
+and there are fixed globally known generators
 $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis.
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
@@ -185,7 +185,7 @@ To spell this out:
 === Application: showing two Pedersen commitments have the same vector
 
 Suppose there are two Pedersen commitments
-$C = sum a_i g_i$ and $C' = sum a'_i g'_i$
+$v = sum a_i g_i$ and $v' = sum a'_i g'_i$
 and Penny wants to prove that $a_i = a'_i$ for all $i$
 (i.e. the vectors $arrow(a)$ and $arrow(a')$ coincide)
 without revealing anything else about the two vectors.
