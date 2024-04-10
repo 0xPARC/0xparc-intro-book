@@ -28,28 +28,37 @@ but rather a introduction to the general landscape and ideas for newcomers.
 - Throughout these notes,
   $E$ will always denote an elliptic curve over some finite field $FF$
   (whose order is known for calculation but otherwise irrelevant).
+
 - If we were being pedantic, we might be careful to distinguish
   the elliptic curve $E$ from its set of $FF$-points $E(FF)$.
   But to ease notation, we simply use $E$ interchangeably with $E(FF)$.
+
 - Hence, the notation "$g in E$" means "$g$ is a point of $E(FF)$".
-  Elements of the curve $E$ are usually denoted by Roman letters.
-- We always use additive notation for the group law:
+  Elements of the curve $E$ are denoted by lowercase Roman letters;
+  $g in E$ and $h in E$ are especially common.
+
+- We always use additive notation for the group law on $E$:
   given $g in E$ and $h in E$ we have $g+h in E$.
-- We take as a standing assumption that the set of points of $E$
+
+- We take as a standing assumption that the resulting group on $E$
   is isomorphic to the cyclic group $ZZ slash q ZZ$ for some prime $q$.
-  In other words, we have
+  In symbols, we require
   $ E(FF) tilde.equiv FF_q $
-  for the prime $q$, which for each protocol is fixed and globally known.
+  for a prime $q$, which for each protocol is fixed and globally known.
   Our protocols will usually treat $FF_q$ as the field of "scalars" used
   (rather than the field $FF$).
-  Elements of $FF_q$ are often denoted by lowercase Roman letters
+  Elements of $FF_q$ are denoted by either lowercase Roman letters
   or lowercase Greek letters.
+
 - $FF_q [T]$ denotes the ring of univariate polynomials
   with coefficients in $FF_q$ in a single formal variable $T$.
   More generally, $FF_q [T_1, ..., T_n]$ denotes the ring of
   polynomials in the $n$ formal variables $T_1$, ..., $T_n$.
+  We'll prefer capital Roman letters for both polynomials and formal variables.
+
 - $NN = {1,2,...,}$ denotes the set of _positive_ integers,
   while $ZZ = {...,-1,0,1,...}$ is the set of all integers.
+  We prefer the Roman letters $m$, $n$, $N$ for integers.
 
 == Acknowledgments
 
