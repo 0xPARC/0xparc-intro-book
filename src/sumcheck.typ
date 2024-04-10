@@ -141,9 +141,9 @@ Here's how they do it.
 
 4. They now settle the last coordinate:
   - Victor asks Penny to evaluate the linear polynomial
-    $ g_3(U) := P(7,3,V) $
+    $ g_3(V) := P(7,3,V) $
     and send the result. In our example, it equals
-    $ g_3(U) = #rect($112V+197$). $
+    $ g_3(V) = #rect($112V+197$). $
 
   - Victor makes sure the claimed $g_3$ is consistent with $g_2$;
     it should satisfy $g_2(r_2) = g_3(0)+g_3(1)$.
