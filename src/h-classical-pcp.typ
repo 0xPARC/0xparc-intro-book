@@ -19,3 +19,5 @@ This part is divided into two sections.
 
 - @pcp gives an overview of the first PCP constructions,
   but it's quite involved and much less enlightening.
+
+Elliptic curves will not be used in this part at all.
