@@ -29,7 +29,7 @@ After that, anyone in the world can use the published data to run this protocol.
 
 Fix $E$ as in @notation and a globally known generator $g in E$.
 For $n in ZZ$ define
-$ [n] := n dot g. $
+$ [n] := n dot g in E. $
 The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
 You can almost think of the notation as an "armor" on the integer $n$:
 it conceals the integer, but still allows us to perform (armored) addition:
@@ -37,11 +37,10 @@ $ [a+b] = [a] + [b]. $
 
 === Pairing
 
-#todo[rewrite this]
-
-Multiplication can't be done directly, in the sense there isn't a way to get
+Unfortunately, multiplication can't be done directly,
+in the sense there isn't a way to get
 $[a b]$ given $[a]$ and $[b]$.
-We work around this with a so-called _pairing_, defined a bit later.
+But we work around this with a so-called _pairing_, defined a bit later.
 
 On the curve $E$ one needs a *pairing* which is a nondegenerate bilinear function
 $ "pair" : E times E -> ZZ slash N ZZ $
@@ -52,20 +51,26 @@ Like with the previous setup,
 this only needs to be done once for the curve $E$,
 and then anyone in the world can use the published curve for their protocol.
 
+#todo[I'm still a bit confused whether this requires changing $FF$. Is $N = q$?]
+
 The exact details of how this pairing is constructed won't matter below.
 But the upshot is that the equation
 $ "pair"([m], [n]) = "pair"([m'], [n']) $
 will be true whenever $m n = m' n'$,
 because both sides will equal $m n "pair"([1], [1])$.
-So this gives us at least a way to verify multiplication.
-
-#todo[Comment: multilinear pairings are basically open]
+So this gives us at least a way to _verify_ a statement about multiplication.
 
 #remark[
-  Important thing to keep in mind:
-  in all the protocols we'll see,
-  the pairing is only used by the _verifier_ Victor,
-  never by the prover Penny.
+  The last sentence is worth bearing in mind: in all the protocols we'll see,
+  the pairing is only used by the _verifier_ Victor, never by the prover Penny.
+]
+
+#remark[
+  On the other hand, we currently don't seem to know a good
+  way to do _multilinear_ pairings.
+  For example, we don't know a good trilinear map
+  $E times E times E -> ZZ slash n ZZ$
+  that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$.
 ]
 
 === Trusted calculation
@@ -101,7 +106,7 @@ If Penny wishes to convince Victor that $P(z) = y$, then:
     which again she can compute from the globally known $[s^i]$.
   3. Victor verifies by checking
     #eqn[
-      $ e([Q(s)], [s-z]) = e([P(s)-y], [1]) $
+      $ "pair"([Q(s)], [s-z]) = "pair"([P(s)-y], [1]) $
       <kzg-verify>
     ]
     and accepts if and only if @kzg-verify is true.
