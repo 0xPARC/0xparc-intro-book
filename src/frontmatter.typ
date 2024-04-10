@@ -11,6 +11,10 @@ but rather a introduction to the general landscape and ideas for newcomers.
 - Group law on an elliptic curve is assumed, but not much more than that.
 - You should know what a one-way hash function is (like SHA-256).
 
+== Characters
+
+#todo[Penny, Victor, Trent]
+
 == Acknowledgments
 
 Authors
