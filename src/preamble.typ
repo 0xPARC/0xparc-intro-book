@@ -29,7 +29,6 @@
   s
 }
 
-
 #let theorem = thmbox("main", "Theorem", fill: rgb("#ffffdd"), base_level: 1)
 #let lemma = thmbox("main", "Lemma", fill: rgb("#ffffdd"), base_level: 1)
 #let proposition = thmbox("main", "Proposition", fill: rgb("#ffffdd"), base_level: 1)
