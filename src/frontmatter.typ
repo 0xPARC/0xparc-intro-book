@@ -40,16 +40,6 @@ but rather a introduction to the general landscape and ideas for newcomers.
 - We always use additive notation for the group law on $E$:
   given $g in E$ and $h in E$ we have $g+h in E$.
 
-- We take as a standing assumption that the resulting group on $E$
-  is isomorphic to the cyclic group $ZZ slash q ZZ$ for some prime $q$.
-  In symbols, we require
-  $ E(FF) tilde.equiv FF_q $
-  for a prime $q$, which for each protocol is fixed and globally known.
-  Our protocols will usually treat $FF_q$ as the field of "scalars" used
-  (rather than the field $FF$).
-  Elements of $FF_q$ are denoted by either lowercase Roman letters
-  or lowercase Greek letters.
-
 - $FF_q [T]$ denotes the ring of univariate polynomials
   with coefficients in $FF_q$ in a single formal variable $T$.
   More generally, $FF_q [T_1, ..., T_n]$ denotes the ring of

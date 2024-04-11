@@ -1,17 +1,36 @@
 #import "preamble.typ":*
 
-= The discrete logarithm problem on an elliptic curve <ec>
+= Elliptic curve <ec>
 
-== Pitch: Discrete logarithm is hard
+#todo[We probably want to rebrand this as EC setup in general]
 
 In the public-key cryptography system RSA, one key assumption
 is that there is no efficient method to factor large semiprimes.
-RSA can be thought of as working with the abelian group $(ZZ slash N ZZ)^times$.
+RSA can be thought of as working with the abelian group $(ZZ slash N ZZ)^times$,
+where $N$ is the product of two large primes.
+This setup, while it does work, is brittle in some ways
+(for example, every person needs to pick a different $N$ for RSA).
 
 In many modern protocols, one replaces $(ZZ slash N ZZ)^times$ with
-an elliptic curve $E$ defined over a finite field $FF$.
-As mentioned in @notation,
-we assume that the resulting group on $E$ is isomorphic to $FF_q$.
+a _so-called_ elliptic curve $E$.
+The assumption "factoring is hard" is then replaced by a new one,
+which is called DDH.
+#todo[link]
+
+This chapter sets up the math behind this elliptic curve $E$.
+#todo[roadmap: EDDSA grows up into Kate, Pedersen grows up into IPA]
+
+== The BN254 curve
+
+Rather than set up a general definition of elliptic curve,
+for these notes we will be content to describe one specific elliptic curve
+that could be used for all the protocols we describe later.
+We'll comment briefly at the end on which parameters will change.
+
+#todo[define BN254 curve I think]
+
+== Pitch: Discrete logarithm is hard
+
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called *discrete logarithm* problem.
 
@@ -30,10 +49,8 @@ We will never use this multiplicative notation in these notes.)
 
 #todo[repeated squaring]
 
-== Vectors
-
-One quick application of this is that if $g_1, ..., g_n in E$
-are a bunch of randomly chosen points of $E$,
+One corollary of this is that if $g_1, ..., g_n in E$
+are a bunch of randomly chosen points of $E$ with order $q$,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
 $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
@@ -42,9 +59,9 @@ one cannot find the last coefficient.
 
 #definition[
   In these notes, if there's a globally known elliptic curve $E$
-  and points $g_1, ..., g_n$ with no known nontrivial
+  and points $g_1, ..., g_n$ have order $q$ and no known nontrivial
   linear dependencies between them,
-  we'll say they're a *"computational basis"*.
+  we'll say they're a *computational basis over $FF_q$*.
 ]
 
 #remark[
@@ -59,7 +76,11 @@ one cannot find the last coefficient.
   and this is a critical standing assumption for this entire framework.
 ]
 
-== Pedersen commitments
+== Example application: EdDSA signature scheme
+
+#todo[write this]
+
+== Example application: Pedersen commitments
 
 One application of this injectivity is that
 we can have a hash of the vector with shorter length
@@ -67,7 +88,7 @@ we can have a hash of the vector with shorter length
 This is named:
 
 #definition[
-  Let $g_1, ..., g_n in E$ be a computational basis.
+  Let $g_1, ..., g_n in E$ be a computational basis over $FF_q$.
   Given a vector $arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n$ of scalars,
   the group element
   $ sum a_i g_i in E$
