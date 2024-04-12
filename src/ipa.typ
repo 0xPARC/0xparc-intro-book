@@ -183,7 +183,7 @@ The answer is yes, we just need more blinding factors.
     w_2 &:= b' h + a b ' u \
     w_3 &:= a' b' u.
   $
-  3. Victor picks a random challenges $lambda in FF_q$.
+  3. Victor picks a random challenge $lambda in FF_q$.
   4. Both parties compute
   $
     w &= v + lambda dot w_1 + lambda^(-1) dot w_2 + dot w_3  \
