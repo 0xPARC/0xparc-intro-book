@@ -156,11 +156,11 @@ or there are at most $3n-4$ values for which it's true
 (two different polynomials of degree $3(n-1)$ can agree at up to $3n-4$ points).
 
 #algorithm("Proving PLONK satisfies the gate constraints")[
-  1. Penny computes $H(T) in FF_q [T]$ and sends $Com(H)$ to Victor.
+  1. Penny computes $H(T) in FF_q [T]$ using polynomial long division
+    and sends $Com(H)$ to Victor.
   2. Victor picks a random challenge $x in FF_q$.
-  3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $x$,
-     revealing the values of $A(x)$, $B(x)$, $C(x)$, and $H(x)$ to Victor.
-  4. Victor accepts if and only if @plonkpoly is true for those values.
+  3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $x$.
+  4. Victor accepts if and only if @plonkpoly is true at $T = x$.
 ]
 
 == Step 3: Proving the copy constraints

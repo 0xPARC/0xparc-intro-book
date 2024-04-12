@@ -19,7 +19,7 @@ The dependency chart of this chapter goes as follows:
 
   The KZG scheme from @kzg is quite simple and elegant but requires a trusted setup.
   In contrast, IPA from @ipa has fewer assumptions and is more versatile,
-  but it's more complicated and
+  but it's slower and more complicated.
 
 - Regardless of whether KZG/IPA scheme is used,
   we then show two constructions of a zkSNARK.

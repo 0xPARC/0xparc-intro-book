@@ -149,9 +149,9 @@ Then Penny sends $[Q(s)]$ as her proof, and the verification equation is that
 $ pair([Q(s)], [(s-1)(s-2) ... (s-9)]) = pair([P(s)] - 100[s^2], [1]). $
 
 The full generality just replaces the $100T^2$ with the polynomial
-obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation");
-there is a unique one of degree $n-1$.
-Suppose Penny wishes to prove to Victor that
+obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
+(there is a unique such polynomial $f$ of degree $n-1$).
+To spell this out, suppose Penny wishes to prove to Victor that
 $P(z_i) = y_i$ for $1 <= i <= n$.
 
 #algorithm[Opening a KZG commitment at $n$ values][
@@ -161,7 +161,7 @@ $P(z_i) = y_i$ for $1 <= i <= n$.
     $ P(T) - f(T) = (T-z_1)(T-z_2) ... (T-z_n) dot Q(T). $
   3. Penny sends the single element $[Q(s)]$ as her proof.
   4. Victor verifies
-    $ pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) = pair([P(s)] - [I(s)], [1]). $
+    $ pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) = pair([P(s)] - [f(s)], [1]). $
 ]
 
 So one can even open the polynomial $P$ at $1000$ points with a single 256-bit proof.

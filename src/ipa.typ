@@ -144,7 +144,7 @@ with the general case of even $n$ being analogous.
 So suppose Penny wishes to prove
 $v = a_1 g_1 + ... + a_6 g_6 + b_1 h_1 + ... + b_6 h_6 + c u $
 is good with respect to the length-thirteen basis
-$angle.l g_1, ..., h_, u angle.r$.
+$angle.l g_1, ..., h_6, u angle.r$.
 
 #algorithm[Reducing IPA for $n=6$ to $n=3$][
   1. Penny computes

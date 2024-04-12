@@ -295,9 +295,9 @@ one cannot find the last coefficient.
   even though the domain is an $n$-dimensional $FF_q$-vector space
   and the codomain is one-dimensional.
   This can feel weird because our instincts from linear algebra in pure math
-  are wrong now --- this map, while not injective in theory,
-  ends up being injective _in practice_ (because we can't find collisions),
-  and this is a critical standing assumption for this entire framework.
+  are wrong now. This map, while not injective in theory,
+  ends up being injective _in practice_ (because we can't find collisions).
+  And this is a critical standing assumption for this entire framework!
 ]
 
 This injectivity gives us a sort of hash function on vectors
