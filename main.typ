@@ -33,10 +33,7 @@
 #chapter("src/h-mpc.typ")
 #chapter("src/mpc.typ")
 
-#part[Classical PCP]
+#part[Appendix: Classical PCP]
 #chapter("src/h-classical-pcp.typ")
 #chapter("src/sumcheck.typ")
 #chapter("src/pcp.typ")
-
-#part[Appendix]
-#chapter("src/backmatter.typ")
