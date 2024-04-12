@@ -17,7 +17,7 @@
 
 #quote(attribution: [gubsheep introducing progcrypto to Evan for the first time])[
   Evan, I can now prove to you that I have a message $M$ such that
-  $op("sha256")(M) = "0xa948904f..."$, without revealing $M$.
+  $op("sha")(M) = "0xa91af3ac..."$, without revealing $M$.
   But not just for SHA. I can do this for any function you want.
 ] <quote-evan-to-brian>
 

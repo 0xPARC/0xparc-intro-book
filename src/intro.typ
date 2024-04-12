@@ -39,9 +39,9 @@ to having a general-purpose device like a smartphone which can
 do any computation so long as someone writes code for it.
 
 The quote on the title page
-("I have a message $M$ such that $op("sha256")(M) = "0xa948904f..."$")
+("I have a message $M$ such that $op("sha")(M) = "0x91af3ac..."$")
 is a concrete example;
-the hash function SHA256 is a particular set of arbitrary instructions,
+the hash function SHA is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
 
