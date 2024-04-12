@@ -52,21 +52,21 @@ So the given input to the protocol is
 $ v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u $
 which has the basis $angle.l g_1, g_2, h_1, h_2, u angle.r$.
 The idea is that we want to construct a new (good) vector $w$ whose basis is
-$ angle.l (g_1 + x^(-1) g_2), (h_1 + x h_2), u angle.r $
-for a random $x in FF_p$.
+$ angle.l (g_1 + lambda^(-1) g_2), (h_1 + lambda h_2), u angle.r $
+for a randomly chosen challenge $lambda in FF_p$.
 
 The construction is the following vector:
-$ w(x) &:= (a_1 + x a_2) dot underbrace((g_1 + x^(-1) g_2), "basis")
-  + (b_1 + x^(-1) b_2) dot underbrace((h_1 + x h_2), "basis")
-  + (a_1 + x a_2)(b_1 + x^(-1) b_2) underbrace(u, "basis"). $
-Expanding and isolating the parts with $x$ and $x^(-1)$ gives
-$ w(x)
+$ w(lambda) &:= (a_1 + lambda a_2) dot underbrace((g_1 + lambda^(-1) g_2), "basis elm")
+  + (b_1 + lambda^(-1) b_2) dot underbrace((h_1 + lambda h_2), "basis elm")
+  + (a_1 + lambda a_2)(b_1 + lambda^(-1) b_2) underbrace(u, "basis elm"). $
+Expanding and isolating the parts with $lambda$ and $lambda^(-1)$ gives
+$ w(lambda)
   &= (a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u) \
-  &#h(1em) + x dot underbrace((a_2 g_1 + b_1 h_2 + a_2 b_1 u), =: w_L)
-  + x^(-1) dot underbrace((a_1 g_2 + b_2 h_1 + a_1 b_2 u), =: w_R) \
-  &= v + x dot w_L + x^(-1) dot w_R.
+  &#h(1em) + lambda dot underbrace((a_2 g_1 + b_1 h_2 + a_2 b_1 u), =: w_L)
+  + lambda^(-1) dot underbrace((a_1 g_2 + b_2 h_1 + a_1 b_2 u), =: w_R) \
+  &= v + lambda dot w_L + lambda^(-1) dot w_R.
   $
-Note that, importantly, $w_L$ and $w_R$ don't depend on $x$.
+Note that, importantly, $w_L$ and $w_R$ don't depend on $lambda$.
 So this gives a way to provide a construction of a good vector $w$
 of half the length (in the new basis) given a good vector $v$.
 
@@ -77,27 +77,28 @@ This suggests the following protocol:
     #h(1em) "and" #h(1em)
     w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u in E, $
     and sends those values to Victor.
-    (Note there is no dependence on $x$.)
-  2. Victor picks a random challenge $x in FF_q$ and sends it.
+    (Note there is no dependence on $lambda$.)
+  2. Victor picks a random challenge $lambda in FF_q$ and sends it.
   3. Both Penny and Victor calculate the point
-    $ w(x) = v + x dot w_L + x^(-1) dot w_R in E. $
+    $ w(lambda) = v + lambda dot w_L + lambda^(-1) dot w_R in E. $
   4. Penny and Victor run the $n=1$ case of IPA to verify whether
-    $w(x)$ is good with respect the smaller $3$-element basis
-    $ angle.l (g_1 + x^(-1) g_2), (h_1 + x h_2), u angle.r . $
+    $w(lambda)$ is good with respect the smaller $3$-element basis
+    $ angle.l (g_1 + lambda^(-1) g_2), (h_1 + lambda h_2), u angle.r . $
     Victor accepts if and only if this IPA is accepted.
 ]
 Assuming Penny was truthful and $v$ was indeed good with respect
 to the original 5-element basis for $n=2$,
-the resulting $w(x)$ is good with respect to the basis.
+the resulting $w(lambda)$ is good with respect to the new basis.
 So the interesting part is soundness:
 
 #claim[
   Suppose $v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u$ is given.
-  Assume further that Penny can provide some $w_L, w_R in E$ in this basis such that
-  $ w(x) := v + x dot w_L + x^(-1) dot w_R $
-  is good for at least four values of $x$.
+  Assume further that Penny can provide some $w_L, w_R in E$ such that
+  $ w(lambda) := v + lambda dot w_L + lambda^(-1) dot w_R $
+  lies in the span of the shorter basis,
+  and is good for at least four values of $lambda$.
 
-  Then all of the following statements must hold for this property to occur:
+  Then all of the following statements must be true:
   - $w_L = a_2 g_1 + b_1 h_2 + a_2 b_1 u$,
   - $w_R = a_1 g_2 + b_2 h_1 + a_1 b_2 u$,
   - $c = a_1 b_1 + a_2 b_2$, i.e., $v$ is good.
@@ -106,23 +107,23 @@ So the interesting part is soundness:
 #proof[
   At first, it might seem like a cheating prover has too many parameters
   they could play with to satisfy too few conditions.
-  The trick is that $x$ is really like a formal variable,
-  and even the requirement that $w(x)$ lies in the span of
-  $ angle.l (g_1 + x^(-1) g_2), (h_1 + x h_2), u angle.r $
+  The trick is that $lambda$ is really like a formal variable,
+  and even the requirement that $w(lambda)$ lies in the span of
+  $ angle.l (g_1 + lambda^(-1) g_2), (h_1 + lambda h_2), u angle.r $
   is going to determine almost all the coefficients of $w_L$ and $w_R$.
 
   To be explicit, suppose a cheating prover tried to provide
   $ w_L &= ell_1 g_1 + ell_2 g_2 + ell_3 h_1 + ell_4 h_2 + ell_5 \
     w_R &= r_1 g_1 + r_2 g_2 + r_3 h_1 + r_4 h_2 + r_5. $
   Then we can compute
-  $ w(x) &= v + x dot w_L + x^(-1) dot w_R \
-    &= (a_1 + x ell_1 + x^(-1) r_1)g_1 + (a_2 + x ell_2 + x^(-1) r_2)g_2 \
-    &+ (b_1 + x ell_3 + x^(-1) r_3)h_1 + (b_2 + x ell_4 + x^(-1) r_4)h_1 \
-    &+ (c + x ell_5 + x^(-1) r_5)u. $
+  $ w(lambda) &= v + lambda dot w_L + lambda^(-1) dot w_R \
+    &= (a_1 + lambda ell_1 + lambda^(-1) r_1)g_1 + (a_2 + lambda ell_2 + lambda^(-1) r_2)g_2 \
+    &+ (b_1 + lambda ell_3 + lambda^(-1) r_3)h_1 + (b_2 + lambda ell_4 + lambda^(-1) r_4)h_1 \
+    &+ (c + lambda ell_5 + lambda^(-1) r_5)u. $
   In order to lie in the span we described, one needs the coefficient of $g_1$
-  to be $x$ times the coefficient of $g_2$, that is
-  $ x^(-1) r_1 + a_1 + x ell_1 = r_2 + x a_2 + x^2 ell_2. $
-  Since this holds for more than three values of $x$,
+  to be $lambda$ times the coefficient of $g_2$, that is
+  $ lambda^(-1) r_1 + a_1 + lambda ell_1 = r_2 + lambda a_2 + lambda^2 ell_2. $
+  Since this holds for more than three values of $lambda$,
   the two sides must actually be equal coefficient by coefficient.
   This means that $ell_1 = a_2$, $r_2 = a_1$, and $r_1 = ell_2 = 0$.
   In the same way, we get $ell_4 = b_1$, $r_3 = b_2$, and $ell_3 = r_4 = 0$.
@@ -130,8 +131,8 @@ So the interesting part is soundness:
   So just to lie inside the span,
   the cheating prover's hand is already forced for all the coefficients
   other than the $ell_5$ and $r_5$ in front of $u$.
-  Then indeed the condition that $w(x)$ is good is that
-  $ (a_1 + x a_2) (b_1 + x^(-1) b_2) = c + x ell_5 + x^(-1) r_5. $
+  Then indeed the condition that $w(lambda)$ is good is that
+  $ (a_1 + lambda a_2) (b_1 + lambda^(-1) b_2) = c + lambda ell_5 + lambda^(-1) r_5. $
   Comparing the constant coefficients we see that $c = a_1 b_1 + a_2 b_2$ as desired.
   (One also can recover $ell_5 = a_2 b_1$ and $r_5 = a_1 b_2$,
   but we never actually use this.)
@@ -153,12 +154,12 @@ $angle.l g_1, ..., h_6, u angle.r$.
       w_R &= (a_1 g_4 + a_2 g_5 + a_3 g_6) + (b_4 h_1 + b_5 h_2 + b_6 h_3)
       + (a_4 b_1 + a_5 b_2 + a_6 b_3) u $
     and sends these to Victor.
-  2. Victor picks a random challenge $x in FF_q$.
-  3. Both parties compute $w(x) = v + x dot w_L + x^(-1) dot w_R$.
-  4. Penny runs IPA for $n=3$ on $w(x)$ to convince Victor it's good
+  2. Victor picks a random challenge $lambda in FF_q$.
+  3. Both parties compute $w(lambda) = v + lambda dot w_L + lambda^(-1) dot w_R$.
+  4. Penny runs IPA for $n=3$ on $w(lambda)$ to convince Victor it's good
     with respect to the length-seven basis
-    $ angle.l g_1 + x^(-1) g_4, g_2 + x^(-1) g_5, g_3 + x^(-1) g_6,
-      h_1 + x h_4, h_2 + x h_5, h_3 + x h_6, u angle.r . $
+    $ angle.l g_1 + lambda^(-1) g_4, g_2 + lambda^(-1) g_5, g_3 + lambda^(-1) g_6,
+      h_1 + lambda h_4, h_2 + lambda h_5, h_3 + lambda h_6, u angle.r . $
 ]
 
 == The base case <ipa-base>
