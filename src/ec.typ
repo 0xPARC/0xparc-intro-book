@@ -237,7 +237,7 @@ So now suppose Alice wants to set up a signature scheme.
 Now suppose Alice wants to prove her identity to Bob,
 given her published public key $[d]$.
 
-#algorithm[EdDSA signature][
+#algorithm[EdDSA signature generation][
   Suppose Alice wants to sign a message $msg$.
 
   1. Alice picks a random scalar $r in FF_q$ (keeping this secret)
@@ -247,10 +247,13 @@ given her published public key $[d]$.
   3. Alice publishes the integer $ s := (r + d n) mod q. $
 
   In other words, the signature is the ordered pair $([r], s)$.
-  For Bob to verify the signature:
+]
 
-  4. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.
-  5. Bob verifies that $[r] + n dot [d] = [s]$.
+#algorithm[EdDSA signature generation][
+  For Bob to verify a signature $([r], s)$ for $msg$:
+
+  1. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.
+  2. Bob verifies that $[r] + n dot [d] = [s]$.
 ]
 
 An adversary cannot forge the signature even if they know $r$ and $n$.

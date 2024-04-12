@@ -4,9 +4,8 @@
 
 #todo[rough, based on Aard's lecture. needs cleanup.]
 
-== Arithmetization (input format)
-
-Like PLONK, Groth16 is a protocol for quadratic equations.
+Like PLONK, Groth16 is a protocol for quadratic equations,
+as we described in @arith-intro.
 For Groth16, the format of the equations is in so-called _R1CS format_.
 
 == Input format

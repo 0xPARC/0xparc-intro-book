@@ -121,27 +121,11 @@ But the statement of the theorem is simple:
 
 As all NP-complete problems are equivalent, we can pick any one which is convenient.
 Systems of linear equations don't make for good NP-complete problems,
-but quadratic equations do.
+but quadratic equations do, as we saw in @arith-intro.
 So we are going to use Quad-SAT,
 in which one has a bunch of variables over a finite field $FF_q$,
 a bunch of polynomial equations in these variables of degree at most two,
 and one wishes to find a satisfying assignment.
-
-#remark([QSAT is pretty obviously NP-complete])[
-  If you can't see right away that QSAT is NP-complete,
-  the following example instance can help,
-  showing how to convert any instance of 3-SAT into a QSAT problem:
-  $
-    x_i^2 &= x_i #h(1em) forall 1 <= i <= 1000 & \
-    y_1 &= (1-x_(42)) dot x_(17), & #h(1em) & 0 = y_1 dot x_(53) & \
-    y_2 &= (1-x_(19)) dot (1-x_(52)) & #h(1em) & 0 = y_2 dot (1-x_(75)) & \
-    y_3 &= x_(25) dot x_(64), &#h(1em) & 0 = y_3 dot x_(81) & \
-    &dots.v
-  $
-  (imagine many more such pairs of equations).
-  The $x_i$'s are variables which are seen to either be $0$ or $1$.
-  And then each pair of equations with $y_i$ corresponds to a clause of 3-SAT.
-]
 
 Let's say there are $N$ variables and $E$ equations, and $N$ and $E$ are both large.
 Penny has worked really hard and figured out a satisfying assignment

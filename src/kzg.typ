@@ -173,7 +173,8 @@ it takes to compute the Lagrange interpolation $f$.
 If we chose $E$ to be BN254, the following property holds:
 
 #proposition[
-  The smallest integer $k$ such that $q$ divides $p^k-1$ is $k=12$.
+  For $(p,q)$ as in BN254,
+  the smallest integer $k$ such that $q$ divides $p^k-1$ is $k=12$.
 ]
 
 This integer $k$ is called the *embedding degree*.
