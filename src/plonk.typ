@@ -26,7 +26,8 @@ Of course, Penny could open $Com(P_1)$ and $Com(P_2)$ at every point in $S$.
 But there are some situations in which Penny still wants to prove this
 without actually revealing the common values of the polynomial for any $z in S$.
 Even when $S$ is a single number (i.e. Penny wants to show $P_1$ and $P_2$ agree
-on a single value without revealing it), it's not obvious how to do this.
+on a single value without revealing the common value),
+it's not obvious how to do this.
 
 Well, it turns out we can basically employ the same technique as in @kzg.
 Penny just needs to show is that $P_1-P_2$
@@ -47,10 +48,10 @@ This means she doesn't have to reveal any $P_i (42)$, which is great!
 
 To be fully explicit, here is the algorithm:
 
-#algorithm[Root check][
+#algorithm[Root-check][
   Assume that $F$ is a polynomial for which
-  Penny can reveal the value of $F$ at any point in $FF_q$.
-  Penny wants to convince Victor that $F$ vanishes on a finite set $S subset.eq FF_q$.
+  Penny can establish the value of $F$ at any point in $FF_q$.
+  Penny wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.
 
   1. Both parties compute the polynomial
     $ Z(X) := product_(z in S) (X-z) in FF_q [X]. $
@@ -159,8 +160,11 @@ we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
 Then, by polynomial interpolation, Penny chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
-$ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
-  " for all " i = 1, 2, ..., n. $
+#eqn[
+  $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
+    " for all " i = 1, 2, ..., n. $
+  <plonk-setup>
+]
 We specifically choose $omega^i$ because that way,
 if we use @root-check on the set ${omega, omega^1, ..., omega^n}$,
 then the polynomial called $Z$ is just
@@ -170,12 +174,13 @@ is really easy to compute.
 
 Then:
 #algorithm("Commitment step of PLONK")[
-  1. Penny sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
+  1. Penny interpolates $A$, $B$, $C$ as in @plonk-setup.
+  2. Penny sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
 ]
 To reiterate, each commitment is a 256-bit
 that can later be "opened" at any value $x in FF_q$.
 
-== Step 2: Proving the gate constraints
+== Step 2: Gate-check
 
 Both Penny and Victor knows the PLONK instance,
 so they can interpolate a polynomial
@@ -197,9 +202,10 @@ However, Penny has committed $A$, $B$, $C$ already,
 while all the $Q_*$ polynomials are globally known.
 So this is a direct application of @root-check:
 
-#algorithm[Checking the gate constraints][
+#algorithm[Gate-check][
   1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
-    from the globally known coefficients $q_*$.
+    from the $15n$ coefficients $q_*$
+    (globally known from the PLONK instance).
   2. Penny uses @root-check to convince Victor that @plonk-gate
     holds for $X = omega^i$
     (that is, the left-hand side is is indeed divisible by $Z(X) := X^n-1$).
@@ -242,10 +248,10 @@ or there are at most $3n-4$ values for which it's true
 
 The copy constraints are the trickier step.
 There are a few moving parts to this idea, so to ease into it slightly,
-we provide a solution to a "simpler" problem called "permutation check".
+we provide a solution to a "simpler" problem called "permutation-check".
 Then we explain how to deal with the full copy check.
 
-=== (Optional) Permutation check
+=== Easier case: permutation-check
 
 So let's suppose we have polynomials $P, Q in FF_q [X]$
 which are encoding two vectors of values
@@ -281,8 +287,8 @@ Then the accumulator $F_Q in FF_q[T]$ is defined analogously.
 
 So to proev @permcheck-poly, the following algorithm works:
 
-#algorithm[Permutation-check (toy example)][
-  Suppose Penny has committed $Com(P)$ and $Com(Q)$ already.
+#algorithm[Permutation-check][
+  Suppose Penny has committed $Com(P)$ and $Com(Q)$.
 
   1. Victor sends a random challenge $lambda in FF_q$.
   2. Penny interpolates polynomials $F_P [T]$ and $F_Q [T]$
@@ -326,66 +332,145 @@ So, the copy constraint means we want the following equality of matrices:
   <copy1>
 ]
 Again, our goal is to make this into a _single_ equation.
-There's a really clever way to do this by tagging each entry with $lambda + k mu$
-in reading order for $k = 1, ..., 3n$:
-if @copy1 is true, then for any $mu in FF_q$, we also have
+There's a really clever way to do this by tagging each entry with $+ j omega^k mu$
+in reading order for $j = 1, 2, 3$ and $k = 1, ..., n$.
+Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 #eqn[
   $
   & mat(
-    a_1 + lambda + mu, a_2 + lambda + 2mu, a_3 + lambda + 3mu, a_4 + lambda + 4mu;
-    b_1 + lambda + 5mu, b_2 + lambda + 6mu, b_3 + lambda + 7mu, b_4 + lambda + 8mu;
-    c_1 + lambda + 9mu, c_2 + lambda + 10mu, c_3 + lambda + 11mu, c_4 + lambda + 12mu;
+    a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
+    b_1 + 2 omega^1 mu, b_2 + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4 mu;
+    c_1 + 3 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + 3 omega^4 mu;
   ) \
   =&
   mat(
-    #rbox($a_4$) + lambda + mu, a_2 + lambda + 2mu, a_3 + lambda + 3mu, #rbox($c_3$) + lambda + 4mu;
-    b_1 + lambda + 5mu, #bbox($c_1$) + lambda + 6mu, b_3 + lambda + 7mu, b_4 + lambda + 8mu;
-    #bbox($b_2$) + lambda + 9mu, c_2 + lambda + 10mu, c_3 + lambda + 11mu, #rbox($a_1$) + lambda + 12mu;
+    #rbox($a_4$) + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, #rbox($c_3$) + omega^4 mu;
+    b_1 + 2 omega^1 mu, #bbox($c_1$) + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4 mu;
+    #bbox($b_2$) + 2 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, #rbox($a_1$) + 3 omega^4 mu;
   )
   .
   $
   <copy2>
 ]
-By taking the entire product
-(i.e. looking at the product of all twelve entries on each side),
-@copy2 implies the equation
+Now how can the prover establish @copy2 succinctly?
+The answer is to run a permutation-check on the $3n$ entries of @copy2!
+Because $mu$ was a random challenge,
+one can really think of each binomial above more like an ordered pair:
+for almost all challenges $mu$, there are no "unexpected" inequalities.
+In other words, up to a negligible number of $mu$,
+@copy2 will be true if and only if the right-hand side is just
+a permutation of the left-hand side
+
+To clean things up, shuffle the $12$ terms on the right-hand side of @copy2
+so that each variable is in the cell it started at:
 #eqn[
   $
-  (a_1 + mu)(a_2 + 2mu) dots.c (c_4 + 12 mu)
-  = & (#rbox($a_4$) + mu)(a_2 + 2mu)(a_3 + 3mu)(#rbox($c_3$) + 4mu) \
-  &(b_1 + 5mu)(#bbox($c_1$) + 6mu)(b_3 + 7mu)(b_4 + 8mu) \
-  &(#bbox($b_2$) + 9mu)(c_2 + 10mu)(c_3 + 11mu)(#rbox($a_1$) + 12mu).
+  "Want to prove" & mat(
+    a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
+    b_1 + 2 omega^1 mu, b_2 + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4  mu;
+    c_1 + 2 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + 3 omega^4 mu;
+  ) \
+  "is a permutation of" &
+  mat(
+  a_1 + #rbox($3 omega^4 mu$), a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + #rbox($omega^1 mu$) ;
+  b_1 + 2 omega^1 mu, b_2+ #bbox($3 omega^1 mu$), b_3 + 2 omega^3 mu, b_4 + 2 omega^4  mu ;
+  b_1 + #bbox($2 omega^2 mu$), c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + #rbox($omega^4 mu$)
+  )
+  .
   $
   <copy3>
 ]
-At first, this might seem like @copy3 is weaker than @copy2.
-But we've seen many times that, when one takes random challenges,
-we can get almost equivalence, and this happens here too.
-#lemma[
-  If @copy2 is true, then @copy3 is true.
-  Conversely, if @copy2 is not true,
-  then @copy3 will also fail for all but at most $3n-1$ values of $mu$.
-]
-#proof[
-  The first half is obvious.
-  For the second half, note that both sides of @copy3
-  are polynomials of degree $3n$ in $mu$,
-  but they are not the same polynomial;
-  hence their difference can vanish in at most $3n-1$ points.
-]
-So as long as we take $mu$ randomly,
-we can treat @copy3 as basically equivalent to @copy1.
-
-Now how can the prover establish @copy3 succinctly?
-This is another clever trick:
-first rearrange the $12$ terms @copy3 so that,
-rather than shuffling the variables the tags as shown below:
+The permutations needed are part of the problem statement, hence globally known.
+So in this example, both parties are going to interpolate cubic polynomials
+$sigma_a, sigma_b, sigma_c$ that encode the weird coefficients row-by-row:
+$
+  mat(
+    delim: #none,
+    sigma_a (omega^1) = #rbox($3 omega^4$),
+    sigma_a (omega^2) = omega^2,
+    sigma_a (omega^3) = omega^3,
+    sigma_a (omega^4) = #rbox($omega^1$) ;
+    sigma_b (omega^1) = 2omega^1,
+    sigma_b (omega^2) = #bbox($3 omega^1$),
+    sigma_b (omega^3) = 2 omega^3,
+    sigma_b (omega^4) = 2 omega^4  ;
+    sigma_c (omega^1) = #bbox($2 omega^2$),
+    sigma_c (omega^2) = 3 omega^2,
+    sigma_c (omega^3) = 3 omega^3,
+    sigma_c (omega^4) = #rbox($omega^4$).
+  )
+$
+Then one can start defining accumulator polynomials, after
+re-introducing the random challenge $lambda$ from permutation-check.
+We're going to need six in all, three for each side of @copy3:
+we call them $F_a$, $F_b$, $F_c$, $F_a'$, $F_b'$, $F_c'$.
+The ones on the left-hand side are interpolated so that
 #eqn[
   $
-  (a_1 + mu)(a_2 + 2mu) dots.c (c_4 + 12 mu)
-  = & (a_1 + #rbox($12 mu$))(a_2 + 2mu)(a_3 + 3mu)(a_4 + #rbox($mu$)) \
-  &(b_1 + 5mu)(b_2+ #bbox($9 mu$))(b_3 + 7mu)(b_4 + 8mu) \
-  &(b_1 + #bbox($6 mu$))(c_2 + 10mu)(c_3 + 11mu)(c_4 + #rbox($4 mu$)).
+    F_a (omega^k) &= product_(i <= k) (a_i + omega^i mu + lambda) \
+    F_b (omega^k) &= product_(i <= k) (b_i + 2 omega^i mu + lambda) \
+    F_c (omega^k) &= product_(i <= k) (c_i + 3 omega^i mu + lambda) \
   $
-  <copy4>
+  <copycheck-left>
 ]
+whilst the ones on the right have the extra permutation polynomials
+#eqn[
+  $
+    F'_a (omega^k) &= product_(i <= k) (a_i + sigma_a (omega^i) mu + lambda) \
+    F'_b (omega^k) &= product_(i <= k) (b_i + sigma_b (omega^i) mu + lambda) \
+    F'_c (omega^k) &= product_(i <= k) (c_i + sigma_c (omega^i) mu  + lambda).
+  $
+  <copycheck-right>
+]
+And then we can run essentially the algorithm from before.
+There are six initialization conditions
+#eqn[
+  $
+    F_a (omega^1) &= A(omega^1) + omega^1 mu + lambda \
+    F_b (omega^1) &= B(omega^1) + 2 omega^1 mu + lambda \
+    F_c (omega^1) &= C(omega^1) + 3 omega^1 mu + lambda \
+    F_a (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
+    F_b (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
+    F_c (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
+  $
+  <copycheck-init>
+]
+and six accumulation conditions
+#eqn[
+  $
+    F_a (omega X) &= F_a (X) dot (A(X) + X mu + lambda) \
+    F_b (omega X) &= F_b (X) dot (B(X) + 2 X mu + lambda) \
+    F_c (omega X) &= F_c (X) dot (C(X) + 3 X mu + lambda) \
+    F'_a (omega X) &= F'_a (X) dot (A(X) + sigma_a (X) mu + lambda) \
+    F'_b (omega X) &= F'_b (X) dot (B(X) + sigma_b (X) mu + lambda) \
+    F'_c (omega X) &= F'_c (X) dot (C(X) + sigma_c (X) mu + lambda) \
+  $
+  <copycheck-accum>
+]
+before the final product condition
+#eqn[
+  $
+  F_a (1) F_b (1) F_c (1) = F'_a (1) F'_b (1) F'_c (1)
+  $
+  <copycheck-final>
+]
+
+To summarize, the copy-check goes as follows:
+#algorithm[Copy-check][
+  1. Both parties compute the degree $n-1$ polynomials
+    $sigma_a, sigma_b, sigma_c in FF_q [X]$ described above,
+    based on the copy constraints in the problem statement.
+  2. Victor chooses random challenges $mu, lambda in FF_q$ and sends them to Penny.
+  3. Penny interpolates the six accumulator polynomials $F_a$, ..., $F'_c$ defined
+    in @copycheck-left and @copycheck-right.
+  4. Penny uses @root-check to prove @copycheck-init holds.
+  5. Penny uses @root-check to prove @copycheck-accum holds
+    for $X in {omega, omega^2, ..., omega^(n-1)}$.
+  6. Penny uses @root-check to prove @copycheck-final holds.
+]
+
+== Public and private witnesses
+
+#todo[warning: $A$, $B$, $C$ should not be the lowest degree interpolations, imo]
+
+#todo[I believe we just open $A$, $B$, $C$ at any public witnesses, right?]
