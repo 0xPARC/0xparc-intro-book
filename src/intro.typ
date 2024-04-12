@@ -2,6 +2,12 @@
 
 = Introduction
 
+#quote(attribution: [gubsheep introducing progcrypto to Evan for the first time])[
+  Evan, I can now prove to you that I have a message $M$ such that
+  $op("sha256")(M) = "0xa948904f..."$, without revealing $M$.
+  But not just for SHA. I can do this for any function you want.
+]
+
 == What is programmable cryptography?
 
 Cryptography is everywhere now and needs no introduction.
@@ -34,7 +40,7 @@ then be described as:
 ]
 
 To draw an analogy, it's sort of like going from older single-purpose hardware,
-like a digital alarm clock or flashlight,
+like a digital alarm clock or thermostat,
 to having a general-purpose device like a smartphone which can
 do any computation so long as someone writes code for it.
 
@@ -68,7 +74,7 @@ scheme to authenticating any sort of transaction:
 - A group signature scheme can be construed as a succinct proof that
   "I know one of Alice, Bob, or Charlie's private keys".
 - But you could also use a zkSNARK to prove a statement like
-  "I know a message $M$ such that $"sha"(M) = "91af3ac..."$",
+  "I know a message $M$ such that $sha(M) = "0x91af3ac..."$",
   of course without revealing $M$ or anything about $M$.
 - ... Or really any arbitrarily complicated statement.
 

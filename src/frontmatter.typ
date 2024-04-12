@@ -2,16 +2,15 @@
 
 = Frontmatter
 
-These are lightly edited notes from a reading group hosted by the
+These are compiled lecture notes from a reading group hosted by the
 #link("https://0xparc.org", "0xPARC Foundation").
-It's not meant to be a mathematically complete reference,
+It's not meant to be a exhaustive textbook or mathematically complete reference,
 but rather a introduction to the general landscape and ideas for newcomers.
 
-== Prerequisites
-
-- Modular arithmetic is assumed, and $FF_q$ denotes the finite field with $q$ elements.
-- The group law on an elliptic curve is assumed, but not much more than that.
-- You should know what a one-way hash function is (like SHA-256).
+We assume a bit of general undergraduate math background, but not too much.
+(For example, I'll just use the word "abelian group" freely,
+and the reader is assumed to know modular arithmetic.)
+We don't assume specialized knowledge like elliptic curve magic.
 
 == Characters
 
@@ -53,6 +52,15 @@ but rather a introduction to the general landscape and ideas for newcomers.
 - $NN = {1,2,...,}$ denotes the set of _positive_ integers,
   while $ZZ = {...,-1,0,1,...}$ is the set of all integers.
   We prefer the Roman letters $m$, $n$, $N$ for integers.
+
+- We let $sha()$ denote your favorite one-way hash function,
+  such as #link("https://w.wiki/KgC", "SHA-256").
+  For us, it'll take in any number of arguments of any type
+  (you should imagine they are coerced into strings)
+  and output a single number in $FF_q$.
+  That is,
+  $ sha : "any number of inputs" -> FF_q. $
+
 
 == Acknowledgments
 
