@@ -20,7 +20,9 @@ We don't assume specialized knowledge like elliptic curve magic.
   for protocols in which Penny wishes to prove something to Victor.
 - *Trent* is a trusted administrator or arbiter,
   for protocols in which a trusted setup is required.
-  (In real life, Trent is often a group of people performing
+  (In real life, Trent is often a group of people performing a multi-party
+  computation, such that as long as at least one of them is honest,
+  the trusted setup will work.)
 
 == Notation and conventions <notation>
 
