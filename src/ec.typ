@@ -2,8 +2,6 @@
 
 = Elliptic curve <ec>
 
-#todo[We probably want to rebrand this as EC setup in general]
-
 In the public-key cryptography system RSA, one key assumption
 is that there is no efficient method to factor large semiprimes.
 RSA can be thought of as working with the abelian group $(ZZ slash N ZZ)^times$,
@@ -14,22 +12,32 @@ This setup, while it does work, is brittle in some ways
 In many modern protocols, one replaces $(ZZ slash N ZZ)^times$ with
 a _so-called_ elliptic curve $E$.
 The assumption "factoring is hard" is then replaced by a new one,
-which is called DDH.
-#todo[link]
+that the #link("https://w.wiki/9jgX", "discrete logarithm problem is hard").
 
 This chapter sets up the math behind this elliptic curve $E$.
-#todo[roadmap: EDDSA grows up into Kate, Pedersen grows up into IPA]
+The roadmap goes roughly as follows:
 
-== The BN254 curve
+- In @bn254 we will describe the structure of elliptic curves $E$.
+- In @discretelog we describe the discrete logarithm problem:
+  that for $g in E$ and $n in FF_q$, one cannot recover $n$ from $n dot g$.
+- As an example, in @eddsa we describe how the assumption in @discretelog
+  can be used to construct a signature scheme, namely
+  #link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
+  This idea will later grow up to be the KZG commitment scheme in @kzg.
+- As another example, in @pedersen we describe how the assumption in @discretelog
+  can be used to create a commitment scheme for vectors: the Pedersen commitment.
+  This idea will later grow up to be the IPA commitment scheme in @ipa.
+
+== The BN254 curve <bn254>
 
 Rather than set up a general definition of elliptic curve,
-for these notes we will be content to describe one specific elliptic curve
+for these notes we will be satsified to describe one specific elliptic curve
 that could be used for all the protocols we describe later.
-We'll comment briefly at the end on which parameters will change.
+But we will comment briefly on the general situation.
 
 #todo[define BN254 curve I think]
 
-== Pitch: Discrete logarithm is hard
+== Pitch: Discrete logarithm is hard <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called *discrete logarithm* problem.
@@ -43,9 +51,11 @@ we will rely on the so-called *discrete logarithm* problem.
 In other words, if one only
 sees $g in E$ and $n dot g in E$, one cannot find $n$.
 
-(This is called discrete log because if one used multiplicative notation
-like in RSA, it looks like solving $g^n = g'$ instead.
-We will never use this multiplicative notation in these notes.)
+#remark[The name "discrete log"][
+  This problem is called discrete log because if one used multiplicative notation
+  like in RSA, it looks like solving $g^n = g'$ instead.
+  We will never use this multiplicative notation in these notes.
+]
 
 #todo[repeated squaring]
 
@@ -76,13 +86,13 @@ one cannot find the last coefficient.
   and this is a critical standing assumption for this entire framework.
 ]
 
-== Example application: EdDSA signature scheme
+== Example application: EdDSA signature scheme <eddsa>
 
 #todo[write this]
 
-== Example application: Pedersen commitments
+== Example application: Pedersen commitments <pedersen>
 
-One application of this injectivity is that
+Another application of this injectivity is that
 we can have a hash of the vector with shorter length
 (with "practically independent" now being phrased as "we can't find a collision").
 This is named:
