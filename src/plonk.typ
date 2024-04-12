@@ -358,10 +358,10 @@ Now how can the prover establish @copy2 succinctly?
 The answer is to run a permutation-check on the $3n$ entries of @copy2!
 Because $mu$ was a random challenge,
 one can really think of each binomial above more like an ordered pair:
-for almost all challenges $mu$, there are no "unexpected" inequalities.
+for almost all challenges $mu$, there are no "unexpected" equalities.
 In other words, up to a negligible number of $mu$,
 @copy2 will be true if and only if the right-hand side is just
-a permutation of the left-hand side
+a permutation of the left-hand side.
 
 To clean things up, shuffle the $12$ terms on the right-hand side of @copy2
 so that each variable is in the cell it started at:
