@@ -71,6 +71,7 @@ added in (whose purpose we describe in the next section).
 
 The constants $p$ and $q$ are contrived so that the following holds:
 #theorem[BN254 has prime order][
+  Let $E$ be the BN254 curve.
   The number of points in $E(FF_p)$,
   including the point at infinity $O$, is a prime $q approx 2^(254)$.
 ]
@@ -99,7 +100,9 @@ However, an abelian group with prime order is necessarily cyclic.
 In other words:
 
 #theorem[The group BN254 is isomorphic to $FF_q$][
-  We have the isomorphism of abelian groups $E(FF_p) tilde.equiv ZZ slash q ZZ$.
+  Let $E$ be the BN254 curve.
+  We have the isomorphism of abelian groups
+  $ E(FF_p) tilde.equiv ZZ slash q ZZ. $
 ]
 
 In these notes, this isomorphism will basically be a standing assumption;
@@ -120,20 +123,6 @@ Since $q approx 2^(254)$,
 that means we are doing something like $256$-bit integer arithmetic.
 This is why the baby Jubjub prime $q$ gets a special name,
 while the prime $p$ is unnamed and doesn't get any screen-time later.
-
-=== For later: BN254 is also pairing-friendly
-
-The parameters of BN254 are _also_ chosen to be "pairing-friendly".
-(In contrast, Curve25519 is not pairing-friendly.)
-We won't define what this means until @kzg,
-but we can actually mention the relevant mathematical property now:
-
-#proposition[
-  The smallest integer $k$ such that $q$ divides $p^k-1$ is $k=12$.
-]
-
-This integer $k$ is called the *embedding degree*,
-and it needs to be not too small, but not too big either.
 
 == Discrete logarithm is hard <discretelog>
 
@@ -209,7 +198,10 @@ Its order is actually $8$ times a large prime
 $q' := 2^(252) + 27742317777372353535851937790883648493$.
 In that case, to generate a random point on Curve25519 with order $q'$,
 one will usually take a random point in it and multiply it by $8$.
-(However, Curve25519 is not pairing-friendly, so it can't be used for @kzg.)
+
+BN254 is also engineered to have a property called _pairing-friendly_,
+which is defined in @pairing-friendly when we need it later.
+(In contrast, Curve25519 does not have this property.)
 
 == Example application: EdDSA signature scheme <eddsa>
 
@@ -248,29 +240,29 @@ given her published public key $[d]$.
 #algorithm[EdDSA signature][
   Suppose Alice wants to sign a message $msg$.
 
-  1. Alice picks a random scalar $lambda in FF_q$ (keeping this secret)
-    and publishes $[lambda] in E$.
+  1. Alice picks a random scalar $r in FF_q$ (keeping this secret)
+    and publishes $[r] in E$.
   2. Alice generates a number $n in FF_q$ by hashing $msg$ with all public information,
-    say $ n := sha([lambda], msg, [d]). $
-  3. Alice publishes the integer $ s := (lambda + d n) mod q. $
+    say $ n := sha([r], msg, [d]). $
+  3. Alice publishes the integer $ s := (r + d n) mod q. $
 
-  In other words, the signature is the ordered pair $([lambda], s)$.
+  In other words, the signature is the ordered pair $([r], s)$.
   For Bob to verify the signature:
 
   4. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.
-  5. Bob verifies that $[lambda] + n dot [d] = [s]$.
+  5. Bob verifies that $[r] + n dot [d] = [s]$.
 ]
 
-An adversary cannot forge the signature even if they know $lambda$ and $n$.
-Indeed, such an adversary can compute what the point $[s] = [lambda] + n [d]$
+An adversary cannot forge the signature even if they know $r$ and $n$.
+Indeed, such an adversary can compute what the point $[s] = [r] + n [d]$
 should be, but without knowledge of $d$ they cannot get the integer $s$,
 due to @ddh.
 
-The number $lambda$ is called a *blinding factor* because
+The number $r$ is called a *blinding factor* because
 its use prevents Bob from stealing Alice's secret key $d$ from the published $s$.
-It's therefore imperative that $lambda$ isn't known to Bob
+It's therefore imperative that $r$ isn't known to Bob
 nor reused between signatures, and so on.
-One way to do this would be to pick $lambda = sha(d, msg)$; this has the
+One way to do this would be to pick $r = sha(d, msg)$; this has the
 bonus that it's deterministic as a function of the message and signer.
 
 In @kzg we will use ideas quite similar to this to
@@ -311,9 +303,10 @@ To spell this out:
 
 #definition[
   Let $g_1, ..., g_n in E$ be a computational basis over $FF_q$.
-  Given a vector $arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n$ of scalars,
+  Given a vector
+  $ arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n $ of scalars,
   the group element
-  $ sum a_i g_i in E$
+  $ sum a_i g_i = a_1 g_1 + ... + a_n g_n in E $
   is called the *Pedersen commitment* of our vector $arrow(a)$.
 ]
 

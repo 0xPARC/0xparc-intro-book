@@ -16,16 +16,16 @@ $g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis.
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
 
-As we mentioned before, an element of the form
+Consider Pedersen commitments of the form
 $ a_1 g_1 + ... + a_n g_n + b_1 h_1 + ... + b_n h_n + c u in E $
-where $a_1, ..., a_n, b_1, ..., b_n, c in FF_p$,
-is practically a vector of length $2n + 1$, as discussed earlier.
-(If you like terminology, it's a Pedersen commitment.)
+where $a_1, ..., a_n, b_1, ..., b_n, c in FF_p$.
 
 #definition[
   Let's say that an element
   $ v = a_1 g_1 + ... + a_n g_n + b_1 h_1 + ... + b_n h_n + c u in E $
-  is *good* if $sum_1^n a_i b_i = c$.
+  is *good*
+  (with respect to the basis $angle.l g_1, ..., g_n, h_1, ..., h_n, u angle.r$)
+  if $sum_1^n a_i b_i = c$.
 ]
 
 The Inner Product Argument (IPA) is a protocol that kind of
@@ -44,6 +44,8 @@ but I'm late to the party.)
 The way IPA is done is by induction:
 one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
 by verifying a vector for $n/2$ is good (of length $n+1$).
+
+#todo[Link Aard's notes.0xparc.org post that motivates the whole thing]
 
 To illustrate the induction, we'll first show how to get from $n=2$ to $n=1$.
 So the given input to the protocol is
@@ -137,8 +139,9 @@ So the interesting part is soundness:
 
 So we've shown completeness and soundness for our protocol reducing $n=2$ to $n=1$.
 The general situation is basically the same with more notation.
-We write this out for $n=6$:
-suppose Penny wishes to prove
+To prevent drowning in notation, we write this out for $n=6$,
+with the general case of even $n$ being analogous.
+So suppose Penny wishes to prove
 $v = a_1 g_1 + ... + a_6 g_6 + b_1 h_1 + ... + b_6 h_6 + c u $
 is good with respect to the length-thirteen basis
 $angle.l g_1, ..., h_, u angle.r$.
@@ -160,7 +163,41 @@ $angle.l g_1, ..., h_, u angle.r$.
 
 == The base case <ipa-base>
 
-#todo[This is the argument with $mu$ and $lambda$ that Aard mentioned]
+If we're in the $n = 1$ case, meaning we have a Pedersen commitment
+$ v = a g + b h + c u $
+for $a,b,c in FF_q$, how can Penny convince Victor that $v$ is good?
+
+Well, one easy way to do that would be to just reveal all of $a$, $b$, $c$.
+However, this isn't good enough in situations in which Penny really
+cares about the zero-knowledge part.
+Is there a way to proceed without revealing anything about $a$, $b$, $c$?
+
+The answer is yes, we just need more blinding factors.
+
+#algorithm[The $n=1$ case of IPA][
+  1. Penny picks random blinding factors $a', b' in FF_q$.
+  2. Penny sends the following Pedersen commitments:
+  $
+    w_1 &:= a' g + a' b u \
+    w_2 &:= b' h + a b ' u \
+    w_3 &:= a' b' u.
+  $
+  3. Victor picks a random challenges $lambda in FF_q$.
+  4. Both parties compute
+  $
+    w &= v + lambda dot w_1 + lambda^(-1) dot w_2 + dot w_3  \
+    &= (a+lambda a') g + (b+lambda^(-1) b') h + (a+lambda a')(b + lambda^(-1) b') u.
+  $
+  5. Victor asks Penny to reveal all three coefficients of $w$.
+  6. Victor verifies that the third coefficient is the product of the first two.
+]
+
+This is really the naive protocol we described except that
+$a$ and $b$ have each been offset by a blinding factors
+that prevents Victor from learning anything about $a$ and $b$:
+he gets $a + lambda a'$ and $b + lambda^(-1) b'$, and knows $lambda$,
+but since $a'$ and $b'$ are randomly chosen,
+this reveals no information about $a$ and $b$ themselves.
 
 == Two simple applications <ipa-app>
 
@@ -170,7 +207,7 @@ polynomial commitments.
 === Application: revealing an element of a Pedersen commitment
 
 Suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
-and a Pedersen commitment $C = sum a_i g_i$ to it.
+and a Pedersen commitment $v = sum a_i g_i$ to it.
 Suppose Penny wishes to reveal $a_1$.
 The right way to think of this is as the dot product $arrow(a) dot arrow(b)$,
 where $ arrow(b) = angle.l 1, 0, ..., 0 angle.r $
@@ -178,20 +215,39 @@ has a $1$ in the $1$st position and $0$'s elsewhere.
 To spell this out:
 
 #algorithm[Revealing $a_1$ in a Pedersen commitment][
-  1. Both parties compute $w = C + h_1 + a_1 u$.
+  1. Both parties compute $w = v + h_1 + a_1 u$.
   2. Penny runs IPA on $w$ to convince Victor that $w$ is good.
 ]
 
-=== Application: showing two Pedersen commitments have the same vector
+=== Application: showing two Pedersen commitments are to the same vector
 
 Suppose there are two Pedersen commitments
-$v = sum a_i g_i$ and $v' = sum a'_i g'_i$
-and Penny wants to prove that $a_i = a'_i$ for all $i$
+$v = sum a_i g_i$ and $v' = sum a'_i g'_i$ in different bases;
+Penny wants to prove that $a_i = a'_i$ for all $i$
 (i.e. the vectors $arrow(a)$ and $arrow(a')$ coincide)
 without revealing anything else about the two vectors.
-Here $g'_1$, ..., $g'_n$ is a different computational basis.
 
-#todo[Write this]
+This can also be done straightforwardly:
+show that the dot products of $arrow(a)$ and $arrow(a)'$
+with a random other vector $arrow(lambda)$ are equal.
+
+#algorithm[Matching Pedersen commitments][
+  1. Victor picks a random challenge vector
+    $arrow(lambda) = angle.l lambda_1, ..., lambda_n angle.r in FF_q^n$.
+  2. Both parties compute its Pedersen commitment
+    $w = lambda_1 h_1 + ... + lambda_n h_n$.
+  3. Penny also privately computes the dot product
+    $c := arrow(a) dot arrow(lambda) = arrow(a)' dot arrow(lambda) = a_1 lambda_1 + ... + a_n lambda_n$.
+  4. Penny sends a Pedersen commitment $c u$ to the number $c$.
+  5. Penny runs IPA to convince Victor both $v + w + c u$ and $v' + w + c u$ are good.
+]
+
+This protocol provides a proof to Victor that $arrow(a)$ and $arrow(a)'$
+have the same dot product with his random challenge vector $arrow(lambda)$,
+without having to actually reveal this dot product.
+Since Victor chose the random vector $arrow(lambda)$,
+this check passes with vanishingly small probability
+of at most $1/q$ if $arrow(a) != arrow(a)'$.
 
 == Using IPA for polynomial commitments <ipa-poly>
 
