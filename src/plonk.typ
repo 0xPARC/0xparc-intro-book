@@ -10,6 +10,58 @@ So we'll introduce the notation $Com(P)$ for the commitment of a polynomial
 $P(X) in FF_q [X]$, with the understanding that either KZG, IPA, or something
 else could be in use here.
 
+== Root check (using long division with commitment schemes)
+
+Both commitments schemes allow for a technique I privately call _root-check_ here.
+Here's the problem statement:
+
+#problem[
+  Suppose one had two polynomials $P_1$ and $P_2$,
+  and Penny has given commitments $Com(P_1)$ and $Com(P_2)$.
+  Penny would like to prove to Victor that, say,
+  the equation $P_1(z) = P_2(z)$ for all $z$ in some large finite set $S$.
+]
+
+Of course, Penny could open $Com(P_1)$ and $Com(P_2)$ at every point in $S$.
+But there are some situations in which Penny still wants to prove this
+without actually revealing the common values of the polynomial for any $z in S$.
+Even when $S$ is a single number (i.e. Penny wants to show $P_1$ and $P_2$ agree
+on a single value without revealing it), it's not obvious how to do this.
+
+Well, it turns out we can basically employ the same technique as in @kzg.
+Penny just needs to show is that $P_1-P_2$
+is divisible by $Z(X) := product_(z in S) (X-z)$.
+This can be done by committing the quotient $H(X) := (P_1(X) - P_2(X)) / Z(X)$.
+Victor then gives a random challenge $lambda in FF_q$,
+and then Penny opens $Com(P_1)$, $Com(P_2)$, and $Com(H)$ at $lambda$.
+
+But we can actually do this more generally with _any_ polynomial
+expression $F$ in place of $P_1 - P_2$,
+as long as Penny has a way to prove the values of $F$ are correct.
+As an artificial example, if Penny has sent Victor $Com(P_1)$ through $Com(P_6)$,
+and wants to show that
+$ P_1(42) + P_2(42) P_3(42)^4 + P_4(42) P_5(42) P_6(42) = 1337, $
+she could define $F(X) = P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) + P_6(X)$
+and run the same protocol with this $F$.
+This means she doesn't have to reveal any $P_i (42)$, which is great!
+
+To be fully explicit, here is the algorithm:
+
+#algorithm[Root check][
+  Assume that $F$ is a polynomial for which
+  Penny can reveal the value of $F$ at any point in $FF_q$.
+  Penny wants to convince Victor that $F$ vanishes on a finite set $S subset.eq FF_q$.
+
+  1. Both parties compute the polynomial
+    $ Z(X) := product_(z in S) (X-z) in FF_q [X]. $
+  2. Penny does polynomial long division to compute $H(X) = F(X) / Z(X)$.
+  3. Penny sends $Com(H)$.
+  4. Victor picks a random challenge $lambda in FF_q$
+    and asks Penny to open $Com(H)$ at $lambda$,
+    as well as the value of $F$ at $lambda$.
+  5. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
+] <root-check>
+
 == Arithmetization <arith-intro>
 
 The promise of programmable cryptography is that we should be able to
@@ -105,11 +157,17 @@ Let's now explain how each step works.
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
-Xhen, by polynomial interpolation, Penny constraints polynomials $A(X)$, $B(X)$,
-and $C(X)$ in $FF_q [X]$ each of degree $n-1$ such that
+Then, by polynomial interpolation, Penny chooses polynomials $A(X)$, $B(X)$,
+and $C(X)$ in $FF_q [X]$ such that
 $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
   " for all " i = 1, 2, ..., n. $
-(We'll explain next section why we like powers of $omega$.)
+We specifically choose $omega^i$ because that way,
+if we use @root-check on the set ${omega, omega^1, ..., omega^n}$,
+then the polynomial called $Z$ is just
+$Z(X) = (X-omega) ... (X-omega^n) = X^n-1$, which is really nice.
+In fact, often $n$ is chosen to be a power of $2$ so that $Z$
+is really easy to compute.
+
 Then:
 #algorithm("Commitment step of PLONK")[
   1. Penny sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
@@ -119,7 +177,8 @@ that can later be "opened" at any value $x in FF_q$.
 
 == Step 2: Proving the gate constraints
 
-Both Penny and Victor knows the PLONK instance, so they can interpolate a polynomial
+Both Penny and Victor knows the PLONK instance,
+so they can interpolate a polynomial
 $Q_L(X) in FF_q [X]$ of degree $n-1$ such that
 $ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., n. $
 Then the analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
@@ -127,20 +186,32 @@ are defined in the same way.
 
 Now, what do the gate constraints amount to?
 Penny is trying to convince Victor that the equation
-
-$ Q_L (x) A_i (x) + Q_R (x) B_i (x) + Q_O (x) C_i (x)
-  + Q_M (x) A_i (x) B_i (x) + Q_C (x) = 0 $
-
+#eqn[
+  $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x)
+    + Q_M (x) A (x) B (x) + Q_C (x) = 0 $
+  <plonk-gate>
+]
 is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
+
+However, Penny has committed $A$, $B$, $C$ already,
+while all the $Q_*$ polynomials are globally known.
+So this is a direct application of @root-check:
+
+#algorithm[Checking the gate constraints][
+  1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
+    from the globally known coefficients $q_*$.
+  2. Penny uses @root-check to convince Victor that @plonk-gate
+    holds for $X = omega^i$
+    (that is, the left-hand side is is indeed divisible by $Z(X) := X^n-1$).
+]
+
+
+/*
 However, that's equivalent to the _polynomial_
 $ Q_L (X) A_i (X) + Q_R (X) B_i (X) + Q_O (X) C_i (X)
   + Q_M (X) A_i (X) B_i (X) + Q_C (X) in FF_q [X] $
 being divisible by the degree $n$ polynomial
 $ Z(X) = (X-omega)(X-omega^2) ... (X-omega^n) = X^n - 1. $
-(And now it's revealed why we liked powers of $omega$: it makes the $Z$
-polynomial really simple.
-In fact, $n$ is often taken to be a power of $2$ to make evaluation
-of $Z$ even easier.)
 
 In other words, it suffices for Penny to convince Victor that there
 is a polynomial $H(X) in FF_q [X]$ such that
@@ -161,10 +232,11 @@ or there are at most $3n-4$ values for which it's true
 #algorithm("Proving PLONK satisfies the gate constraints")[
   1. Penny computes $H(X) in FF_q [X]$ using polynomial long division
     and sends $Com(H)$ to Victor.
-  2. Victor picks a random challenge $lambda in FF_q$.
-  3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $lambda$.
-  4. Victor accepts if and only if @plonkpoly is true at $X = lambda$.
+  2. Victor picks a random challenge and asks Penny to open
+    all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at that challenge.
+  3. Victor accepts if and only if @plonkpoly is true at the random challenge.
 ]
+*/
 
 == Step 3: Proving the copy constraints
 
@@ -175,7 +247,7 @@ Then we explain how to deal with the full copy check.
 
 === (Optional) Permutation check
 
-Let's suppose we have polynomials $P, Q in FF_q [X]$
+So let's suppose we have polynomials $P, Q in FF_q [X]$
 which are encoding two vectors of values
 $ arrow(p) &= angle.l P(omega^1), P(omega^2), ..., P(omega^n) angle.r \
   arrow(q) &= angle.l Q(omega^1), Q(omega^2), ..., Q(omega^n) angle.r. $
@@ -183,13 +255,53 @@ Is there a way that one can quickly verify $arrow(p)$ and $arrow(q)$
 are the same up to permutation of the $n$ entries?
 
 Well, actually, it would be necessary and sufficient for the identity
-$ (X+P(omega^1))(X+P(omega^2)) ... (X+P(omega^n))
-  = (X+Q(omega^1))(X+Q(omega^2)) ... (X+Q(omega^n)) $
-to be true, in the sense both sides are the same polynomial in $FF_q [X]$.
+#eqn[
+  $ (T+P(omega^1))(T+P(omega^2)) ... (T+P(omega^n))
+    = (T+Q(omega^1))(T+Q(omega^2)) ... (T+Q(omega^n)) $
+  <permcheck-poly>
+]
+to be true, in the sense both sides are the same polynomial in $FF_q [T]$
+in a single formal variable $T$.
+And for that, it actually is sufficient that a single random challenge
+$T = lambda$ passes @permcheck-poly; as if the two sides of @permcheck-poly
+aren't the same polynomial,
+then the two sides can have at most $n-1$ common values.
+
+We can then get a proof of @permcheck-poly
+using the technique of adding an _accumulator polynomial_.
+The idea is this: Victor picks a random challenge $lambda in FF_q$.
+Penny then interpolates the polynomial $F_P in FF_q [T]$ such that
+$
+  F_P (omega^1) &= lambda + P(omega^1) \
+  F_P (omega^2) &= (lambda + P(omega^1))(lambda + P(omega^2)) \
+  &dots.v \
+  F_P (omega^n) &= (lambda + P(omega^1))(lambda + P(omega^2)) dots.c (lambda + P(omega^n)).
+$
+Then the accumulator $F_Q in FF_q[T]$ is defined analogously.
+
+So to proev @permcheck-poly, the following algorithm works:
+
+#algorithm[Permutation-check (toy example)][
+  Suppose Penny has committed $Com(P)$ and $Com(Q)$ already.
+
+  1. Victor sends a random challenge $lambda in FF_q$.
+  2. Penny interpolates polynomials $F_P [T]$ and $F_Q [T]$
+    such that $F_P (omega^k) = product_(i <= k) (lambda + P(omega^i))$.
+    Define $F_Q$ similarly.
+    Penny sends $Com(F_P)$ and $Com(F_Q)$.
+  3. Penny uses @root-check to prove all of the following statements:
+
+    - $F_P (X) - (lambda + P(X))$
+      vanishes at $X = omega$;
+    - $F_P (omega X) - (lambda + P(X)) F_P (X)$
+      vanishes at $X in {omega, ..., omega^(n-1)}$;
+    - The previous two statements also hold with $F_P$ replaced by $F_Q$;
+    - $F_P (X) - F_Q (X)$ vanishes at $X = 1$.
+]
 
 === Copy check
 
-To explain the motivation, let's look at a concrete example where $n=4$.
+Moving on to copy-check, let's look at a concrete example where $n=4$.
 Suppose that our copy constraints were
 $ #rbox($a_1$) = #rbox($a_4$) = #rbox($c_3$)
   #h(1em) "and" #h(1em)
