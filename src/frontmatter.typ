@@ -40,6 +40,10 @@ but rather a introduction to the general landscape and ideas for newcomers.
 - We always use additive notation for the group law on $E$:
   given $g in E$ and $h in E$ we have $g+h in E$.
 
+- $FF_q$ denotes the finite field of order $q$.
+  In these notes, $q$ is usually a globally known large prime,
+  often $q approx 2^256$.
+
 - $FF_q [T]$ denotes the ring of univariate polynomials
   with coefficients in $FF_q$ in a single formal variable $T$.
   More generally, $FF_q [T_1, ..., T_n]$ denotes the ring of

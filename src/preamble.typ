@@ -31,12 +31,12 @@
   s
 }
 
-#let theorem = thmbox("main", "Theorem", fill: rgb("#ffffdd"), base_level: 1)
-#let lemma = thmbox("main", "Lemma", fill: rgb("#ffffdd"), base_level: 1)
-#let proposition = thmbox("main", "Proposition", fill: rgb("#ffffdd"), base_level: 1)
-#let claim = thmbox("main", "Claim", fill: rgb("#ffffdd"), base_level: 1)
+#let theorem = thmbox("main", "Theorem", fill: rgb("#ffeeee"), base_level: 1)
+#let lemma = thmbox("main", "Lemma", fill: rgb("#ffeeee"), base_level: 1)
+#let proposition = thmbox("main", "Proposition", fill: rgb("#ffeeee"), base_level: 1)
+#let claim = thmbox("main", "Claim", fill: rgb("#ffeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ddddff"), base_level: 1)
-#let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
+#let example = thmbox("main", "Example", fill: rgb("#ffffdd"), base_level: 1)
 #let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 
@@ -46,6 +46,12 @@
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 
 #let proof = thmproof("proof", "Proof")
+
+#let assumption = thmbox("main", "Assumption", fill: rgb("#eeeeaa"), base_level: 1)
+
+#let url(s) = {
+  link(s, text(font:fonts.mono, s))
+}
 
 // Main entry point to use in a global show rule
 #let evan(
