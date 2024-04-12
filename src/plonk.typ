@@ -1,5 +1,8 @@
 #import "preamble.typ":*
 
+#let rbox(s) = [#text(red)[#ellipse(stroke: red, inset: 2pt, s)]]
+#let bbox(s) = [#text(blue)[#ellipse(stroke: blue, inset: 2pt, s)]]
+
 = PLONK, a zkSNARK protocol <plonk>
 
 For this section, one can use any polynomial commitment scheme one prefers.
@@ -158,11 +161,119 @@ or there are at most $3n-4$ values for which it's true
 #algorithm("Proving PLONK satisfies the gate constraints")[
   1. Penny computes $H(T) in FF_q [T]$ using polynomial long division
     and sends $Com(H)$ to Victor.
-  2. Victor picks a random challenge $x in FF_q$.
-  3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $x$.
-  4. Victor accepts if and only if @plonkpoly is true at $T = x$.
+  2. Victor picks a random challenge $lambda in FF_q$.
+  3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $lambda$.
+  4. Victor accepts if and only if @plonkpoly is true at $T = lambda$.
 ]
 
 == Step 3: Proving the copy constraints
 
-#todo[write this]
+The copy constraints are the trickier step.
+There are a few moving parts to this idea, so to ease into it slightly,
+we provide a solution to a "simpler" problem called "permutation check".
+Then we explain how to deal with the full copy check.
+
+=== (Optional) Permutation check
+
+Let's suppose we have polynomials $P, Q in FF_q [T]$
+which are encoding two vectors of values
+$ arrow(p) &= angle.l P(omega^1), P(omega^2), ..., P(omega^n) angle.r \
+  arrow(q) &= angle.l Q(omega^1), Q(omega^2), ..., Q(omega^n) angle.r. $
+Is there a way that one can quickly verify $arrow(p)$ and $arrow(q)$
+are the same up to permutation of the $n$ entries?
+
+Well, actually, it would be necessary and sufficient for the identity
+$ (X+P(omega^1))(X+P(omega^2)) ... (X+P(omega^n))
+  = (X+Q(omega^1))(X+Q(omega^2)) ... (X+Q(omega^n)) $
+to be true, in the sense both sides are the same polynomial in $FF_q [X]$.
+
+=== Copy check
+
+To explain the motivation, let's look at a concrete example where $n=4$.
+Suppose that our copy constraints were
+$ #rbox($a_1$) = #rbox($a_4$) = #rbox($c_3$)
+  #h(1em) "and" #h(1em)
+  #bbox($b_2$) = #bbox($c_1$). $
+(We've colored and circled the variables that will move around for readability.)
+So, the copy constraint means we want the following equality of matrices:
+#eqn[
+  $
+  mat(
+    a_1, a_2, a_3, a_4;
+    b_1, b_2, b_3, b_4;
+    c_1, c_2, c_3, c_4;
+  )
+  =
+  mat(
+    #rbox($a_4$), a_2, a_3, #rbox($c_3$) ;
+    b_1, #bbox($c_1$), b_3, b_4;
+    #bbox($b_2$), c_2, c_3, #rbox($a_1$)
+  )
+  .
+  $
+  <copy1>
+]
+Again, our goal is to make this into a _single_ equation.
+There's a really clever way to do this by tagging each entry with $lambda + k mu$
+in reading order for $k = 1, ..., 3n$:
+if @copy1 is true, then for any $mu in FF_q$, we also have
+#eqn[
+  $
+  & mat(
+    a_1 + lambda + mu, a_2 + lambda + 2mu, a_3 + lambda + 3mu, a_4 + lambda + 4mu;
+    b_1 + lambda + 5mu, b_2 + lambda + 6mu, b_3 + lambda + 7mu, b_4 + lambda + 8mu;
+    c_1 + lambda + 9mu, c_2 + lambda + 10mu, c_3 + lambda + 11mu, c_4 + lambda + 12mu;
+  ) \
+  =&
+  mat(
+    #rbox($a_4$) + lambda + mu, a_2 + lambda + 2mu, a_3 + lambda + 3mu, #rbox($c_3$) + lambda + 4mu;
+    b_1 + lambda + 5mu, #bbox($c_1$) + lambda + 6mu, b_3 + lambda + 7mu, b_4 + lambda + 8mu;
+    #bbox($b_2$) + lambda + 9mu, c_2 + lambda + 10mu, c_3 + lambda + 11mu, #rbox($a_1$) + lambda + 12mu;
+  )
+  .
+  $
+  <copy2>
+]
+By taking the entire product
+(i.e. looking at the product of all twelve entries on each side),
+@copy2 implies the equation
+#eqn[
+  $
+  (a_1 + mu)(a_2 + 2mu) dots.c (c_4 + 12 mu)
+  = & (#rbox($a_4$) + mu)(a_2 + 2mu)(a_3 + 3mu)(#rbox($c_3$) + 4mu) \
+  &(b_1 + 5mu)(#bbox($c_1$) + 6mu)(b_3 + 7mu)(b_4 + 8mu) \
+  &(#bbox($b_2$) + 9mu)(c_2 + 10mu)(c_3 + 11mu)(#rbox($a_1$) + 12mu).
+  $
+  <copy3>
+]
+At first, this might seem like @copy3 is weaker than @copy2.
+But we've seen many times that, when one takes random challenges,
+we can get almost equivalence, and this happens here too.
+#lemma[
+  If @copy2 is true, then @copy3 is true.
+  Conversely, if @copy2 is not true,
+  then @copy3 will also fail for all but at most $3n-1$ values of $mu$.
+]
+#proof[
+  The first half is obvious.
+  For the second half, note that both sides of @copy3
+  are polynomials of degree $3n$ in $mu$,
+  but they are not the same polynomial;
+  hence their difference can vanish in at most $3n-1$ points.
+]
+So as long as we take $mu$ randomly,
+we can treat @copy3 as basically equivalent to @copy1.
+
+Now how can the prover establish @copy3 succinctly?
+This is another clever trick:
+first rearrange the $12$ terms @copy3 so that,
+rather than shuffling the variables the tags as shown below:
+#eqn[
+  $
+  (a_1 + mu)(a_2 + 2mu) dots.c (c_4 + 12 mu)
+  = & (a_1 + #rbox($12 mu$))(a_2 + 2mu)(a_3 + 3mu)(a_4 + #rbox($mu$)) \
+  &(b_1 + 5mu)(b_2+ #bbox($9 mu$))(b_3 + 7mu)(b_4 + 8mu) \
+  &(b_1 + #bbox($6 mu$))(c_2 + 10mu)(c_3 + 11mu)(c_4 + #rbox($4 mu$)).
+  $
+  <copy4>
+]
