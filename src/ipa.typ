@@ -252,7 +252,7 @@ of at most $1/q$ if $arrow(a) != arrow(a)'$.
 
 == Using IPA for polynomial commitments <ipa-poly>
 
-Suppose now $P(T) = sum a_i T^(i-1)$ is given polynomial.
+Suppose now $P(X) = sum a_i X^(i-1)$ is a given polynomial.
 Then Penny can use IPA to commit the polynomial $P$ as follows:
 
 - Penny publishes Pedersen commitment of the coefficients of $P$;

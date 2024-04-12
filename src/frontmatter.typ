@@ -43,8 +43,8 @@ We don't assume specialized knowledge like elliptic curve magic.
   In these notes, $q$ is usually a globally known large prime,
   often $q approx 2^256$.
 
-- $FF_q [T]$ denotes the ring of univariate polynomials
-  with coefficients in $FF_q$ in a single formal variable $T$.
+- $FF_q [X]$ denotes the ring of univariate polynomials
+  with coefficients in $FF_q$ in a single formal variable $X$.
   More generally, $FF_q [T_1, ..., T_n]$ denotes the ring of
   polynomials in the $n$ formal variables $T_1$, ..., $T_n$.
   We'll prefer capital Roman letters for both polynomials and formal variables.

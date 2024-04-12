@@ -7,7 +7,7 @@
 
 For this section, one can use any polynomial commitment scheme one prefers.
 So we'll introduce the notation $Com(P)$ for the commitment of a polynomial
-$P(T) in FF_q [T]$, with the understanding that either KZG, IPA, or something
+$P(X) in FF_q [X]$, with the understanding that either KZG, IPA, or something
 else could be in use here.
 
 == Arithmetization <arith-intro>
@@ -105,8 +105,8 @@ Let's now explain how each step works.
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
-Then, by polynomial interpolation, Penny constraints polynomials $A(T)$, $B(T)$,
-and $C(T)$ in $FF_q [T]$ each of degree $n-1$ such that
+Xhen, by polynomial interpolation, Penny constraints polynomials $A(X)$, $B(X)$,
+and $C(X)$ in $FF_q [X]$ each of degree $n-1$ such that
 $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
   " for all " i = 1, 2, ..., n. $
 (We'll explain next section why we like powers of $omega$.)
@@ -120,7 +120,7 @@ that can later be "opened" at any value $x in FF_q$.
 == Step 2: Proving the gate constraints
 
 Both Penny and Victor knows the PLONK instance, so they can interpolate a polynomial
-$Q_L(T) in FF_q [T]$ of degree $n-1$ such that
+$Q_L(X) in FF_q [X]$ of degree $n-1$ such that
 $ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., n. $
 Then the analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
 are defined in the same way.
@@ -133,20 +133,20 @@ $ Q_L (x) A_i (x) + Q_R (x) B_i (x) + Q_O (x) C_i (x)
 
 is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
 However, that's equivalent to the _polynomial_
-$ Q_L (T) A_i (T) + Q_R (T) B_i (T) + Q_O (T) C_i (T)
-  + Q_M (T) A_i (T) B_i (T) + Q_C (T) in FF_q [T] $
+$ Q_L (X) A_i (X) + Q_R (X) B_i (X) + Q_O (X) C_i (X)
+  + Q_M (X) A_i (X) B_i (X) + Q_C (X) in FF_q [X] $
 being divisible by the degree $n$ polynomial
-$ Z(T) = (T-omega)(T-omega^2) ... (T-omega^n) = T^n - 1. $
+$ Z(X) = (X-omega)(X-omega^2) ... (X-omega^n) = X^n - 1. $
 (And now it's revealed why we liked powers of $omega$: it makes the $Z$
 polynomial really simple.
 In fact, $n$ is often taken to be a power of $2$ to make evaluation
 of $Z$ even easier.)
 
 In other words, it suffices for Penny to convince Victor that there
-is a polynomial $H(T) in FF_q [T]$ such that
+is a polynomial $H(X) in FF_q [X]$ such that
 #eqn[
-  $ Q_L (T) A_i (T) &+ Q_R (T) B_i (T) + Q_O (T) C_i (T) \
-    &+ Q_M (T) A_i (T) B_i (T) + Q_C (T) = Z(T) H(T). $
+  $ Q_L (X) A_i (X) &+ Q_R (X) B_i (X) + Q_O (X) C_i (X) \
+    &+ Q_M (X) A_i (X) B_i (X) + Q_C (X) = Z(X) H(X). $
   <plonkpoly>
 ]
 
@@ -159,11 +159,11 @@ or there are at most $3n-4$ values for which it's true
 (two different polynomials of degree $3(n-1)$ can agree at up to $3n-4$ points).
 
 #algorithm("Proving PLONK satisfies the gate constraints")[
-  1. Penny computes $H(T) in FF_q [T]$ using polynomial long division
+  1. Penny computes $H(X) in FF_q [X]$ using polynomial long division
     and sends $Com(H)$ to Victor.
   2. Victor picks a random challenge $lambda in FF_q$.
   3. Penny opens all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at $lambda$.
-  4. Victor accepts if and only if @plonkpoly is true at $T = lambda$.
+  4. Victor accepts if and only if @plonkpoly is true at $X = lambda$.
 ]
 
 == Step 3: Proving the copy constraints
@@ -175,7 +175,7 @@ Then we explain how to deal with the full copy check.
 
 === (Optional) Permutation check
 
-Let's suppose we have polynomials $P, Q in FF_q [T]$
+Let's suppose we have polynomials $P, Q in FF_q [X]$
 which are encoding two vectors of values
 $ arrow(p) &= angle.l P(omega^1), P(omega^2), ..., P(omega^n) angle.r \
   arrow(q) &= angle.l Q(omega^1), Q(omega^2), ..., Q(omega^n) angle.r. $

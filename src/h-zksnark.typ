@@ -14,7 +14,7 @@ The dependency chart of this chapter goes as follows:
 - @kzg and @ipa give two different *polynomial commitment schemes*,
   which allow a prover Peggy to
 
-  - commit to some polynomial $P(T) in FF_q [T]$ ahead of time,
+  - commit to some polynomial $P(X) in FF_q [X]$ ahead of time,
   - and then *open the commitment* at any input $z in FF_q$ while not revealing $P$ itself.
 
   The KZG scheme from @kzg is quite simple and elegant but requires a trusted setup.

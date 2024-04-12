@@ -6,7 +6,7 @@
 
 The goal of the KZG commitment schemes is to have the following API:
 
-- Penny has a secret polynomial $P(T) in FF_q [T]$.
+- Penny has a secret polynomial $P(X) in FF_q [X]$.
 - Penny sends a short "commitment" to the polynomial (like a hash).
 - This commitment should have the additional property that
   Penny should be able to "open" the commitment at any $z in FF_q$.
@@ -101,7 +101,7 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
 
 == The KZG commitment scheme
 
-Penny has a polynomial $P(T) in FF_p [T]$.
+Penny has a polynomial $P(X) in FF_p [X]$.
 To commit to it:
 
 #algorithm("Creating a KZG commitment")[
@@ -113,8 +113,8 @@ Now consider an input $z in FF_p$; Victor wants to know the value of $P(z)$.
 If Penny wishes to convince Victor that $P(z) = y$, then:
 
 #algorithm("Opening a KZG commitment")[
-  1. Penny does polynomial division to compute $Q(T) in FF_q [T]$ such that
-    $ P(T)-y = (T-z) Q(T). $
+  1. Penny does polynomial division to compute $Q(X) in FF_q [X]$ such that
+    $ P(X)-y = (X-z) Q(X). $
   2. Penny computes and sends Victor $[Q(s)]$,
     which again she can compute from the globally known $[s^i]$.
   3. Victor verifies by checking
@@ -135,7 +135,7 @@ Since $s$ is a secret nobody knows, there isn't any known way to do this.
 == Multi-openings
 
 To reveal $P$ at a single value $z$, we did polynomial division
-to divide $P(T)$ by $T-z$.
+to divide $P(X)$ by $X-z$.
 But there's no reason we have to restrict ourselves to linear polynomials;
 this would work equally well with higher-degree polynomials,
 while still using only a single 256-bit for the proof.
@@ -144,7 +144,7 @@ For example, suppose Penny wanted to prove that
 $P(1) = 100$, $P(2) = 400$, ..., $P(9) = 8100$.
 Then she could do polynomial long division to get a polynomial $Q$
 of degree $deg(P) - 9$ such that
-$ P(T) - 100T^2 = (T-1)(T-2) ... (T-9) dot Q(T). $
+$ P(X) - 100X^2 = (T-1)(T-2) ... (T-9) dot Q(T). $
 Then Penny sends $[Q(s)]$ as her proof, and the verification equation is that
 $ pair([Q(s)], [(s-1)(s-2) ... (s-9)]) = pair([P(s)] - 100[s^2], [1]). $
 
@@ -155,10 +155,10 @@ To spell this out, suppose Penny wishes to prove to Victor that
 $P(z_i) = y_i$ for $1 <= i <= n$.
 
 #algorithm[Opening a KZG commitment at $n$ values][
-  1. By Lagrange interpolation, both parties agree on a polynomial $f(T)$
+  1. By Lagrange interpolation, both parties agree on a polynomial $f(X)$
     such that $f(z_i) = y_i$.
-  2. Penny does polynomial long division to get $Q(T)$ such that
-    $ P(T) - f(T) = (T-z_1)(T-z_2) ... (T-z_n) dot Q(T). $
+  2. Penny does polynomial long division to get $Q(X)$ such that
+    $ P(X) - f(X) = (X-z_1)(X-z_2) ... (X-z_n) dot Q(X). $
   3. Penny sends the single element $[Q(s)]$ as her proof.
   4. Victor verifies
     $ pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) = pair([P(s)] - [f(s)], [1]). $
