@@ -20,20 +20,15 @@ The goal of the KZG commitment schemes is to have the following API:
 
 == Elliptic curve setup done once
 
-For this scheme we need an elliptic curve $E$ and a fixed generator $g$ of it,
-as well as some additional points on the curve.
 The good news is that this can be done just once, period.
 After that, anyone in the world can use the published data to run this protocol.
 
+For concreteness, $E$ will be the BN256 curve and $g$ a fixed generator.
+
 === The notation $[n]$
 
-Fix $E$ as in @notation and a globally known generator $g in E$.
-For $n in ZZ$ define
-$ [n] := n dot g in E. $
-The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
-You can almost think of the notation as an "armor" on the integer $n$:
-it conceals the integer, but still allows us to perform (armored) addition:
-$ [a+b] = [a] + [b]. $
+We retain the notation $[n] := n dot g in E$ defined in @armor,
+so $[bullet] : FF_q -> E$ is linear.
 
 === Pairing
 
@@ -43,7 +38,7 @@ $[a b]$ given $[a]$ and $[b]$.
 But we work around this with a so-called _pairing_, defined a bit later.
 
 On the curve $E$ one needs a *pairing* which is a nondegenerate bilinear function
-$ "pair" : E times E -> ZZ slash N ZZ $
+$ pair : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
 One example of a construction is the so-called
 #link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing").

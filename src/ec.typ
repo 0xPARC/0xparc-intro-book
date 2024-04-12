@@ -106,33 +106,20 @@ In these notes, this isomorphism will basically be a standing assumption;
 so moving forward, as described in @notation we'll abuse notation slightly
 and just write $E$ instead of $E(FF_p)$.
 
-#remark[Other choices of curves][
-  Here is the general situation for other curves:
-  we could have chosen for $E$ any equation of the form
-  $Y^2 = X^3 + a X + b$ and chosen any prime $p >= 5$
-  such that a nondegeneracy constraint $4a^3 + 27b^2 equiv.not 0 mod p$ holds.
-  In such a situation, $E(FF_p)$ will indeed be an abelian group
-  (once the identity element $(0, oo)$ is added in).
+=== We treat $FF_q$ as the field of scalars henceforth
 
-  There is a theorem called
-  #link("https://w.wiki/9jhi", "Hasse's theorem") that states
-  the number of points in $E(FF_p)$ is between $p+1-2sqrt(p)$ and $p+1+2sqrt(p)$.
-  However, if we pick $a$, $b$, $p$ arbitrarily,
-  there is no promise that $E(FF_p)$ will be _prime_;
-  consequently, it may not be a cyclic group either.
-  So among many other considerations,
-  the choice of constants in BN254 is engineered to get a prime order.
+Consequently --- and this is important ---
+*one should actually think of $FF_q$ as the base field
+for all our cryptographic primitives*
+(despite the fact that the coordinates of our points are in $FF_p$).
 
-  There are other curves used in practice for which $E(FF_p)$
-  is not a prime, but rather a small multiple of a prime.
-  The popular #link("https://w.wiki/9jhp", "Curve25519") is such a curve.
-  Curve25519 is defined as $Y^2 = X^3 + 486662X^2 + X$ over $FF_p$
-  for the prime $p := 2^(255)-19$.
-  Its order is actually $8$ times a large prime
-  $q' := 2^(252) + 27742317777372353535851937790883648493$.
-  In that case, to generate a random point on Curve25519 with order $q'$,
-  one will usually take a random point in it and multiply it by $8$.
-]
+Whenever we talk about protocols, and there are any sorts of
+"numbers" or "scalars" in the protocol,
+*these scalars are always going to be elements of $FF_q$*.
+Since $q approx 2^(254)$,
+that means we are doing something like $256$-bit integer arithmetic.
+This is why the baby Jubjub prime $q$ gets a special name,
+while the prime $p$ is unnamed and doesn't get any screen-time later.
 
 === For later: BN254 is also pairing-friendly
 
@@ -163,7 +150,7 @@ In other words, if one only
 sees $g in E$ and $n dot g in E$, one cannot find $n$.
 For cryptography, we generally assume $g$ has order $q$,
 so we will talk about $n in NN$ and $n in FF_q$ interchangeably.
-In other words, $n$ will generally be thought of as being up to $2^(256)$ in size.
+In other words, $n$ will generally be thought of as being up to $2^(254)$ in size.
 
 #remark[The name "discrete log"][
   This problem is called discrete log because if one used multiplicative notation
@@ -189,19 +176,109 @@ $
 and then computes
 $ 400g = 256g + 128g + 16g. $
 
-Because we think of $n$ as up to $2^(256)$-ish in size,
+Because we think of $n$ as up to $q approx 2^(254)$-ish in size,
 we consider $O(log n)$ operations like this to be quite tolerable.
+
+== Curves other than BN254
+
+We comment briefly on how the previous two sections adapt to other curves,
+although readers could get away with always assuming $E$ is BN254 if they prefer.
+
+In general, we could have chosen for $E$ any equation of the form
+$Y^2 = X^3 + a X + b$ and chosen any prime $p >= 5$
+such that a nondegeneracy constraint $4a^3 + 27b^2 equiv.not 0 mod p$ holds.
+In such a situation, $E(FF_p)$ will indeed be an abelian group
+once the identity element $O = (0, oo)$ is added in.
+
+How large is $E(FF_p)$?
+There is a theorem called
+#link("https://w.wiki/9jhi", "Hasse's theorem") that states
+the number of points in $E(FF_p)$ is between $p+1-2sqrt(p)$ and $p+1+2sqrt(p)$.
+But there is no promise that $E(FF_p)$ will be _prime_;
+consequently, it may not be a cyclic group either.
+So among many other considerations,
+the choice of constants in BN254 is engineered to get a prime order.
+
+There are other curves used in practice for which $E(FF_p)$
+is not a prime, but rather a small multiple of a prime.
+The popular #link("https://w.wiki/9jhp", "Curve25519") is such a curve
+that is also believed to satisfy @ddh.
+Curve25519 is defined as $Y^2 = X^3 + 486662X^2 + X$ over $FF_p$
+for the prime $p := 2^(255)-19$.
+Its order is actually $8$ times a large prime
+$q' := 2^(252) + 27742317777372353535851937790883648493$.
+In that case, to generate a random point on Curve25519 with order $q'$,
+one will usually take a random point in it and multiply it by $8$.
+(However, Curve25519 is not pairing-friendly, so it can't be used for @kzg.)
 
 == Example application: EdDSA signature scheme <eddsa>
 
 We'll show how @ddh can be used to construct a signature scheme that replaces RSA.
-This scheme is called #link("https://w.wiki/4usy", "EdDSA").
+This scheme is called #link("https://w.wiki/4usy", "EdDSA"),
+and it's used quite frequently (e.g. in OpenSSH and GnuPG).
+One advantage it has over RSA is that its key size is much smaller:
+both the public and private key are 256 bits.
+(In contrast, RSA needs 2048-4069 bit keys for comparable security.)
 
+=== The notation $[n]$ <armor>
 
+Let $E$ be an elliptic curve and let $g in E$
+be a fixed point on it of prime order $q approx 2^(254)$.
+For $n in ZZ$ (equivalently $n in FF_q$) we define
+$ [n] := n dot g in E. $
+
+The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
+You can almost think of the notation as an "armor" on the integer $n$:
+it conceals the integer, but still allows us to perform (armored) addition:
+$ [a+b] = [a] + [b]. $
+In other words, $n |-> [n]$ viewed as a map $FF_q -> E$ is $FF_q$-linear.
+
+=== Signature scheme
+
+So now suppose Alice wants to set up a signature scheme.
+
+#algorithm[EdDSA public and secret key][
+  1. Alice picks a random integer $d in FF_q$ as her *secret key*.
+  2. Alice publishes $[d] in E$ as her *public key*.
+]
+
+Now suppose Alice wants to prove her identity to Bob,
+given her published public key $[d]$.
+
+#algorithm[EdDSA signature][
+  Suppose Alice wants to sign a message $msg$.
+
+  1. Alice picks a random scalar $lambda in FF_q$ (keeping this secret)
+    and publishes $[lambda] in E$.
+  2. Alice generates a number $n in FF_q$ by hashing $msg$ with all public information,
+    say $ n := sha([lambda], msg, [d]). $
+  3. Alice publishes the integer $ s := (lambda + d n) mod q. $
+
+  In other words, the signature is the ordered pair $([lambda], s)$.
+  For Bob to verify the signature:
+
+  4. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.
+  5. Bob verifies that $[lambda] + n dot [d] = [s]$.
+]
+
+An adversary cannot forge the signature even if they know $lambda$ and $n$.
+Indeed, such an adversary can compute what the point $[s] = [lambda] + n [d]$
+should be, but without knowledge of $d$ they cannot get the integer $s$,
+due to @ddh.
+
+The number $lambda$ is called a *blinding factor* because
+its use prevents Bob from stealing Alice's secret key $d$ from the published $s$.
+It's therefore imperative that $lambda$ isn't known to Bob
+nor reused between signatures, and so on.
+One way to do this would be to pick $lambda = sha(d, msg)$; this has the
+bonus that it's deterministic as a function of the message and signer.
+
+In @kzg we will use ideas quite similar to this to
+build the KZG commitment scheme.
 
 == Example application: Pedersen commitments <pedersen>
 
-One other corollary of @ddh is that if $g_1, ..., g_n in E$
+A multivariable corollary of @ddh is that if $g_1, ..., g_n in E$
 are a bunch of randomly chosen points of $E$ with order $q$,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
