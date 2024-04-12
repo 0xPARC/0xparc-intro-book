@@ -209,7 +209,7 @@ who doesn't want to spend the $O(n^3)$ time it would take to count it himself.
 
 #proposition[
   It's possible for Penny to prove her count of the number
-  of triangles is correct with only $O(n^2 log n)$ work for Vicrtor.
+  of triangles is correct with only $O(n^2 log n)$ work for Victor.
 ]
 
 Note that Victor will always need at least $O(n^2)$ time

@@ -5,6 +5,11 @@
 This entire chapter describes the first construction to PCP's.
 You can think of it as "really long example of sum-check application".
 
+Notational change: in this section, $q$ is a known prime,
+but it is not on the order of $2^(256)$.
+In fact, as discussed in the later @q-small-pcp,
+we actually prefer $q$ to be pretty small.
+
 == Pitch: How to grade papers without reading them
 
 Imagine that Penny has a long proof of some mathematical theorem, and Victor wants to verify it.
@@ -155,8 +160,7 @@ He's fine receiving lots of stuff in the mail; he just doesn't want to read it.
 
   For our protocol to work, we do need $q$ to be modestly large,
   but its size will turn out to be around $(log N E)^O(1)$.
-]
-
+] <q-small-pcp>
 
 == Description of the toy PCP protocol for Quad-SAT
 

@@ -77,11 +77,11 @@ So this gives us a way to _verify_ two-by-two multiplication.
   the pairing is only used by the _verifier_ Victor, never by the prover Penny.
 ]
 
-#remark[Multilinear pairings are open][
+#remark[We don't know how to do multilinear pairings][
   On the other hand, we currently don't seem to know a good
   way to do _multilinear_ pairings.
   For example, we don't know a good trilinear map
-  $E times E times E -> ZZ slash n ZZ$
+  $E times E times E -> ZZ slash N ZZ$
   that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
   (without already knowing one of $[a b]$, $[b c]$, $[c a]$).
 ]

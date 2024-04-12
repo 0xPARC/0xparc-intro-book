@@ -19,5 +19,8 @@ This part is divided into two sections.
 
 - @pcp gives an overview of the first PCP constructions,
   but it's quite involved and much less enlightening.
+  It's mostly here for historical reasons and not otherwise worth reading.
 
-Elliptic curves will not be used in this part at all.
+Elliptic curves will not be used in this part at all;
+in fact, these two chapters are self-contained and don't depend on earlier parts
+of these lecture notes.
