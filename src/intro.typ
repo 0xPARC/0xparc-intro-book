@@ -2,12 +2,6 @@
 
 = Introduction
 
-#quote(attribution: [gubsheep introducing progcrypto to Evan for the first time])[
-  Evan, I can now prove to you that I have a message $M$ such that
-  $op("sha256")(M) = "0xa948904f..."$, without revealing $M$.
-  But not just for SHA. I can do this for any function you want.
-]
-
 == What is programmable cryptography?
 
 Cryptography is everywhere now and needs no introduction.
@@ -43,10 +37,13 @@ To draw an analogy, it's sort of like going from older single-purpose hardware,
 like a digital alarm clock or thermostat,
 to having a general-purpose device like a smartphone which can
 do any computation so long as someone writes code for it.
-The quote shown at the start of this section about SHA256 is a concrete example;
+
+The quote on the title page
+("I have a message $M$ such that $op("sha256")(M) = "0xa948904f..."$")
+is a concrete example;
 the hash function SHA256 is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
-without having to invent a "new" algorithm per function.
+using a general compiler rather than inventing an algorithm specific to SHA256.
 
 #todo[Brian's image of an alarm clock and a computer chip]
 
