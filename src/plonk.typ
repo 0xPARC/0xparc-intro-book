@@ -1,7 +1,7 @@
 #import "preamble.typ":*
 
 #let rbox(s) = [#text(red)[#ellipse(stroke: red, inset: 2pt, s)]]
-#let bbox(s) = [#text(blue)[#ellipse(stroke: blue, inset: 2pt, s)]]
+#let bbox(s) = [#text(blue)[#rect(stroke: blue, inset: 4pt, s)]]
 
 = PLONK, a zkSNARK protocol <plonk>
 
