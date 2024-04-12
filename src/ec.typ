@@ -210,7 +210,7 @@ This scheme is called #link("https://w.wiki/4usy", "EdDSA"),
 and it's used quite frequently (e.g. in OpenSSH and GnuPG).
 One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
-(In contrast, RSA needs 2048-4069 bit keys for comparable security.)
+(In contrast, RSA needs 2048-4096 bit keys for comparable security.)
 
 === The notation $[n]$ <armor>
 
