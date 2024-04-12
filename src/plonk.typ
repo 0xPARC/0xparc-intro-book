@@ -334,6 +334,9 @@ So, the copy constraint means we want the following equality of matrices:
 Again, our goal is to make this into a _single_ equation.
 There's a really clever way to do this by tagging each entry with $+ j omega^k mu$
 in reading order for $j = 1, 2, 3$ and $k = 1, ..., n$.
+(This assumes that none of $2$, $3$ or $2/3$ are unlucky enough
+to be powers of $omega$; if not, replace $2$ and $3$ with $eta$ and $eta^2$
+for some $eta$ such that $eta^2$ is not a power of $omega$.)
 Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 #eqn[
   $
