@@ -332,24 +332,23 @@ So, the copy constraint means we want the following equality of matrices:
   <copy1>
 ]
 Again, our goal is to make this into a _single_ equation.
-There's a really clever way to do this by tagging each entry with $+ j omega^k mu$
-in reading order for $j = 1, 2, 3$ and $k = 1, ..., n$.
-(This assumes that none of $2$, $3$ or $2/3$ are unlucky enough
-to be powers of $omega$; if not, replace $2$ and $3$ with $eta$ and $eta^2$
-for some $eta$ such that $eta^2$ is not a power of $omega$.)
+There's a really clever way to do this by tagging each entry with $+ eta^j omega^k mu$
+in reading order for $j = 0, 1, 2$ and $k = 1, ..., n$;
+here $eta in FF_q$ is any number such that $eta^2$ doesn't happen to be a power of $omega$,
+so all the tags are distinct.
 Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 #eqn[
   $
   & mat(
     a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
-    b_1 + 2 omega^1 mu, b_2 + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4 mu;
-    c_1 + 3 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + 3 omega^4 mu;
+    b_1 + eta omega^1 mu, b_2 + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4 mu;
+    c_1 + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + eta^2 omega^4 mu;
   ) \
   =&
   mat(
     #rbox($a_4$) + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, #rbox($c_3$) + omega^4 mu;
-    b_1 + 2 omega^1 mu, #bbox($c_1$) + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4 mu;
-    #bbox($b_2$) + 2 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, #rbox($a_1$) + 3 omega^4 mu;
+    b_1 + eta omega^1 mu, #bbox($c_1$) + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4 mu;
+    #bbox($b_2$) + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, #rbox($a_1$) + eta^2 omega^4 mu;
   )
   .
   $
@@ -370,14 +369,14 @@ so that each variable is in the cell it started at:
   $
   "Want to prove" & mat(
     a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
-    b_1 + 2 omega^1 mu, b_2 + 2 omega^2 mu, b_3 + 2 omega^3 mu, b_4 + 2 omega^4  mu;
-    c_1 + 2 omega^1 mu, c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + 3 omega^4 mu;
+    b_1 + eta omega^1 mu, b_2 + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4  mu;
+    c_1 + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + eta^2 omega^4 mu;
   ) \
   "is a permutation of" &
   mat(
-  a_1 + #rbox($3 omega^4 mu$), a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + #rbox($omega^1 mu$) ;
-  b_1 + 2 omega^1 mu, b_2+ #bbox($3 omega^1 mu$), b_3 + 2 omega^3 mu, b_4 + 2 omega^4  mu ;
-  b_1 + #bbox($2 omega^2 mu$), c_2 + 3 omega^2 mu, c_3 + 3 omega^3 mu, c_4 + #rbox($omega^4 mu$)
+  a_1 + #rbox($eta^2 omega^4 mu$), a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + #rbox($omega^1 mu$) ;
+  b_1 + eta omega^1 mu, b_2+ #bbox($eta^2 omega^1 mu$), b_3 + eta omega^3 mu, b_4 + eta omega^4  mu ;
+  b_1 + #bbox($eta omega^2 mu$), c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + #rbox($omega^4 mu$)
   )
   .
   $
@@ -389,17 +388,17 @@ $sigma_a, sigma_b, sigma_c$ that encode the weird coefficients row-by-row:
 $
   mat(
     delim: #none,
-    sigma_a (omega^1) = #rbox($3 omega^4$),
+    sigma_a (omega^1) = #rbox($eta^2 omega^4$),
     sigma_a (omega^2) = omega^2,
     sigma_a (omega^3) = omega^3,
     sigma_a (omega^4) = #rbox($omega^1$) ;
-    sigma_b (omega^1) = 2omega^1,
-    sigma_b (omega^2) = #bbox($3 omega^1$),
-    sigma_b (omega^3) = 2 omega^3,
-    sigma_b (omega^4) = 2 omega^4  ;
-    sigma_c (omega^1) = #bbox($2 omega^2$),
-    sigma_c (omega^2) = 3 omega^2,
-    sigma_c (omega^3) = 3 omega^3,
+    sigma_b (omega^1) = eta omega^1,
+    sigma_b (omega^2) = #bbox($eta^2 omega^1$),
+    sigma_b (omega^3) = eta omega^3,
+    sigma_b (omega^4) = eta omega^4  ;
+    sigma_c (omega^1) = #bbox($eta omega^2$),
+    sigma_c (omega^2) = eta^2 omega^2,
+    sigma_c (omega^3) = eta^2 omega^3,
     sigma_c (omega^4) = #rbox($omega^4$).
   )
 $
@@ -411,8 +410,8 @@ The ones on the left-hand side are interpolated so that
 #eqn[
   $
     F_a (omega^k) &= product_(i <= k) (a_i + omega^i mu + lambda) \
-    F_b (omega^k) &= product_(i <= k) (b_i + 2 omega^i mu + lambda) \
-    F_c (omega^k) &= product_(i <= k) (c_i + 3 omega^i mu + lambda) \
+    F_b (omega^k) &= product_(i <= k) (b_i + eta omega^i mu + lambda) \
+    F_c (omega^k) &= product_(i <= k) (c_i + eta^2 omega^i mu + lambda) \
   $
   <copycheck-left>
 ]
@@ -430,8 +429,8 @@ There are six initialization conditions
 #eqn[
   $
     F_a (omega^1) &= A(omega^1) + omega^1 mu + lambda \
-    F_b (omega^1) &= B(omega^1) + 2 omega^1 mu + lambda \
-    F_c (omega^1) &= C(omega^1) + 3 omega^1 mu + lambda \
+    F_b (omega^1) &= B(omega^1) + eta omega^1 mu + lambda \
+    F_c (omega^1) &= C(omega^1) + eta^2 omega^1 mu + lambda \
     F_a (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
     F_b (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
     F_c (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
