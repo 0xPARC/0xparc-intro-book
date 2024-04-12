@@ -33,6 +33,9 @@
 #chapter("src/h-mpc.typ")
 #chapter("src/mpc.typ")
 
+#part[Fully homomorphic encryption]
+#chapter("src/h-fhe.typ")
+
 #part[Appendix: Classical PCP]
 #chapter("src/h-classical-pcp.typ")
 #chapter("src/sumcheck.typ")
