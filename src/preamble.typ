@@ -2,6 +2,10 @@
 #let sha = math.op("hash")
 #let msg = math.sans("msg")
 #let Com = math.op("Com")
+#let Flatten = math.op("Flatten")
+#let Enc = math.op("Enc")
+#let pk = math.sans("pk")
+#let sk = math.sans("sk")
 
 // https://github.com/vEnhance/dotfiles/blob/main/typst/packages/local/evan/1.0.0/evan.typ
 #import "@preview/ctheorems:1.1.2": *
@@ -51,10 +55,12 @@
 #let proof = thmproof("proof", "Proof")
 
 #let assumption = thmbox("main", "Assumption", fill: rgb("#eeeeaa"), base_level: 1)
+#let goal = thmbox("main", "Goal", fill: rgb("#eeeeaa"), base_level: 1)
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
 }
+#let pmod(x) = $space (mod #x)$
 
 // Main entry point to use in a global show rule
 #let evan(
