@@ -342,7 +342,7 @@ So now suppose Alice wants to set up a signature scheme.
   2. Alice publishes $[d] in E$ as her *public key*.
 ]
 
-Now suppose Alice wants to prove her identity to Bob,
+Now suppose Alice wants to prove to Bob that she approves the message $msg$,
 given her published public key $[d]$.
 
 #algorithm[EdDSA signature generation][
@@ -389,12 +389,12 @@ $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
 Indeed, even if one fixes any choice of $2n-1$ of the $2n$ coefficients above,
 one cannot find the last coefficient.
 
-#definition[
+#definition[ 
   In these notes, if there's a globally known elliptic curve $E$
   and points $g_1, ..., g_n$ have order $q$ and no known nontrivial
   linear dependencies between them,
   we'll say they're a *computational basis over $FF_q$*.
-]
+] <comp_basis>
 
 #remark[
   This may horrify pure mathematicians because we're pretending the map

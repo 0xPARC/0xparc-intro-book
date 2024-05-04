@@ -12,7 +12,7 @@ So the roadmap is as follows:
 
 Throughout this section, $E$ is defined as in @notation,
 and there are fixed globally known generators
-$g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis.
+$g_1, ..., g_n, h_1, ..., h_n, u in E$ which are a computational basis (@comp_basis).
 
 == Pitch: IPA allows verifying $c = sum a_i b_i$ without revealing $a_i$, $b_i$, $c$ <ipa-pitch>
 
@@ -45,7 +45,9 @@ The way IPA is done is by induction:
 one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
 by verifying a vector for $n/2$ is good (of length $n+1$).
 
-#todo[Link Aard's notes.0xparc.org post that motivates the whole thing]
+To see how you might think of the idea on your own,
+check out this 
+#link("https://notes.0xparc.org/notes/pedersen-ipa", "0xPARC blog post").
 
 To illustrate the induction, we'll first show how to get from $n=2$ to $n=1$.
 So the given input to the protocol is
@@ -207,7 +209,7 @@ polynomial commitments.
 
 === Application: revealing an element of a Pedersen commitment
 
-Suppose Peggy have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
+Suppose Peggy has a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
 and a Pedersen commitment $v = sum a_i g_i$ to it.
 Suppose Peggy wishes to reveal $a_1$.
 The right way to think of this is as the dot product $arrow(a) dot arrow(b)$,

@@ -35,7 +35,8 @@ We retain the notation $[n] := n dot g in E$ defined in @armor.
 === Bilinear pairing
 
 The map $[bullet] : FF_q -> E$ is linear,
-but as written we can't do "armored multiplication":
+meaning that $[a + b] = [a] + [b]$, and $[n a] = n[a]$.
+But as written we can't do "armored multiplication":
 
 #claim[
   As far as we know, given $[a]$ and $[b]$, one cannot compute $[a b]$.
@@ -58,9 +59,9 @@ but for some reason everyone justs says *pairing* instead.
 A curve is called *pairing-friendly* if this pairing can be computed reasonably
 (e.g. BN254 is pairing-friendly, but Curve25519 is not).
 
-This construction is actually uses some really deep graduate-level number theory
+This construction actually uses some really deep graduate-level number theory
 (in contrast, all the math in @ec is within an undergraduate curriculum)
-that are well beyond the scope of these lecture notes.
+that is well beyond the scope of these lecture notes.
 Fortunately, we won't need the details of how it works;
 but we'll comment briefly in @pairing-friendly on what curves it can be done on.
 And this pairing algorithm needs to be worked out just once for the curve $E$;
@@ -98,6 +99,23 @@ Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
 This only needs to be done by a trusted party once for the curve $E$.
 Then anyone in the world can use the resulting sequence for KZG commitments.
+
+#remark[
+  The trusted party has to delete $s$ after the calculation.
+  If anybody knows the value of $s$, the protocol will be insecure.
+  The trusted party will only publish $[s^0] = [1], [s^1], ..., [s^M]$. 
+  Given these published values, it is (probably) extremely hard to recover $s$ -- 
+  this is a case of the discrete logarithm problem.
+
+  You can make the protocol somewhat more secure by involving several different trusted parties.
+  The first party chooses a random $s_1$, computes $[s_1^0], ..., [s_1^M]$, and then discards s_1.
+  The second party chooses $s_2$ and computes
+  $[(s_1 s_2)^0], ..., [(s_1 s_2)^M]$.
+  And so forth.
+  In the end, the value $s$ will be the product of the secrets $s_i$ 
+  chosen by the $i$ parties... so the only way they can break secrecy
+  is if all the "trusted parties" collaborate.
+]
 
 == The KZG commitment scheme
 
@@ -180,6 +198,27 @@ If we chose $E$ to be BN254, the following property holds:
 This integer $k$ is called the *embedding degree*.
 This section is an aside explaining how the embedding degree affects pairing.
 
-#todo[write this section, describing
-  the #link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing").
-]
+The pairing function $pair(a, b)$ takes as input two points $a, b in E$ 
+on the elliptic curve, 
+and spits out a value $pair(a, b) in FF_{p^k}^*$ -- 
+in other words, a nonzero element of the finite field of order $p^k$
+(where $k$ is the embedding degree we just defined).
+In fact, this element will always be a $q$th root of unity in $FF_{p^k}$,
+and it will satisfy $pair([m], [n]) = zeta^{m n}$, 
+where $\zeta$ is some fixed $q$th root of unity.
+The construction of the pairing is based on the 
+#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing").
+in algebraic geometry.
+How to compute these pairings is well beyond the scope of these notes;
+the raw definition is quite abstract,
+and a lot of work has gone into computing the pairings efficiently.
+(For more details, see these 
+#link("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes").)
+
+The difficulty of computing these pairings is determined by the size of $k$:
+the values $pair(a, b)$ will be elements of a field of size $p^k$,
+so they will require 256 bits even to store.
+For a curve to be "pairing-friendly" -- in order to be able to 
+do pairing-based cryptography on it -- we need the value of $k$ to be pretty small.
+
+
