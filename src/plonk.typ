@@ -17,29 +17,29 @@ Here's the problem statement:
 
 #problem[
   Suppose one had two polynomials $P_1$ and $P_2$,
-  and Penny has given commitments $Com(P_1)$ and $Com(P_2)$.
-  Penny would like to prove to Victor that, say,
+  and Peggy has given commitments $Com(P_1)$ and $Com(P_2)$.
+  Peggy would like to prove to Victor that, say,
   the equation $P_1(z) = P_2(z)$ for all $z$ in some large finite set $S$.
 ]
 
-Of course, Penny could open $Com(P_1)$ and $Com(P_2)$ at every point in $S$.
-But there are some situations in which Penny still wants to prove this
+Of course, Peggy could open $Com(P_1)$ and $Com(P_2)$ at every point in $S$.
+But there are some situations in which Peggy still wants to prove this
 without actually revealing the common values of the polynomial for any $z in S$.
-Even when $S$ is a single number (i.e. Penny wants to show $P_1$ and $P_2$ agree
+Even when $S$ is a single number (i.e. Peggy wants to show $P_1$ and $P_2$ agree
 on a single value without revealing the common value),
 it's not obvious how to do this.
 
 Well, it turns out we can basically employ the same technique as in @kzg.
-Penny just needs to show is that $P_1-P_2$
+Peggy just needs to show is that $P_1-P_2$
 is divisible by $Z(X) := product_(z in S) (X-z)$.
 This can be done by committing the quotient $H(X) := (P_1(X) - P_2(X)) / Z(X)$.
 Victor then gives a random challenge $lambda in FF_q$,
-and then Penny opens $Com(P_1)$, $Com(P_2)$, and $Com(H)$ at $lambda$.
+and then Peggy opens $Com(P_1)$, $Com(P_2)$, and $Com(H)$ at $lambda$.
 
 But we can actually do this more generally with _any_ polynomial
 expression $F$ in place of $P_1 - P_2$,
-as long as Penny has a way to prove the values of $F$ are correct.
-As an artificial example, if Penny has sent Victor $Com(P_1)$ through $Com(P_6)$,
+as long as Peggy has a way to prove the values of $F$ are correct.
+As an artificial example, if Peggy has sent Victor $Com(P_1)$ through $Com(P_6)$,
 and wants to show that
 $ P_1(42) + P_2(42) P_3(42)^4 + P_4(42) P_5(42) P_6(42) = 1337, $
 she could define $F(X) = P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) + P_6(X)$
@@ -50,15 +50,15 @@ To be fully explicit, here is the algorithm:
 
 #algorithm[Root-check][
   Assume that $F$ is a polynomial for which
-  Penny can establish the value of $F$ at any point in $FF_q$.
-  Penny wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.
+  Peggy can establish the value of $F$ at any point in $FF_q$.
+  Peggy wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.
 
   1. Both parties compute the polynomial
     $ Z(X) := product_(z in S) (X-z) in FF_q [X]. $
-  2. Penny does polynomial long division to compute $H(X) = F(X) / Z(X)$.
-  3. Penny sends $Com(H)$.
+  2. Peggy does polynomial long division to compute $H(X) = F(X) / Z(X)$.
+  3. Peggy sends $Com(H)$.
   4. Victor picks a random challenge $lambda in FF_q$
-    and asks Penny to open $Com(H)$ at $lambda$,
+    and asks Peggy to open $Com(H)$ at $lambda$,
     as well as the value of $F$ at $lambda$.
   5. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
 ] <root-check>
@@ -136,19 +136,19 @@ For PLONK, the equations are standardized further to a certain form:
 ]
 
 So the PLONK protocol purports to do the following:
-Penny and Victor have a PLONK instance given to them.
-Penny has a solution to the system of equations,
+Peggy and Victor have a PLONK instance given to them.
+Peggy has a solution to the system of equations,
 i.e. an assignment of values to each $a_i$, $b_i$, $c_i$ such that
 all the gate constraints and all the copy constraints are satisfied.
-Penny wants to prove this to Victor succinctly
+Peggy wants to prove this to Victor succinctly
 and without revealing the solution itself.
 The protocol then proceeds by having:
 
-1. Penny sends a polynomial commitment corresponding to $a_i$, $b_i$, and $c_i$
+1. Peggy sends a polynomial commitment corresponding to $a_i$, $b_i$, and $c_i$
   (the details of what polynomial are described below).
-2. Penny proves to Victor that the commitment from Step 1
+2. Peggy proves to Victor that the commitment from Step 1
   satisfies the gate constraints.
-3. Penny proves to Victor that the commitment from Step 1
+3. Peggy proves to Victor that the commitment from Step 1
   also satisfies the copy constraints.
 
 Let's now explain how each step works.
@@ -158,7 +158,7 @@ Let's now explain how each step works.
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
-Then, by polynomial interpolation, Penny chooses polynomials $A(X)$, $B(X)$,
+Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
 #eqn[
   $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
@@ -174,15 +174,15 @@ is really easy to compute.
 
 Then:
 #algorithm("Commitment step of PLONK")[
-  1. Penny interpolates $A$, $B$, $C$ as in @plonk-setup.
-  2. Penny sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
+  1. Peggy interpolates $A$, $B$, $C$ as in @plonk-setup.
+  2. Peggy sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
 ]
 To reiterate, each commitment is a 256-bit
 that can later be "opened" at any value $x in FF_q$.
 
 == Step 2: Gate-check
 
-Both Penny and Victor knows the PLONK instance,
+Both Peggy and Victor knows the PLONK instance,
 so they can interpolate a polynomial
 $Q_L(X) in FF_q [X]$ of degree $n-1$ such that
 $ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., n. $
@@ -190,7 +190,7 @@ Then the analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
 are defined in the same way.
 
 Now, what do the gate constraints amount to?
-Penny is trying to convince Victor that the equation
+Peggy is trying to convince Victor that the equation
 #eqn[
   $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x)
     + Q_M (x) A (x) B (x) + Q_C (x) = 0 $
@@ -198,7 +198,7 @@ Penny is trying to convince Victor that the equation
 ]
 is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
 
-However, Penny has committed $A$, $B$, $C$ already,
+However, Peggy has committed $A$, $B$, $C$ already,
 while all the $Q_*$ polynomials are globally known.
 So this is a direct application of @root-check:
 
@@ -206,7 +206,7 @@ So this is a direct application of @root-check:
   1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
     from the $15n$ coefficients $q_*$
     (globally known from the PLONK instance).
-  2. Penny uses @root-check to convince Victor that @plonk-gate
+  2. Peggy uses @root-check to convince Victor that @plonk-gate
     holds for $X = omega^i$
     (that is, the left-hand side is is indeed divisible by $Z(X) := X^n-1$).
 ]
@@ -219,7 +219,7 @@ $ Q_L (X) A_i (X) + Q_R (X) B_i (X) + Q_O (X) C_i (X)
 being divisible by the degree $n$ polynomial
 $ Z(X) = (X-omega)(X-omega^2) ... (X-omega^n) = X^n - 1. $
 
-In other words, it suffices for Penny to convince Victor that there
+In other words, it suffices for Peggy to convince Victor that there
 is a polynomial $H(X) in FF_q [X]$ such that
 #eqn[
   $ Q_L (X) A_i (X) &+ Q_R (X) B_i (X) + Q_O (X) C_i (X) \
@@ -228,7 +228,7 @@ is a polynomial $H(X) in FF_q [X]$ such that
 ]
 
 And this can be done using polynomial commitments pretty easily:
-Penny should send $Com(H)$,
+Peggy should send $Com(H)$,
 and then Victor just verifies @plonkpoly at random values in $FF_q$.
 As both sides are polynomials of degree up to $3(n-1)$,
 either the equation holds for every input
@@ -236,9 +236,9 @@ or there are at most $3n-4$ values for which it's true
 (two different polynomials of degree $3(n-1)$ can agree at up to $3n-4$ points).
 
 #algorithm("Proving PLONK satisfies the gate constraints")[
-  1. Penny computes $H(X) in FF_q [X]$ using polynomial long division
+  1. Peggy computes $H(X) in FF_q [X]$ using polynomial long division
     and sends $Com(H)$ to Victor.
-  2. Victor picks a random challenge and asks Penny to open
+  2. Victor picks a random challenge and asks Peggy to open
     all of $Com(A)$, $Com(B)$, $Com(C)$, $Com(H)$ at that challenge.
   3. Victor accepts if and only if @plonkpoly is true at the random challenge.
 ]
@@ -276,7 +276,7 @@ then the two sides can have at most $n-1$ common values.
 We can then get a proof of @permcheck-poly
 using the technique of adding an _accumulator polynomial_.
 The idea is this: Victor picks a random challenge $lambda in FF_q$.
-Penny then interpolates the polynomial $F_P in FF_q [T]$ such that
+Peggy then interpolates the polynomial $F_P in FF_q [T]$ such that
 $
   F_P (omega^1) &= lambda + P(omega^1) \
   F_P (omega^2) &= (lambda + P(omega^1))(lambda + P(omega^2)) \
@@ -288,14 +288,14 @@ Then the accumulator $F_Q in FF_q[T]$ is defined analogously.
 So to proev @permcheck-poly, the following algorithm works:
 
 #algorithm[Permutation-check][
-  Suppose Penny has committed $Com(P)$ and $Com(Q)$.
+  Suppose Peggy has committed $Com(P)$ and $Com(Q)$.
 
   1. Victor sends a random challenge $lambda in FF_q$.
-  2. Penny interpolates polynomials $F_P [T]$ and $F_Q [T]$
+  2. Peggy interpolates polynomials $F_P [T]$ and $F_Q [T]$
     such that $F_P (omega^k) = product_(i <= k) (lambda + P(omega^i))$.
     Define $F_Q$ similarly.
-    Penny sends $Com(F_P)$ and $Com(F_Q)$.
-  3. Penny uses @root-check to prove all of the following statements:
+    Peggy sends $Com(F_P)$ and $Com(F_Q)$.
+  3. Peggy uses @root-check to prove all of the following statements:
 
     - $F_P (X) - (lambda + P(X))$
       vanishes at $X = omega$;
@@ -462,13 +462,13 @@ To summarize, the copy-check goes as follows:
   1. Both parties compute the degree $n-1$ polynomials
     $sigma_a, sigma_b, sigma_c in FF_q [X]$ described above,
     based on the copy constraints in the problem statement.
-  2. Victor chooses random challenges $mu, lambda in FF_q$ and sends them to Penny.
-  3. Penny interpolates the six accumulator polynomials $F_a$, ..., $F'_c$ defined
+  2. Victor chooses random challenges $mu, lambda in FF_q$ and sends them to Peggy.
+  3. Peggy interpolates the six accumulator polynomials $F_a$, ..., $F'_c$ defined
     in @copycheck-left and @copycheck-right.
-  4. Penny uses @root-check to prove @copycheck-init holds.
-  5. Penny uses @root-check to prove @copycheck-accum holds
+  4. Peggy uses @root-check to prove @copycheck-init holds.
+  5. Peggy uses @root-check to prove @copycheck-accum holds
     for $X in {omega, omega^2, ..., omega^(n-1)}$.
-  6. Penny uses @root-check to prove @copycheck-final holds.
+  6. Peggy uses @root-check to prove @copycheck-final holds.
 ]
 
 == Public and private witnesses

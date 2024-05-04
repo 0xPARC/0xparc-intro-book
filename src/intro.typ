@@ -5,7 +5,7 @@
 == What is programmable cryptography?
 
 Cryptography is everywhere now and needs no introduction.
-"Programmable cryptography" is a term coined by 0xPARC for a second-generation
+"Programmable cryptography" is a term coined by 0xPARC for a second generation
 of cryptographic primitives that have arisen in the last 15 or so years.
 
 To be concrete, let's consider two examples of what protocols designed by

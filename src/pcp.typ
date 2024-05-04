@@ -12,7 +12,7 @@ we actually prefer $q$ to be pretty small.
 
 == Pitch: How to grade papers without reading them
 
-Imagine that Penny has a long proof of some mathematical theorem, and Victor wants to verify it.
+Imagine that Peggy has a long proof of some mathematical theorem, and Victor wants to verify it.
 _A priori_, this would require Victor to actually read every line of the proof.
 As anyone who has experience grading students knows, that's a whole lot of work.
 A lazy grader might try to save time by only "spot checking"
@@ -22,7 +22,7 @@ all you have to do is make a single wrong step somewhere
 and hope that particular step is not one of the ones examined by Victor.
 
 A probabilistically checkable proof is a way to try to circumvent this issue.
-It provides a protocol where Penny can format her proof such that
+It provides a protocol where Peggy can format her proof such that
 Victor can get high-probability confidence of its confidence
 by only checking $K$ bits of the proof at random, for some absolute constant $K$.
 This result is one part of the _PCP theorem_ which is super famous.
@@ -51,21 +51,21 @@ but the elephant in the room is that we needed to make a call to a polynomial or
 Just one call, which we denoted $P(r_1, ..., r_n)$, but you need an oracle nonetheless.
 
 When we do PCP, the eventual plan
-is to replace both the oracle call and Penny's answers
+is to replace both the oracle call and Peggy's answers
 with a printed phone book.
 The phone book contains, among other things, a big table mapping every $n$-tuple
 $(r_1, ..., r_n) in FF_q^n$ to its value $P(r_1, ..., r_n)$
-that Penny mails to Victor via Fedex or whatever.
-This is of course a lot of work for Penny to print and mail this phone book.
-However, Victor doesn't care about Penny's shipping costs.
+that Peggy mails to Victor via Fedex or whatever.
+This is of course a lot of work for Peggy to print and mail this phone book.
+However, Victor doesn't care about Peggy's shipping costs.
 After all, it's not like he's _reading_ the phone book;
 he's just checking the entries he needs.
 (That's sort of the point of a phone book, right?)
 
 But now there's a new issue.
 How can we trust the entries of the phone book are legitimate?
-After all, Penny is the one putting it together.
-If Penny was trying to fool Victor, she could write whatever she wanted
+After all, Peggy is the one putting it together.
+If Peggy was trying to fool Victor, she could write whatever she wanted
 ("hey Victor, the value of $P$ is $42$ at every input")
 and then just lie during the sum-check protocol.
 After all, she knows Victor isn't actually going to read the whole phone book.
@@ -83,7 +83,7 @@ he can be confident that $P$ is probably "mostly" a polynomial.
 
 I say "mostly" because, well, there's no way to verify the whole phone book.
 By definition, Victor is trying to avoid reading.
-Imagine if Penny makes a typo somewhere in the phone book ---
+Imagine if Peggy makes a typo somewhere in the phone book ---
 well, there's no way to notice it, because that entry will never see daylight.
 However, Victor _also_ doesn't care about occasional typos in the phone book.
 For his purposes, he just wants to check the phone book is 99% accurate,
@@ -128,7 +128,7 @@ a bunch of polynomial equations in these variables of degree at most two,
 and one wishes to find a satisfying assignment.
 
 Let's say there are $N$ variables and $E$ equations, and $N$ and $E$ are both large.
-Penny has worked really hard and figured out a satisfying assignment
+Peggy has worked really hard and figured out a satisfying assignment
 $ A colon {x_1, ..., x_N} -> FF_q $
 and wants to convince Victor she has this $A$.
 Victor really hates reading,
@@ -152,11 +152,11 @@ We now have enough tools to describe a quad-SAT protocol that will break
 the hearts of Fedex drivers everywhere.
 In summary, the overview of this protocol is going to be the following:
 
-- Penny prints $q^E$ phone books, one phone book each for each linear combination
+- Peggy prints $q^E$ phone books, one phone book each for each linear combination
   of the given Q-SAT equations.
   We'll describe the details of the phone book contents later.
 
-- Penny additionally prints the two posters corresponding
+- Peggy additionally prints the two posters corresponding
   to a low-degree polynomial extension of $A$
   (we describe this exactly in the next section).
 
@@ -197,7 +197,7 @@ where we constructed the multilinear polynomial $5x y z+9x y+7z+8$ out of
 eight initial values.
 
 In any case, the posters are generated as follows.
-Penny takes her known assignment $A colon HH^m -> FF_q$
+Peggy takes her known assignment $A colon HH^m -> FF_q$
 and extends it to a polynomial
 $ tilde(A) in FF_q [T_1, ..., T_m] $
 using the above theorem;
@@ -228,7 +228,7 @@ Then, for any fixed choice of $lambda_2$, ..., $lambda_E$, there is always
 exactly one choice of $lambda_1$ which makes the collated equation true,
 while the other $q-1$ all fail.)
 
-To emphasize again: Penny is printing $q^E$ phone books right now and we only use one.
+To emphasize again: Peggy is printing $q^E$ phone books right now and we only use one.
 Look, I'm sorry, okay?
 
 === Sum-checking the equation (or: how to print the phone book)
@@ -262,7 +262,7 @@ $
     a_(arrow(i), arrow(j)) A(arrow(i)) A(arrow(j))
     + 1 / (|HH|^m) b_(arrow(i)) A(arrow(i)).
 $
-Hence Penny is trying to convince Victor that
+Hence Peggy is trying to convince Victor that
 $ sum_(arrow(i) in FF_q^m)
   sum_(arrow(j) in FF_q^m) f(arrow(i), arrow(j)) = c. $
 
@@ -287,20 +287,20 @@ After all, when you unwind this notational mess we wrote,
 we realize that the $a$'s and $b$'s came out of the coefficients of the original
 equations $cal(E)_k$.
 
-The answer is that both Victor and Penny have a lot of arithmetic to do.
-Specifically, for Penny,
+The answer is that both Victor and Peggy have a lot of arithmetic to do.
+Specifically, for Peggy,
 when she's printing this phone book for $(lambda_1, ..., lambda_E)$,
 needs to apply the extension result three times:
 
-- Penny views $a_(arrow(i), arrow(j))$ as a function $HH^(2m) -> FF_q$
+- Peggy views $a_(arrow(i), arrow(j))$ as a function $HH^(2m) -> FF_q$
   and extends it to a polynomial using the above;
   this lets us define
   $tilde(a) in FF_q [T_1, ..., T_m, U_1, ..., U_m]$
   as a _bona fide_ $2m$-variate polynomial.
 
-- Penny does the same for $tilde(b)_(arrow(i))$.
+- Peggy does the same for $tilde(b)_(arrow(i))$.
 
-- Finally, Penny does the same on $A colon HH^m -> FF_q$,
+- Finally, Peggy does the same on $A colon HH^m -> FF_q$,
   extending it to $tilde(A) in FF_q [T_1, ..., T_m]$.
   (However, this step is the same across all the phone books, so it only happens once.)
 
@@ -308,7 +308,7 @@ Victor has to do the same work for $a_(arrow(i), arrow(j))$ and $b_(arrow(i))$.
 Victor can do this, because he picked the $lambda$'s,
 as he computed the coefficients of his linear combination too.
 But Victor does _not_ do the last step of computing $tilde(A)$:
-for that, he just refers to the poster Penny gave him,
+for that, he just refers to the poster Peggy gave him,
 which conveniently happens to have a table of values of $tilde(A)$.
 
 Now we can actually finally describe the full contents of the phone book.
@@ -319,12 +319,12 @@ So the contents of this phone book include, for every index $k$,
 every single possible result that Victor would need to run sum-check at the $k$th step.
 That is, the $k$th part of this phone book are a big directory where,
 for each possible choice of indices $(i_1, ..., i_(k-1), j_1, ..., j_(k-1))$,
-Penny has printed the two-variable polynomial in $FF_q [T,U]$ that arises from sum-check.
+Peggy has printed the two-variable polynomial in $FF_q [T,U]$ that arises from sum-check.
 (There are two variables rather than one now,
 because $(i_k, j_k)$ are selected in pairs.)
 
 This gives Victor a non-interactive way to run sum-check.
-Rather than ask Penny, consult the already printed phone book.
+Rather than ask Peggy, consult the already printed phone book.
 Inefficient? Yes. Works? Also yes.
 
 === Finishing up
@@ -333,7 +333,7 @@ at the end he has a random $(arrow(i), arrow(j))$ and received
 the checked the phone book for $P(arrow(i), arrow(j))$.
 
 Assuming it checks out, his other task is to
-verify that the accompanying posters that Penny sent ---
+verify that the accompanying posters that Peggy sent ---
 that is, the table of values $B_0$ and $B_2$ associated to $tilde(A)$ ---
 look like they mostly come from a low-degree polynomial.
 Unlike the sum-check step where we needed to hack the earlier procedure,
@@ -379,15 +379,15 @@ but it suffers from several issues (which is why we call it a toy example).
 
 - *Time complexity*:
   Even though Victor doesn't read much,
-  Penny and Victor both do quite a bit of computation.
+  Peggy and Victor both do quite a bit of computation.
   For example,
 
   - Victor has to compute $tilde(a)_(arrow(i), arrow(j))$ for his one phone book.
-  - Penny needs to do it for _every_ phone book.
+  - Peggy needs to do it for _every_ phone book.
 
 
 - One other weird thing about this result is that,
-  even though Victor has to read only a small part of Penny's proof,
+  even though Victor has to read only a small part of Peggy's proof,
   he still has to read the entire _problem statement_,
   that is, the entire system of equations from the original Quad-SAT.
   This can feel strange because for Quad-SAT,

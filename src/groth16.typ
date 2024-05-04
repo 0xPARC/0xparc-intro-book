@@ -72,11 +72,11 @@ one can imagine a really general system of equations
 == Interpolation
 
 Unlike with PLONK, we're _not_ going to interpolate
-a polynomial through Penny's solution $(a_0, ..., a_n)$.
+a polynomial through Peggy's solution $(a_0, ..., a_n)$.
 The previous interpolations of $U_i (X)$, $V_i (X)$, $W_i (X)$ are good enough.
 
 Let's summarize what we have up to here.
-Penny is trying to prove to Victor that she knows $(a_0, ..., a_n) in FF_p$
+Peggy is trying to prove to Victor that she knows $(a_0, ..., a_n) in FF_p$
 such that the identity
 $ (sum_(i=0)^n a_i U_i (X) ) (sum_(i=0)^n a_i V_i (X) )
   = (sum_(i=0)^n a_i W_i (X)) $

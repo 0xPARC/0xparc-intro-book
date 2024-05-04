@@ -16,8 +16,8 @@ We don't assume specialized knowledge like elliptic curve magic.
 
 - *Alice* and *Bob* reprise their
   #link("https://w.wiki/8iXL", "usual roles as generic characters").
-- *Penny* and *Victor* play the roles of _Prover_ and _Verifier_
-  for protocols in which Penny wishes to prove something to Victor.
+- *Peggy* and *Victor* play the roles of _Prover_ and _Verifier_
+  for protocols in which Peggy wishes to prove something to Victor.
 - *Trent* is a trusted administrator or arbiter,
   for protocols in which a trusted setup is required.
   (In real life, Trent is often a group of people performing a multi-party

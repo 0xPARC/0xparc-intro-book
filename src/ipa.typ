@@ -30,9 +30,9 @@ where $a_1, ..., a_n, b_1, ..., b_n, c in FF_p$.
 
 The Inner Product Argument (IPA) is a protocol that kind of
 resembles the older Sum-Check (described in @sumcheck) in spirit:
-Penny and Victor will do a series of interactions
-which allow Penny to prove to Victor that $v$ is good.
-And Penny will be able to do this without
+Peggy and Victor will do a series of interactions
+which allow Peggy to prove to Victor that $v$ is good.
+And Peggy will be able to do this without
 having to reveal all of the $a_i$'s, $b_i$'s, and $c$.
 
 (I think we missed a chance to call this "Inner Product Interactive Proof
@@ -72,28 +72,28 @@ of half the length (in the new basis) given a good vector $v$.
 
 This suggests the following protocol:
 #algorithm[Reducing IPA for $n=2$ to $n=1$][
-  1. Penny, who knows the $a_i$'s, computes
+  1. Peggy, who knows the $a_i$'s, computes
     $ w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u in E
     #h(1em) "and" #h(1em)
     w_R := a_1 g_2 + b_2 h_1 + a_1 b_2 u in E, $
     and sends those values to Victor.
     (Note there is no dependence on $lambda$.)
   2. Victor picks a random challenge $lambda in FF_q$ and sends it.
-  3. Both Penny and Victor calculate the point
+  3. Both Peggy and Victor calculate the point
     $ w(lambda) = v + lambda dot w_L + lambda^(-1) dot w_R in E. $
-  4. Penny and Victor run the $n=1$ case of IPA to verify whether
+  4. Peggy and Victor run the $n=1$ case of IPA to verify whether
     $w(lambda)$ is good with respect the smaller $3$-element basis
     $ angle.l (g_1 + lambda^(-1) g_2), (h_1 + lambda h_2), u angle.r . $
     Victor accepts if and only if this IPA is accepted.
 ]
-Assuming Penny was truthful and $v$ was indeed good with respect
+Assuming Peggy was truthful and $v$ was indeed good with respect
 to the original 5-element basis for $n=2$,
 the resulting $w(lambda)$ is good with respect to the new basis.
 So the interesting part is soundness:
 
 #claim[
   Suppose $v = a_1 g_1 + a_2 g_2 + b_1 h_1 + b_2 h_2 + c u$ is given.
-  Assume further that Penny can provide some $w_L, w_R in E$ such that
+  Assume further that Peggy can provide some $w_L, w_R in E$ such that
   $ w(lambda) := v + lambda dot w_L + lambda^(-1) dot w_R $
   lies in the span of the shorter basis,
   and is good for at least four values of $lambda$.
@@ -142,13 +142,13 @@ So we've shown completeness and soundness for our protocol reducing $n=2$ to $n=
 The general situation is basically the same with more notation.
 To prevent drowning in notation, we write this out for $n=6$,
 with the general case of even $n$ being analogous.
-So suppose Penny wishes to prove
+So suppose Peggy wishes to prove
 $v = a_1 g_1 + ... + a_6 g_6 + b_1 h_1 + ... + b_6 h_6 + c u $
 is good with respect to the length-thirteen basis
 $angle.l g_1, ..., h_6, u angle.r$.
 
 #algorithm[Reducing IPA for $n=6$ to $n=3$][
-  1. Penny computes
+  1. Peggy computes
     $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
       + (a_1 b_4 + a_2 b_5 + a_3 b_6) u \
       w_R &= (a_1 g_4 + a_2 g_5 + a_3 g_6) + (b_4 h_1 + b_5 h_2 + b_6 h_3)
@@ -156,7 +156,7 @@ $angle.l g_1, ..., h_6, u angle.r$.
     and sends these to Victor.
   2. Victor picks a random challenge $lambda in FF_q$.
   3. Both parties compute $w(lambda) = v + lambda dot w_L + lambda^(-1) dot w_R$.
-  4. Penny runs IPA for $n=3$ on $w(lambda)$ to convince Victor it's good
+  4. Peggy runs IPA for $n=3$ on $w(lambda)$ to convince Victor it's good
     with respect to the length-seven basis
     $ angle.l g_1 + lambda^(-1) g_4, g_2 + lambda^(-1) g_5, g_3 + lambda^(-1) g_6,
       h_1 + lambda h_4, h_2 + lambda h_5, h_3 + lambda h_6, u angle.r . $
@@ -166,18 +166,18 @@ $angle.l g_1, ..., h_6, u angle.r$.
 
 If we're in the $n = 1$ case, meaning we have a Pedersen commitment
 $ v = a g + b h + c u $
-for $a,b,c in FF_q$, how can Penny convince Victor that $v$ is good?
+for $a,b,c in FF_q$, how can Peggy convince Victor that $v$ is good?
 
 Well, one easy way to do that would be to just reveal all of $a$, $b$, $c$.
-However, this isn't good enough in situations in which Penny really
+However, this isn't good enough in situations in which Peggy really
 cares about the zero-knowledge part.
 Is there a way to proceed without revealing anything about $a$, $b$, $c$?
 
 The answer is yes, we just need more blinding factors.
 
 #algorithm[The $n=1$ case of IPA][
-  1. Penny picks random blinding factors $a', b' in FF_q$.
-  2. Penny sends the following Pedersen commitments:
+  1. Peggy picks random blinding factors $a', b' in FF_q$.
+  2. Peggy sends the following Pedersen commitments:
   $
     w_1 &:= a' g + a' b u \
     w_2 &:= b' h + a b ' u \
@@ -189,7 +189,7 @@ The answer is yes, we just need more blinding factors.
     w &= v + lambda dot w_1 + lambda^(-1) dot w_2 + dot w_3  \
     &= (a+lambda a') g + (b+lambda^(-1) b') h + (a+lambda a')(b + lambda^(-1) b') u.
   $
-  5. Victor asks Penny to reveal all three coefficients of $w$.
+  5. Victor asks Peggy to reveal all three coefficients of $w$.
   6. Victor verifies that the third coefficient is the product of the first two.
 ]
 
@@ -207,9 +207,9 @@ polynomial commitments.
 
 === Application: revealing an element of a Pedersen commitment
 
-Suppose Penny have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
+Suppose Peggy have a vector $arrow(a) = angle.l a_1, ..., a_n angle.r$
 and a Pedersen commitment $v = sum a_i g_i$ to it.
-Suppose Penny wishes to reveal $a_1$.
+Suppose Peggy wishes to reveal $a_1$.
 The right way to think of this is as the dot product $arrow(a) dot arrow(b)$,
 where $ arrow(b) = angle.l 1, 0, ..., 0 angle.r $
 has a $1$ in the $1$st position and $0$'s elsewhere.
@@ -217,14 +217,14 @@ To spell this out:
 
 #algorithm[Revealing $a_1$ in a Pedersen commitment][
   1. Both parties compute $w = v + h_1 + a_1 u$.
-  2. Penny runs IPA on $w$ to convince Victor that $w$ is good.
+  2. Peggy runs IPA on $w$ to convince Victor that $w$ is good.
 ]
 
 === Application: showing two Pedersen commitments are to the same vector
 
 Suppose there are two Pedersen commitments
 $v = sum a_i g_i$ and $v' = sum a'_i g'_i$ in different bases;
-Penny wants to prove that $a_i = a'_i$ for all $i$
+Peggy wants to prove that $a_i = a'_i$ for all $i$
 (i.e. the vectors $arrow(a)$ and $arrow(a')$ coincide)
 without revealing anything else about the two vectors.
 
@@ -237,10 +237,10 @@ with a random other vector $arrow(lambda)$ are equal.
     $arrow(lambda) = angle.l lambda_1, ..., lambda_n angle.r in FF_q^n$.
   2. Both parties compute its Pedersen commitment
     $w = lambda_1 h_1 + ... + lambda_n h_n$.
-  3. Penny also privately computes the dot product
+  3. Peggy also privately computes the dot product
     $c := arrow(a) dot arrow(lambda) = arrow(a)' dot arrow(lambda) = a_1 lambda_1 + ... + a_n lambda_n$.
-  4. Penny sends a Pedersen commitment $c u$ to the number $c$.
-  5. Penny runs IPA to convince Victor both $v + w + c u$ and $v' + w + c u$ are good.
+  4. Peggy sends a Pedersen commitment $c u$ to the number $c$.
+  5. Peggy runs IPA to convince Victor both $v + w + c u$ and $v' + w + c u$ are good.
 ]
 
 This protocol provides a proof to Victor that $arrow(a)$ and $arrow(a)'$
@@ -253,31 +253,31 @@ of at most $1/q$ if $arrow(a) != arrow(a)'$.
 == Using IPA for polynomial commitments <ipa-poly>
 
 Suppose now $P(X) = sum a_i X^(i-1)$ is a given polynomial.
-Then Penny can use IPA to commit the polynomial $P$ as follows:
+Then Peggy can use IPA to commit the polynomial $P$ as follows:
 
-- Penny publishes Pedersen commitment of the coefficients of $P$;
-  that is, Penny publishes $ g := sum a_i g_i in E. $
+- Peggy publishes Pedersen commitment of the coefficients of $P$;
+  that is, Peggy publishes $ g := sum a_i g_i in E. $
 - Suppose Victor wants to open the commitment at a value $z$,
-  and Penny asserts that $P(z) = y$.
+  and Peggy asserts that $P(z) = y$.
 - Victor picks a random constant $lambda in FF_p$.
 - Both parties compute
   $ v := underbrace((a_1 g_1 + ... + a_n g_n), C)
   + (lambda z^0 h_1 + ... + lambda z^(n-1) h_n) + lambda y u $
   and run IPA on it.
 
-(When Penny does a vanilla IPA protocol, she can keep all $2n+1$ coefficients secret.
-In this context, Penny has published the first part $g$
+(When Peggy does a vanilla IPA protocol, she can keep all $2n+1$ coefficients secret.
+In this context, Peggy has published the first part $g$
 and still gets to keep her coefficients $a_n$ private from Victor.
 The other $n+1$ coefficients are globally known because
 they're inputs to the protocol for opening the commitment at $z$.)
 
 The introduction of the hacked constant $lambda$ might be a bit of a surprise.
-The reason is that without it, there is an amusing loophole that Penny can exploit.
-Penny can pick the vector $v$, so imagine she tries to swindle Victor by reporting
+The reason is that without it, there is an amusing loophole that Peggy can exploit.
+Peggy can pick the vector $v$, so imagine she tries to swindle Victor by reporting
 $v = a_1 g_1 + ... + a_n g_n - 10 u$ instead
 of the honest $v = a_1 g_1 + ... + a_n g_n$.
-Then, Penny inflates all the values of $y$ she claims to Victor by $10$.
-This would allow Penny to cheat Victor into committing the polynomial $P$
+Then, Peggy inflates all the values of $y$ she claims to Victor by $10$.
+This would allow Peggy to cheat Victor into committing the polynomial $P$
 but for each input $z$ giving Victor the value of $P(z) + 10$  rather than $P(z)$
 (though the cheating offset would be the same at every value she opened).
 The offset $lambda$ prevents this attack.

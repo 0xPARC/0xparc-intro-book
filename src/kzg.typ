@@ -6,10 +6,10 @@
 
 The goal of the KZG commitment schemes is to have the following API:
 
-- Penny has a secret polynomial $P(X) in FF_q [X]$.
-- Penny sends a short "commitment" to the polynomial (like a hash).
+- Peggy has a secret polynomial $P(X) in FF_q [X]$.
+- Peggy sends a short "commitment" to the polynomial (like a hash).
 - This commitment should have the additional property that
-  Penny should be able to "open" the commitment at any $z in FF_q$.
+  Peggy should be able to "open" the commitment at any $z in FF_q$.
   Specifically:
 
   - Victor has an input $z in FF_q$ and wants to know $P(z)$.
@@ -74,7 +74,7 @@ So this gives us a way to _verify_ two-by-two multiplication.
 
 #remark[
   The last sentence is worth bearing in mind: in all the protocols we'll see,
-  the pairing is only used by the _verifier_ Victor, never by the prover Penny.
+  the pairing is only used by the _verifier_ Victor, never by the prover Peggy.
 ]
 
 #remark[We don't know how to do multilinear pairings][
@@ -101,21 +101,21 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
 
 == The KZG commitment scheme
 
-Penny has a polynomial $P(X) in FF_p [X]$.
+Peggy has a polynomial $P(X) in FF_p [X]$.
 To commit to it:
 
 #algorithm("Creating a KZG commitment")[
-  1. Penny computes and publishes $[P(s)]$.
+  1. Peggy computes and publishes $[P(s)]$.
 ]
 This computation is possible as $[s^i]$ are globally known.
 
 Now consider an input $z in FF_p$; Victor wants to know the value of $P(z)$.
-If Penny wishes to convince Victor that $P(z) = y$, then:
+If Peggy wishes to convince Victor that $P(z) = y$, then:
 
 #algorithm("Opening a KZG commitment")[
-  1. Penny does polynomial division to compute $Q(X) in FF_q [X]$ such that
+  1. Peggy does polynomial division to compute $Q(X) in FF_q [X]$ such that
     $ P(X)-y = (X-z) Q(X). $
-  2. Penny computes and sends Victor $[Q(s)]$,
+  2. Peggy computes and sends Victor $[Q(s)]$,
     which again she can compute from the globally known $[s^i]$.
   3. Victor verifies by checking
     #eqn[
@@ -125,9 +125,9 @@ If Penny wishes to convince Victor that $P(z) = y$, then:
     and accepts if and only if @kzg-verify is true.
 ]
 
-If Penny is truthful, then @kzg-verify will certainly check out.
+If Peggy is truthful, then @kzg-verify will certainly check out.
 
-If $y != P(z)$, then Penny can't do the polynomial long division described above.
+If $y != P(z)$, then Peggy can't do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
 $ 1/(s-x) ([P(s)]-[y]) in E. $
 Since $s$ is a secret nobody knows, there isn't any known way to do this.
@@ -140,26 +140,26 @@ But there's no reason we have to restrict ourselves to linear polynomials;
 this would work equally well with higher-degree polynomials,
 while still using only a single 256-bit for the proof.
 
-For example, suppose Penny wanted to prove that
+For example, suppose Peggy wanted to prove that
 $P(1) = 100$, $P(2) = 400$, ..., $P(9) = 8100$.
 Then she could do polynomial long division to get a polynomial $Q$
 of degree $deg(P) - 9$ such that
 $ P(X) - 100X^2 = (T-1)(T-2) ... (T-9) dot Q(T). $
-Then Penny sends $[Q(s)]$ as her proof, and the verification equation is that
+Then Peggy sends $[Q(s)]$ as her proof, and the verification equation is that
 $ pair([Q(s)], [(s-1)(s-2) ... (s-9)]) = pair([P(s)] - 100[s^2], [1]). $
 
 The full generality just replaces the $100T^2$ with the polynomial
 obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
 (there is a unique such polynomial $f$ of degree $n-1$).
-To spell this out, suppose Penny wishes to prove to Victor that
+To spell this out, suppose Peggy wishes to prove to Victor that
 $P(z_i) = y_i$ for $1 <= i <= n$.
 
 #algorithm[Opening a KZG commitment at $n$ values][
   1. By Lagrange interpolation, both parties agree on a polynomial $f(X)$
     such that $f(z_i) = y_i$.
-  2. Penny does polynomial long division to get $Q(X)$ such that
+  2. Peggy does polynomial long division to get $Q(X)$ such that
     $ P(X) - f(X) = (X-z_1)(X-z_2) ... (X-z_n) dot Q(X). $
-  3. Penny sends the single element $[Q(s)]$ as her proof.
+  3. Peggy sends the single element $[Q(s)]$ as her proof.
   4. Victor verifies
     $ pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) = pair([P(s)] - [f(s)], [1]). $
 ]

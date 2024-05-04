@@ -9,13 +9,13 @@ $ Z_1 + Z_2 + dots.c + Z_"big" = H $
 for some variables $Z_i$ and constant $H in FF_q$, all over $FF_q$,
 and assume further that $q$ is not too small.
 
-Imagine a prover Penny has a value assigned to each $Z_i$,
+Imagine a prover Peggy has a value assigned to each $Z_i$,
 and is asserting to the verifier Victor they $Z_i$'s sum to $H$.
-Victor wants to know that Penny computed the sum $H$ correctly,
+Victor wants to know that Peggy computed the sum $H$ correctly,
 but Victor doesn't want to actually read all the values of $Z_i$.
 
 Well, at face value, this is an obviously impossible task.
-Even if Victor knew all but one of Penny's $Z_i$'s, that wouldn't be good enough.
+Even if Victor knew all but one of Peggy's $Z_i$'s, that wouldn't be good enough.
 Nevertheless, the goal of Sum-Check is to show that,
 with only a little bit of extra structure, this is actually possible.
 
@@ -33,10 +33,10 @@ $P in FF_q [X_1, ..., X_n]$
 of degree at most $d$ in each variable.
 
 #theorem("Sum-check")[
-  There's an interactive protocol that allows Penny to convince Victor
+  There's an interactive protocol that allows Peggy to convince Victor
   that the value $H$ above is the sum, which takes
 
-  - $n$ rounds of communication, where each message from Penny is a
+  - $n$ rounds of communication, where each message from Peggy is a
     single-polynomial of degree at most $d$;
   - For Victor, only a single evaluation of the polynomial $P$ at some point
     (not necessarily in ${0,1}^n$).
@@ -87,7 +87,7 @@ no matter what eight initial numbers I would have picked (by induction on $n$).
 Earlier, we commented that Sum-Check was an "obviously impossible task"
 if the values of $f$'s were unrelated random numbers.
 The reason this doesn't contradict the above paragraph is that,
-if Penny just sends Victor the table of $2^n$ values,
+if Peggy just sends Victor the table of $2^n$ values,
 it would be just as much work for Victor to manually compute $P$.
 However, in a lot of contexts, the values that are being summed
 can be construed as a polynomial in some way,
@@ -102,19 +102,19 @@ $n=3$ before specifying the pseudocode in general, rather than vice-versa.
 === A playthrough of the sum-check protocol
 
 Let's use the example above with $n=3$:
-Penny has chosen the eight values above with $H = 115$,
+Peggy has chosen the eight values above with $H = 115$,
 and wants to convince Victor without actually sending all eight values.
-Penny has done her homework and computed the coefficients of $P$ as well
-(after all, she chose the values of $f$), so Penny can evaluate $P$ anywhere she wants.
+Peggy has done her homework and computed the coefficients of $P$ as well
+(after all, she chose the values of $f$), so Peggy can evaluate $P$ anywhere she wants.
 Victor is given oracle access to a single value of the polynomial $P$
 on a point (probably) outside the hypercube.
 
 Here's how they do it.
-(All the information sent by Penny to Victor is $#rect("boxed")$.)
+(All the information sent by Peggy to Victor is $#rect("boxed")$.)
 
-1. Penny announces her claim $H = #rect($115$)$.
+1. Peggy announces her claim $H = #rect($115$)$.
 2. They now discuss the first coordinate:
-  - Victor asks Penny to evaluate the linear one-variable polynomial
+  - Victor asks Peggy to evaluate the linear one-variable polynomial
     $ g_1(T) := P(T,0,0) + P(T,0,1) + P(T,1,0) + P(T,1,1) $
     and send the result. In our example, it equals
     $ g_1(T) = 8 + 15 + (9T+8) + (14T+15) = #rect($23T+46$). $
@@ -127,7 +127,7 @@ Here's how they do it.
     From now on, he'll always use $7$ for the first argument to $P$.
 
 3. With the first coordinate fixed at $r_1 = 7$, they talk about the second coordinate:
-  - Victor asks Penny to evaluate the linear polynomial
+  - Victor asks Peggy to evaluate the linear polynomial
     $ g_2(U) := P(7,U,0) + P(7,U,1). $
     and send the result. In our example, it equals
     $ g_2(U) = (63U+8) + (98U+15) = #rect($161U + 23$). $
@@ -140,7 +140,7 @@ Here's how they do it.
     From now on, he'll always use $3$ for the second argument to $P$.
 
 4. They now settle the last coordinate:
-  - Victor asks Penny to evaluate the linear polynomial
+  - Victor asks Peggy to evaluate the linear polynomial
     $ g_3(V) := P(7,3,V) $
     and send the result. In our example, it equals
     $ g_3(V) = #rect($112V+197$). $
@@ -159,20 +159,20 @@ Here's how they do it.
 
 The previous transcript should generalize obviously to any $n > 3$,
 but we spell it out anyways.
-Penny has already announced $H$ and pre-computed $P$.
+Peggy has already announced $H$ and pre-computed $P$.
 Now for $i = 1, ..., n$,
 
-- Victor asks Penny to compute the univariate polynomial $g_i$
+- Victor asks Peggy to compute the univariate polynomial $g_i$
   corresponding to partial sum, where the $i$th parameter is a free parameter
   while all the $r_1$, ..., $r_(i-1)$ have been fixed already.
-- Victor sanity-checks each of Penny's answer by making sure $g_i$ is consistent
+- Victor sanity-checks each of Peggy's answer by making sure $g_i$ is consistent
   with (that is, $g_(i-1)(r_(i-1)) = g_i (0) + g_i (1)$,
   or for the edge case $i=1$ that $H = g_1(0) + g_1(1)$).
 - Then Victor commits to a random $r_i in FF_q$ and moves on to the next coordinate.
 
 Once Victor has decided on every $r_i$, he asks the oracle for $P(r_1, ..., r_n)$
 and makes sure that it matches the value of $g_n (r_n)$.
-If so, Victor believes Penny.
+If so, Victor believes Peggy.
 
 Up until now, we wrote the sum-check protocol as a sum over ${0,1}^n$.
 However, actually there is nothing in particular special about ${0,1}^n$
@@ -185,7 +185,7 @@ Everything else stays the same.
 
 === Soundness
 
-#todo[Can Penny cheat?]
+#todo[Can Peggy cheat?]
 
 == Two simple applications of sum-check
 
@@ -202,13 +202,13 @@ We'll give two examples below.
 
 This example was communicated to us by
 #link("https://zkproof.org/2020/03/16/sum-checkprotocol/", "Justin Thaler").
-Suppose Penny and Victor have a finite simple graph $G = (V,E)$ on $n$ vertices
+Suppose Peggy and Victor have a finite simple graph $G = (V,E)$ on $n$ vertices
 and want to count the number of triangles in it.
-Penny has done the count, and wants to convince a lazy verifier Victor
+Peggy has done the count, and wants to convince a lazy verifier Victor
 who doesn't want to spend the $O(n^3)$ time it would take to count it himself.
 
 #proposition[
-  It's possible for Penny to prove her count of the number
+  It's possible for Peggy to prove her count of the number
   of triangles is correct with only $O(n^2 log n)$ work for Victor.
 ]
 
@@ -237,7 +237,7 @@ because he needs to read the input graph $G$, so this is pretty good.
   $ "number triangles"
     = sum_(arrow(x) in {0,1}^m) sum_(arrow(y) in {0,1}^m) sum_(arrow(z) in {0,1}^m)
     f(arrow(x), arrow(y), arrow(z)) $
-  This requires some work from Penny, but for Victor,
+  This requires some work from Peggy, but for Victor,
   the steps in between don't require much work.
   The final oracle call requires Victor to evaluate
   $ g(arrow(x), arrow(y)) g(arrow(y), arrow(z)) g(arrow(z), arrow(x)) $
@@ -262,7 +262,7 @@ Just modify the indicator function above.
 Suppose $f(T_1, ..., T_n) in FF_q [T_1, ..., T_n]$
 is a polynomial of degree up to $2$ in each variable,
 specified by the coefficients.
-Now Penny wants to convince Victor that
+Now Peggy wants to convince Victor that
 $f(x_1, ..., x_n) = 0$ whenever $x_i in {0,1}$.
 
 Of course, Victor could verify this himself by plugging in all $2^n$ pairs.
@@ -271,7 +271,7 @@ We'd like to get this down.
 Here's one toy example of how we could do this.
 
 #proposition[
-  Penny can convince Victor that $f(x_1, ..., x_n) = 0$ for all $x_i in {0,1}$
+  Peggy can convince Victor that $f(x_1, ..., x_n) = 0$ for all $x_i in {0,1}$
   with only a single evaluation to $f$ and a single evaluation to a random multilinear polynomial.
 ]
 
