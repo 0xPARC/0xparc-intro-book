@@ -92,7 +92,115 @@ this is called the #link("https://w.wiki/9jhM", "group law on elliptic curve").
 This addition will make $E(FF_p)$ into an abelian group whose identity element
 is $O$.
 
-#todo[Can someone write up the group law please and thanks]
+This group law involves some kind of heavy algebra.
+It's not important to understand exactly how it works.
+All you really need to take away from this section is that there is some group law,
+and we can program a computer to compute it.
+
+So, let's get started.
+The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
+This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
+the line will meet $E$ in exactly three points.
+The basic idea behind the group law is:
+If $P, Q, R$ are the three intersection points of a line (any line) 
+with the curve $E$, then the group-law addition of the three points is 
+$
+P + Q + R = O.
+$
+
+(You might be wondering how we can do geometry
+when the coordinates $x$ and $y$ are in a finite field.
+It turns out that all the geometric operations we're describing --
+like finding the intersection of a curve with a line --
+can be translated into algebra.
+And then you just do the algebra in your finite field.
+But we'll come back to this.)
+
+Why three points?
+Algebraically, if you take the equations $Y^2 = X^3 + 3$ and $Y = m X + b$
+and try to solve them,
+you get
+$
+(m X + b)^2 = X^3 + 3,
+$
+which is a degree-3 polynomial in $X$, 
+so it has (at most) 3 roots.
+And in fact if it has 2 roots, it's guaranteed to have a third
+(because you can factor out the first two roots, and then you're left with a linear factor).
+
+OK, so given two points $P$ and $Q$, how do we find their sum $P+Q$?
+Well, we can draw the line through the two points.
+That line -- like any line -- will intersect $E$ in three points:
+$P$, $Q$, and a third point $R$.
+Now since $P + Q + R = 0$, we know that
+$
+- R = P + Q.
+$
+
+So now the question is just: how to find $-R$?
+Well, it turns out that if $R = (x_R, y_R)$, then 
+$
+- R = (x_R, -y_R).
+$
+Why is this?
+Well, if you take the vertical line $X = x_R$,
+and try to intersect it with the curve,
+it looks like there are only two intersection points.
+After all, we're solving
+$
+Y^2 = x_R^3 + 3,
+$
+and since $x_R$ is fixed now, this equation is quadratic.
+The two roots are $Y = \pm y_R$.
+
+OK, there are only two intersection points, but 
+we say that the third intersection point is "the point at infinity" $O$.
+(The reason for this lies in projective geometry, but we won't get into it.)
+So the group law here tells us
+$
+(x_R, y_R) + (x_R, -y_R) + O = O.
+$
+And since $O$ is the identity, we get
+$
+-R = (x_R, -y_R).
+$
+
+So:
+- Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
+- To add two points $P$ and $Q$, compute the line through the two points, 
+  let $R$ be the third intersection of that line with $E$,
+  and set 
+  $
+  P + Q = -R.
+  $
+
+I just described the group law as a geometric thing, 
+but there are algebraic formulas to compute it as well.
+They are kind of a mess, but here goes.
+
+If $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$, then the line between the two points is
+$Y = m X + b$, where
+$
+m = (y_Q - y_P) / (x_Q - x_P)
+$
+and
+$
+b = y_P - m x_P.
+$
+
+The third intersection is $R = (x_R, y_R)$, where
+$
+x_R = m^2 - x_P - x_Q
+$
+and
+$
+y_R = m x_R + b.
+$
+
+There are separate formulas to deal with various special cases
+(if $P = Q$, you need to compute the tangent line to $E$ at $P$, for example),
+but we won't get into it.
+#todo[Is there a way to... put the above into a box environment or something, so the reader can skip it easily?]
 
 In summary we have endowed the set of points $E(FF_p)$ with the additional
 structure of an abelian group, which happens to have exactly $q$ elements.
