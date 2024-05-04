@@ -100,7 +100,16 @@ for _any_ function $F$ as long as we implement it in code.
 
 === Fully homomorphic encryption (FHE)
 
-#todo[Needs writing.]
+In *fully homomorphic encryption*, one person encrypts some data $x$,
+and then anybody can perform arbitrary operations on the encrypted data $x$
+without being able to read $x$.
+
+For example, imagine you have some private text that you want to
+translate into another language.
+You encrypt the text and feed it to your favorite FHE machine translation server.
+You decrypt the server's output and get the translation.
+The server only ever sees encrypted text, 
+so the server learns nothing about the text you translated.
 
 == Where these fit together
 
