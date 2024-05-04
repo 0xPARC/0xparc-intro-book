@@ -139,6 +139,8 @@ What sort of systems can we build on top of programmable cryptography?
   caption: [Expectations vs. reality.]
 )
 
+#todo[Aard suggests deleting the figure, it's cute but Aard isn't sure about the message]
+
 When we think about how to use programmable cryptography we need to be creative.
 As an example, what can you do with a zkSNARK?
 
@@ -149,11 +151,11 @@ Slightly better answer: You can prove that you have executed a program correctly
 revealing some or all of the inputs and outputs, as you please.
 For example: You know a messame $M$ such that 
 $op("sha")(M) = "0xa91af3ac..."$, but you don't want to reveal $M$.
-Or: You only want to reveal the first 30 bytes of $M$ ("From: trusted@mailprovider.com").
+Or: You only want to reveal the first 30 bytes of $M$. 
 Or: You know a message $M$, and a digital signature proving that $M$ was signed by
 [trusted authority], such that a certain neural network, run on the input $M$, outputs "Good."
 
 One recent application along these lines is 
-#link("tlsnotary.org")[TLSNotary].
+#link("https://tlsnotary.org", "TLSNotary").
 TLSNotary lets you certify a transcript of communications with a server
 in a privacy-preserving way: you only reveal the parts you want to.
