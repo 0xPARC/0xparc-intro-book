@@ -63,9 +63,9 @@ The name stands for:
   about the solution besides that it's correct.
 - *Succinct*: the proof length is short (actually constant length).
 - *Non-interactive*: the protocol is not interactive.
-- *Argument of Knowledge*: a six-syllable synonym for "proof" that makes the
-  acronym "SNARK" cuter and allows us to quote
-  #link("https://w.wiki/9fY8", "Lewis Carroll") repeatedly.
+- *Argument*: technically not a "proof," but we won't worry about the difference.
+- *of Knowledge*: the proof doesn't just show the system of equations has a solution;
+  it also shows that the prover knows one.
 
 So, you can think of these as generalizing something like a group signature
 scheme to authenticating any sort of transaction:
@@ -113,7 +113,24 @@ so the server learns nothing about the text you translated.
 
 == Where these fit together
 
-#todo[Brian's tree. Talk about reduction?]
+ZkSNARKS, MPC, and FHE are just some of a huge zoo of cryptographic primitives,
+from the elementary (public-key cryptography)
+to the impossibly powerful (indistinguishability obfuscation).
+There are protocols for zkSNARKS, MPC and FHE;
+they are very slow, but they can be implemented and used in practice.
+
+This whole field is an active area of research.
+On the one hand: Can we make existing tools (zkSNARKS, etc.) more efficient?
+For example, the cost of doing a computation in zero knowledge
+is currently about $10^6$ times the cost of doing the computation directly.
+Can we bring that number down?
+On the other hand: What other cryptographic games can we play
+to develop new sorts of programmable cryptography functionality?
+
+At 0xPARC, we see this as a door to a new world.
+What sort of systems can we build on top of programmable cryptography?
+
+#todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
 
 == What's all the fuss about zero-knowledge anyhow?
 
@@ -121,3 +138,22 @@ so the server learns nothing about the text you translated.
   image("../figures/care-about.png", width:90%),
   caption: [Expectations vs. reality.]
 )
+
+When we think about how to use programmable cryptography we need to be creative.
+As an example, what can you do with a zkSNARK?
+
+One answer: You can prove that you have a solution to a system of equations.
+Sounds pretty boring, unless you're an algebra student.
+
+Slightly better answer: You can prove that you have executed a program correctly,
+revealing some or all of the inputs and outputs, as you please.
+For example: You know a messame $M$ such that 
+$op("sha")(M) = "0xa91af3ac..."$, but you don't want to reveal $M$.
+Or: You only want to reveal the first 30 bytes of $M$ ("From: trusted@mailprovider.com").
+Or: You know a message $M$, and a digital signature proving that $M$ was signed by
+[trusted authority], such that a certain neural network, run on the input $M$, outputs "Good."
+
+One recent application along these lines is 
+#link("tlsnotary.org")[TLSNotary].
+TLSNotary lets you certify a transcript of communications with a server
+in a privacy-preserving way: you only reveal the parts you want to.
