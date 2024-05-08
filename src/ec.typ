@@ -102,8 +102,8 @@ The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
 This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
 the line will meet $E$ in exactly three points.
 The basic idea behind the group law is:
-If $P, Q, R$ are the three intersection points of a line (any line) 
-with the curve $E$, then the group-law addition of the three points is 
+If $P, Q, R$ are the three intersection points of a line (any line)
+with the curve $E$, then the group-law addition of the three points is
 $
 P + Q + R = O.
 $
@@ -123,7 +123,7 @@ you get
 $
 (m X + b)^2 = X^3 + 3,
 $
-which is a degree-3 polynomial in $X$, 
+which is a degree-3 polynomial in $X$,
 so it has (at most) 3 roots.
 And in fact if it has 2 roots, it's guaranteed to have a third
 (because you can factor out the first two roots, and then you're left with a linear factor).
@@ -138,7 +138,7 @@ $
 $
 
 So now the question is just: how to find $-R$?
-Well, it turns out that if $R = (x_R, y_R)$, then 
+Well, it turns out that if $R = (x_R, y_R)$, then
 $
 - R = (x_R, -y_R).
 $
@@ -153,7 +153,7 @@ $
 and since $x_R$ is fixed now, this equation is quadratic.
 The two roots are $Y = \pm y_R$.
 
-OK, there are only two intersection points, but 
+OK, there are only two intersection points, but
 we say that the third intersection point is "the point at infinity" $O$.
 (The reason for this lies in projective geometry, but we won't get into it.)
 So the group law here tells us
@@ -167,14 +167,14 @@ $
 
 So:
 - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
-- To add two points $P$ and $Q$, compute the line through the two points, 
+- To add two points $P$ and $Q$, compute the line through the two points,
   let $R$ be the third intersection of that line with $E$,
-  and set 
+  and set
   $
   P + Q = -R.
   $
 
-I just described the group law as a geometric thing, 
+I just described the group law as a geometric thing,
 but there are algebraic formulas to compute it as well.
 They are kind of a mess, but here goes.
 
@@ -389,7 +389,7 @@ $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
 Indeed, even if one fixes any choice of $2n-1$ of the $2n$ coefficients above,
 one cannot find the last coefficient.
 
-#definition[ 
+#definition[
   In these notes, if there's a globally known elliptic curve $E$
   and points $g_1, ..., g_n$ have order $q$ and no known nontrivial
   linear dependencies between them,

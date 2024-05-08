@@ -108,7 +108,7 @@ For example, imagine you have some private text that you want to
 translate into another language.
 You encrypt the text and feed it to your favorite FHE machine translation server.
 You decrypt the server's output and get the translation.
-The server only ever sees encrypted text, 
+The server only ever sees encrypted text,
 so the server learns nothing about the text you translated.
 
 == Where these fit together
@@ -149,13 +149,13 @@ Sounds pretty boring, unless you're an algebra student.
 
 Slightly better answer: You can prove that you have executed a program correctly,
 revealing some or all of the inputs and outputs, as you please.
-For example: You know a messame $M$ such that 
+For example: You know a messame $M$ such that
 $op("sha")(M) = "0xa91af3ac..."$, but you don't want to reveal $M$.
-Or: You only want to reveal the first 30 bytes of $M$. 
+Or: You only want to reveal the first 30 bytes of $M$.
 Or: You know a message $M$, and a digital signature proving that $M$ was signed by
 [trusted authority], such that a certain neural network, run on the input $M$, outputs "Good."
 
-One recent application along these lines is 
+One recent application along these lines is
 #link("https://tlsnotary.org", "TLSNotary").
 TLSNotary lets you certify a transcript of communications with a server
 in a privacy-preserving way: you only reveal the parts you want to.

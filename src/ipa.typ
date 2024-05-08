@@ -46,7 +46,7 @@ one reduces verifying a vector for $n$ is good (hence $2n+1$ length)
 by verifying a vector for $n/2$ is good (of length $n+1$).
 
 To see how you might think of the idea on your own,
-check out this 
+check out this
 #link("https://notes.0xparc.org/notes/pedersen-ipa", "0xPARC blog post").
 
 To illustrate the induction, we'll first show how to get from $n=2$ to $n=1$.
