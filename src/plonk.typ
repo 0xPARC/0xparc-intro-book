@@ -169,8 +169,11 @@ We specifically choose $omega^i$ because that way,
 if we use @root-check on the set ${omega, omega^1, ..., omega^n}$,
 then the polynomial called $Z$ is just
 $Z(X) = (X-omega) ... (X-omega^n) = X^n-1$, which is really nice.
-In fact, often $n$ is chosen to be a power of $2$ so that $Z$
-is really easy to compute.
+In fact, often $n$ is chosen to be a power of $2$ so that $A$, $B$, and $C$
+are really easy to compute, using a fast Fourier transform.
+(Note: When you're working in a finite field, the fast Fourier transform
+is sometimes called the "number theoretic transform" (NTT)
+even though it's exactly the same as the usual FFT.)
 
 Then:
 #algorithm("Commitment step of PLONK")[
@@ -473,6 +476,20 @@ To summarize, the copy-check goes as follows:
 
 == Public and private witnesses
 
-#todo[warning: $A$, $B$, $C$ should not be the lowest degree interpolations, imo]
+#todo[warning: $A$, $B$, $C$ should not be the lowest degree interpolations, imo 
+AV: why not?  I think it's fine if they are]
 
-#todo[I believe we just open $A$, $B$, $C$ at any public witnesses, right?]
+The last thing to be done is to reveal the value of public witnesses,
+so the prover can convince the verifier that those values are correct.
+This is simply an application of @root-check.
+Let's say the public witnesses are the values $a_i$, for all $i$ in some set $S$.
+(If some of the $b$'s and $c$'s are also public, we'll just do the same thing for them.)
+The prover can interpolate another polynomial, $A^"public"$, 
+such that $A^"public"(omega^i) = a_i$ if $i in S$, and $A^"public"(omega^i) = 0$ if $i in.not S$.
+Actually, both the prover and the verifier can compute $A^"public"$, since
+all the values $a_i$ are publicly known!
+
+Now the prover runs @root-check to prove that $A - A^"public"$ 
+vanishes on $S$.
+(And similarly for $B$ and $C$, if needed.)
+And we're done.
