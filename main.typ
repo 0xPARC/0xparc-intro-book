@@ -34,6 +34,7 @@
 #chapter("src/ipa.typ")
 #chapter("src/plonk.typ")
 #chapter("src/groth16.typ")
+#chapter("src/cq.typ")
 
 #part[Multi-party computation and garbled circuits]
 #chapter("src/h-mpc.typ")

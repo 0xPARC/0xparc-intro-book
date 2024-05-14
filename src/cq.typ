@@ -52,7 +52,7 @@ where $x$ and $y$ are two numbers in your proof.
 
 One way to do it is to precompute a table of all the pairs $(x, f(x))$,
 and then look up your specific value $(x, y)$ in the table.
-]
+] <function-lookups>
 
 === Back to lookups
 
@@ -79,6 +79,34 @@ As it turns out, lookups are a huge bottleneck in ZK proof systems,
 so an incredible amount of work has been done to optimize them.
 We're just going to talk about one system.
 
+#remark[
+We will assume that the values $f_i$ and $t_j$ are all elements of some large finite field $FF_q$,
+and we will do algebra over this finite field.
+
+In general, you might want to work with other values of other types than field elements.
+In the "function lookups" example (@function-lookups), 
+we want to work with ordered pairs (of, say, field elements).
+In other contexts we might want to work with (suitably encoded) strings, or...
+
+You can always solve this by hashing whatever type it is into a field element.
+
+A second option (the "random linear combination" trick, we will see a lot of it)
+is to use a verifier challenge.
+In place of the pair $(x_i, y_i)$, we will work with the single field element $x_i + r y_i$,
+where $r$ is randomness provided by the verifier.
+
+In more detail, imagine you have a list of pairs $(x_i, y_i)$ that you want to run a lookup argument on.
+The prover sends two commitments, one to $x_1, dots, x_n$, and one to $y_1, dots, y_n$.
+The verifier responds with a challenge $r$, and then you run the lookup argument on the elements
+$x_i + r y_i$.
+(This is secure because the prover committed to both vectors before $r$ was chosen.)
+
+A similar trick works for tuples of arbitrary length:
+just use powers of $r$ as the coefficients of your random linear combination.
+
+In any case, we will only consider looking up field elements from here on out.
+]
+
 == cq
 
 The name of the system "cq" stands for "cached quotients."
@@ -93,7 +121,7 @@ $
 sum_(i=1)^n (1)/(X - f_i) = sum_(j=1)^N (m_j)/(X - t_j) 
 $
 (as a formal equality of rational functions of the formal variable $X$).
-]
+] <cq-identity>
 
 #proof[
 If each $f_i$ is equal to some $t_j$, it's easy.
@@ -108,3 +136,65 @@ whether $m_j$ is zero or not),
 so every $f_i$ must be equal to some $t_j$.
 ]
 
+=== Polynomial commitments for cq
+
+Cq is going to rely on polynomial commitments.
+For concreteness, we'll work with KZG commitments (@kzg).
+
+Cq will let the prover prove the lookup claim to the verifier...
+- The proof (data sent from prover to verifier) will consist of $O(1)$ group elements. 
+  This includes a KZG commitment to the vector of sought values $f_i$.
+- Given the index $t_j$, both prover and verifier 
+  will run a "setup" algorithm with $O(N log N)$ runtime.
+- Once the setup algorithm has been run, each lookup proof
+  will require a three-round interactive protocol.
+- The verifier work will be $O(1)$ calculations.
+- Given the sought values $f_i$ and the output of the setup algorithm, 
+  the prover will require $O(n)$ time to generate a proof.
+
+Let's start with a brief outline of the protocol, 
+and then we'll flesh it out.
+
+- We're assuming both prover and verifier know the "index" values $t_j$.
+  So they can both compute the KZG commitment to these values,
+  and we'll assume this has been done once and for all
+  before the protocol starts.
+- The prover sends $Com(F)$ and $Com(M)$, KZG commitments to 
+  the polynomials $F$ and $M$ such that $F(omega^i) = f_i$ for each $i = 1, dots, n$
+  and $M(zeta^j) = m_j$ for each $j = 1, dots, N$.
+  (Here $omega$ is an $n$th root of unity, and $zeta$ an $N$th root of unity.)
+- The verifier sends a random challenge $beta$,
+  which will substitute for $X$ in the equality of rational functions
+  (@cq-identity).
+- The verifier chooses a random challenge $beta$.
+- The prover sends two more KZG commitments: 
+  a commitment $Com(L)$ to the polynomial $L$ such that $L(omega^i) = 1/(beta - f_i)$,
+  and another $Com(R)$ to the polynomial $R$ such that $R(zeta^j) = m_j/(beta - t_j)$.
+- The prover sends the value 
+  $
+  s = sum_(i=1)^n (1)/(X - f_i) = sum_(j=1)^N (m_j)/(X - t_j).
+  $
+- Now the prover has to prove the following:
+  - The polynomials $L$ and $R$ are well-formed. 
+    That is, 
+    $
+    L(omega^i) (beta - F(omega^i)) = 1
+    $ 
+    for all $i = 1, dots, n$, and 
+    $
+    R(zeta^j) (beta - T(zeta^j)) = M(zeta^j)
+    $
+    for all $j = 1, dots, N$.
+  - The value $s$ is equal to both the sum of the $l_i$'s
+    and the sum of the $r_j$'s.
+
+The first claim is proven by a standard polynomial division trick:
+Asking that two polynomials agree on all powers of $omega$
+is the same as asking that they are congruent modulo $Z_n(X) = X^n-1$.
+So the prover simply produces a Kate commitment to the quotient polynomial $Q_L$
+satisfying
+$
+    L(x) (beta - F(x)) = 1 + Q_L(X) Z_n(X).
+$
+
+The claim
