@@ -168,8 +168,14 @@ and then we'll flesh it out.
   (@cq-identity).
 - The verifier chooses a random challenge $beta$.
 - The prover sends two more KZG commitments: 
-  a commitment $Com(L)$ to the polynomial $L$ such that $L(omega^i) = 1/(beta - f_i)$,
-  and another $Com(R)$ to the polynomial $R$ such that $R(zeta^j) = m_j/(beta - t_j)$.
+  a commitment $Com(L)$ to the polynomial $L$ such that 
+  $
+    L(omega^i) = 1/(beta - f_i),
+  $
+  and another $Com(R)$ to the polynomial $R$ such that 
+  $
+    R(zeta^j) = m_j/(beta - t_j).
+  $
 - The prover sends the value 
   $
   s = sum_(i=1)^n (1)/(X - f_i) = sum_(j=1)^N (m_j)/(X - t_j).
@@ -191,10 +197,75 @@ and then we'll flesh it out.
 The first claim is proven by a standard polynomial division trick:
 Asking that two polynomials agree on all powers of $omega$
 is the same as asking that they are congruent modulo $Z_n(X) = X^n-1$.
-So the prover simply produces a Kate commitment to the quotient polynomial $Q_L$
+So the prover simply produces a KZG commitment to the quotient polynomial $Q_L$
 satisfying
 $
-    L(x) (beta - F(x)) = 1 + Q_L(X) Z_n(X).
+    L(x) (beta - F(x)) = 1 + Q_L (X) Z_n (X).
+$
+And similarly for the claim involving $R$: 
+the prover produces a KZG commitment to the polynomial $Q_R$ such that
+$
+    R(X) (beta - T(X)) = M(X) + Q_R (X) Z_N (X).
 $
 
-The claim
+#remark[
+The verifier can check the claim that 
+$L(x) (beta - F(x)) = 1 + Q_L(X) Z_n(X)$,
+and others like it, using the pairing trick.
+
+The verifier already has access to KZG commitments
+$Com(L)$, $Com(F)$, $Com(Q_L)$, and $Com(Z_n)$,
+either because he can compute them himself ($Com(Z_n)$),
+or because the prover sent them as part of the protocol
+($Com(L), Com(F), Com(Q_L)$).
+Additionally, the prover will need to send the intermediate value
+$Com(Q_L Z_n)$, a KZG commitment to the product.
+
+The verifier then checks the pairings
+$
+pair(Com(Q_L Z_n), [1]) = pair(Com(Q_L), Com(Z_n))
+$
+(which verifies that the commitment $Com(Q_L Z_n)$ to the product polynomial
+was computed honestly)
+and
+$
+pair(Com(L), [beta] - Com(F)) = pair([1] + Com(Q_L Z_n), [1])
+$
+(which verifies the claimed equality).
+
+The process of verifing this sort of identity is quite general:
+The prover sends intermediate values as needed
+so that the verifier can verify the claim using only pairings and linearity.
+]
+
+The second claim is most easily verified by means of the following trick.
+If $L$ is a polynomial of degree less than $n$,
+then
+$
+sum_(i=0)^n L(omega^i) = n L(0).
+$
+So the prover simply has to open the KZG commitment $Com(L)$ at $0$,
+showing that $n L(0) = s$
+(and similarly for $R$).
+
+=== Cached quotients: improving the prover complexity
+
+The protocol above works, and it does everything we want it to,
+except it's not clear how quickly the prover can generate the proof.
+To recall what we want:
+- We're assuming $n << N$.
+- Prover and verifier can both do a one-time $O(N)$ setup,
+  depending on the lookup table $T$ but not on the sought values $F$.
+- After the one-time setup, the prover runtime (given the sought values $F$)
+  should be only $O(n log n)$.
+
+The polynomial $L$ has degree less than $n$ --
+it is defined by Lagrange interpolation from its values at the $n$th roots of unity.
+So $L$ can be computed quickly by a fast Fourier transform,
+and none of the identities involving $L$ 
+will give the prover any trouble.
+
+But $R$ is a bigger problem: it has degree $N$.
+
+
+
