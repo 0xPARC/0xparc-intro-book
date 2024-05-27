@@ -266,6 +266,62 @@ and none of the identities involving $L$
 will give the prover any trouble.
 
 But $R$ is a bigger problem: it has degree $N$.
+So any calculation involving the coefficients of $R$ -- or of $M$, or the quotient $Q_R$ --
+is a no-go.
 
+So what saves us?
+- The prover only ever needs to compute KZG commitments, not actual polynomials -- 
+  and KZG commitments are linear.
+- $M$, $R$ and $Q_R$ can be written as sums of only $n$ terms
+  (which can be precomputed once and for all).
 
+Let's take $R$ for example.  
+$R$ is the polynomial determined by 
+Lagrange interpolation and the condition
+$
+    R(zeta^j) (beta - T(zeta^j)) = M(zeta^j)
+$
+Let $R_j$ be the polynomial 
+(a mutiple of a Lagrange basis polynomial)
+such that
+$
+    R_j(zeta^j) = 1 / (beta - t_j)
+$
+but
+$
+    R_j(zeta^k) = 0
+$
+for $k eq.not j$.
+Then
+$
+    R = sum_j m_j R_j,
+$
+and the sum has at most $n$ nonzero terms,
+one for each item on the sought list $t_i$.
+So the prover simply computes each commitment $Com(R_j)$
+in advance, and then given $t_i$, computes
+$
+    Com(R) = sum_j m_j Com(R_j).
+$
 
+A similar trick works for $Q_R$,
+which is the origin of the name "cached quotients."
+Recall that $Q_R$ is defined by
+$
+    R(X) (beta - T(X)) = M(X) + Q_R (X) Z_N (X).
+$
+In other words, $Q_R$ is the result of "division with remainder":
+$
+    R(X) (beta - T(X)) / Z_N (X) = Q_R (X) + M(X) / Z_N (X).
+$
+So the prover simply precomputes quotients $Q_(R_j)$ and remainders $M_j$ such that
+$
+    R_j (X) (beta - T(X)) / Z_N (X) = Q_(R_j) (X) + M_j (X) / Z_N (X),
+$
+and then computes $Q_R$ and $M$ as linear combinations of them.
+
+So, in summary: 
+The prover precomputes KZG commitments to $R_j$, $Q_(R_j)$, and $M_j$.
+Then prover and verifier run the protocol described above,
+and all the prover messages can be computed in $O(n log n)$ time,
+using linear combinations of the cached precomputes.
