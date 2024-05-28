@@ -120,7 +120,7 @@ so let's get back to a simple toy example.
   which Peggy knows how to multiply by $gamma$, 
   and $h$ must be the same linear combination
   of $[gamma], Com(gamma U_1), dots, Com(gamma U_n)$.
-]
+] <groth-motiv-1>
 
 #example[
   Here's a more complicated challenge,
@@ -141,12 +141,22 @@ so let's get back to a simple toy example.
 
   To do this, Trent does the same trusted setup thing.
   Trent chooses two constants $alpha$ and $beta$
-  and publishes
+  and publishes $[alpha]$, $[beta]$, and
   $ alpha Com(U_i) + beta Com(V_i), $
   for $1 lt.eq i lt.eq n$.
 
-  
+  In addition to $g_1$ and $g_2$,
+  Peggy now also publishes
+  $ h = sum_(i=1)^n a_i (alpha Com(U_i) + beta Com(V_i) ). $
+  Victor needs to verify that
+  $ h = alpha g_1 + beta g_2; $
+  if this equality holds, then $g_1$ and $g_2$ must
+  have the correct form,
+  just like in @groth-motiv-1.
 
+  So Victor checks the equality of pairings
+  $ pair(h, [1]) = pair(g_1, [alpha]) + pair(g_2, [beta]), $
+  and the proof is complete.
 ]
 
 #todo[Deal with trusted setup]
