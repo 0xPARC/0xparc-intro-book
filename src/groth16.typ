@@ -25,6 +25,16 @@ The inputs are divided into two categories:
 - ($a_0$), $a_1$, ..., $a_ell$ are _public inputs_; and
 - $a_(ell+1)$, $a_1$, ..., $a_n$ are _private inputs_.
 
+== Interpolation
+
+The basic idea of Groth16 is to interpolate polynomials 
+through the coefficients of the $m$ equations,
+then work with KZG commitments to these polynomials.
+(This is sort of the opposite of the interpolation in PLONK (@plonk),
+where we interpolate
+a polynomial through Peggy's solution $(a_0, ..., a_n)$.
+
+
 #todo[Deal with trusted setup]
 
 == Trusted setup
@@ -45,7 +55,7 @@ through the coefficients of our R1CS system;
 that is we have $U_i (X), V_i (X), W_i (X) in FF_p [X]$ such that
 $ U_i (q) = u_(i,q), #h(1em) V_i (q) = v_(i,q), #h(1em) W_i (q) = w_(i,q). $
 
-Whoever is doing the trusted setup then selects a secret $gamma in FF_p$
+Trent (who is doing the trusted setup) then selects a secret $gamma in FF_p$
 and publishes all of the following points on $E$:
 $ [gamma],
   #h(1em) [(U_i (s)) / gamma],
