@@ -30,6 +30,7 @@
 #part[zkSNARK constructions]
 #chapter("src/h-zksnark.typ")
 #chapter("src/ec.typ")
+#chapter("src/pair.typ")
 #chapter("src/kzg.typ")
 #chapter("src/ipa.typ")
 #chapter("src/plonk.typ")

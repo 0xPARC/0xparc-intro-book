@@ -213,6 +213,8 @@ The verifier can check the claim that
 $L(x) (beta - F(x)) = 1 + Q_L(X) Z_n(X)$,
 and others like it, using the pairing trick.
 
+(This is an example of the method explained in @pair-verify-example.)
+
 The verifier already has access to KZG commitments
 $Com(L)$, $Com(F)$, $Com(Q_L)$, and $Com(Z_n)$,
 either because he can compute them himself ($Com(Z_n)$),
@@ -236,7 +238,7 @@ $
 The process of verifing this sort of identity is quite general:
 The prover sends intermediate values as needed
 so that the verifier can verify the claim using only pairings and linearity.
-]
+] <cq-pairing-verify>
 
 The second claim is most easily verified by means of the following trick.
 If $L$ is a polynomial of degree less than $n$,
