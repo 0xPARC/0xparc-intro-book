@@ -83,7 +83,69 @@ so let's get back to a simple toy example.
 
 #example[
   Suppose there are publicly known group elements
+  $ Com(U_1), Com(U_2), dots, Com(U_n). $
+  Suppose Peggy has another group element $g$, 
+  and she wants to show that $g$ has the form
+  $ g = a_0 + sum_(i=1)^n a_i Com(U_i), $
+  where the $a_i$'s are constants Peggy knows.
+
+  Groth's solution to this problem
+  uses a _trusted setup_ phase, as follows.
+
+  Before the protocol runs, Trent (our trusted setup agent)
+  chooses a nonzero field element $gamma$ at random
+  and publishes:
+  $ [gamma], Com(U_1), Com(gamma U_1), Com(U_2), Com(gamma U_2),
+  dots, Com(U_n), Com(gamma U_n). $
+  Trent then throws away $gamma$.
+
+  Peggy now sends to Victor
+  $ g = [a_0] + sum_(i=1)^n a_i Com(U_i) $
+  and
+  $ h = gamma g = a_0 [gamma] + sum_(i=1)^n a_i Com(gamma U_i). $
+  
+  Victor can verify that
+  $ pair(g, [gamma]) = pair( h, [1] ), $
+  which shows that the element Peggy said was $gamma g$
+  is in fact $gamma$ times the element $g$.
+
+  But Peggy does not know $gamma$!
+  So (assuming, as usual, that the discrete logarithm problem is hard),
+  the only way Peggy can find elements 
+  $g$ and $h$ such that $h = gamma g$
+  is to use the commitments Trent released in trusted setup.
+  In other words,
+  $g$ must be a linear combination of 
+  the elements $[1], Com(U_1), dots, Com(U_n),$
+  which Peggy knows how to multiply by $gamma$, 
+  and $h$ must be the same linear combination
+  of $[gamma], Com(gamma U_1), dots, Com(gamma U_n)$.
+]
+
+#example[
+  Here's a more complicated challenge,
+  on the way to building up the Groth16 protocol.
+
+  Suppose there are publicly known group elements
   $ Com(U_1), Com(U_2), dots, Com(U_n) $
+  and
+  $ Com(V_1), Com(V_2), dots, Com(V_n). $
+  Peggy wants to publish 
+  $ g_1 = sum_(i=1)^n a_i Com(U_i) $
+  and
+  $ g_2 = sum_(i=1)^n a_i Com(V_i), $
+  and prove to Victor that these two group elements
+  have the desired form
+  (in particular, with the same coefficients $a_i$
+  used for both).
+
+  To do this, Trent does the same trusted setup thing.
+  Trent chooses two constants $alpha$ and $beta$
+  and publishes
+  $ alpha Com(U_i) + beta Com(V_i), $
+  for $1 lt.eq i lt.eq n$.
+
+  
 
 ]
 
