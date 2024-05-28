@@ -32,8 +32,60 @@ through the coefficients of the $m$ equations,
 then work with KZG commitments to these polynomials.
 (This is sort of the opposite of the interpolation in PLONK (@plonk),
 where we interpolate
-a polynomial through Peggy's solution $(a_0, ..., a_n)$.
+a polynomial through Peggy's solution $(a_0, ..., a_n)$.)
 
+Interpolate polynomials $U_i, V_i, W_i$ such that
+$
+  U_i (q) & = u_(i, q) \
+  V_i (q) & = v_(i, q) \
+  W_i (q) & = w_(i, q)
+$
+for $1 lt.eq q lt.eq m$.
+In this notation, we want to show that
+$ (sum_(i=0)^n a_i U_i (q)) (sum_(i=0)^n a_i V_i(q))
+  = (sum_(i=0)^n a_i W_i(q)),$
+for $q = 1, dots, m$.
+This is the same as showing that there exists some polynomial $H$
+such that
+$ (sum_(i=0)^n a_i U_i (X)) (sum_(i=0)^n a_i V_i(X))
+  = (sum_(i=0)^n a_i W_i(X)) + H(x)T(x), $
+where
+$ T(x) = (x-1)(x-2) dots (x-m). $
+
+The proof that Peggy sends to Victor will take the form of
+a handful of KZG commitments.
+As a first idea (we'll have to build on this afterwards),
+let's have Peggy send KZG commitments
+$ Com( sum a_i U_i ) $
+$ Com( sum a_i V_i ) $
+$ Com( sum a_i W_i ) $
+$ Com( H T ). $
+Recall from @kzg that the Kate commitment $Com( F )$ to a polynomial
+$F$ is just the elliptic curve point $[F(s)]$.
+Here $s$ is some field element whose value nobody knows,
+but a handful of small powers $[1], [s], [s^2], dots$
+are known from the trusted setup.
+
+The problem here is for Peggy to convince Victor that these four group elements,
+supposedly $ Com( sum a_i U_i ) $ and so forth, are well-formed.
+For example, Peggy needs to show that $ Com( sum a_i U_i ) $ 
+is a linear combination of the KZG commitments $Com(U_i)$,
+that $ Com( sum a_i V_i ) $
+is a linear combination of the KZG commitments $Com(V_i)$,
+and that the two linear combinations use the same coefficients $a_i$.
+
+== Proving claims about linear combinations
+
+We've already come across this sort of challenge
+in the setting of IPA (@ipa),
+but Groth16 uses a different approach,
+so let's get back to a simple toy example.
+
+#example[
+  Suppose there are publicly known group elements
+  $ Com(U_1), Com(U_2), dots, Com(U_n) $
+
+]
 
 #todo[Deal with trusted setup]
 
