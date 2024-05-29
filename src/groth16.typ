@@ -196,21 +196,18 @@ so both Peggy and Victor know their values,
 and Victor has to be able to verify that they were assigned correctly.
 The remaining values $a_(ell+1), dots, a_n$ 
 will be private.
-Trent will use two different scaling factors:
-$gamma$ for the public inputs and $delta$ for the private.
 
 Trent (who is doing the trusted setup) then selects secrets 
-$alpha, beta, gamma, delta, epsilon in FF_p$
+$alpha, beta, delta, epsilon in FF_p$
 and publishes all of the following points on $E$:
-$ [alpha], [beta], [gamma], [delta], [epsilon],
-  #h(1em) [(beta U_i (s) + alpha V_i (s) + W_i (s)) / gamma] ... 1 lt.eq i lt.eq ell,
-  #h(1em) [(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] ... ell lt i lt.eq m,
-  #h(1em) [x^i T(s) / epsilon] ... 0 lt.eq i lt.eq n-2.
+$ [alpha], [beta], [delta], [epsilon], \
+  #h(1em) [(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] text("for") ell lt i lt.eq m,
+  #h(1em) [(x^i T(s)) / epsilon] text("for") 0 lt.eq i lt.eq n-2.
 $
 
 Note that this means this setup needs to be done _for each system of equations_.
 That is, if you are running Groth16 and you change the system,
-the trusted setup with $gamma$ and $delta$ needs to be redone.
+the trusted setup with $delta$ needs to be redone.
 
 This might make the protocol seem limited.
 On the other hand, for practical purposes,
@@ -220,17 +217,25 @@ that she wants to prove many solutions for.
 In this case, Trent can run the trusted setup just once,
 and once the setup is done there is no additional cost.
 
-#todo[SHA example]
+#example[
+  In practice, one often wants to prove a computation of a hash function:
+  $ op("sha")(M) = H. $
+  When you convert this into a system of quadratic equations
+  for PLONK or Groth16,
+  both $M$ and $H$ will be public inputs to the system.
+  The equations themselves will depend only on the 
+  details of the hash function $op("sha")$.
+  
+  In this case, a single trusted setup can be used 
+  to prove the hash of any message.
+]
 
 === The protocol (not optimized)
 
 + Peggy now sends to Victor:
-  $ A = [sum_(i=0)^n a_i U_i(s)] $
-  $ B = [sum_(i=0)^n a_i V_i(s)] $
-  $ C = [sum_(i=0)^n a_i W_i(s)] $
-  $ D = [sum_(i=ell+1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] $
-  $ E = [H(s)] $
-  $ F = [H(s) T(s) / epsilon]$
+  $ A = [sum_(i=0)^n a_i U_i (s)], #h(1em) B = [sum_(i=0)^n a_i V_i (s)], #h(1em) C = [sum_(i=0)^n a_i W_i (s)], \
+  D = [sum_(i=ell+1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta], \
+  E = [H(s)], #h(1em) F = [H(s) T(s) / epsilon]. $
 
 + Victor additionally computes
   $ D_0 = [sum_(i=1)^ell (beta U_i (s) + alpha V_i (s) + W_i (s))] $
@@ -241,7 +246,7 @@ and once the setup is done there is no additional cost.
 + Victor verifies the pairings
   $ pair( [delta], D ) + pair( [1], D_0 ) = pair( [beta], A ) + pair( [alpha], B ) + pair( [1], C ). $
 
-  This pairing shows that $delta D + D_0 = beta A + alpha B + C$.
+  This pairing shows that $ delta D + D_0 = beta A + alpha B + C. $
   Now just like in @groth-motiv-1,
   the only way that Peggy could possibly find two group elements $g$ and $h$
   such that $delta g = h$
@@ -253,14 +258,12 @@ and once the setup is done there is no additional cost.
   $
   for some constants $a_i$, which implies
   $
-    beta A + alpha B + C = [sum_(i=1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s))].
+    beta A + alpha B + C = [sum_(i=0)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s))].
   $
   And just like in @groth-motiv-2,
   since $alpha$ and $beta$ are unknown,
   the only way an equality like this can hold is if
-  $ A = [sum_(i=0)^n a_i U_i(s)] $
-  $ B = [sum_(i=0)^n a_i V_i(s)] $
-  $ C = [sum_(i=0)^n a_i W_i(s)], $
+  $ A = [sum_(i=0)^n a_i U_i (s)], #h(1em) B = [sum_(i=0)^n a_i V_i (s)], #h(1em) C = [sum_(i=0)^n a_i W_i (s)], $
   where $a_i$ is equal to the public input for $i lt.eq ell$
   (because Victor computed $D_0$ himself!)
   and $a_i$ is equal to some fixed unknown value for $i gt ell$.
@@ -269,7 +272,7 @@ and once the setup is done there is no additional cost.
   $  pair( [epsilon], F ) = pair( E, G ). $
   Again like in @groth-motiv-1, since $epsilon$ is unknown,
   this shows that $F$ has the form
-  $ [H(s) T(s) / epsilon], $
+  $ [(H(s) T(s)) / epsilon], $
   where $H$ is a polynomial of degree at most $n-2$.
   Since $G = [T(s)] $ (Victor knows this because he computed it himself),
   we learn that $E = [H(s)]$ is a KZG commitment to a polynomial
@@ -286,6 +289,24 @@ and once the setup is done there is no additional cost.
 
 === Optimizing the protocol
 
-(say something about how this isn't optimized because we want it to be easier to understand)
-(Groth's version is only 3 group elements for the proof, and 3 pairings)
-(our version is 6 group elements for the proof, and 8 pairings)
+The protocol above can be optimized further.
+We didn't optimize it because we wanted it to be easier to understand.
+
+In our protocol, the proof length is 6 group elements
+(Peggy sends Victor $A, B, C, D, E, F$),
+and Victor has to compute 8 elliptic curve pairings to verify the proof.
+Additionally, Victor has to do $O(ell)$ group operations
+to compute $D_0$ depending on the public input.
+
+It turns out that, by cleverly combining multiple verifications into one,
+you can get away with a proof length of just 3 group elements,
+and verifier work of just 3 elliptic curve pairings 
+(plus the same $O(ell)$ group operations).
+
+Additionally, we didn't make the protocol zero-knowledge.
+This requires the addition of a blinding factor.
+Incredibly, Groth manages to take care of the blinding factor
+in the 3-element proof as well.
+
+The fully optimized protocol
+is in #link("https://eprint.iacr.org/2016/260.pdf")[Groth's paper].
