@@ -93,33 +93,33 @@ so let's get back to a simple toy example.
   uses a _trusted setup_ phase, as follows.
 
   Before the protocol runs, Trent (our trusted setup agent)
-  chooses a nonzero field element $gamma$ at random
+  chooses a nonzero field element $delta$ at random
   and publishes:
-  $ [gamma], Com(U_1), Com(gamma U_1), Com(U_2), Com(gamma U_2),
-  dots, Com(U_n), Com(gamma U_n). $
-  Trent then throws away $gamma$.
+  $ [delta], Com(U_1), Com(delta U_1), Com(U_2), Com(delta U_2),
+  dots, Com(U_n), Com(delta U_n). $
+  Trent then throws away $delta$.
 
   Peggy now sends to Victor
   $ g = [a_0] + sum_(i=1)^n a_i Com(U_i) $
   and
-  $ h = gamma g = a_0 [gamma] + sum_(i=1)^n a_i Com(gamma U_i). $
+  $ h = delta g = a_0 [delta] + sum_(i=1)^n a_i Com(delta U_i). $
   
   Victor can verify that
-  $ pair(g, [gamma]) = pair( h, [1] ), $
-  which shows that the element Peggy said was $gamma g$
-  is in fact $gamma$ times the element $g$.
+  $ pair(g, [delta]) = pair( h, [1] ), $
+  which shows that the element Peggy said was $delta g$
+  is in fact $delta$ times the element $g$.
 
-  But Peggy does not know $gamma$!
+  But Peggy does not know $delta$!
   So (assuming, as usual, that the discrete logarithm problem is hard),
   the only way Peggy can find elements 
-  $g$ and $h$ such that $h = gamma g$
+  $g$ and $h$ such that $h = delta g$
   is to use the commitments Trent released in trusted setup.
   In other words,
   $g$ must be a linear combination of 
   the elements $[1], Com(U_1), dots, Com(U_n),$
-  which Peggy knows how to multiply by $gamma$, 
+  which Peggy knows how to multiply by $delta$, 
   and $h$ must be the same linear combination
-  of $[gamma], Com(gamma U_1), dots, Com(gamma U_n)$.
+  of $[delta], Com(delta U_1), dots, Com(delta U_n)$.
 ] <groth-motiv-1>
 
 #example[
@@ -157,11 +157,22 @@ so let's get back to a simple toy example.
   So Victor checks the equality of pairings
   $ pair(h, [1]) = pair(g_1, [alpha]) + pair(g_2, [beta]), $
   and the proof is complete.
-]
+] <groth-motiv-2>
 
-#todo[Deal with trusted setup]
+== The protocol 
 
-== Trusted setup
+Armed with @groth-motiv-1 and @groth-motiv-2,
+it's not hard to turn our vague idea from earlier
+into a full protocol.
+This protocol won't be zero-knowledge --
+to make it zero-knowledge, we would have to throw in
+an extra "blinding" term,
+which just adds an additional layer of complication
+on top of the whole thing.
+If you want to see the full ZK version,
+check out #link("https://eprint.iacr.org/2016/260.pdf")[Groth's original paper].
+
+=== Trusted setup
 
 We start with the same secret setup as the KZG commitment scheme.
 That is, we have a fixed pairing $"pair" : E times E -> ZZ slash N ZZ$
@@ -169,9 +180,9 @@ and a secret scalar $s in FF_p$.
 The trusted setup is as before: $s$ is kept secret from everyone,
 but the numbers $[1]$, $[s]$, ..., up to $[s^(2m)]$ are published.
 
-However, for this protocol requires additional setup
+However,  this protocol requires additional setup
 that actually depends on the system of equations (unlike in the KZG situation in
-@kzg, in which trusted setups is done for the curve $E$ itself
+@kzg, in which trusted setup is done for the curve $E$ itself
 and afterwards can be freely reused for any situation needing a KZG commitment.)
 
 Specifically, let's interpolate polynomials $U$, $V$, $W$
@@ -179,47 +190,70 @@ through the coefficients of our R1CS system;
 that is we have $U_i (X), V_i (X), W_i (X) in FF_p [X]$ such that
 $ U_i (q) = u_(i,q), #h(1em) V_i (q) = v_(i,q), #h(1em) W_i (q) = w_(i,q). $
 
-Trent (who is doing the trusted setup) then selects a secret $gamma in FF_p$
+So far we have ignored the issue of public inputs.
+The values $a_0, a_1, dots, a_ell$ will be public inputs to the circuit,
+so both Peggy and Victor know their values,
+and Victor has to be able to verify that they were assigned correctly.
+The remaining values $a_(ell+1), dots, a_n$ 
+will be private.
+Trent will use two different scaling factors:
+$gamma$ for the public inputs and $delta$ for the private.
+
+Trent (who is doing the trusted setup) then selects secrets 
+$alpha, beta, gamma, delta, epsilon in FF_p$
 and publishes all of the following points on $E$:
-$ [gamma],
-  #h(1em) [(U_i (s)) / gamma],
-  #h(1em) [(V_i (s)) / gamma],
-  #h(1em) [(W_i (s)) / gamma] $
-for all $1 <= i <= n$.
-Finally, there are two more secrets scalars $alpha, beta in FF_p$
-chosen during trusted setup; Trent publishes
-$ [alpha], #h(1em) [beta], #h(1em)
-  [beta U_i (s) + alpha V_i (s) + W_i (s)] $
-for all $1 <= i <= n$.
-We'll explain later what these three additional secrets are used for.
+$ [alpha], [beta], [gamma], [delta], [epsilon],
+  #h(1em) [(beta U_i (s) + alpha V_i (s) + W_i (s)) / gamma] ... 1 lt.eq i lt.eq ell,
+  #h(1em) [(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] ... ell lt i lt.eq m,
+  #h(1em) [x^i T(s) / epsilon] ... 0 lt.eq i lt.eq n-2.
+$
 
 Note that this means this setup needs to be done _for each system of equations_.
 That is, if you are running Groth16 and you change the system,
-the trusted setup with $gamma$ needs to be redone.
+the trusted setup with $gamma$ and $delta$ needs to be redone.
 
-This might make the protocol seems limited.
+This might make the protocol seem limited.
 On the other hand, for practical purposes,
-one can imagine a really general system of equations
+one can imagine that Peggy has 
+a really general system of equations
+that she wants to prove many solutions for.
+In this case, Trent can run the trusted setup just once,
+and once the setup is done there is no additional cost.
 
 #todo[SHA example]
 
-== Interpolation
+=== The protocol (not optimized)
 
-Unlike with PLONK, we're _not_ going to interpolate
-a polynomial through Peggy's solution $(a_0, ..., a_n)$.
-The previous interpolations of $U_i (X)$, $V_i (X)$, $W_i (X)$ are good enough.
+Peggy now sends to Victor:
+$ A = [sum_(i=1)^n a_i U_i(s)] $
+$ B = [sum_(i=1)^n a_i V_i(s)] $
+$ C = [sum_(i=1)^n a_i W_i(s)] $
+$ D = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] $
+$ E = [H(s)] $
+$ F = [H(s) T(s) / epsilon]$
 
-Let's summarize what we have up to here.
-Peggy is trying to prove to Victor that she knows $(a_0, ..., a_n) in FF_p$
-such that the identity
-$ (sum_(i=0)^n a_i U_i (X) ) (sum_(i=0)^n a_i V_i (X) )
-  = (sum_(i=0)^n a_i W_i (X)) $
-holds for all $X = 1, 2, ..., m$.
-We can rephrase this a polynomial divisibility,
-where we want the difference between the left-hand side and the right-hand side
-to be divisible by the polynomial $T(X) := (X-1)(X-2) ... (X-m)$.
+Victor additionally computes
+$ D_0 = [sum_(i=(1))^ell (beta U_i (s) + alpha V_i (s) + W_i (s))] $
+and
+$ G = [T(s)] $
+based on publicly known information.
 
-We are hoping that there exists $H in FF_p [X]$ such that
-$ (sum_(i=0)^n a_i U_i (X) ) (sum_(i=0)^n a_i V_i (X) )
-  = (sum_(i=0)^n a_i W_i (X)) + H(X) T(X) $
-where $T(X) = (X-1)(X-2) ... (X-q)$.
+Victor verifies the pairings
+$ pair( [delta], D ) = pair( [beta], A ) + pair( [alpha], B ) + pair( [1], C ). $
+
+This pairing shows that $delta D = beta A + alpha B + C$.
+Now just like in @groth-motiv-1,
+the only way that Peggy could possibly find two group elements $g$ and $h$
+such that $delta g = h$
+is if $g$ is a linear combination of terms
+$[(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]$.
+So we have verified that
+$
+  D = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]
+$
+for some constants $a_i$, which implies
+$
+  beta A + alpha B + C = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s))].
+$
+And just like in @groth-motiv-2,
+since $alpha$ and $beta$ are unknown,
