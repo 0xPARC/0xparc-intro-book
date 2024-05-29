@@ -224,36 +224,68 @@ and once the setup is done there is no additional cost.
 
 === The protocol (not optimized)
 
-Peggy now sends to Victor:
-$ A = [sum_(i=1)^n a_i U_i(s)] $
-$ B = [sum_(i=1)^n a_i V_i(s)] $
-$ C = [sum_(i=1)^n a_i W_i(s)] $
-$ D = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] $
-$ E = [H(s)] $
-$ F = [H(s) T(s) / epsilon]$
++ Peggy now sends to Victor:
+  $ A = [sum_(i=0)^n a_i U_i(s)] $
+  $ B = [sum_(i=0)^n a_i V_i(s)] $
+  $ C = [sum_(i=0)^n a_i W_i(s)] $
+  $ D = [sum_(i=ell+1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta] $
+  $ E = [H(s)] $
+  $ F = [H(s) T(s) / epsilon]$
 
-Victor additionally computes
-$ D_0 = [sum_(i=(1))^ell (beta U_i (s) + alpha V_i (s) + W_i (s))] $
-and
-$ G = [T(s)] $
-based on publicly known information.
++ Victor additionally computes
+  $ D_0 = [sum_(i=1)^ell (beta U_i (s) + alpha V_i (s) + W_i (s))] $
+  and
+  $ G = [T(s)] $
+  based on publicly known information.
 
-Victor verifies the pairings
-$ pair( [delta], D ) = pair( [beta], A ) + pair( [alpha], B ) + pair( [1], C ). $
++ Victor verifies the pairings
+  $ pair( [delta], D ) + pair( [1], D_0 ) = pair( [beta], A ) + pair( [alpha], B ) + pair( [1], C ). $
 
-This pairing shows that $delta D = beta A + alpha B + C$.
-Now just like in @groth-motiv-1,
-the only way that Peggy could possibly find two group elements $g$ and $h$
-such that $delta g = h$
-is if $g$ is a linear combination of terms
-$[(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]$.
-So we have verified that
-$
-  D = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]
-$
-for some constants $a_i$, which implies
-$
-  beta A + alpha B + C = [sum_(i=(ell+1))^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s))].
-$
-And just like in @groth-motiv-2,
-since $alpha$ and $beta$ are unknown,
+  This pairing shows that $delta D + D_0 = beta A + alpha B + C$.
+  Now just like in @groth-motiv-1,
+  the only way that Peggy could possibly find two group elements $g$ and $h$
+  such that $delta g = h$
+  is if $g$ is a linear combination of terms
+  $[(beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]$.
+  So we have verified that
+  $
+    D = [sum_(i=ell+1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s)) / delta]
+  $
+  for some constants $a_i$, which implies
+  $
+    beta A + alpha B + C = [sum_(i=1)^n a_i (beta U_i (s) + alpha V_i (s) + W_i (s))].
+  $
+  And just like in @groth-motiv-2,
+  since $alpha$ and $beta$ are unknown,
+  the only way an equality like this can hold is if
+  $ A = [sum_(i=0)^n a_i U_i(s)] $
+  $ B = [sum_(i=0)^n a_i V_i(s)] $
+  $ C = [sum_(i=0)^n a_i W_i(s)], $
+  where $a_i$ is equal to the public input for $i lt.eq ell$
+  (because Victor computed $D_0$ himself!)
+  and $a_i$ is equal to some fixed unknown value for $i gt ell$.
+
++ Victor verifies that
+  $  pair( [epsilon], F ) = pair( E, G ). $
+  Again like in @groth-motiv-1, since $epsilon$ is unknown,
+  this shows that $F$ has the form
+  $ [H(s) T(s) / epsilon], $
+  where $H$ is a polynomial of degree at most $n-2$.
+  Since $G = [T(s)] $ (Victor knows this because he computed it himself),
+  we learn that $E = [H(s)]$ is a KZG commitment to a polynomial
+  whose coefficients Peggy knows.
+
++ Finally, Victor verifies that
+  $ pair(A, B) = pair( [1], C ) + pair(E, G). $
+  At this point, Victor already knows that $A$, $B$, $C$, $E$, $H$
+  have the correct form, so this last pairing check 
+  convinces Victor of the key equality,
+  $ (sum_(i=0)^n a_i U_i (X)) (sum_(i=0)^n a_i V_i(X))
+    = (sum_(i=0)^n a_i W_i(X)) + H(x)T(x). $
+  The proof is complete.
+
+=== Optimizing the protocol
+
+(say something about how this isn't optimized because we want it to be easier to understand)
+(Groth's version is only 3 group elements for the proof, and 3 pairings)
+(our version is 6 group elements for the proof, and 8 pairings)
