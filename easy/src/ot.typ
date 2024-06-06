@@ -1,6 +1,7 @@
 #import "preamble.typ":*
 
 = Oblivious Transfer
+<ot>
 
 Alice has $n$ messages $x_1, dots, x_n$. 
 Bob wants to request the $i$-th message, 
