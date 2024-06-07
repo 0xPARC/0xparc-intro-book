@@ -14,6 +14,12 @@ but she remains oblivious as to which message she has transferred.
 
 We'll see two simple protocols to achieve this.
 
+(In fact, for two-party computation, 
+we only "1-of-2 oblivious transfer":
+Alice has $x_1$ and $x_2$, and she wants to send one of 
+those two to Bob.
+But 1-of-$n$ isn't any harder, so we'll do 1-of-$n$.)
+
 == Commutative encryption
 
 Let's imagine that Alice and Bob 

@@ -24,8 +24,8 @@
 #pagebreak()
 
 #part[Oblivious transfer, garbled circuits, and multiparty computation]
+#chapter("src/mpc.typ")
 #chapter("src/ot.typ")
-#chapter("src/mpc2.typ")
 
 #part[zkSNARK constructions]
 #chapter("src/ec.typ")
