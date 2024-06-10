@@ -288,7 +288,7 @@ $
 $
 Then the accumulator $F_Q in FF_q[T]$ is defined analogously.
 
-So to proev @permcheck-poly, the following algorithm works:
+So to prove @permcheck-poly, the following algorithm works:
 
 #algorithm[Permutation-check][
   Suppose Peggy has committed $Com(P)$ and $Com(Q)$.

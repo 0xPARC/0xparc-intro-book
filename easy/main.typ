@@ -1,4 +1,5 @@
 #import "src/preamble.typ":*
+
 #let chapter(filename) = {
   include filename
   pagebreak(weak: true)
@@ -22,6 +23,8 @@
 
 #toc
 #pagebreak()
+
+#chapter("src/intro.typ")
 
 #part[Oblivious transfer, garbled circuits, and multiparty computation]
 #chapter("src/mpc.typ")

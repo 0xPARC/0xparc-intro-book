@@ -3,9 +3,18 @@
 = Introduction to fully homomorphic encryption
 <fhe-intro>
 
-Fully homomorphic encryption (FHE) lets you encrypt a message, and then
-other people can perform arbitrary operations on the encrypted message
-without being able to read the message.
+Alice has a secret $x$, and Bob has a function $f$.
+They want to compute $f(x)$.
+Actually, Alice wants Bob to compute $f(x)$ -- but 
+she doesn't want to tell him $x$.
+
+Alice wants to encrypt $x$ and send Bob $Enc (x)$.
+Then Bob is going to "apply $f$ to the cyphertext",
+to turn $Enc (x)$ into $Enc (f(x))$.
+Finally, Bob sends $Enc (f(x))$ back,
+and Alice decrypts it to learn $f(x)$.
+ 
+This is fully homomorphic encryption (FHE).
 
 Levelled FHE is a sort of weaker version of FHE. Like FHE, levelled FHE
 lets you perform operations on encrypted data. But unlike FHE, there

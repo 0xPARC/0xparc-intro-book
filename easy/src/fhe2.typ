@@ -6,7 +6,7 @@ The
 learning with errors
 problem (@lwe) is one of those "hard problems that you can build cryptography
 on." The problem is to solve for constants
-$ a_1, dots, a_n in ZZ / (q ZZ), $ given a bunch of
+$ a_1, dots, a_n in ZZ \/ q ZZ, $ given a bunch of
 #emph[approximate] equations of the form
 $ a_1 x_1 + dots.h + a_n x_n = y + epsilon.alt , $ where each
 $epsilon.alt$ is a "small" error (in the linked example, $epsilon.alt$
@@ -111,12 +111,28 @@ Let’s say you randomly choose the first 4 rows:
   , kind: table
   )
 
-Now you add them up to get the following. | $upright(bold(x)) : y_0$ | |
-\- | | (7, 5, 1, 6) : 6 |
+Now you add them up to get the following.
+#figure(
+  align(center)[#table(
+    columns: 1,
+    align: (auto,),
+    table.header([$upright(bold(x)) : y_0$],),
+    [(7, 5, 1, 6) : 6],
+)],
+  kind: table
+)
 
 Finally, let’s say your message is $m = 5$. So you set
-$y = y_0 - m = 6 - 5 = 1$, and send the cyphertext: |
-$upright(bold(x)) : y_0$ | | - | | (7, 5, 1, 6) : 1. |
+$y = y_0 - m = 6 - 5 = 1$, and send the cyphertext:
+#figure(
+  align(center)[#table(
+    columns: 1,
+    align: (auto,),
+    table.header([$upright(bold(x)) : y_0$],),
+    [(7, 5, 1, 6) : 1],
+)],
+  kind: table
+)
 
 == Decryption
 <decryption>
@@ -166,7 +182,6 @@ rather than just a single bit.
 
 When we do FHE, we’re going to apply many operations to a cyphertext,
 and each is going to cause the error to grow. We’re going to have to put
-some effort into keeping the error under control – and then, when the
-error inevitably grows beyond the permissible bound, we’ll need a
-special technique ("bootstrapping") to refresh the cyphertext and start
-anew.
+some effort into keeping the error under control – 
+and the size of $q\/ r$ will determine how many operations 
+we can do before the error grows too big.
