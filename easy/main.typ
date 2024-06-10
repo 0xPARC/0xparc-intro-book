@@ -33,3 +33,10 @@
 #chapter("src/kzg.typ")
 #chapter("src/plonk.typ")
 
+#part[Levelled fully homomorphic encryption]
+#chapter("src/fhe0.typ")
+#chapter("src/lwe.typ")
+#chapter("src/fhe2.typ")
+#chapter("src/fhe3.typ")
+
+

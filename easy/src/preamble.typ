@@ -54,6 +54,7 @@
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 
 #let proof = thmproof("proof", "Proof")
+#let solution = thmproof("proof", "Solution")
 
 #let assumption = thmbox("main", "Assumption", fill: rgb("#eeeeaa"), base_level: 1)
 #let goal = thmbox("main", "Goal", fill: rgb("#eeeeaa"), base_level: 1)
@@ -119,6 +120,7 @@
     it
     v(-0.5em)
   }
+  show quote: set align(center)
 
   // Section headers
   set heading(numbering: "1.1")
