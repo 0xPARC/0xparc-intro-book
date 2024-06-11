@@ -4,7 +4,7 @@
 <lwe>
 
 Many cryptographic protocols rely on some sort of "hard problem"
--- a computationally infeasible challenge 
+-- a computationally infeasible challenge
 whose difficulty makes the protocol secure.
 It is hard to factor a composite number (like $6177$)
 into prime factors ($6177 = 71*87$);
@@ -17,7 +17,7 @@ KZG polynomial commitments (@kzg), and so forth.
 
 Our protocol for levelled FHE relies on a different hard problem.
 The problem is to solve systems of linear equations.
-Except the equations are only approximately true -- 
+Except the equations are only approximately true --
 they permit a small "error" --
 and instead of solving for rational or real numbers,
 you're solving for integers modulo $q$.
@@ -71,28 +71,28 @@ $(a_1 , dots.h , a_4)$.
 
 #solution[
 We start with some helpful notation. Define an #strong[information
-vector] 
+vector]
 $
   (x_1 , x_2 , x_3 , x_4 lr(|y|) S),
 $
 where $S subset F_11$, to
-mean the statement 
-#quote[$sum a_i x_i = y + s$, where $s in S$.] 
+mean the statement
+#quote[$sum a_i x_i = y + s$, where $s in S$.]
 In
 particular, a given purported approximation
 $
   (x_1 , x_2 , x_3 , x_4) : y
-$ 
+$
 in the LWE protocol corresponds to the
-information vector 
+information vector
 $
   (x_1 , x_2 , x_3 , x_4 lr(|y|) { 0 , - 1 }).
-$ 
+$
 The
 benefit of this notion is that we can take linear combinations of them.
 Specifically,
 
-#proposition[ 
+#proposition[
 If $(X_1 lr(|y_1|) S_1)$ and
 $(X_2 lr(|y_2|) S_2)$ are information vectors (where $X_i$ are vectors),
 then

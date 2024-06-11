@@ -5,13 +5,13 @@
 
 Now we want to turn the public-key encryption from @lwe-crypto
 into a levelled FHE scheme.
-In other words: 
+In other words:
 We want to be able to encrypt bits (0s and 1s)
 and operate on them with AND and NOT gates.
 
-It might help you to imagine that, instead of AND and NOT, 
+It might help you to imagine that, instead of AND and NOT,
 the operations we want to encrypt are addition and multiplication.
-If $x$ and $y$ are bits, then 
+If $x$ and $y$ are bits, then
 NOT $x$ is just $1 - x$, and $x$ AND $y$ is just $x y$.
 But it's easier to do algebra with $+$ and $*$.
 
@@ -23,7 +23,7 @@ modulo $q$ – but we’ll also allow the calculations to have a small
 "error" $epsilon.alt$, which will typically be much, much smaller than
 $q$.
 
-Here’s the new idea. 
+Here’s the new idea.
 Our #emph[secret key] will be a vector
 $ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n $ – a
 vector of length $n$, where the entries are integers modulo $q$. Suppose
@@ -36,7 +36,7 @@ $C upright(bold(v))$, and determine whether it is closer to $0$ or to
 $v_i$.
 
 With a bit of effort, it’s possible to make this into a public-key
-cryptosystem. Just like in @lwe-crypto, 
+cryptosystem. Just like in @lwe-crypto,
 the main idea is to release a
 table of vectors
 $upright(bold(x))$ such that
@@ -106,7 +106,7 @@ value of $a_1$.
 Now suppose I give you the vector
 $ upright(bold(x)) = (9 , 0 , 0 , 0) . $ I ask you for another vector
 $ "Flatten"(upright(bold(x))) = upright(bold(x)) prime , $ where
-$upright(bold(x)) prime$ has to have the following two properties: 
+$upright(bold(x)) prime$ has to have the following two properties:
 - $upright(bold(x)) prime dot.op upright(bold(v)) = upright(bold(x)) dot.op upright(bold(v))$,
   and
 - All the entries of $upright(bold(x)) prime$ are either 0 or 1.
@@ -129,7 +129,7 @@ Similarly, if you know $upright(bold(v))$ has the form
 $ upright(bold(v)) = (a_1 , 2 a_1 , 4 a_1 , dots.h , 2^k a_1 , a_2 , 2 a_2 , 4 a_2 , dots.h , 2^k a_2 , dots.h , a_r , 2 a_r , 4 a_r , dots.h , 2^k a_r) , $
 and you are given some matrix $C$ with coefficients in
 $ZZ \/ q ZZ$, then you can compute another matrix $"Flatten"(C)$
-such that: 
+such that:
 - $"Flatten"(C) upright(bold(v)) = C upright(bold(v))$, and
 - All the entries of $"Flatten"(C)$ are either 0 or 1.
 
@@ -194,12 +194,12 @@ This gives us a #emph[levelled] fully homomorphic encryption protocol:
 it lets us evaluate arbitrary circuits on encrypted data,
 as long as those circuits have bounded depth.
 If we need to evaluate a bigger circuit, we have two options.
-+ Increase the value of $q$.  
++ Increase the value of $q$.
   Of course, the cost of the computations increases with $q$.
 + Use some technique to "reset" the error
   and start anew, as if with a freshly encrypted ciphertext.
 
-  This approach is called "bootstrapping" and it incurs some hefty 
+  This approach is called "bootstrapping" and it incurs some hefty
   computational costs.
   But for very, very large circuits, it's the only viable option.
 

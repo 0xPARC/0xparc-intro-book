@@ -5,7 +5,7 @@
 
 Alice has a secret $x$, and Bob has a function $f$.
 They want to compute $f(x)$.
-Actually, Alice wants Bob to compute $f(x)$ -- but 
+Actually, Alice wants Bob to compute $f(x)$ -- but
 she doesn't want to tell him $x$.
 
 Alice wants to encrypt $x$ and send Bob $Enc (x)$.
@@ -13,7 +13,7 @@ Then Bob is going to "apply $f$ to the ciphertext",
 to turn $Enc (x)$ into $Enc (f(x))$.
 Finally, Bob sends $Enc (f(x))$ back,
 and Alice decrypts it to learn $f(x)$.
- 
+
 This is fully homomorphic encryption (FHE).
 
 Levelled FHE is a sort of weaker version of FHE. Like FHE, levelled FHE
@@ -52,14 +52,14 @@ won’t give the right answer anymore.
 But as long as you’re careful not to go over the error limit, you can
 add ciphertexts with confidence.
 
-In fact, for our levelled FHE protocol, our message will be a bit: 
+In fact, for our levelled FHE protocol, our message will be a bit:
 either 0 or 1;
 our operations will be the logic gates AND and NOT.
 Any logic circuit can be built out of AND and NOT gates,
 so we'll be able to perform arbitrary calculations
 within the FHE encryption.
 
-Our protocol uses a cryptosystem built 
+Our protocol uses a cryptosystem built
 from a problem called "learning with errors."
 "Learning with errors" is kind of a strange name;
 I'd call it "approximate linear algebra modulo $q$."

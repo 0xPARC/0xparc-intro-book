@@ -35,7 +35,7 @@ Here is our problem setting, slightly more formally:
 == The solution (an outline)
 
 Very briefly:
-- Alice constructs a "garbled circuit" 
+- Alice constructs a "garbled circuit"
   that takes in the value $b$ (whatever it is)
   and spits out $f(a, b)$.
 
@@ -44,7 +44,7 @@ Very briefly:
   a secret password corresponding to his input bits.
 
   (or: that Bob can only evaluate once...)
-- Alice uses "oblivious transfer" 
+- Alice uses "oblivious transfer"
   to send Bob the password for his input.
 
   Bob doesn't learn the passwords for any other inputs,
@@ -52,11 +52,11 @@ Very briefly:
 
 #todo[
   Ask Gub to paraphrase, he writes well
-]  
+]
 
 In slightly more detail:
 
-Whatever the function $f$ is, 
+Whatever the function $f$ is,
 we'll assume that it takes $m+n$ bits of input
 $a_1, dots, a_m$ and $b_1, dots, b_n$,
 and that it's computed by some sort of circuit
@@ -65,7 +65,7 @@ made of AND, OR and NOT gates.
 Alice's first task is to "plug her own inputs into this circuit $f$."
 The result will be a new circuit
 (you might call it $f_a$)
-that has just $n$ input slots 
+that has just $n$ input slots
 for Bob's $n$ bits $b_1, dots, b_n$.
 
 And then Alice is going to "garble" the circuit $f_a$.
@@ -74,10 +74,10 @@ He'll only be able to plug his own input $(b_1, dots, b_n)$
 into the circuit.
 
 What stops Bob from plugging other inputs in as well?
-A garbled circuit will require a "password" 
+A garbled circuit will require a "password"
 for each input Bob wants to plug in --
 a different password for every possible input.
-If Bob has the password for $(b_1, dots, b_n)$, 
+If Bob has the password for $(b_1, dots, b_n)$,
 he can learn $f_a(b_1, dots, b_n) = f(a, b)$ --
 but he won't learn anything else about how the circuit works.
 
@@ -98,7 +98,7 @@ except its functionality is hidden.
 What does that mean?
 
 Let's say the gate has two input bits,
-so there are four possible inputs to the gate: 
+so there are four possible inputs to the gate:
 $(0, 0), (0, 1), (1, 0), (1, 1)$.
 For each of those four inputs $(x, y)$,
 there is a secret password $P_(x, y)$.
@@ -112,7 +112,7 @@ Choose a symmetric-key
 "when you think of plain-vanilla encryption: " +
 "You use a secret key $K$ to encrypt a message $m$, " +
 "and then you use the same secret key $K$ to decrypt it.")
-] 
+]
 encryption scheme $Enc$
 [#footnote("We'll talk later about what sort of " +
 "encryption scheme is suitable for this...")]
@@ -147,10 +147,10 @@ We'll need to make two changes to the protocol.
 1. To chain garbled gates together,
   we need to modify the output of each gate:
   In addition to outputting the bit $z = G_i (x, y)$,
-  the $i$-th gate $G_i$ 
+  the $i$-th gate $G_i$
   will also output a password $P_z$ that Bob can use at the next step.
 
-  Now Bob has one bit coming in for the left-hand input $x$, 
+  Now Bob has one bit coming in for the left-hand input $x$,
   and it came with some password $P_x^(text("left"))$ --
   and then another bit coming in for $y$,
   that came with some password $P_y^(text("right"))$.
@@ -164,13 +164,13 @@ We'll need to make two changes to the protocol.
   even the single bit he gets as output.
 
   This is an easy fix:
-  Instead of having the gate output 
+  Instead of having the gate output
   both the bit $z$ and the password $P_z$,
   we'll just have the gate output the password $P_z$.
 
   But now how does Bob know what values to feed into the next gate?
-  The left-hand column of the "gate table" 
-  needs to be indexed by the passwords 
+  The left-hand column of the "gate table"
+  needs to be indexed by the passwords
   $P_x^(text("left"))$ and $P_y^(text("right"))$,
   not by the bits $(x, y)$.
   But we don't want Bob to learn the other passwords from the table!
@@ -182,7 +182,7 @@ We'll need to make two changes to the protocol.
 
   Of course, the solution is to use a hash function!
   So here is the new version of our garbled gate.
-  For simplicity, I'll assume it's an AND gate -- 
+  For simplicity, I'll assume it's an AND gate --
   so the outputs will be (the passwords encoding) 0, 0, 0, 1.
   #table(
   columns: 2,
@@ -198,22 +198,22 @@ Let's play through one round of Bob's gate-using protocol.
 
 0. Suppose Bob's input bits are 0 (on the left) and 1 (on the right).
   Bob doesn't know he has 0 and 1 (but we do!).
-  Bob knows his left password is some value 
+  Bob knows his left password is some value
   $
     P_0^(text("left")),
   $
-  and his right password is some other value 
+  and his right password is some other value
   $
     P_1^(text("right")).
   $
 
 1. Bob takes the two passwords, concatenates them, and computes a hash.
-  Now Bob has 
+  Now Bob has
   $
     sha(P_0^(text("left")), P_1^(text("right"))).
   $
 
-2. Bob finds the row of the table indexed by 
+2. Bob finds the row of the table indexed by
   $sha(P_0^(text("left")), P_1^(text("right")))$,
   and he uses it to look up
   $
@@ -230,7 +230,7 @@ Let's play through one round of Bob's gate-using protocol.
 4. Now Bob has the password for the bit 0, to feed into the next gate --
   but he doesn't know his bit is 0.
 
-So Bob is exactly where he started: 
+So Bob is exactly where he started:
 he knows the password for his bit, but he doesn't know his bit.
 So we can chain together as many of these garbled gates as we like
 to make a full garbled circuit.
@@ -243,13 +243,13 @@ How?
 
 Easy!
 The final output gates are different from the intermediate gates.
-Instead of outputting a password, 
+Instead of outputting a password,
 they will just output the resulting bit in plain text.
 
 == How the circuit starts
 
 This is trickier.
-At the beginning of the computation, 
+At the beginning of the computation,
 Bob needs to learn the passwords for all of his input bits.
 
 Let's just tackle the problem for a single bit.
@@ -259,7 +259,7 @@ Let's just tackle the problem for a single bit.
 - Bob does not want Alice to learn the value of $b$.
 - Alice does not want Bob to learn the other password.
 
-Alice sends the password to Bob 
+Alice sends the password to Bob
 using a protocol called oblivious transfer,
 which we'll see in @ot.
 
