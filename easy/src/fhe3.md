@@ -72,7 +72,7 @@ Of course, revealing that the secret key $\mathbf{v}$ has this special form will
 
 ## Error analysis
 
-Now let's compute more carefully what happens to the error when we add, negate, and multiply bits. Suppose $$C_1 \mathbf{v} = \mu_1 \mathbf{v} + \epsilon_1,$$ where $\epsilon$ is some vector with all its entries bounded by a bound $B$. (And similarly for $C_2$ and $\mu_2$.)
+Now let's compute more carefully what happens to the error when we add, negate, and multiply bits. Suppose $$C_1 \mathbf{v} = \mu_1 \mathbf{v} + \epsilon_1,$$ where $\epsilon_1$ is some vector with all its entries bounded by a bound $B$. (And similarly for $C_2$ and $\mu_2$.)
 
 When we add two ciphertexts, the errors add: $$(C_1 + C_2) \mathbf{v} = (\mu_1 + \mu_2) \mathbf{v} + (\epsilon_1 + \epsilon_2).$$ So the error on the sum will be bounded by $2B$.
 
