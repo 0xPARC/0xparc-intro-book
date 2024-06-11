@@ -25,7 +25,7 @@ nondegenerate bilinear function
 $ pair : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
 I think this should be called a *bilinear pairing*,
-but for some reason everyone justs says *pairing* instead.
+but for some reason everyone just says *pairing* instead.
 A curve is called *pairing-friendly* if this pairing can be computed reasonably
 (e.g. BN254 is pairing-friendly, but Curve25519 is not).
 
@@ -70,7 +70,7 @@ So this gives us a way to _verify_ two-by-two multiplication.
   - $pair([x^3], 1) = pair([x^2], [x]) $
   - $[y] = [x^3] + 2 [1]$.
   
-  The process of verifing this sort of identity is quite general:
+  The process of verifying this sort of identity is quite general:
   The prover sends intermediate values as needed
   so that the verifier can verify the claim using only pairings and linearity.
 ] <pair-verify-example>

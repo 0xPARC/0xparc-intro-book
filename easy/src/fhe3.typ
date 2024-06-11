@@ -28,7 +28,7 @@ Our #emph[secret key] will be a vector
 $ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n $ – a
 vector of length $n$, where the entries are integers modulo $q$. Suppose
 we want to encode a message $mu$ that’s just a single bit, let’s say
-$mu in { 0 , 1 }$. Our cyphertext will be a square $n$-by-$n$ matrix $C$
+$mu in { 0 , 1 }$. Our ciphertext will be a square $n$-by-$n$ matrix $C$
 such that $ C upright(bold(v)) approx mu upright(bold(v)) . $ Now if we
 assume that $upright(bold(v))$ has at least one "big" entry (say $v_i$),
 then decryption is easy: Just compute the $i$-th entry of
@@ -66,13 +66,13 @@ won’t really use this.
 
 Negation of a bit (NOT) is equally simple, though. If $mu in { 0 , 1 }$
 is a bit, then its negation is simply $1 - mu$. And if $C$ is a
-cyphertext for $mu$, then $upright(I d) - C$ is a cyphertext for
+ciphertext for $mu$, then $upright(I d) - C$ is a ciphertext for
 $1 - mu$, since
 $ (upright(I d) - C) upright(bold(v)) = upright(bold(v)) - C upright(bold(v)) approx (1 - mu) upright(bold(v)) . $
 
 Multiplication is also a good operation on bits – it’s just AND. To
 multiply two bits, you just multiply (matrix multiplication) the
-cyphertexts:
+ciphertexts:
 $ C_1 C_2 upright(bold(v)) approx C_1 (mu_2 upright(bold(v))) = mu_2 C_1 upright(bold(v)) approx mu_2 mu_1 upright(bold(v)) = mu_1 mu_2 upright(bold(v)) . $
 
 (At this point you might be concerned about this symbol $approx$ and
@@ -83,12 +83,12 @@ Anyway, once you have AND and NOT, you can build arbitrary logic gates –
 and this is what we mean when we say you can perform arbitrary
 calculations on your encrypted bits, without ever learning what those
 bits are. At the end of the calculation, you can send the resulting
-cyphertexts back to be decrypted.
+ciphertexts back to be decrypted.
 
 == A constraint on the secret key $upright(bold(v))$ and the "Flatten" operation
 <a-constraint-on-the-secret-key-mathbfv-and-the-flatten-operation>
 In order to make the error estimates work out, we’re going to need to
-make it so that all the cyphertext matrices $C$ have "small" entries. In
+make it so that all the ciphertext matrices $C$ have "small" entries. In
 fact, we will be able to make it so that all entries of $C$ are either
 $0$ or $1$.
 
@@ -138,9 +138,9 @@ we used above to turn $upright(bold(x))$ into $upright(bold(x)) prime$,
 applied to each $k + 1$ entries of each row of the matrix $C$.
 
 So now, using this $"Flatten"$ operation, we can insist that all of our
-cyphertexts $C$ are matrices with coefficients in ${ 0 , 1 }$. For
+ciphertexts $C$ are matrices with coefficients in ${ 0 , 1 }$. For
 example, to multiply two messages $mu_1$ and $mu_2$, we first multiply
-the corresponding cyphertexts, then flatten the resulting product:
+the corresponding ciphertexts, then flatten the resulting product:
 $ "Flatten"(C_1 C_2) . $
 
 Of course, revealing that the secret key $upright(bold(v))$ has this
@@ -156,7 +156,7 @@ $ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + epsilon.alt_1 , $ where
 $epsilon.alt$ is some vector with all its entries bounded by a bound
 $B$. (And similarly for $C_2$ and $mu_2$.)
 
-When we add two cyphertexts, the errors add:
+When we add two ciphertexts, the errors add:
 $ (C_1 + C_2) upright(bold(v)) = (mu_1 + mu_2) upright(bold(v)) + (epsilon.alt_1 + epsilon.alt_2) . $
 So the error on the sum will be bounded by $2 B$.
 
@@ -164,7 +164,7 @@ Negation is similar to addition – in fact, the error won’t change at
 all.
 
 Multiplication is more complicated, and this is why we insisted that all
-cyphertexts have entries in ${ 0 , 1 }$. We compute
+ciphertexts have entries in ${ 0 , 1 }$. We compute
 $ C_1 C_2 upright(bold(v)) = C_1 (mu_2 upright(bold(v)) + epsilon.alt_2) = mu_1 mu_2 upright(bold(v)) + (mu_2 epsilon.alt_1 + C_1 epsilon.alt_2) . $
 
 Now since $mu_2$ is either $0$ or $1$, we know that $mu_2 epsilon.alt_1$
@@ -178,7 +178,7 @@ bounded by $n B$. Adding this to the error for $mu_2 epsilon.alt_1$, we
 get that the total error in the product $C_1 C_2 upright(bold(v))$ is
 bounded by $(n + 1) B$.
 
-In summary: We can start with cyphertexts having a very small error (if
+In summary: We can start with ciphertexts having a very small error (if
 you think carefully about this
 protocol, you will
 see that the error is bounded by approximately $n log q$). Every
@@ -191,13 +191,13 @@ more than $log_n q$ input bits, but no bit can follow a path of length
 greater than $log_n q$ AND gates.)
 
 This gives us a #emph[levelled] fully homomorphic encryption protocol:
-it lets us evaluate abritrary circuits on encrypted data,
+it lets us evaluate arbitrary circuits on encrypted data,
 as long as those circuits have bounded depth.
 If we need to evaluate a bigger circuit, we have two options.
 + Increase the value of $q$.  
   Of course, the cost of the computations increases with $q$.
 + Use some technique to "reset" the error
-  and start anew, as if with a freshly encrypted cyphertext.
+  and start anew, as if with a freshly encrypted ciphertext.
 
   This approach is called "bootstrapping" and it incurs some hefty 
   computational costs.

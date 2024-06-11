@@ -48,7 +48,7 @@ In particular, note that in step 3, the verifier can compute $C'$ themselves and
 We thus have:
 
 #proposition[
-  There exists a protocol that runs in $O(n)$ verifier time, which lets the verifier get the value of $a dot b$ for some commited $a$.
+  There exists a protocol that runs in $O(n)$ verifier time, which lets the verifier get the value of $a dot b$ for some committed $a$.
   The proof size can be made to take $O(log n)$ space with Fiat-Shamir.
 ] <dot_product>
 

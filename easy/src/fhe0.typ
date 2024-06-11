@@ -9,7 +9,7 @@ Actually, Alice wants Bob to compute $f(x)$ -- but
 she doesn't want to tell him $x$.
 
 Alice wants to encrypt $x$ and send Bob $Enc (x)$.
-Then Bob is going to "apply $f$ to the cyphertext",
+Then Bob is going to "apply $f$ to the ciphertext",
 to turn $Enc (x)$ into $Enc (f(x))$.
 Finally, Bob sends $Enc (f(x))$ back,
 and Alice decrypts it to learn $f(x)$.
@@ -31,7 +31,7 @@ operations you can do before the error gets too big.
 As a sort of silly example, imagine your message is a whole number
 between 0 and 10 (so it’s one of 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), and
 your "encryption" scheme encodes the message as a real number that is
-very close to the message. So if the cyphertext is 1.999832, well then
+very close to the message. So if the ciphertext is 1.999832, well then
 that means the original message was 2. The decryption procedure is
 "round to the nearest integer."
 
@@ -50,7 +50,7 @@ many operations, the error will exceed $0.5$, and the rounding procedure
 won’t give the right answer anymore.
 
 But as long as you’re careful not to go over the error limit, you can
-add cyphertexts with confidence.
+add ciphertexts with confidence.
 
 In fact, for our levelled FHE protocol, our message will be a bit: 
 either 0 or 1;

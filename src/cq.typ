@@ -4,7 +4,7 @@
 
 This is a summary of cq, 
 a recent paper that tells how to do "lookup arguments"
-in a succint (or ZK) setting.
+in a succinct (or ZK) setting.
 
 == What are lookups
 
@@ -235,7 +235,7 @@ pair(Com(L), [beta] - Com(F)) = pair([1] + Com(Q_L Z_n), [1])
 $
 (which verifies the claimed equality).
 
-The process of verifing this sort of identity is quite general:
+The process of verifying this sort of identity is quite general:
 The prover sends intermediate values as needed
 so that the verifier can verify the claim using only pairings and linearity.
 ] <cq-pairing-verify>
@@ -284,7 +284,7 @@ $
     R(zeta^j) (beta - T(zeta^j)) = M(zeta^j)
 $
 Let $R_j$ be the polynomial 
-(a mutiple of a Lagrange basis polynomial)
+(a multiple of a Lagrange basis polynomial)
 such that
 $
     R_j(zeta^j) = 1 / (beta - t_j)
