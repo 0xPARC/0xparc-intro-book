@@ -60,7 +60,7 @@ Now you add them up to get the following.
 | (7, 5, 1, 6) : 6 |
 
 Finally, let's say your message is $m = 5$. So you set $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
-| $\mathbf{x} : y_0$ |
+| $\mathbf{x} : y$ |
 | - |
 | (7, 5, 1, 6) : 1. |
 

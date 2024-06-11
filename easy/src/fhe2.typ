@@ -128,7 +128,7 @@ $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
   align(center)[#table(
     columns: 1,
     align: (auto,),
-    table.header([$upright(bold(x)) : y_0$],),
+    table.header([$upright(bold(x)) : y$],),
     [(7, 5, 1, 6) : 1],
 )],
   kind: table
@@ -182,6 +182,6 @@ rather than just a single bit.
 
 When we do FHE, we’re going to apply many operations to a ciphertext,
 and each is going to cause the error to grow. We’re going to have to put
-some effort into keeping the error under control – 
-and the size of $q\/ r$ will determine how many operations 
+some effort into keeping the error under control –
+and the size of $q\/ r$ will determine how many operations
 we can do before the error grows too big.
