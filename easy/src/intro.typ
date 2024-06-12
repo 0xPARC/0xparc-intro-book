@@ -83,7 +83,7 @@ scheme to authenticating any sort of transaction:
 
 #todo[gubsheep's slide had a funny example with emoji, link it]
 
-These notes focus on two constructions, PLONK (@plonk) and Groth16 (@groth16).
+These notes focus on a construction called PLONK (@plonk).
 
 === Multi-party computation (MPC)
 
@@ -135,13 +135,6 @@ What sort of systems can we build on top of programmable cryptography?
 #todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
 
 == What's all the fuss about zero-knowledge anyhow?
-
-#figure(
-  image("../figures/care-about.png", width:90%),
-  caption: [Expectations vs. reality.]
-)
-
-#todo[Aard suggests deleting the figure, it's cute but Aard isn't sure about the message]
 
 When we think about how to use programmable cryptography we need to be creative.
 As an example, what can you do with a zkSNARK?
