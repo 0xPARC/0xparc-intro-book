@@ -19,10 +19,11 @@ classical cryptography can achieve:
   #link("https://w.wiki/9fXW", "group signature scheme"),
   allowing one member of a group to sign a message on behalf of a group.
 
-- _Hiding inputs_: for example, consider
+- _Hiding inputs_. For example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
-  where Alice and Bob wants to know which of them has more money
-  without learning the actual incomes.
+  where Alice and Bob each have a secret number (their wealth)
+  and they want to know which of them has more money
+  without learning each other's incomes.
 
 Classically, first-generation cryptography relied on coming up for a protocol
 for solving given problems or computing certain functions.
@@ -30,7 +31,7 @@ The goal of the second-generation "programmable cryptography" can
 then be described as:
 
 #quote[
-  We want to devise cryptographic primitives that could
+  We want to devise cryptographic primitives that can
   be programmed to work on *arbitrary* problems and functions,
   rather than designing protocols on a per-problem or per-function basis.
 ]
@@ -53,16 +54,28 @@ using a general compiler rather than inventing an algorithm specific to SHA256.
 
 These notes focus on the following specific topics.
 
-=== The zkSNARK: proofs of general problems
+=== Two-party computation (2PC)
 
-The *zkSNARK*, first described in 2012, was the first type of primitive
-that arguably falls into the "programmable cryptography" umbrella.
-It provides a way to produce proofs of _arbitrary_ problem statements,
+In a *two-party computation*, two people want to
+jointly compute some known function
+$ F(x_1, x_2), $
+where the $i$th person only knows the input $x_i$ --
+and they want to do it without either person learning the other person's input.
+
+For example, we saw earlier Yao's millionaire problem --- Alice and Bob
+want to know who has a higher income without revealing the incomes themselves.
+This is the case where $F = max$, and $x_i$ is the $i$'th person's income.
+
+Multi-party computation makes a promise that we'll be able to do this
+for _any_ function $F$ as long as we can implement it in code.
+
+=== The SNARK: proofs of general problems
+
+The *SNARK*, first described in 2012, 
+provides a way to produce proofs of _arbitrary_ problem statements,
 at least once encoded as a system of equations in a certain way.
 The name stands for:
 
-- *Zero-knowledge*: a person reading the proof doesn't learn anything
-  about the solution besides that it's correct.
 - *Succinct*: the proof length is short (actually constant length).
 - *Non-interactive*: the protocol is not interactive.
 - *Argument*: technically not a "proof," but we won't worry about the difference.
@@ -83,22 +96,15 @@ scheme to authenticating any sort of transaction:
 
 #todo[gubsheep's slide had a funny example with emoji, link it]
 
-These notes focus on a construction called PLONK (@plonk).
+This is an active area of research,
+and many different proof systems are known.
+These notes focus on one construction, called PLONK (@plonk).
 
-=== Multi-party computation (MPC)
-
-A *multi-party computation*, in which $n >= 2$ people want to
-jointly compute some known function
-$ F(x_1, ..., x_n) $
-where the $i$th person only knows the input $x_i$
-and does not learn the other inputs.
-
-For example, we saw earlier Yao's millionaire problem --- Alice and Bob
-want to know who has a higher income without revealing the incomes themselves.
-This is the case where $n=2$, $F = max$, and $x_i$ is the $i$'th person's income.
-
-Multi-party computation makes a promise that we'll be able to do this
-for _any_ function $F$ as long as we implement it in code.
+One feature (which we will not cover in these notes) is
+*zero-knowledge* (which turns the abbreviation into "zkSNARK"):
+with a zero-knowledge proof, a person reading the proof 
+doesn't learn anything
+about the solution besides that it's correct.
 
 === Fully homomorphic encryption (FHE)
 
@@ -115,15 +121,15 @@ so the server learns nothing about the text you translated.
 
 == Where these fit together
 
-ZkSNARKS, MPC, and FHE are just some of a huge zoo of cryptographic primitives,
+SNARKS, MPC, and FHE are just some of a huge zoo of cryptographic primitives,
 from the elementary (public-key cryptography)
 to the impossibly powerful (indistinguishability obfuscation).
-There are protocols for zkSNARKS, MPC and FHE;
+There are protocols for SNARKS, MPC and FHE;
 they are very slow, but they can be implemented and used in practice.
 
 This whole field is an active area of research.
-On the one hand: Can we make existing tools (zkSNARKS, etc.) more efficient?
-For example, the cost of doing a computation in zero knowledge
+On the one hand: Can we make existing tools (SNARKS, etc.) more efficient?
+For example, the cost of proving a computation in a SNARK
 is currently about $10^6$ times the cost of doing the computation directly.
 Can we bring that number down?
 On the other hand: What other cryptographic games can we play
@@ -135,6 +141,8 @@ What sort of systems can we build on top of programmable cryptography?
 #todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
 
 == What's all the fuss about zero-knowledge anyhow?
+
+#todo[Find a better home for the blurb below -- intro to the SNARK chapter? -- or else just delete it]
 
 When we think about how to use programmable cryptography we need to be creative.
 As an example, what can you do with a zkSNARK?
