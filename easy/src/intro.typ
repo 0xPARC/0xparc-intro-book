@@ -140,25 +140,3 @@ What sort of systems can we build on top of programmable cryptography?
 
 #todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
 
-== What's all the fuss about zero-knowledge anyhow?
-
-#todo[Find a better home for the blurb below -- intro to the SNARK chapter? -- or else just delete it]
-
-When we think about how to use programmable cryptography we need to be creative.
-As an example, what can you do with a zkSNARK?
-
-One answer: You can prove that you have a solution to a system of equations.
-Sounds pretty boring, unless you're an algebra student.
-
-Slightly better answer: You can prove that you have executed a program correctly,
-revealing some or all of the inputs and outputs, as you please.
-For example: You know a messame $M$ such that
-$op("sha")(M) = "0xa91af3ac..."$, but you don't want to reveal $M$.
-Or: You only want to reveal the first 30 bytes of $M$.
-Or: You know a message $M$, and a digital signature proving that $M$ was signed by
-[trusted authority], such that a certain neural network, run on the input $M$, outputs "Good."
-
-One recent application along these lines is
-#link("https://tlsnotary.org", "TLSNotary").
-TLSNotary lets you certify a transcript of communications with a server
-in a privacy-preserving way: you only reveal the parts you want to.

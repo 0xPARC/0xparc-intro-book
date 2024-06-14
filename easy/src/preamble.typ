@@ -52,6 +52,7 @@
 #let exercise = thmplain("main", "Problem", base_level: 1)
 
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
+#let gray = block(fill: luma(210))
 
 #let proof = thmproof("proof", "Proof")
 #let solution = thmproof("proof", "Solution")

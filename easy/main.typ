@@ -6,7 +6,7 @@
 }
 #let part(s) = {
   set text(size:1.4em, fill: rgb("#002299"))
-  heading(numbering: none, s)
+  heading(offset: 0, s)
 }
 
 #show: evan.with(
@@ -15,8 +15,8 @@
   date: datetime.today(),
 )
 
-#quote(attribution: [gubsheep introducing progcrypto to Evan for the first time])[
-  Evan, I can now prove to you that I have a message $M$ such that
+#quote[
+  I can now prove to you that I have a message $M$ such that
   $op("sha")(M) = "0xa91af3ac..."$, without revealing $M$.
   But not just for SHA. I can do this for any function you want.
 ]
@@ -24,17 +24,22 @@
 #toc
 #pagebreak()
 
+
 #chapter("src/intro.typ")
+
+#set heading(offset: 1)
 
 #part[Oblivious transfer, garbled circuits, and multiparty computation]
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
 
 #part[zkSNARK constructions]
+#chapter("src/zkintro.typ")
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
 #chapter("src/kzg.typ")
 #chapter("src/plonk.typ")
+#chapter("src/fs.typ")
 
 #part[Levelled fully homomorphic encryption]
 #chapter("src/fhe0.typ")

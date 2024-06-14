@@ -94,6 +94,15 @@ It's not important to understand exactly how it works.
 All you really need to take away from this section is that there is some group law,
 and we can program a computer to compute it.
 
+// #gray[Gray matter]
+
+#block(fill: luma(200),
+  "text")
+
+//#gray[
+//  is this gray?
+//]
+
 So, let's get started.
 The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
 This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
