@@ -2,25 +2,29 @@
 
 = Elliptic curves <ec>
 
-In the public-key cryptography system RSA, one key assumption
-is that there is no efficient method to factor large semiprimes.
-RSA can be thought of as working with the abelian group $(ZZ slash N ZZ)^times$,
-where $N$ is the product of two large primes.
-This setup, while it does work, is brittle in some ways
-(for example, every person needs to pick a different $N$ for RSA).
+Every modern cryptosystem rests on a hard problem
+-- a computationally infeasible challenge
+whose difficulty makes the protocol secure.
+The best-known example is 
+#link("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA"),
+which is secure because
+it is hard to factor a composite number (like $6177$)
+into prime factors ($6177 = 71*87$).
 
-In many modern protocols, one replaces $(ZZ slash N ZZ)^times$ with
-a so-called _elliptic curve_ $E$.
-The assumption "factoring is hard" is then replaced by a new one,
-that the #link("https://w.wiki/9jgX", "discrete logarithm problem is hard").
+Our SNARK protocol will be based on a different hard problem:
+the #link("https://w.wiki/9jgX", "discrete logarithm problem")
+(@discretelog) on elliptic curves.
+But before we get to the problem,
+we need to introduce some of the math behind elliptic curves.
 
-This chapter sets up the math behind this elliptic curve $E$.
 The roadmap goes roughly as follows:
 
-- In @bn254 we will describe one standard elliptic curves $E$, the BN254 curve,
+- In @bn254 we will describe one standard elliptic curve $E$, the BN254 curve,
   that will be used in these notes.
 - In @discretelog we describe the discrete logarithm problem:
-  that for $g in E$ and $n in FF_q$, one cannot recover $n$ from $n dot g$.
+  that for $g in E$ and $n in FF_q$, 
+  one cannot recover the scaling factor $n$ 
+  from the two elliptic curve points $g$ and $n dot g$.
   This is labeled as @ddh in these notes.
 - As an example, in @eddsa we describe how @ddh
   can be used to construct a signature scheme, namely
@@ -31,7 +35,7 @@ The roadmap goes roughly as follows:
 
 Rather than set up a general definition of elliptic curve,
 for these notes we will be satisfied to describe one specific elliptic curve
-that could be used for all the protocols we describe later.
+that can be used for all the protocols we describe later.
 The curve we choose for these notes is the *BN254 curve*.
 
 === The set of points
@@ -85,128 +89,120 @@ However, right now it only has the structure of a set.
 
 The beauty of elliptic curves
 is that it's possible to define an _addition_ operation on the curve;
-this is called the #link("https://w.wiki/9jhM", "group law on elliptic curve").
+this is called the #link("https://w.wiki/9jhM", "group law on the elliptic curve").
 This addition will make $E(FF_p)$ into an abelian group whose identity element
-is $O$.
+is the point at infinity $O$.
 
 This group law involves some kind of heavy algebra.
 It's not important to understand exactly how it works.
 All you really need to take away from this section is that there is some group law,
 and we can program a computer to compute it.
 
-// #gray[Gray matter]
-
-#block(fill: luma(200),
-  "text")
-
-//#gray[
-//  is this gray?
-//]
-
-So, let's get started.
-The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
-This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
-the line will meet $E$ in exactly three points.
-The basic idea behind the group law is:
-If $P, Q, R$ are the three intersection points of a line (any line)
-with the curve $E$, then the group-law addition of the three points is
-$
-P + Q + R = O.
-$
-
-(You might be wondering how we can do geometry
-when the coordinates $x$ and $y$ are in a finite field.
-It turns out that all the geometric operations we're describing --
-like finding the intersection of a curve with a line --
-can be translated into algebra.
-And then you just do the algebra in your finite field.
-But we'll come back to this.)
-
-Why three points?
-Algebraically, if you take the equations $Y^2 = X^3 + 3$ and $Y = m X + b$
-and try to solve them,
-you get
-$
-(m X + b)^2 = X^3 + 3,
-$
-which is a degree-3 polynomial in $X$,
-so it has (at most) 3 roots.
-And in fact if it has 2 roots, it's guaranteed to have a third
-(because you can factor out the first two roots, and then you're left with a linear factor).
-
-OK, so given two points $P$ and $Q$, how do we find their sum $P+Q$?
-Well, we can draw the line through the two points.
-That line -- like any line -- will intersect $E$ in three points:
-$P$, $Q$, and a third point $R$.
-Now since $P + Q + R = 0$, we know that
-$
-- R = P + Q.
-$
-
-So now the question is just: how to find $-R$?
-Well, it turns out that if $R = (x_R, y_R)$, then
-$
-- R = (x_R, -y_R).
-$
-Why is this?
-Well, if you take the vertical line $X = x_R$,
-and try to intersect it with the curve,
-it looks like there are only two intersection points.
-After all, we're solving
-$
-Y^2 = x_R^3 + 3,
-$
-and since $x_R$ is fixed now, this equation is quadratic.
-The two roots are $Y = \pm y_R$.
-
-OK, there are only two intersection points, but
-we say that the third intersection point is "the point at infinity" $O$.
-(The reason for this lies in projective geometry, but we won't get into it.)
-So the group law here tells us
-$
-(x_R, y_R) + (x_R, -y_R) + O = O.
-$
-And since $O$ is the identity, we get
-$
--R = (x_R, -y_R).
-$
-
-So:
-- Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
-- To add two points $P$ and $Q$, compute the line through the two points,
-  let $R$ be the third intersection of that line with $E$,
-  and set
+#gray[
+  So, let's get started.
+  The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
+  This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
+  the line will meet $E$ in exactly three points.
+  The basic idea behind the group law is:
+  If $P, Q, R$ are the three intersection points of a line (any line)
+  with the curve $E$, then the group-law addition of the three points is
   $
-  P + Q = -R.
+  P + Q + R = O.
   $
 
-I just described the group law as a geometric thing,
-but there are algebraic formulas to compute it as well.
-They are kind of a mess, but here goes.
+  (You might be wondering how we can do geometry
+  when the coordinates $x$ and $y$ are in a finite field.
+  It turns out that all the geometric operations we're describing --
+  like finding the intersection of a curve with a line --
+  can be translated into algebra.
+  And then you just do the algebra in your finite field.
+  But we'll come back to this.)
 
-If $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$, then the line between the two points is
-$Y = m X + b$, where
-$
-m = (y_Q - y_P) / (x_Q - x_P)
-$
-and
-$
-b = y_P - m x_P.
-$
+  Why three points?
+  Algebraically, if you take the equations $Y^2 = X^3 + 3$ and $Y = m X + b$
+  and try to solve them,
+  you get
+  $
+  (m X + b)^2 = X^3 + 3,
+  $
+  which is a degree-3 polynomial in $X$,
+  so it has (at most) 3 roots.
+  And in fact if it has 2 roots, it's guaranteed to have a third
+  (because you can factor out the first two roots, and then you're left with a linear factor).
 
-The third intersection is $R = (x_R, y_R)$, where
-$
-x_R = m^2 - x_P - x_Q
-$
-and
-$
-y_R = m x_R + b.
-$
+  OK, so given two points $P$ and $Q$, how do we find their sum $P+Q$?
+  We can draw the line through the two points.
+  That line -- like any line -- will intersect $E$ in three points:
+  $P$, $Q$, and a third point $R$.
+  Now since $P + Q + R = 0$, we know that
+  $
+  - R = P + Q.
+  $
 
-There are separate formulas to deal with various special cases
-(if $P = Q$, you need to compute the tangent line to $E$ at $P$, for example),
-but we won't get into it.
-#todo[Is there a way to... put the above into a box environment or something, so the reader can skip it easily?]
+  So now the question is just: how to find $-R$?
+  Well, it turns out that if $R = (x_R, y_R)$, then
+  $
+  - R = (x_R, -y_R).
+  $
+  Why is this?
+  If you take the vertical line $X = x_R$,
+  and try to intersect it with the curve,
+  it looks like there are only two intersection points.
+  After all, we're solving
+  $
+  Y^2 = x_R^3 + 3,
+  $
+  and since $x_R$ is fixed now, this equation is quadratic.
+  The two roots are $Y = \pm y_R$.
+
+  OK, there are only two intersection points, but
+  we say that the third intersection point is "the point at infinity" $O$.
+  (The reason for this lies in projective geometry, but we won't get into it.)
+  So the group law here tells us
+  $
+    (x_R, y_R) + (x_R, -y_R) + O = O.
+  $
+  And since $O$ is the identity, we get
+  $
+  -R = (x_R, -y_R).
+  $
+
+  So:
+  - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
+  - To add two points $P$ and $Q$, compute the line through the two points,
+    let $R$ be the third intersection of that line with $E$,
+    and set
+    $
+    P + Q = -R.
+    $
+
+  I just described the group law as a geometric thing,
+  but there are algebraic formulas to compute it as well.
+  They are kind of a mess, but here goes.
+
+  If $P = (x_P, y_P)$ and $Q = (x_Q, y_Q)$, then the line between the two points is
+  $Y = m X + b$, where
+  $
+  m = (y_Q - y_P) / (x_Q - x_P)
+  $
+  and
+  $
+  b = y_P - m x_P.
+  $
+
+  The third intersection is $R = (x_R, y_R)$, where
+  $
+  x_R = m^2 - x_P - x_Q
+  $
+  and
+  $
+  y_R = m x_R + b.
+  $
+
+  There are separate formulas to deal with various special cases
+  (if $P = Q$, you need to compute the tangent line to $E$ at $P$, for example),
+  but we won't get into it.
+]
 
 In summary we have endowed the set of points $E(FF_p)$ with the additional
 structure of an abelian group, which happens to have exactly $q$ elements.
@@ -219,9 +215,13 @@ In other words:
   $ E(FF_p) tilde.equiv ZZ slash q ZZ. $
 ]
 
-In these notes, this isomorphism will basically be a standing assumption;
-so moving forward we'll abuse notation slightly
+In these notes, this isomorphism will basically be a standing assumption.
+Moving forward we'll abuse notation slightly
 and just write $E$ instead of $E(FF_p)$.
+In fancy language, $E$ will be a one-dimensional vector space over $FF_q$.
+In less fancy language, we'll be working with points on $E$ as black boxes.
+We'll be able to add them, subtract them, 
+and multiply them by arbitrary scalars from $FF_q$.
 
 === We treat $FF_q$ as the field of scalars henceforth
 
@@ -238,7 +238,7 @@ that means we are doing something like $256$-bit integer arithmetic.
 This is why the baby Jubjub prime $q$ gets a special name,
 while the prime $p$ is unnamed and doesn't get any screen-time later.
 
-== Discrete logarithm is hard <discretelog>
+== A hard problem: discrete logarithm <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called *discrete logarithm* problem.
@@ -253,11 +253,11 @@ In other words, if one only
 sees $g in E$ and $n dot g in E$, one cannot find $n$.
 For cryptography, we generally assume $g$ has order $q$,
 so we will talk about $n in NN$ and $n in FF_q$ interchangeably.
-In other words, $n$ will generally be thought of as being up to $2^(254)$ in size.
+In other words, $n$ will generally be thought of as being up to about $2^(254)$ in size.
 
 #remark[The name "discrete log"][
   This problem is called discrete log because if one used multiplicative notation
-  like in RSA, it looks like solving $g^n = g'$ instead.
+  for the group operation, it looks like solving $g^n = g'$ instead.
   We will never use this multiplicative notation in these notes.
 ]
 
@@ -387,7 +387,7 @@ build the KZG commitment scheme.
 
 == Example application: Pedersen commitments <pedersen>
 
-A multivariable corollary of @ddh is that if $g_1, ..., g_n in E$
+A multivariable generalization of @ddh is that if $g_1, ..., g_n in E$
 are a bunch of randomly chosen points of $E$ with order $q$,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
@@ -429,7 +429,7 @@ To spell this out:
 
 The Pedersen commitment is thus a sort of hash function:
 given the group element above,
-one cannot recover any of the $a_i$ (even when $n=1$);
+one cannot recover any of the $a_i$;
 but given the entire vector $arrow(a)$
 one can compute the Pedersen commitment easily.
 

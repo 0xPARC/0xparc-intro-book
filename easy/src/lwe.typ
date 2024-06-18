@@ -3,21 +3,15 @@
 = A hard problem: learning with errors
 <lwe>
 
-Many cryptographic protocols rely on some sort of "hard problem"
--- a computationally infeasible challenge
-whose difficulty makes the protocol secure.
-It is hard to factor a composite number (like $6177$)
-into prime factors ($6177 = 71*87$);
-the challenge of factoring gives us
-#link("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA").
-The challenge of the discrete logarithm problem
-(@discretelog)
-gives us elliptic curve cryptography,
-KZG polynomial commitments (@kzg), and so forth.
+As we've seen (@ec),
+a lot of cryptography relies on hard math problems.
+RSA is based on the difficulty of integer factorization;
+elliptic curve cryptography depends on the discrete log problem.
 
-Our protocol for levelled FHE relies on a different hard problem.
-The problem is to solve systems of linear equations.
-Except the equations are only approximately true --
+Our protocol for levelled FHE relies on a different hard problem:
+the learning with errors problem (LWE).
+The problem is to solve systems of linear equations,
+except the equations are only approximately true --
 they permit a small "error" --
 and instead of solving for rational or real numbers,
 you're solving for integers modulo $q$.

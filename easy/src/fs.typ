@@ -1,3 +1,5 @@
+#import("preamble.typ"):*
+
 = Making it non-interactive: Fiat--Shamir
 
 #todo[Gub could you edit this section for good explaininess?]

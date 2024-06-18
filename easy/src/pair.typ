@@ -26,11 +26,12 @@ $ pair : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
 I think this should be called a *bilinear pairing*,
 but for some reason everyone just says *pairing* instead.
-A curve is called *pairing-friendly* if this pairing can be computed reasonably
+A curve is called *pairing-friendly* 
+if this pairing can be computed reasonably quickly
 (e.g. BN254 is pairing-friendly, but Curve25519 is not).
 
-This construction actually uses some really deep graduate-level number theory
-(in contrast, all the math in @ec is within an undergraduate curriculum)
+This construction actually uses some really deep number theory
+(heavier than all the math in @ec)
 that is well beyond the scope of these lecture notes.
 Fortunately, we won't need the details of how it works;
 but we'll comment briefly in @pairing-friendly on what curves it can be done on.
@@ -54,7 +55,7 @@ So this gives us a way to _verify_ two-by-two multiplication.
   For example, we don't know a good trilinear map
   $E times E times E -> ZZ slash N ZZ$
   that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
-  (without already knowing one of $[a b]$, $[b c]$, $[c a]$).
+  (without knowing one of $[a b]$, $[b c]$, $[c a]$).
 ]
 
 == Verifying more complicated claims <pair-verify>
@@ -95,9 +96,9 @@ in other words, a nonzero element of the finite field of order $p^k$
 (where $k$ is the embedding degree we just defined).
 In fact, this element will always be a $q$th root of unity in $FF_{p^k}$,
 and it will satisfy $pair([m], [n]) = zeta^{m n}$,
-where $\zeta$ is some fixed $q$th root of unity.
+where $zeta$ is some fixed $q$th root of unity.
 The construction of the pairing is based on the
-#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing").
+#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing")
 in algebraic geometry.
 How to compute these pairings is well beyond the scope of these notes;
 the raw definition is quite abstract,
@@ -107,7 +108,7 @@ and a lot of work has gone into computing the pairings efficiently.
 
 The difficulty of computing these pairings is determined by the size of $k$:
 the values $pair(a, b)$ will be elements of a field of size $p^k$,
-so they will require 256 bits even to store.
+so they will require $256k$ bits even to store.
 For a curve to be "pairing-friendly" -- in order to be able to
 do pairing-based cryptography on it -- we need the value of $k$ to be pretty small.
 

@@ -21,35 +21,29 @@ The goal of the KZG commitment schemes is to have the following API:
 The KZG commitment scheme is amazingly efficient because both the commitment
 and proof lengths are a single point on $E$, encodable in 256 bits.
 
-== Elliptic curve setup done once
+== Trusted calculation: setup done once
 
-The good news is that this can be done just once, period.
-After that, anyone in the world can use the published data to run this protocol.
-
-For concreteness, $E$ will be the BN256 curve and $g$ a fixed generator.
-
-=== The notation $[n]$
-
-We retain the notation $[n] := n dot g in E$ defined in @armor.
-
-=== Trusted calculation
+Remember the notation $[n] := n dot g in E$ defined in @armor.
 
 To set up the KZG commitment scheme,
 a trusted party needs to pick a secret scalar $s in FF_q$ and publishes
 $ [s^0], [s^1], ..., [s^M] $
 for some large $M$, the maximum degree of a polynomial the scheme needs to support.
 This means anyone can evaluate $[P(s)]$ for any given polynomial $P$ of degree up to $M$.
-(For example, $[s^2+8s+6] = [s^2] + 8[s] + 6[1]$.)
+For example, $ [s^2+8s+6] = [s^2] + 8[s] + 6[1]. $
 Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
-This only needs to be done by a trusted party once for the curve $E$.
+The setup only needs to be done by a trusted party once for the curve $E$.
 Then anyone in the world can use the resulting sequence for KZG commitments.
 
 #remark[
   The trusted party has to delete $s$ after the calculation.
   If anybody knows the value of $s$, the protocol will be insecure.
   The trusted party will only publish $[s^0] = [1], [s^1], ..., [s^M]$.
-  Given these published values, it is (probably) extremely hard to recover $s$ --
+  This is why we call them "trusted":
+  the security of KZG depends on them not saving the value of $s$.
+
+  Given the published values, it is (probably) extremely hard to recover $s$ --
   this is a case of the discrete logarithm problem.
 
   You can make the protocol somewhat more secure by involving several different trusted parties.
@@ -101,17 +95,23 @@ To reveal $P$ at a single value $z$, we did polynomial division
 to divide $P(X)$ by $X-z$.
 But there's no reason we have to restrict ourselves to linear polynomials;
 this would work equally well with higher-degree polynomials,
-while still using only a single 256-bit for the proof.
+while still using only a single 256-bit curve point for the proof.
 
 For example, suppose Peggy wanted to prove that
 $P(1) = 100$, $P(2) = 400$, ..., $P(9) = 8100$.
-Then she could do polynomial long division to get a polynomial $Q$
-of degree $deg(P) - 9$ such that
-$ P(X) - 100X^2 = (T-1)(T-2) ... (T-9) dot Q(T). $
+(We chose these numbers so that $P(X) = 100 X^2$
+for $X = 1, dots, 9$.)
+
+Evaluating a polynomial at $1, 2, dots, 9$ is essentially the same
+as dividing by $(X-1)(X-2) dots (X-9)$ and taking the remainder.
+In other words, if Peggy does a polynomial long division, she will find that
+$
+  P(X) = Q(X) ( (X-1)(X-2) dots (X-9) ) + 100 X^2.
+$
 Then Peggy sends $[Q(s)]$ as her proof, and the verification equation is that
 $ pair([Q(s)], [(s-1)(s-2) ... (s-9)]) = pair([P(s)] - 100[s^2], [1]). $
 
-The full generality just replaces the $100T^2$ with the polynomial
+The full generality just replaces the $100X^2$ with the polynomial
 obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
 (there is a unique such polynomial $f$ of degree $n-1$).
 To spell this out, suppose Peggy wishes to prove to Victor that
