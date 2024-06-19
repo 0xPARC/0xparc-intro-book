@@ -89,7 +89,7 @@ So to cheat Victor, she needs to otherwise find an element
 $ 1/(s-x) ([P(s)]-[y]) in E. $
 Since $s$ is a secret nobody knows, there isn't any known way to do this.
 
-== Multi-openings
+== Multi-openings <multi-openings>
 
 To reveal $P$ at a single value $z$, we did polynomial division
 to divide $P(X)$ by $X-z$.
@@ -131,3 +131,50 @@ So one can even open the polynomial $P$ at $1000$ points with a single 256-bit p
 The verification runtime is a single pairing plus however long
 it takes to compute the Lagrange interpolation $f$.
 
+
+== Root check (using long division with commitment schemes)
+
+To make PLONK work, we're going to need a small variant
+of the multi-opening protocol for KZG commitments (@multi-openings),
+which we call _root-check_ (not a standard name).
+Here's the problem statement:
+
+#problem[
+  Suppose one had two polynomials $P_1$ and $P_2$,
+  and Peggy has given commitments $Com(P_1)$ and $Com(P_2)$.
+  Peggy would like to prove to Victor that, say,
+  the equation $P_1(z) = P_2(z)$ for all $z$ in some large finite set $S$.
+]
+
+Peggy just needs to show is that $P_1-P_2$
+is divisible by $Z(X) := product_(z in S) (X-z)$.
+This can be done by committing the quotient $H(X) := (P_1(X) - P_2(X)) / Z(X)$.
+Victor then gives a random challenge $lambda in FF_q$,
+and then Peggy opens $Com(P_1)$, $Com(P_2)$, and $Com(H)$ at $lambda$.
+
+But we can actually do this more generally with _any_ polynomial
+expression $F$ in place of $P_1 - P_2$,
+as long as Peggy has a way to prove the values of $F$ are correct.
+As an artificial example, if Peggy has sent Victor $Com(P_1)$ through $Com(P_6)$,
+and wants to show that
+$ P_1(42) + P_2(42) P_3(42)^4 + P_4(42) P_5(42) P_6(42) = 1337, $
+she could define $F(X) = P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) + P_6(X) - 1337$
+and run the same protocol with this $F$.
+This means she doesn't have to reveal any $P_i (42)$, which is great!
+
+To be fully explicit, here is the algorithm:
+
+#algorithm[Root-check][
+  Assume that $F$ is a polynomial for which
+  Peggy can establish the value of $F$ at any point in $FF_q$.
+  Peggy wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.
+
+  1. Both parties compute the polynomial
+    $ Z(X) := product_(z in S) (X-z) in FF_q [X]. $
+  2. Peggy does polynomial long division to compute $H(X) = F(X) / Z(X)$.
+  3. Peggy sends $Com(H)$.
+  4. Victor picks a random challenge $lambda in FF_q$
+    and asks Peggy to open $Com(H)$ at $lambda$,
+    as well as the value of $F$ at $lambda$.
+  5. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
+] <root-check>

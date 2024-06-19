@@ -110,7 +110,7 @@ We can observe the following:
 
 With these heuristics, we are ready to solve this problem.
 
-#todo[Is it better with the equations displayed, or no?]
+#todo[Is it better with the equations displayed, or no? (Compare "Red set" and "Blue set" below.)]
 
 === Red Set
 <red-set>
