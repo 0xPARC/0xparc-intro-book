@@ -47,6 +47,7 @@
 #let example = thmbox("main", "Example", fill: rgb("#ffffdd"), base_level: 1)
 #let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
+#let situation = thmbox("main", "Situation", fill: rgb("#eeeeee"), base_level: 1)
 
 #let problem = thmplain("main", "Problem", base_level: 1)
 #let exercise = thmplain("main", "Problem", base_level: 1)

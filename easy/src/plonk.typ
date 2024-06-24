@@ -5,10 +5,6 @@
 
 = PLONK, a zkSNARK protocol <plonk>
 
-For this section, one can use any polynomial commitment scheme one prefers.
-So we'll introduce the notation $Com(P)$ for the commitment of a polynomial
-$P(X) in FF_q [X]$, with the understanding that either KZG or something
-else could be in use here.
 
 
 
@@ -24,6 +20,27 @@ That means we need a "programming language" that we'll write our function in.
 
 For PLONK (and Groth16 in the next section), the choice that's used is:
 *systems of quadratic equations over $FF_q$*.
+
+In other words, PLONK is going to give us the ability to prove
+that we have solutions to a system of a system of quadratic equations.
+#situation[
+  Suppose we have a system of $m$ equations in $k$ variables $x_1, dots, x_k$:
+  $
+    Q_1 (x_1 , dots, x_k) & = 0 \
+    dots \
+    Q_m (x_1 , dots, x_k) & = 0.
+  $
+
+  Of these $k$ variables, 
+  the first $ell$ ($x_1, dots, x_ell$) have publicly known, fixed values;
+  the remaining $ell - k$ are unknown.
+
+  PLONK will let Peggy prove to Victor the following claim:
+  I know $ell - k$ values $x_(ell+1), dots, x_k$ such that 
+  (when you combine them with the $k$ public fixed values
+  $x_1, dots, x_k$)
+  the $ell$ values $x_1, dots, x_k$ satisfy all $m$ quadratic equations.
+]
 
 This leads to the natural question of how a function like SHA256 can be encoded
 into a system of quadratic equations.
@@ -45,7 +62,7 @@ as the following example shows:
   (imagine many more such pairs of equations).
   The $x_i$'s are variables which are seen to either be $0$ or $1$.
   And then each pair of equations with $y_i$ corresponds to a clause of 3-SAT.
-]
+] <np-complete>
 
 So for example, any NP decision problem should be encodable.
 Still, such a theoretical reduction might not be usable in practice:
@@ -64,14 +81,34 @@ If you're curious, you can see how SHA256 is implemented in Circom on
 #link("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
 "GitHub").
 
-To preserve continuity of the mathematics,
-we'll defer further discussion of coding in quadratic equations to later.
+So, the first step in proving a claim like
+"I have a message $M$ such that
+  $op("sha")(M) = "0xa91af3ac..."$"
+is to translate the claim into a system of quadratic equations.
+This process is called "arithmetization."
+
+One approach (suggested by @np-complete)
+is to represent each bit involved in the calculation
+by a variable $x_i$
+(which would then be constrained to be either 0 or 1
+by an equation $x_i^2 = x_i$).
+In this setup, the value $"0xa91af3ac"$
+would be represented by 32 public bits $x_1, dots, x_32$;
+the unknown message $M$ would be represented by 
+some private variables;
+and the calculation of $op("sha")$
+would introduce a series of constraints,
+maybe involving some additional variables.
+
+We won't get into any more details of arithmetization here.
+
 
 
 
 == An instance of PLONK
 
-For PLONK, the equations are standardized further to a certain form:
+PLONK is actually going to prove solutions to
+systems of quadratic equations of a very particular form:
 
 #definition[
   An instance of PLONK consists of two pieces,
