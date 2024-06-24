@@ -68,7 +68,6 @@ So for example, any NP decision problem should be encodable.
 Still, such a theoretical reduction might not be usable in practice:
 polynomial factors might not matter in complexity theory,
 but they do matter a lot to engineers and end users.
-Just having a #link("https://w.wiki/5z5Z", "galactic algorithm") isn't enough.
 
 But it turns out that Quad-SAT is actually reasonably code-able.
 This is the goal of projects like
@@ -127,7 +126,52 @@ systems of quadratic equations of a very particular form:
   so e.g. "$a_1 = c_7$", "$b_17 = b_42$", and so on.
 ]
 
-So the PLONK protocol purports to do the following:
+#remark("From Quad-SAT to PLONK")[
+  PLONK might look less general than Quad-SAT,
+  but it turns out you can convert any Quad-SAT problem to PLONK.
+
+  First off, note that if we set
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, -1, 0, 0 ), $
+  we get an "addition" gate
+  $ a_i + b_i = c_i, $
+  while if we set
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, 0, -1, 0 ), $
+  we get a "multiplication" gate
+  $ a_i b_i = c_i. $
+  And finally, if $q$ is any constant, then
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 0, 0, 0, -q ), $
+  gives the constraint
+  $ a_i = q. $
+
+  Now imagine we want to encode some quadratic equation
+  like
+  $ y = x^2 + 2 $
+  in PLONK.
+
+  We'll break this down into two steps:
+  $ x * x & = (x^2) text(" (multiplication)") \
+  t & = 2 text(" (constant)") \
+  (x^2) + t & = y text(" (addition)"). $
+  
+  We'll assign the variables $a_i, b_i, c_i$ for these two gates 
+  by looking at the equations:
+  $ (a_1, b_1, c_1) & = (x, x, x^2) \
+  (a_2, b_2, c_2) & = (t = 2, 0, 0) \
+  (a_3, b_3, c_3) & = (x^2, t = 2, y). $
+
+  And finally, we'll assign copy constraints 
+  to make sure the variables are faithfully copied 
+  from line to line:
+  $ a_1 & = b_1 \
+  c_1 & = a_3 \
+  a_2 & = b_3. $
+
+  If the variables $a_i, b_i, c_i$ satisfy the gate and copy constraints,
+  then $x = a_1$ and $y = c_3$ are forced to satisfy 
+  the original equation $y = x^2 + 2$.
+]
+
+Back to PLONK: Our protocol needs to do the following:
 Peggy and Victor have a PLONK instance given to them.
 Peggy has a solution to the system of equations,
 i.e. an assignment of values to each $a_i$, $b_i$, $c_i$ such that
@@ -162,7 +206,7 @@ if we use @root-check on the set ${omega, omega^1, ..., omega^n}$,
 then the polynomial called $Z$ is just
 $Z(X) = (X-omega) ... (X-omega^n) = X^n-1$, which is really nice.
 In fact, often $n$ is chosen to be a power of $2$ so that $A$, $B$, and $C$
-are really easy to compute, using a fast Fourier transform.
+are very easy to compute, using a fast Fourier transform.
 (Note: When you're working in a finite field, the fast Fourier transform
 is sometimes called the "number theoretic transform" (NTT)
 even though it's exactly the same as the usual FFT.)
@@ -177,11 +221,11 @@ that can later be "opened" at any value $x in FF_q$.
 
 == Step 2: Gate-check
 
-Both Peggy and Victor knows the PLONK instance,
+Both Peggy and Victor know the PLONK instance,
 so they can interpolate a polynomial
 $Q_L(X) in FF_q [X]$ of degree $n-1$ such that
 $ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., n. $
-Then the analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
+The analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
 are defined in the same way.
 
 Now, what do the gate constraints amount to?
@@ -264,7 +308,7 @@ Well, actually, it would be necessary and sufficient for the identity
 to be true, in the sense both sides are the same polynomial in $FF_q [T]$
 in a single formal variable $T$.
 And for that, it actually is sufficient that a single random challenge
-$T = lambda$ passes @permcheck-poly; as if the two sides of @permcheck-poly
+$T = lambda$ passes @permcheck-poly: if the two sides of @permcheck-poly
 aren't the same polynomial,
 then the two sides can have at most $n-1$ common values.
 
@@ -410,7 +454,7 @@ The ones on the left-hand side are interpolated so that
   $
   <copycheck-left>
 ]
-whilst the ones on the right have the extra permutation polynomials
+while the ones on the right have the extra permutation polynomials
 #eqn[
   $
     F'_a (omega^k) &= product_(i <= k) (a_i + sigma_a (omega^i) mu + lambda) \
