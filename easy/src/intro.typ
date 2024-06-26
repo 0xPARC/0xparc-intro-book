@@ -11,25 +11,21 @@ as a field that is widely used in everyday life.
 To be concrete, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
 
-- _Proofs_. An example of this is digital signature algorithms like RSA,
+- *Proofs*. An example of this is digital signature algorithms like RSA,
   where Alice can do some protocol to prove to Bob that a message was sent by her.
   A more complicated example might be a
   #link("https://w.wiki/9fXW", "group signature scheme"),
   allowing one member of a group to sign a message on behalf of a group.
 
-- _Hiding inputs_: for example, consider
+- *Hiding inputs*: for example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them has more money
   without learning the actual incomes.
 
 Classically, first-generation cryptography relied on coming up for a protocol
-for solving given problems or computing certain functions.
-
-"Programmable cryptography" is a term coined by 0xPARC for a second generation
+for solving given problems or computing certain functions. _Programmable cryptography_ is a term coined by 0xPARC for a second generation
 of cryptographic primitives that have arisen in the last 15 or so years.
-The goal of the second-generation "programmable cryptography" can
-then be described as:
-
+The goal of this "second-generation cryptography" can be described as:
 
 #quote[
   We want to devise cryptographic primitives that can
@@ -39,7 +35,7 @@ then be described as:
 
 To draw an analogy, it's sort of like going from older single-purpose hardware,
 like a digital alarm clock or thermostat,
-to having a general-purpose device like a smartphone which can
+to a general-purpose device, like a smartphone, which can
 do any computation so long as someone writes code for it.
 
 The quote on the title page
@@ -53,42 +49,40 @@ using a general compiler rather than inventing an algorithm specific to SHA256.
 
 == Ideas in programmable cryptography
 
-These notes focus on the following specific topics.
+These notes address programmable cryptography through expositions on specific topics. We quickly bpreview them here.
 
-=== Two-party computation (2PC)
+=== 2PC: Two-party computation
 
-In a *two-party computation*, two people want to
+In a _two-party computation_, two people want to
 jointly compute some known function
 $ F(x_1, x_2), $
-where the $i$th person only knows the input $x_i$ --
+where the $i$th person only knows the input $x_i$ ---
 and they want to do it without either person learning the other person's input.
 
-For example, we saw earlier Yao's millionaire problem --- Alice and Bob
+For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
-This is the case where $F = max$, and $x_i$ is the $i$'th person's income.
+This is the case where $F = max()$, and $x_i$ is the $i$'th person's income.
 
 Two-party computation makes a promise that we'll be able to do this
-for _any_ function $F$ as long as we can implement it in code.
+for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
 
-=== The SNARK: proofs of general problems
+=== SNARK: proofs of general problems
 
-The *SNARK*, first described in 2012, 
-provides a way to produce proofs of _arbitrary_ problem statements,
-at least once the problem statements are encoded as a system of equations in a certain way.
+The _SNARK_, first described in 2012, 
+provides a way to produce proofs of _arbitrary_ problem statements, once the problem statements are encoded as a system of equations in a certain way.
 The name stands for:
 
-- *Succinct*: the proof length is short (actually constant length).
-- *Non-interactive*: the protocol does not require back-and-forth communication.
-- *Argument*: basically a proof.  
+- _Succinct_: the proof length is short (actually constant length).
+- _Non-interactive_: the protocol does not require back-and-forth communication.
+- _Argument_: basically a proof.  
   There's a technical difference, but we won't worry about it.
-- *of Knowledge*: the proof doesn't just show the system of equations has a solution;
+- _of Knowledge_: the proof doesn't just show the system of equations has a solution;
   it also shows that the prover knows one.
 
 One additional feature (which we will not cover in these notes) is
-*zero-knowledge* (which turns the abbreviation into "zkSNARK"):
+_zero-knowledge (zk)_ (which turns the abbreviation into "zkSNARK"):
 with a zero-knowledge proof, a person reading the proof 
-doesn't learn anything
-about the solution besides that it's correct.
+doesn't learn anything about the solution besides that it's correct.
 
 So, you can think of these as generalizing something like a group signature
 scheme to authenticating any sort of transaction:
@@ -109,7 +103,7 @@ and many different proof systems are known.
 These notes focus on one construction, called PLONK (@plonk).
 
 
-=== Fully homomorphic encryption (FHE)
+=== FHE: Fully homomorphic encryption
 
 In *fully homomorphic encryption*, one person encrypts some data $x$,
 and then anybody can perform arbitrary operations on the encrypted data $x$
@@ -124,7 +118,7 @@ so the server learns nothing about the text you translated.
 
 == Where these fit together
 
-SNARKS, MPC, and FHE are just some of a huge zoo of cryptographic primitives,
+MPC, SNARKs, and FHE are just some of a huge zoo of cryptographic primitives,
 from the elementary (public-key cryptography)
 to the impossibly powerful (indistinguishability obfuscation).
 There are protocols for SNARKS, MPC and FHE;
