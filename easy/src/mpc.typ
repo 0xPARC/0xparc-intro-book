@@ -35,20 +35,21 @@ Here is our problem setting, slightly more formally:
 == The solution (an outline)
 
 Very briefly:
-- Alice constructs a "garbled circuit"
+- Alice constructs a _garbled circuit_
   that takes in the value $b$ (whatever it is)
   and spits out $f(a, b)$.
 
-  A garbled circuit is sort of like a black-box function
-  that Bob can only evaluate if he knows
-  a secret password corresponding to his input bits.
+  A garbled circuit is an "encrypted" circuit
+  that takes encrypted input and gives encrypted output.
 
-  (or: that Bob can only evaluate once...)
-- Alice uses "oblivious transfer"
+- Alice uses _oblivious transfer_
   to send Bob the password for his input.
 
-  Bob doesn't learn the passwords for any other inputs,
-  and Alice doesn't find out which password she sent to Bob.
+  An oblivious transfer is a protocol where 
+  Alice has two messages, $m_0$ and $m_1$.
+  Bob gets exactly one of them, $m_i$,
+  without letting Alice know which value $i$ is,
+  and without Bob learning the other message.
 
 #todo[
   Ask Gub to paraphrase, he writes well
@@ -78,7 +79,7 @@ A garbled circuit will require a "password"
 for each input Bob wants to plug in --
 a different password for every possible input.
 If Bob has the password for $(b_1, dots, b_n)$,
-he can learn $f_a(b_1, dots, b_n) = f(a, b)$ --
+he can learn $f_a (b_1, dots, b_n) = f(a, b)$ --
 but he won't learn anything else about how the circuit works.
 
 Now, Alice has all the passwords for all the possible inputs, but
