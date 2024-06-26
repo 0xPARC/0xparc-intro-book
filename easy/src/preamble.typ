@@ -91,7 +91,8 @@
 
   // General settings
   set page(
-    paper: "a4",
+    width: 5.5in,
+    height: 8.5in,
     margin: auto,
     header: context {
       set align(right)
