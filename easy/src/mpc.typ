@@ -180,38 +180,32 @@ We'll need to make two changes to the protocol.
 
 Let's play through one round of Bob's gate-using protocol.
 
-0. Suppose Bob's input bits are 0 (on the left) and 1 (on the right).
+1. Suppose Bob's input bits are 0 (on the left) and 1 (on the right).
   Bob doesn't know he has 0 and 1 (but we do!).
   Bob knows his left password is some value
-  $
-    P_0^(text("left")),
-  $
+  $P_0^(text("left"))$,
   and his right password is some other value
-  $
-    P_1^(text("right")).
-  $
+  $P_1^(text("right"))$.
 
-1. Bob takes the two passwords, concatenates them, and computes a hash.
+2. Bob takes the two passwords, concatenates them, and computes a hash.
   Now Bob has
   $
     sha(P_0^(text("left")), P_1^(text("right"))).
   $
 
-2. Bob finds the row of the table indexed by
+3. Bob finds the row of the table indexed by
   $sha(P_0^(text("left")), P_1^(text("right")))$,
   and he uses it to look up
   $
     Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out"))).
   $
 
-3. Bob uses the concatenation of the two passwords
+4. Bob uses the concatenation of the two passwords
   $P_0^(text("left")), P_1^(text("right"))$
   to decrypt
-  $
-    P_0^(text("out")).
-  $
+  $P_0^(text("out")).$
 
-4. Now Bob has the password for the bit 0, to feed into the next gate --
+5. Now Bob has the password for the bit 0, to feed into the next gate --
   but he doesn't know his bit is 0.
 
 So Bob is exactly where he started:
