@@ -17,6 +17,14 @@ the #link("https://w.wiki/9jgX", "discrete logarithm problem")
 But before we get to the problem,
 we need to introduce some of the math behind elliptic curves.
 
+An elliptic curve is a set of points with a group operation.
+The set of points is the set of solutions $(x, y)$
+to an equation in two variables;
+the group operation is a rule for "adding" two of the points
+to get a third point.
+Our first task, before we can get to the SNARK,
+will be to understand what all this means.
+
 The roadmap goes roughly as follows:
 
 - In @bn254 we will describe one standard elliptic curve $E$, the BN254 curve,
@@ -223,20 +231,20 @@ In less fancy language, we'll be working with points on $E$ as black boxes.
 We'll be able to add them, subtract them, 
 and multiply them by arbitrary scalars from $FF_q$.
 
-=== We treat $FF_q$ as the field of scalars henceforth
-
 Consequently --- and this is important ---
 *one should actually think of $FF_q$ as the base field
 for all our cryptographic primitives*
 (despite the fact that the coordinates of our points are in $FF_p$).
 
-Whenever we talk about protocols, and there are any sorts of
-"numbers" or "scalars" in the protocol,
-*these scalars are always going to be elements of $FF_q$*.
-Since $q approx 2^(254)$,
-that means we are doing something like $256$-bit integer arithmetic.
-This is why the baby Jubjub prime $q$ gets a special name,
-while the prime $p$ is unnamed and doesn't get any screen-time later.
+#remark[
+  Whenever we talk about protocols, and there are any sorts of
+  "numbers" or "scalars" in the protocol,
+  *these scalars are always going to be elements of $FF_q$*.
+  Since $q approx 2^(254)$,
+  that means we are doing something like $256$-bit integer arithmetic.
+  This is why the baby Jubjub prime $q$ gets a special name,
+  while the prime $p$ is unnamed and doesn't get any screen-time later.
+]
 
 == A hard problem: discrete logarithm <discretelog>
 
@@ -433,7 +441,7 @@ one cannot recover any of the $a_i$;
 but given the entire vector $arrow(a)$
 one can compute the Pedersen commitment easily.
 
-We won't used Pedersen commitments in this book,
+We won't use Pedersen commitments in this book,
 but in @kzg we will see a closely related commitment scheme,
 called KZG.
 

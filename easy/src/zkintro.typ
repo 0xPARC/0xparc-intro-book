@@ -36,7 +36,7 @@ Sounds pretty boring, unless you're an algebra student.
 
 Slightly better answer: You can prove that you have executed a program correctly,
 revealing some or all of the inputs and outputs, as you please.
-For example: You know a messame $M$ such that
+For example: You know a message $M$ such that
 $op("sha")(M) = "0xa91af3ac..."$, but you don't want to reveal $M$.
 Or: You only want to reveal the first 30 bytes of $M$.
 Or: You know a message $M$, and a digital signature proving that $M$ was signed by

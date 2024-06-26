@@ -67,8 +67,8 @@ So this gives us a way to _verify_ two-by-two multiplication.
 
   Given $[x]$, $[x^2]$, $[x^3]$, and $[y]$,
   Victor verifies that:
-  - $pair([x^2], 1) = pair([x], [x]) $
-  - $pair([x^3], 1) = pair([x^2], [x]) $
+  - $pair([x^2], [1]) = pair([x], [x]) $
+  - $pair([x^3], [1]) = pair([x^2], [x]) $
   - $[y] = [x^3] + 2 [1]$.
 
   The process of verifying this sort of identity is quite general:
