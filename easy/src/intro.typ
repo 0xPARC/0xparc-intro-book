@@ -6,10 +6,8 @@
 
 == What is programmable cryptography?
 
-Cryptography is everywhere now and needs no introduction.
-"Programmable cryptography" is a term coined by 0xPARC for a second generation
-of cryptographic primitives that have arisen in the last 15 or so years.
-
+Cryptography is everywhere now 
+as a field that is widely used in everyday life.
 To be concrete, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
 
@@ -19,16 +17,19 @@ classical cryptography can achieve:
   #link("https://w.wiki/9fXW", "group signature scheme"),
   allowing one member of a group to sign a message on behalf of a group.
 
-- _Hiding inputs_. For example, consider
+- _Hiding inputs_: for example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
-  where Alice and Bob each have a secret number (their wealth)
-  and they want to know which of them has more money
-  without learning each other's incomes.
+  where Alice and Bob wants to know which of them has more money
+  without learning the actual incomes.
 
 Classically, first-generation cryptography relied on coming up for a protocol
 for solving given problems or computing certain functions.
+
+"Programmable cryptography" is a term coined by 0xPARC for a second generation
+of cryptographic primitives that have arisen in the last 15 or so years.
 The goal of the second-generation "programmable cryptography" can
 then be described as:
+
 
 #quote[
   We want to devise cryptographic primitives that can
