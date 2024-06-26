@@ -12,11 +12,9 @@ Alice wants to encrypt $x$ and send Bob $Enc (x)$.
 Then Bob is going to "apply $f$ to the ciphertext",
 to turn $Enc (x)$ into $Enc (f(x))$.
 Finally, Bob sends $Enc (f(x))$ back,
-and Alice decrypts it to learn $f(x)$.
+and Alice decrypts it to learn $f(x)$. This is _fully homomorphic encryption (FHE)_.
 
-This is fully homomorphic encryption (FHE).
-
-Levelled FHE is a sort of weaker version of FHE. Like FHE, levelled FHE
+_Levelled FHE_ is a sort of weaker version of FHE. Like FHE, levelled FHE
 lets you perform operations on encrypted data. But unlike FHE, there
 will be a limit on the number of operations you can perform before the
 data must be decrypted.
@@ -47,22 +45,17 @@ you like, imagine doing the addition modulo 11, so if a number gets too
 big, it "wraps around.") Well, every time you add two encrypted numbers
 ($1.999832 + 2.999701 = 4.999533$), the errors add as well. After too
 many operations, the error will exceed $0.5$, and the rounding procedure
-won’t give the right answer anymore.
-
-But as long as you’re careful not to go over the error limit, you can
+won’t give the right answer anymore. But as long as you’re careful not to go over the error limit, you can
 add ciphertexts with confidence.
 
-In fact, for our levelled FHE protocol, our message will be a bit:
-either 0 or 1;
-our operations will be the logic gates AND and NOT.
-Any logic circuit can be built out of AND and NOT gates,
-so we'll be able to perform arbitrary calculations
+For our levelled FHE protocol, our message will be a bit (either 0 or 1) and 
+our operations will be the logic gates AND and NOT. Because any logic circuit can be built out of AND and NOT gates, we'll be able to perform arbitrary calculations
 within the FHE encryption.
 
 Our protocol uses a cryptosystem built
 from a problem called "learning with errors."
 "Learning with errors" is kind of a strange name;
-I'd call it "approximate linear algebra modulo $q$."
+We'd call it "approximate linear algebra modulo $q$."
 Anyway, we'll start with the learning-with-errors problem
 (@lwe) and how to build cryptography on top of it (@lwe-crypto)
 before we get back to levelled FHE.

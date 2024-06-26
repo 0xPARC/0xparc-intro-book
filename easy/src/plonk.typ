@@ -74,7 +74,7 @@ This is the goal of projects like
 #link("https://docs.circom.io/", "Circom"),
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $FF_q$ that can actually be used in practice.
-Systems like this are called *arithmetic circuits*,
+Systems like this are called _arithmetic circuits_,
 and Circom is appropriately short for "circuit compiler".
 If you're curious, you can see how SHA256 is implemented in Circom on
 #link("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
@@ -111,9 +111,9 @@ systems of quadratic equations of a very particular form:
 
 #definition[
   An instance of PLONK consists of two pieces,
-  the *gate constraints* and the *copy constraints*.
+  the _gate constraints_ and the _copy constraints_.
 
-  The *gate constraints* are a system of $n$ equations,
+  The _gate constraints_ are a system of $n$ equations,
   $ q_(L,i) a_i + q_(R,i) b_i + q_(O,i) c_i + q_(M,i) a_i b_i + q_(C,i) = 0 $
   for $i = 1, ..., n$,
   in the $3n$ variables $a_i$, $b_i$, $c_i$.
@@ -121,7 +121,7 @@ systems of quadratic equations of a very particular form:
   The confusing choice of subscripts stands for "Left", "Right", "Output",
   "Multiplication", and "Constant", respectively.
 
-  The *copy constraints* are a bunch of assertions that some of the
+  The _copy constraints_ are a bunch of assertions that some of the
   $3n$ variables should be equal to each other,
   so e.g. "$a_1 = c_7$", "$b_17 = b_42$", and so on.
 ]
@@ -133,15 +133,15 @@ systems of quadratic equations of a very particular form:
   First off, note that if we set
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, -1, 0, 0 ), $
   we get an "addition" gate
-  $ a_i + b_i = c_i, $
+  $a_i + b_i = c_i,$
   while if we set
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, 0, -1, 0 ), $
   we get a "multiplication" gate
-  $ a_i b_i = c_i. $
-  And finally, if $q$ is any constant, then
+  $a_i b_i = c_i.$
+  Finally, if $q$ is any constant, then
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 0, 0, 0, -q ), $
   gives the constraint
-  $ a_i = q. $
+  $a_i = q.$
 
   Now imagine we want to encode some quadratic equation
   like

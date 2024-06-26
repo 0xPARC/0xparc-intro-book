@@ -1,10 +1,8 @@
 #import "preamble.typ":*
 
-= Kate-Zaverucha-Goldberg (KZG) commitments <kzg>
+= KZG commitments <kzg>
 
-== Pitch: KZG lets you commit a polynomial and reveal individual values
-
-The goal of the KZG commitment schemes is to have the following API:
+The goal of a _polynomial commitment scheme_ is to have the following API:
 
 - Peggy has a secret polynomial $P(X) in FF_q [X]$.
 - Peggy sends a short "commitment" to the polynomial (like a hash).
@@ -18,14 +16,11 @@ The goal of the KZG commitment schemes is to have the following API:
   - Peggy can then send a short "proof" convincing Victor that $y$ is the
     correct value, without having to reveal $P$.
 
-The KZG commitment scheme is amazingly efficient because both the commitment
-and proof lengths are a single point on $E$, encodable in 256 bits.
+The _Kate-Zaverucha-Goldberg (KZG)_ commitment scheme is amazingly efficient because both the commitment and proof lengths are a single point on $E$, encodable in 256 bits.
 
-== Trusted calculation: setup done once
+== The setup
 
-Remember the notation $[n] := n dot g in E$ defined in @armor.
-
-To set up the KZG commitment scheme,
+Remember the notation $[n] := n dot g in E$ defined in @armor. To set up the KZG commitment scheme,
 a trusted party needs to pick a secret scalar $s in FF_q$ and publishes
 $ [s^0], [s^1], ..., [s^M] $
 for some large $M$, the maximum degree of a polynomial the scheme needs to support.

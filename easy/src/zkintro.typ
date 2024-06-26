@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Introduction to zkSNARKs
+= Introduction to SNARKs
 
 Peggy has done some very difficult calculation.
 She wants to prove to Victor that she did it.
@@ -14,7 +14,7 @@ is too lazy to redo the whole calculation himself.
 - Maybe it's just a really long, annoying calculation,
   and Victor doesn't have the energy to check it all line-by-line.
 
-A SNARK lets Peggy (the "prover")
+A _SNARK_ lets Peggy (the "prover")
 send Victor (the "verifier") a short proof 
 that she has indeed done the calculation correctly.
 The proof will much shorter than the original calculation,
@@ -22,14 +22,11 @@ and Victor's verification is much faster.
 (As a tradeoff, writing a SNARK proof of a calculation is much slower
 than just doing the calculation.)
 
-We won't discuss it here, 
-but it is also possible to make a "zero knowledge" SNARK.
-This gives Peggy a guarantee 
+We won't discuss it here, but it is also possible and frequently useful to make a _zero knowledge (zk)_ SNARK. These are typically called "zkSNARKs." This gives Peggy a guarantee 
 that Victor will not learn anything about the intermediate steps 
-in her calculation,
-aside from any particular steps Peggy chooses to reveal.
+in her calculation, aside from any particular steps Peggy chooses to reveal.
 
-== What can you do with a zkSNARK?
+== What can you do with a SNARK?
 
 One answer: You can prove that you have a solution to a system of equations.
 Sounds pretty boring, unless you're an algebra student.

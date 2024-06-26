@@ -12,7 +12,7 @@ But as written we can't do "armored multiplication":
   As far as we know, given $[a]$ and $[b]$, one cannot compute $[a b]$.
 ]
 
-On the other hand, it _does_ turn out that we know a way to _verify_
+On the other hand, it *does* turn out that we know a way to *verify*
 a claimed answer on certain curves.
 That is:
 #proposition[
@@ -24,9 +24,9 @@ The technique needed is that one wants to construct a
 nondegenerate bilinear function
 $ pair : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
-I think this should be called a *bilinear pairing*,
-but for some reason everyone just says *pairing* instead.
-A curve is called *pairing-friendly* 
+We think this should be called a _bilinear pairing_,
+but for some reason everyone just says _pairing_ instead.
+A curve is called _pairing-friendly_ 
 if this pairing can be computed reasonably quickly
 (e.g. BN254 is pairing-friendly, but Curve25519 is not).
 
@@ -42,11 +42,11 @@ Going a little more generally, the four-number equation
 $ pair([m], [n]) = pair([m'], [n']) $
 will be true whenever $m n = m' n'$,
 because both sides will equal $m n pair([1], [1])$.
-So this gives us a way to _verify_ two-by-two multiplication.
+So this gives us a way to *verify* two-by-two multiplication.
 
 #remark[
   The last sentence is worth bearing in mind: in all the protocols we'll see,
-  the pairing is only used by the _verifier_ Victor, never by the prover Peggy.
+  the pairing is only used by the verifier Victor, never by the prover Peggy.
 ]
 
 #remark[We don't know how to do multilinear pairings][
@@ -86,7 +86,7 @@ If we chose $E$ to be BN254, the following property holds:
   the smallest integer $k$ such that $q$ divides $p^k-1$ is $k=12$.
 ]
 
-This integer $k$ is called the *embedding degree*.
+This integer $k$ is called the _embedding degree_.
 This section is an aside explaining how the embedding degree affects pairing.
 
 The pairing function $pair(a, b)$ takes as input two points $a, b in E$

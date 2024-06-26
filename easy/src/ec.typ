@@ -17,7 +17,7 @@ the #link("https://w.wiki/9jgX", "discrete logarithm problem")
 But before we get to the problem,
 we need to introduce some of the math behind elliptic curves.
 
-An elliptic curve is a set of points with a group operation.
+An _elliptic curve_ is a set of points with a group operation.
 The set of points is the set of solutions $(x, y)$
 to an equation in two variables;
 the group operation is a rule for "adding" two of the points
@@ -44,9 +44,9 @@ The roadmap goes roughly as follows:
 Rather than set up a general definition of elliptic curve,
 for these notes we will be satisfied to describe one specific elliptic curve
 that can be used for all the protocols we describe later.
-The curve we choose for these notes is the *BN254 curve*.
+The curve we choose for these notes is the _BN254 curve_.
 
-=== The set of points
+== The set of points
 
 The BN254 specification fixes a specific#footnote[
   If you must know, the values in the specification are given exactly by
@@ -67,7 +67,7 @@ The name BN stands for Barreto-Naehrig, two mathematicians who
 "proposed a family of such curves in 2006").
 
 #definition[
-  The *BN254 curve* is the elliptic curve
+  The _BN254 curve_ is the elliptic curve
   #eqn[$ E(FF_p) : Y^2 = X^3 + 3 $ <bn254eqn>]
   defined over $FF_p$, where $p approx 2^(254)$
   is the prime from the BN254 specification.
@@ -85,7 +85,7 @@ The constants $p$ and $q$ are contrived so that the following holds:
   including the point at infinity $O$, is a prime $q approx 2^(254)$.
 ]
 #definition[
-  This prime $q approx 2^(254)$ is affectionately called the *Baby Jubjub prime*
+  This prime $q approx 2^(254)$ is affectionately called the _Baby Jubjub prime_
   (a reference to #link("https://w.wiki/5Ck3", "The Hunting of the Snark")).
   It will usually be denoted by $q$ in these notes.
 ]
@@ -96,10 +96,10 @@ So at this point, we have a bag of $q$ points denoted $E(FF_p)$.
 However, right now it only has the structure of a set.
 
 The beauty of elliptic curves
-is that it's possible to define an _addition_ operation on the curve;
+is that it's possible to define an *addition* operation on the curve;
 this is called the #link("https://w.wiki/9jhM", "group law on the elliptic curve").
 This addition will make $E(FF_p)$ into an abelian group whose identity element
-is the point at infinity $O$.
+is the point at infinity $O$. This addition can be formalized as a _group law_, which is an equation that points on the curve must follow.
 
 This group law involves some kind of heavy algebra.
 It's not important to understand exactly how it works.
@@ -249,12 +249,12 @@ for all our cryptographic primitives*
 == A hard problem: discrete logarithm <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
-we will rely on the so-called *discrete logarithm* problem.
+we will rely on the so-called _discrete logarithm_ assumption.
 
-#assumption[Discrete logarithm problem][
+#assumption[Discrete logarithm assumption][
   Let $E$ be the BN254 curve (or another standardized curve).
   Given arbitrary nonzero $g, g' in E$,
-  it's hard to find an integer $n$ such that $n dot g = g'$.
+  it's hard to find an integer $n$ such that $n dot g = g'$. (the act of obtaining this integer is called the _discrete logarithm problem_)
 ] <ddh>
 
 In other words, if one only
@@ -352,8 +352,8 @@ In other words, $n |-> [n]$ viewed as a map $FF_q -> E$ is $FF_q$-linear.
 So now suppose Alice wants to set up a signature scheme.
 
 #algorithm[EdDSA public and secret key][
-  1. Alice picks a random integer $d in FF_q$ as her *secret key*.
-  2. Alice publishes $[d] in E$ as her *public key*.
+  1. Alice picks a random integer $d in FF_q$ as her _secret key_ (a piece of information that she needs to keep private for the security of the protocol).
+  2. Alice publishes $[d] in E$ as her _public key_ (a piece of information which, even when obtained by adversaries, does not challenge the security of the protocol).
 ]
 
 Now suppose Alice wants to prove to Bob that she approves the message $msg$,
@@ -383,7 +383,7 @@ Indeed, such an adversary can compute what the point $[s] = [r] + n [d]$
 should be, but without knowledge of $d$ they cannot get the integer $s$,
 due to @ddh.
 
-The number $r$ is called a *blinding factor* because
+The number $r$ is called a _blinding factor_ because
 its use prevents Bob from stealing Alice's secret key $d$ from the published $s$.
 It's therefore imperative that $r$ isn't known to Bob
 nor reused between signatures, and so on.
@@ -407,7 +407,7 @@ one cannot find the last coefficient.
   In these notes, if there's a globally known elliptic curve $E$
   and points $g_1, ..., g_n$ have order $q$ and no known nontrivial
   linear dependencies between them,
-  we'll say they're a *computational basis over $FF_q$*.
+  we'll say they're a _computational basis over $FF_q$_.
 ] <comp_basis>
 
 #remark[
@@ -418,7 +418,7 @@ one cannot find the last coefficient.
   and the codomain is one-dimensional.
   This can feel weird because our instincts from linear algebra in pure math
   are wrong now. This map, while not injective in theory,
-  ends up being injective _in practice_ (because we can't find collisions).
+  ends up being injective *in practice* (because we can't find collisions).
   And this is a critical standing assumption for this entire framework!
 ]
 
@@ -432,7 +432,7 @@ To spell this out:
   $ arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n $ of scalars,
   the group element
   $ sum a_i g_i = a_1 g_1 + ... + a_n g_n in E $
-  is called the *Pedersen commitment* of our vector $arrow(a)$.
+  is called the _Pedersen commitment_ of our vector $arrow(a)$.
 ]
 
 The Pedersen commitment is thus a sort of hash function:
