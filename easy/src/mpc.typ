@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Two-party Computation and Garbled Circuits
+= Garbled Circuits
 
 Imagine Alice and Bob each have some secret values
 $a$ and $b$, and would like to jointly compute some function $f$ over
@@ -32,72 +32,56 @@ Here is our problem setting, slightly more formally:
 - $A$ and $B$ would like to jointly compute $C (a , b)$ without
   revealing to each other their secrets.
 
-== The solution (an outline)
+== Outline of Solution
 
-Very briefly:
-- Alice constructs a "garbled circuit"
+Our solution will contain two key components: 
+- Alice constructs a _garbled circuit_
   that takes in the value $b$ (whatever it is)
-  and spits out $f(a, b)$.
-
-  A garbled circuit is sort of like a black-box function
-  that Bob can only evaluate if he knows
-  a secret password corresponding to his input bits.
-
-  (or: that Bob can only evaluate once...)
-- Alice uses "oblivious transfer"
-  to send Bob the password for his input.
-
-  Bob doesn't learn the passwords for any other inputs,
-  and Alice doesn't find out which password she sent to Bob.
+  and spits out $f(a, b)$. A _garbled circuit_, roughly speaking, is an "encrypted" circuit that takes encrypted input and creates encrypted output." 
+- An _oblivious transfer_ is a protocol where X has two messages, $m_0$ and $m_1$. Y can get exactly one of them, $m_i$, without letting X know what $i$ is. In this context, Alice ends up sending Bob a password for his input in a way that Bob doesn't learn the passwords for any other inputs, and Alice doesn't find out which password she sent to Bob.
 
 #todo[
   Ask Gub to paraphrase, he writes well
+
+I rewrote the above slightly. Feel free to discard/give to Gub still [-YZ]
 ]
 
 In slightly more detail:
 
-Whatever the function $f$ is,
-we'll assume that it takes $m+n$ bits of input
-$a_1, dots, a_m$ and $b_1, dots, b_n$,
-and that it's computed by some sort of circuit
-made of AND, OR and NOT gates.
+1. Whatever the function $f$ is, we'll assume that it takes $m+n$ bits of input
+   $a_1, dots, a_m$ and $b_1, dots, b_n$,
+   and that it's computed by some sort of circuit
+   made of AND, OR and NOT gates.
+2. Alice's first task is to "plug her own inputs into this circuit $f$."
+   The result will be a new circuit
+   (you might call it $f_a$)
+   that has just $n$ input slots
+   for Bob's $n$ bits $b_1, dots, b_n$.
+3. Now, Alice is going to "garble" the circuit $f_a$.
+   Once it's garbled, Bob won't be able to see how it works.
+   He'll only be able to plug his own input $(b_1, dots, b_n)$
+   into the circuit.
+4. To prevent Bob from plugging other inputs in as well,
+   a garbled circuit will require a "password"
+   for each input Bob wants to plug in --
+   a different password for every possible input.
+   If Bob has the password for $(b_1, dots, b_n)$,
+   he can learn $f_a(b_1, dots, b_n) = f(a, b)$ --
+   but he won't learn anything else about how the circuit works.
+5. Now, Alice has all the passwords for all the possible inputs, but how can she give Bob the password for $(b_1, dots, b_n)$?
+   Alice doesn't want to let Bob have any other passwords --
+   and Bob isn't willing to tell Alice which password he is asking for.
+   This is where we will use the oblivious transfer."
 
-Alice's first task is to "plug her own inputs into this circuit $f$."
-The result will be a new circuit
-(you might call it $f_a$)
-that has just $n$ input slots
-for Bob's $n$ bits $b_1, dots, b_n$.
-
-And then Alice is going to "garble" the circuit $f_a$.
-Once it's garbled, Bob won't be able to see how it works.
-He'll only be able to plug his own input $(b_1, dots, b_n)$
-into the circuit.
-
-What stops Bob from plugging other inputs in as well?
-A garbled circuit will require a "password"
-for each input Bob wants to plug in --
-a different password for every possible input.
-If Bob has the password for $(b_1, dots, b_n)$,
-he can learn $f_a(b_1, dots, b_n) = f(a, b)$ --
-but he won't learn anything else about how the circuit works.
-
-Now, Alice has all the passwords for all the possible inputs, but
-how can she give Bob the password for $(b_1, dots, b_n)$?
-Alice doesn't want to let Bob have any other passwords --
-and Bob isn't willing to tell Alice which password he is asking for.
-This is where we will use "oblivious transfer."
-
-So let's dive into garbled circuits.
+We now flesh out this outline, starting with garbled circuits.
 
 == Garbled gates
 
-Our garbled circuits are going to be built out of "garbled gates".
+Our garbled circuits are going to be built out of _garbled gates_.
 A garbled gate is like a traditional gate (like AND, OR, NAND, NOR),
 except its functionality is hidden.
 
-What does that mean?
-
-Let's say the gate has two input bits,
+What does that mean? Let's say the gate has two input bits,
 so there are four possible inputs to the gate:
 $(0, 0), (0, 1), (1, 0), (1, 1)$.
 For each of those four inputs $(x, y)$,
@@ -105,8 +89,8 @@ there is a secret password $P_(x, y)$.
 The gate $G$ will only reveal its value $G(x, y)$
 if you give it the password $P_(x, y)$.
 
-It's easy to see how to make a garbled gate.
-Choose a symmetric-key
+Here is a natural approach to make a garbled gate.
+Choose a _symmetric-key_
 [#footnote("Symmetric-key encryption is probably " +
 "what you think of " +
 "when you think of plain-vanilla encryption: " +
