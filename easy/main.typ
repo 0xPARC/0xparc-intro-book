@@ -29,11 +29,11 @@
 
 #set heading(offset: 1)
 
-#part[Oblivious transfer, garbled circuits, and multiparty computation]
+#part[Two-party Computation]
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
 
-#part[zkSNARK constructions]
+#part[SNARKs]
 #chapter("src/zkintro.typ")
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
@@ -41,7 +41,7 @@
 #chapter("src/plonk.typ")
 #chapter("src/fs.typ")
 
-#part[Levelled fully homomorphic encryption]
+#part[Fully Homomorphic Encryption]
 #chapter("src/fhe0.typ")
 #chapter("src/lwe.typ")
 #chapter("src/fhe2.typ")
