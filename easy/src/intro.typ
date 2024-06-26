@@ -67,21 +67,28 @@ For example, we saw earlier Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
 This is the case where $F = max$, and $x_i$ is the $i$'th person's income.
 
-Multi-party computation makes a promise that we'll be able to do this
+Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code.
 
 === The SNARK: proofs of general problems
 
 The *SNARK*, first described in 2012, 
 provides a way to produce proofs of _arbitrary_ problem statements,
-at least once encoded as a system of equations in a certain way.
+at least once the problem statements are encoded as a system of equations in a certain way.
 The name stands for:
 
 - *Succinct*: the proof length is short (actually constant length).
-- *Non-interactive*: the protocol is not interactive.
-- *Argument*: technically not a "proof," but we won't worry about the difference.
+- *Non-interactive*: the protocol does not require back-and-forth communication.
+- *Argument*: basically a proof.  
+  There's a technical difference, but we won't worry about it.
 - *of Knowledge*: the proof doesn't just show the system of equations has a solution;
   it also shows that the prover knows one.
+
+One additional feature (which we will not cover in these notes) is
+*zero-knowledge* (which turns the abbreviation into "zkSNARK"):
+with a zero-knowledge proof, a person reading the proof 
+doesn't learn anything
+about the solution besides that it's correct.
 
 So, you can think of these as generalizing something like a group signature
 scheme to authenticating any sort of transaction:
@@ -101,11 +108,6 @@ This is an active area of research,
 and many different proof systems are known.
 These notes focus on one construction, called PLONK (@plonk).
 
-One feature (which we will not cover in these notes) is
-*zero-knowledge* (which turns the abbreviation into "zkSNARK"):
-with a zero-knowledge proof, a person reading the proof 
-doesn't learn anything
-about the solution besides that it's correct.
 
 === Fully homomorphic encryption (FHE)
 
@@ -129,12 +131,12 @@ There are protocols for SNARKS, MPC and FHE;
 they are very slow, but they can be implemented and used in practice.
 
 This whole field is an active area of research.
-On the one hand: Can we make existing tools (SNARKS, etc.) more efficient?
-For example, the cost of proving a computation in a SNARK
-is currently about $10^6$ times the cost of doing the computation directly.
-Can we bring that number down?
-On the other hand: What other cryptographic games can we play
-to develop new sorts of programmable cryptography functionality?
+- Can we make existing tools (SNARKS, etc.) more efficient?
+  For example, the cost of proving a computation in a SNARK
+  is currently about $10^6$ times the cost of doing the computation directly.
+  Can we bring that number down?
+- What other cryptographic games can we play
+  to develop new sorts of programmable cryptography functionality?
 
 At 0xPARC, we see this as a door to a new world.
 What sort of systems can we build on top of programmable cryptography?
