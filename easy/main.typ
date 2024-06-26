@@ -10,7 +10,7 @@
 }
 
 #show: evan.with(
-  title: "Five Easy Pieces in Programmable Cryptography",
+  title: "Three Easy Pieces in Programmable Cryptography",
   author: "0xPARC",
   date: datetime.today(),
 )
