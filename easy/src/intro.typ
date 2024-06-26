@@ -69,7 +69,7 @@ for _any_ function $F$ as long as we can implement it in code. It generalizes to
 === SNARK: proofs of general problems
 
 The _SNARK_, first described in 2012, 
-provides a way to produce proofs of _arbitrary_ problem statements, once the problem statements are encoded as a system of equations in a certain way.
+provides a way to produce proofs of *arbitrary* problem statements, once the problem statements are encoded as a system of equations in a certain way.
 The name stands for:
 
 - _Succinct_: the proof length is short (actually constant length).
@@ -105,7 +105,7 @@ These notes focus on one construction, called PLONK (@plonk).
 
 === FHE: Fully homomorphic encryption
 
-In *fully homomorphic encryption*, one person encrypts some data $x$,
+In _fully homomorphic encryption_, one person encrypts some data $x$,
 and then anybody can perform arbitrary operations on the encrypted data $x$
 without being able to read $x$.
 

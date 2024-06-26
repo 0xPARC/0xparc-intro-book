@@ -7,18 +7,14 @@ Alice has $n$ messages $x_1, dots, x_n$.
 Bob wants to request the $i$-th message,
 without letting Alice learn anything about the value of $i$.
 Alice wants to send Bob $x_i$,
-without letting him learn anything about the other $n-1$ messages.
-This process is called "oblivious transfer":
-Alice transfers a single message to Bob,
-but she remains oblivious as to which message she has transferred.
-
-We'll see two simple protocols to achieve this.
+without letting him learn anything about the other $n-1$ messages. Such a procotol is an _oblivious transfer (OT)": Alice transfers a single message to Bob,
+but she remains oblivious as to which message she has transferred. We'll see two simple protocols to achieve this.
 
 (In fact, for two-party computation,
-we only "1-of-2 oblivious transfer":
+we only need "1-of-2 OT":
 Alice has $x_1$ and $x_2$, and she wants to send one of
 those two to Bob.
-But 1-of-$n$ isn't any harder, so we'll do 1-of-$n$.)
+But "1-of-$n$ OT" isn't any harder, so we'll do 1-of-$n$.)
 
 == Commutative encryption
 
@@ -48,15 +44,12 @@ and then Bob removes his lock and recovers the message.
 
 Mathematically, you can get commutative encryption
 by working in a finite group (for example $ZZ_p^*$, or an elliptic curve).
-
-Alice's secret key is an integer $a$;
+1. Alice's secret key is an integer $a$;
 she encrypts a message $g$ by raising it to the $a$-th power,
 and she sends Bob $g^a$.
-
-Bob encrypts again with his own secret key $b$,
+2. Bob encrypts again with his own secret key $b$,
 and he sends $(g^a)^b = g^{a b}$ back to Alice.
-
-Now Alice removes her lock by taking an $a$-th root. The result is $g^b$, which she sends back to Bob. And Bob takes another $b$-th root, recovering $g$.
+3. Now Alice removes her lock by taking an $a$-th root. The result is $g^b$, which she sends back to Bob. And Bob takes another $b$-th root, recovering $g$.
 
 == OT using commutative encryption
 
@@ -127,7 +120,7 @@ like we just said, Alice can't tell random garbage from a true public key!
 And then Bob would be able to decrypt all $n$ messages $x_1, dots, x_n$.
 
 But there's a simple trick to fix it.
-Bob chooses some "verifiably random" value $r$ --
+Bob chooses some "verifiably random" value $r$;
 to fix ideas, we could agree to use $r = sha(1)$.
 Then we require that the numbers $b_1, dots, b_n$
 form an arithmetic progression with common difference $r$.

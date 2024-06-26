@@ -71,7 +71,7 @@ In slightly more detail:
 5. Now, Alice has all the passwords for all the possible inputs, but how can she give Bob the password for $(b_1, dots, b_n)$?
    Alice doesn't want to let Bob have any other passwords --
    and Bob isn't willing to tell Alice which password he is asking for.
-   This is where we will use the oblivious transfer."
+   This is where we will use the "oblivious transfer."
 
 We now flesh out this outline, starting with garbled circuits.
 
@@ -228,17 +228,13 @@ they will just output the resulting bit in plain text.
 
 This is trickier.
 At the beginning of the computation,
-Bob needs to learn the passwords for all of his input bits.
-
-Let's just tackle the problem for a single bit.
+Bob needs to learn the passwords for all of his input bits. Let's just frame the problem for a single bit.
 - Alice has two passwords, $P_0$ and $P_1$.
 - Bob has a bit $b$, either $0$ or $1$.
 - Bob wants to learn one of the passwords, $P_b$, from Alice.
 - Bob does not want Alice to learn the value of $b$.
 - Alice does not want Bob to learn the other password.
 
-Alice sends the password to Bob
-using a protocol called oblivious transfer,
-which we'll see in @ot.
+This is where _oblivious transfer_ comes in, which we'll see in @ot.
 
 
