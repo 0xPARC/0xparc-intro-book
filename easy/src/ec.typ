@@ -219,7 +219,7 @@ structure of an abelian group, which happens to have exactly $q$ elements.
 However, an abelian group with prime order is necessarily cyclic.
 In other words:
 
-#theorem[The group BN254 is isomorphic to $FF_q$][
+#theorem[The group BN254 is isomorphic to $ZZ slash q ZZ$][
   Let $E$ be the BN254 curve.
   We have the isomorphism of abelian groups
   $ E(FF_p) tilde.equiv ZZ slash q ZZ. $
