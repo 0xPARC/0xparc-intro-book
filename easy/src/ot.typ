@@ -7,8 +7,7 @@ Alice has $n$ messages $x_1, dots, x_n$.
 Bob wants to request the $i$-th message,
 without letting Alice learn anything about the value of $i$.
 Alice wants to send Bob $x_i$,
-without letting him learn anything about the other $n-1$ messages. Such a procotol is an _oblivious transfer (OT)": Alice transfers a single message to Bob,
-but she remains oblivious as to which message she has transferred. We'll see two simple protocols to achieve this.
+without letting him learn anything about the other $n-1$ messages. An _oblivious transfer (OT)_ allows Alice to transfer a single message to Bob, but she remains oblivious as to which message she has transferred. We'll see two simple protocols to achieve this.
 
 (In fact, for two-party computation,
 we only need "1-of-2 OT":
