@@ -1,10 +1,10 @@
 #import "preamble.typ":*
 
-= Public-Key Cryptography from Learning with Errors
+= Public-Key Cryptography from LWE
 <lwe-crypto>
 The
 learning with errors
-problem (@lwe) is one of those "hard problems that you can build cryptography
+problem (@lwe), like the discrete log assumption, is one of those "hard problems that you can build cryptography
 on." The problem is to solve for constants
 $ a_1, dots, a_n in ZZ \/ q ZZ, $ given a bunch of
 #emph[approximate] equations of the form
