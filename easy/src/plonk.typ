@@ -129,7 +129,9 @@ systems of quadratic equations of a very particular form:
 #remark("From Quad-SAT to PLONK")[
   PLONK might look less general than Quad-SAT,
   but it turns out you can convert any Quad-SAT problem to PLONK.
+]
 
+#gray[
   First off, note that if we set
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, -1, 0, 0 ), $
   we get an "addition" gate
@@ -145,10 +147,8 @@ systems of quadratic equations of a very particular form:
 
   Now imagine we want to encode some quadratic equation
   like
-  $ y = x^2 + 2 $
-  in PLONK.
-
-  We'll break this down into two steps:
+  $y = x^2 + 2$
+  in PLONK. We'll break this down into two steps:
   $ x * x & = (x^2) text(" (multiplication)") \
   t & = 2 text(" (constant)") \
   (x^2) + t & = y text(" (addition)"). $
