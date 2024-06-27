@@ -2,9 +2,9 @@
 
 = Bilinear pairings on elliptic curves <pair>
 
+Before we are ready for KZG, there is one more piece of elliptic curve math that we need. 
 
-
-The map $[bullet] : FF_q -> E$ is linear,
+Recall that the map $[bullet] : FF_q -> E$ is linear,
 meaning that $[a + b] = [a] + [b]$, and $[n a] = n[a]$.
 But as written we can't do "armored multiplication":
 

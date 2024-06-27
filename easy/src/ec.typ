@@ -1,5 +1,16 @@
 #import "preamble.typ":*
 
+Before we talk about SNARKs (specifically, PLONK), it helps to separate out an ingredient that underlies much of programmable cryptography, which is the idea of a _polynomial commitment_. Specifically, we will talk about the KZG polynomial commitment, which plays an important role in PLONK (and many other protocols). For a higher resolution understanding of KZG, it helps to understand _elliptic curves_ (especially in the context of _pairings_), which are ubiquitous in cryptography. If you are uninterested (or experienced) in mathematical details, you can and should skip elliptic curves and jump to @kzg. If you are comfortable with black-boxing @kzg, you can even jump straight to SNARKs into the next chapter.
+
+The roadmap goes roughly as follows:
+
+- In @ec we will define _elliptic curves_ and describe one standard elliptic curve $E$, the _BN254 curve_,
+  that will be used in these notes.
+- In @discretelog we describe the _discrete logarithm assumption_ (@ddh), which we need to make to provide security to our protocols. As an example, in @eddsa we describe how @ddh
+  can be used to construct a signature scheme, namely
+  #link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
+- The EdDSA idea will later grow up to be the KZG commitment scheme in @kzg.
+
 = Elliptic curves <ec>
 
 Every modern cryptosystem rests on a hard problem
@@ -22,31 +33,10 @@ The set of points is the set of solutions $(x, y)$
 to an equation in two variables;
 the group operation is a rule for "adding" two of the points
 to get a third point.
-Our first task, before we can get to the SNARK,
-will be to understand what all this means.
-
-The roadmap goes roughly as follows:
-
-- In @bn254 we will describe one standard elliptic curve $E$, the BN254 curve,
-  that will be used in these notes.
-- In @discretelog we describe the discrete logarithm problem:
-  that for $g in E$ and $n in FF_q$, 
-  one cannot recover the scaling factor $n$ 
-  from the two elliptic curve points $g$ and $n dot g$.
-  This is labeled as @ddh in these notes.
-- As an example, in @eddsa we describe how @ddh
-  can be used to construct a signature scheme, namely
-  #link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
-  This idea will later grow up to be the KZG commitment scheme in @kzg.
-
-== The BN254 curve <bn254>
-
-Rather than set up a general definition of elliptic curve,
+Our first task will be to understand what all this means. Rather than set up a general definition of elliptic curve,
 for these notes we will be satisfied to describe one specific elliptic curve
 that can be used for all the protocols we describe later.
 The curve we choose for these notes is the _BN254 curve_.
-
-== The set of points
 
 The BN254 specification fixes a specific#footnote[
   If you must know, the values in the specification are given exactly by
@@ -90,8 +80,6 @@ The constants $p$ and $q$ are contrived so that the following holds:
   It will usually be denoted by $q$ in these notes.
 ]
 
-=== The group law
-
 So at this point, we have a bag of $q$ points denoted $E(FF_p)$.
 However, right now it only has the structure of a set.
 
@@ -104,7 +92,7 @@ is the point at infinity $O$. This addition can be formalized as a _group law_, 
 This group law involves some kind of heavy algebra.
 It's not important to understand exactly how it works.
 All you really need to take away from this section is that there is some group law,
-and we can program a computer to compute it.
+and we can program a computer to compute it. We provide details below to the interested reader.
 
 #gray[
   So, let's get started.
@@ -246,7 +234,7 @@ for all our cryptographic primitives*
   while the prime $p$ is unnamed and doesn't get any screen-time later.
 ]
 
-== A hard problem: discrete logarithm <discretelog>
+= Discrete Logarithm <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called _discrete logarithm_ assumption.
@@ -292,7 +280,7 @@ we consider $O(log n)$ operations like this to be quite tolerable.
 
 == Curves other than BN254
 
-We comment briefly on how the previous two sections adapt to other curves,
+We comment briefly on how the previous definitions adapt to other curves,
 although readers could get away with always assuming $E$ is BN254 if they prefer.
 
 In general, we could have chosen for $E$ any equation of the form
@@ -334,20 +322,18 @@ One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
 (In contrast, RSA needs 2048-4096 bit keys for comparable security.)
 
-=== The notation $[n]$ <armor>
-
+#definition[ 
 Let $E$ be an elliptic curve and let $g in E$
 be a fixed point on it of prime order $q approx 2^(254)$.
 For $n in ZZ$ (equivalently $n in FF_q$) we define
 $ [n] := n dot g in E. $
+] <armor>
 
 The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
 You can almost think of the notation as an "armor" on the integer $n$:
 it conceals the integer, but still allows us to perform (armored) addition:
 $ [a+b] = [a] + [b]. $
 In other words, $n |-> [n]$ viewed as a map $FF_q -> E$ is $FF_q$-linear.
-
-=== Signature scheme
 
 So now suppose Alice wants to set up a signature scheme.
 
@@ -394,6 +380,8 @@ In @kzg we will use ideas quite similar to this to
 build the KZG commitment scheme.
 
 == Example application: Pedersen commitments <pedersen>
+
+A _commitment scheme_ is a protocol where Alice wants to commit some value $x$ to Bob that is later revealed. Typically Alice gives Bob some "commitment" $c(x)$ and later reveals $x$. What we want is that this protocol is both _binding_ (Alice cannot change her mind about $x$ depending on Bob's later actions) and _hiding_ (Bob does not get any information about $x$ from $c(x)$). The KZG scheme we are building towards will be a commitment scheme for polynomials, but we can already use elliptic curves to commit *numbers* with something called a Pedersen commitment, which we will now describe.
 
 A multivariable generalization of @ddh is that if $g_1, ..., g_n in E$
 are a bunch of randomly chosen points of $E$ with order $q$,
@@ -442,6 +430,4 @@ but given the entire vector $arrow(a)$
 one can compute the Pedersen commitment easily.
 
 We won't use Pedersen commitments in this book,
-but in @kzg we will see a closely related commitment scheme,
-called KZG.
-
+but they will be closely related to KZG.

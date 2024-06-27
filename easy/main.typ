@@ -33,11 +33,13 @@
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
 
-#part[SNARKs]
-#chapter("src/zkintro.typ")
+#part[SNARKs Prelude: Elliptic Curves and Polynomial Commitments]
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
 #chapter("src/kzg.typ")
+
+#part[SNARKs]
+#chapter("src/zkintro.typ")
 #chapter("src/plonk.typ")
 #chapter("src/fs.typ")
 
