@@ -124,7 +124,7 @@ will be to make vectors with many $0$’s in the same places.
   $ 4 a_1 + 7 a_2 in { 7 , 8 }. $ Since $ 7 a_2 in { 0 , 5 }, $
   $ 4 a_1 in { 7 , 8 } - { 0 , 5 } = { 7 , 8 , 2 , 3 }, $ and
   $ a_1 in { 10 , 2 , 6 , 9 }. $
-+ $ (10 , 4 , 4 , 3 lr(|1|) { 0 , - 1 }) + (7 , 7 , 7 , 8 lr(|5|) { 0 , - 1 }) = (6 , 0 , 0 , 0 lr(|6|) { 0 , - 1 , - 2 }), $
++ $ (10 , 4 , 4 , 3 lr(|1|) { 0 , - 1 }) + (7 , 7 , 7 , 8 lr(|5|) { 0 , - 1 }) \ = (6 , 0 , 0 , 0 lr(|6|) { 0 , - 1 , - 2 }), $
   which is nice because it has 3 zeroes! This gives
   $ a_1 in { 1 , 8 , 10 }. $ Combining with (2), we conclude that
   $ a_1 = 10. $
@@ -135,7 +135,7 @@ will be to make vectors with many $0$’s in the same places.
 At this point, basically any isolation of the first two variables would
 force a contradiction. For example, we can compute
 
-$ (8 , 6 , 6 , 9 lr(|1|) { 0 , - 1 }) + (5 , 4 , 5 , 2 lr(|2|) { 0 , - 1 }) = (2 , 10 , 0 , 0 lr(|3|) { 0 , - 1 , - 2 }) . $
+$ (8 , 6 , 6 , 9 lr(|1|) { 0 , - 1 }) + (5 , 4 , 5 , 2 lr(|2|) { 0 , - 1 }) \ = (2 , 10 , 0 , 0 lr(|3|) { 0 , - 1 , - 2 }) . $
 
 Since $ 2 a_1 + 10 a_2 = 9$, but $3 + { 0 , - 1 , - 2 } = { 1 , 2 , 3 }, $
 we have a contradiction.
