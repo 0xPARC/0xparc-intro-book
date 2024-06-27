@@ -39,15 +39,15 @@
   s
 }
 
-#let theorem = thmbox("main", "Theorem", fill: rgb("#ffeeee"), base_level: 1)
-#let lemma = thmbox("main", "Lemma", fill: rgb("#ffeeee"), base_level: 1)
-#let proposition = thmbox("main", "Proposition", fill: rgb("#ffeeee"), base_level: 1)
-#let claim = thmbox("main", "Claim", fill: rgb("#ffeeee"), base_level: 1)
-#let definition = thmbox("main", "Definition", fill: rgb("#ddddff"), base_level: 1)
-#let example = thmbox("main", "Example", fill: rgb("#ffffdd"), base_level: 1)
-#let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
-#let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
-#let situation = thmbox("main", "Situation", fill: rgb("#eeeeee"), base_level: 1)
+#let theorem = thmbox("main", "Theorem", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
+#let lemma = thmbox("main", "Lemma", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
+#let proposition = thmbox("main", "Proposition", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
+#let claim = thmbox("main", "Claim", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
+#let definition = thmbox("main", "Definition", fill: rgb("#ddddff"), base_level: 1, breakable: true)
+#let example = thmbox("main", "Example", fill: rgb("#ffffdd"), base_level: 1, breakable: true)
+#let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1, breakable: true)
+#let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1, breakable: true)
+#let situation = thmbox("main", "Situation", fill: rgb("#eeeeee"), base_level: 1, breakable: true)
 
 #let problem = thmplain("main", "Problem", base_level: 1)
 #let exercise = thmplain("main", "Problem", base_level: 1)
