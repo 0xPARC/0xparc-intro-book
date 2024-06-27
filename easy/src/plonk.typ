@@ -231,8 +231,8 @@ are defined in the same way.
 Now, what do the gate constraints amount to?
 Peggy is trying to convince Victor that the equation
 #eqn[
-  $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x)
-    + Q_M (x) A (x) B (x) + Q_C (x) = 0 $
+  $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x) & \
+    + Q_M (x) A (x) B (x) + Q_C (x) & = 0 $
   <plonk-gate>
 ]
 is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
@@ -301,7 +301,7 @@ are the same up to permutation of the $n$ entries?
 
 Well, actually, it would be necessary and sufficient for the identity
 #eqn[
-  $ (T+P(omega^1))(T+P(omega^2)) ... (T+P(omega^n))
+  $ (T+P(omega^1))(T+P(omega^2)) ... (T+P(omega^n)) \
     = (T+Q(omega^1))(T+Q(omega^2)) ... (T+Q(omega^n)) $
   <permcheck-poly>
 ]
