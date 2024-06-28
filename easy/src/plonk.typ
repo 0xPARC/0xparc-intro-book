@@ -452,7 +452,7 @@ $
     sigma_c (omega^4) = #rbox($omega^4$).
   )
 $
-Then one can start defining accumulator polynomials, after
+Then the prover can start defining accumulator polynomials, after
 re-introducing the random challenge $lambda$ from permutation-check.
 We're going to need six in all, three for each side of @copy3:
 we call them $F_a$, $F_b$, $F_c$, $F_a'$, $F_b'$, $F_c'$.
@@ -490,12 +490,12 @@ There are six initialization conditions
 and six accumulation conditions
 #eqn[
   $
-    F_a (omega X) &= F_a (X) dot (A(X) + X mu + lambda) \
-    F_b (omega X) &= F_b (X) dot (B(X) + 2 X mu + lambda) \
-    F_c (omega X) &= F_c (X) dot (C(X) + 3 X mu + lambda) \
-    F'_a (omega X) &= F'_a (X) dot (A(X) + sigma_a (X) mu + lambda) \
-    F'_b (omega X) &= F'_b (X) dot (B(X) + sigma_b (X) mu + lambda) \
-    F'_c (omega X) &= F'_c (X) dot (C(X) + sigma_c (X) mu + lambda) \
+    F_a (omega X) &= F_a (X) dot (A(omega X) + X mu + lambda) \
+    F_b (omega X) &= F_b (X) dot (B(omega X) + eta X mu + lambda) \
+    F_c (omega X) &= F_c (X) dot (C(omega X) + eta^2 X mu + lambda) \
+    F'_a (omega X) &= F'_a (X) dot (A(omega X) + sigma_a (X) mu + lambda) \
+    F'_b (omega X) &= F'_b (X) dot (B(omega X) + sigma_b (X) mu + lambda) \
+    F'_c (omega X) &= F'_c (X) dot (C(omega X) + sigma_c (X) mu + lambda) \
   $
   <copycheck-accum>
 ]
@@ -509,6 +509,10 @@ before the final product condition
 
 To summarize, the copy-check goes as follows:
 #algorithm[Copy-check][
+  0. Peggy has already sent the three commitments
+    $Com(A), Com(B), Com(C)$ to Victor;
+    these commitments bind her to the values of all the variables
+    $a_i$, $b_i$, and $c_i$.
   1. Both parties compute the degree $n-1$ polynomials
     $sigma_a, sigma_b, sigma_c in FF_q [X]$ described above,
     based on the copy constraints in the problem statement.
