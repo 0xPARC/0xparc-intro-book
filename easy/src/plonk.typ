@@ -216,7 +216,8 @@ Then:
   1. Peggy interpolates $A$, $B$, $C$ as in @plonk-setup.
   2. Peggy sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
 ]
-To reiterate, each commitment is a 256-bit
+To reiterate, each commitment is a
+single value -- a 256-bit elliptic curve point --
 that can later be "opened" at any value $x in FF_q$.
 
 == Step 2: Gate-check
@@ -243,7 +244,7 @@ So this is a direct application of @root-check:
 
 #algorithm[Gate-check][
   1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
-    from the $15n$ coefficients $q_*$
+    from the $5n$ coefficients $q_*$
     (globally known from the PLONK instance).
   2. Peggy uses @root-check to convince Victor that @plonk-gate
     holds for $X = omega^i$
