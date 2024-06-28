@@ -360,15 +360,17 @@ So, the copy constraint means we want the following equality of matrices:
 #eqn[
   $
   mat(
-    a_1, a_2, a_3, a_4;
-    b_1, b_2, b_3, b_4;
-    c_1, c_2, c_3, c_4;
+    a_1, b_1, c_1;
+    a_2, b_2, c_2;
+    a_3, b_3, c_3;
+    a_4, b_4, c_4
   )
   =
   mat(
-    #rbox($a_4$), a_2, a_3, #rbox($c_3$) ;
-    b_1, #bbox($c_1$), b_3, b_4;
-    #bbox($b_2$), c_2, c_3, #rbox($a_1$)
+    #rbox($a_4$), b_1, #bbox($b_2$) ;
+    a_2, #bbox($c_1$), c_2 ;
+    a_3, b_3, c_3 ;
+    #rbox($c_3$), b_4, #rbox($a_1$);
   )
   .
   $
