@@ -445,16 +445,16 @@ $
   mat(
     delim: #none,
     sigma_a (omega^1) = #rbox($eta^2 omega^4$),
-    sigma_a (omega^2) = omega^2,
-    sigma_a (omega^3) = omega^3,
-    sigma_a (omega^4) = #rbox($omega^1$) ;
     sigma_b (omega^1) = eta omega^1,
+    sigma_c (omega^1) = #bbox($eta omega^2$) ;
+    sigma_a (omega^2) = omega^2,
     sigma_b (omega^2) = #bbox($eta^2 omega^1$),
+    sigma_c (omega^2) = eta^2 omega^2;
+    sigma_a (omega^3) = omega^3,
     sigma_b (omega^3) = eta omega^3,
-    sigma_b (omega^4) = eta omega^4  ;
-    sigma_c (omega^1) = #bbox($eta omega^2$),
-    sigma_c (omega^2) = eta^2 omega^2,
-    sigma_c (omega^3) = eta^2 omega^3,
+    sigma_c (omega^3) = eta^2 omega^3;
+    sigma_a (omega^4) = #rbox($omega^r$),
+    sigma_b (omega^4) = eta omega^4,
     sigma_c (omega^4) = #rbox($omega^4$).
   )
 $
