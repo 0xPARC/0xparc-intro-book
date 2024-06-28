@@ -385,15 +385,17 @@ Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 #eqn[
   $
   & mat(
-    a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
-    b_1 + eta omega^1 mu, b_2 + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4 mu;
-    c_1 + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + eta^2 omega^4 mu;
+    a_1 + omega^1 mu, b_1 + eta omega^1 mu, c_1 + eta^2 omega^1 mu;
+    a_2 + omega^2 mu, b_2 + eta omega^2 mu, c_2 + eta^2 omega^2 mu;
+    a_3 + omega^3 mu, b_3 + eta omega^3 mu, c_3 + eta^2 omega^3 mu;
+    a_4 + omega^4 mu, b_4 + eta omega^4 mu, c_4 + eta^2 omega^4 mu;
   ) \
   =&
   mat(
-    #rbox($a_4$) + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, #rbox($c_3$) + omega^4 mu;
-    b_1 + eta omega^1 mu, #bbox($c_1$) + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4 mu;
-    #bbox($b_2$) + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, #rbox($a_1$) + eta^2 omega^4 mu;
+    #rbox($a_4$) + omega^1 mu, b_1 + eta omega^1 mu, #bbox($b_2$) + eta^2 omega^1 mu;
+    a_2 + omega^2 mu, #bbox($c_1$) + eta omega^2 mu, c_2 + eta^2 omega^2 mu;
+    a_3 + omega^3 mu, b_3 + eta omega^3 mu, c_3 + eta^2 omega^3 mu;
+    #rbox($c_3$) + omega^4 mu, b_4 + eta omega^4 mu, #rbox($a_1$) + eta^2 omega^4 mu;
   )
   .
   $
@@ -420,15 +422,17 @@ We want to prove
 #eqn[
   $
   mat(
-    a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
-    b_1 + eta omega^1 mu, b_2 + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4  mu;
-    c_1 + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + eta^2 omega^4 mu;
+    a_1 + omega^1 mu, b_1 + eta omega^1 mu, c_1 + eta^2 omega^1 mu;
+    a_2 + omega^2 mu, b_2 + eta omega^2 mu, c_2 + eta^2 omega^2 mu;
+    a_3 + omega^3 mu, b_3 + eta omega^3 mu, c_3 + eta^2 omega^3 mu;
+    a_4 + omega^4 mu, b_4 + eta omega^4  mu, c_4 + eta^2 omega^4 mu;
   ) \
   "is a permutation of" \ 
   mat(
-  a_1 + #rbox($eta^2 omega^4 mu$), a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + #rbox($omega^1 mu$) ;
-  b_1 + eta omega^1 mu, b_2+ #bbox($eta^2 omega^1 mu$), b_3 + eta omega^3 mu, b_4 + eta omega^4  mu ;
-  b_1 + #bbox($eta omega^2 mu$), c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + #rbox($omega^4 mu$)
+  a_1 + #rbox($eta^2 omega^4 mu$), b_1 + eta omega^1 mu, c_1 + #bbox($eta omega^2 mu$) ;
+  a_2 + omega^2 mu, b_2+ #bbox($eta^2 omega^1 mu$), c_2 + eta^2 omega^2 mu;
+  a_3 + omega^3 mu, b_3 + eta omega^3 mu, c_3 + eta^2 omega^3 mu;
+  a_4 + #rbox($omega^1 mu$),   b_4 + eta omega^4  mu,  c_4 + #rbox($omega^4 mu$)
   )
   .
   $
