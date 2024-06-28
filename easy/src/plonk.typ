@@ -231,8 +231,8 @@ are defined in the same way.
 Now, what do the gate constraints amount to?
 Peggy is trying to convince Victor that the equation
 #eqn[
-  $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x)
-    + Q_M (x) A (x) B (x) + Q_C (x) = 0 $
+  $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x) & \
+    + Q_M (x) A (x) B (x) + Q_C (x) & = 0 $
   <plonk-gate>
 ]
 is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
@@ -301,7 +301,7 @@ are the same up to permutation of the $n$ entries?
 
 Well, actually, it would be necessary and sufficient for the identity
 #eqn[
-  $ (T+P(omega^1))(T+P(omega^2)) ... (T+P(omega^n))
+  $ (T+P(omega^1))(T+P(omega^2)) ... (T+P(omega^n)) \
     = (T+Q(omega^1))(T+Q(omega^2)) ... (T+Q(omega^n)) $
   <permcheck-poly>
 ]
@@ -404,14 +404,15 @@ a permutation of the left-hand side.
 
 To clean things up, shuffle the $12$ terms on the right-hand side of @copy2
 so that each variable is in the cell it started at:
+We want to prove
 #eqn[
   $
-  "Want to prove" & mat(
+  mat(
     a_1 + omega^1 mu, a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + omega^4 mu;
     b_1 + eta omega^1 mu, b_2 + eta omega^2 mu, b_3 + eta omega^3 mu, b_4 + eta omega^4  mu;
     c_1 + eta^2 omega^1 mu, c_2 + eta^2 omega^2 mu, c_3 + eta^2 omega^3 mu, c_4 + eta^2 omega^4 mu;
   ) \
-  "is a permutation of" &
+  "is a permutation of" \ 
   mat(
   a_1 + #rbox($eta^2 omega^4 mu$), a_2 + omega^2 mu, a_3 + omega^3 mu, a_4 + #rbox($omega^1 mu$) ;
   b_1 + eta omega^1 mu, b_2+ #bbox($eta^2 omega^1 mu$), b_3 + eta omega^3 mu, b_4 + eta omega^4  mu ;

@@ -104,7 +104,8 @@ $
   P(X) = Q(X) ( (X-1)(X-2) dots (X-9) ) + 100 X^2.
 $
 Then Peggy sends $[Q(s)]$ as her proof, and the verification equation is that
-$ pair([Q(s)], [(s-1)(s-2) ... (s-9)]) = pair([P(s)] - 100[s^2], [1]). $
+$ & pair([Q(s)], [(s-1)(s-2) ... (s-9)]) \
+ &  = pair([P(s)] - 100[s^2], [1]). $
 
 The full generality just replaces the $100X^2$ with the polynomial
 obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
@@ -119,7 +120,8 @@ $P(z_i) = y_i$ for $1 <= i <= n$.
     $ P(X) - f(X) = (X-z_1)(X-z_2) ... (X-z_n) dot Q(X). $
   3. Peggy sends the single element $[Q(s)]$ as her proof.
   4. Victor verifies
-    $ pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) = pair([P(s)] - [f(s)], [1]). $
+    $ & pair([Q(s)], [(s-z_1)(s-z_2) ... (s-z_n)]) \
+      & = pair([P(s)] - [f(s)], [1]). $
 ]
 
 So one can even open the polynomial $P$ at $1000$ points with a single 256-bit proof.
