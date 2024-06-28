@@ -293,8 +293,8 @@ Then we explain how to deal with the full copy check.
 
 === Easier case: permutation-check
 
-So let's suppose we have polynomials $P, Q in FF_q [X]$
-which are encoding two vectors of values
+Suppose we have polynomials $P, Q in FF_q [X]$
+which encode two vectors of values
 $ arrow(p) &= angle.l P(omega^1), P(omega^2), ..., P(omega^n) angle.r \
   arrow(q) &= angle.l Q(omega^1), Q(omega^2), ..., Q(omega^n) angle.r. $
 Is there a way that one can quickly verify $arrow(p)$ and $arrow(q)$
@@ -312,6 +312,9 @@ And for that, it actually is sufficient that a single random challenge
 $T = lambda$ passes @permcheck-poly: if the two sides of @permcheck-poly
 aren't the same polynomial,
 then the two sides can have at most $n-1$ common values.
+So for a randomly chosen $lambda$ 
+(chosen from a field with $q approx 2^(256)$ elements),
+the chances that $T = lambda$ passes @permcheck-poly are extremely small. 
 
 We can then get a proof of @permcheck-poly
 using the technique of adding an _accumulator polynomial_.
@@ -323,7 +326,7 @@ $
   &dots.v \
   F_P (omega^n) &= (lambda + P(omega^1))(lambda + P(omega^2)) dots.c (lambda + P(omega^n)).
 $
-Then the accumulator $F_Q in FF_q[T]$ is defined analogously.
+Then the accumulator $F_Q in FF_q [T]$ is defined analogously.
 
 So to prove @permcheck-poly, the following algorithm works:
 
@@ -339,7 +342,7 @@ So to prove @permcheck-poly, the following algorithm works:
 
     - $F_P (X) - (lambda + P(X))$
       vanishes at $X = omega$;
-    - $F_P (omega X) - (lambda + P(X)) F_P (X)$
+    - $F_P (omega X) - (lambda + P(omega X)) F_P (X)$
       vanishes at $X in {omega, ..., omega^(n-1)}$;
     - The previous two statements also hold with $F_P$ replaced by $F_Q$;
     - $F_P (X) - F_Q (X)$ vanishes at $X = 1$.
@@ -396,12 +399,18 @@ Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 ]
 Now how can the prover establish @copy2 succinctly?
 The answer is to run a permutation-check on the $3n$ entries of @copy2!
-Because $mu$ was a random challenge,
-one can really think of each binomial above more like an ordered pair:
-for almost all challenges $mu$, there are no "unexpected" equalities.
-In other words, up to a negligible number of $mu$,
-@copy2 will be true if and only if the right-hand side is just
-a permutation of the left-hand side.
+The prover will simply prove that the twelve matrix entries
+of the matrix on the left
+are a permutation of the twelve matrix entries 
+of the matrix on the right.
+
+The reader should check that this is correct!
+If the prover starts with values $a_i$, $b_i$, and $c_i$
+that don't satisfy all the copy constraints,
+then a randomly selected $mu$ is very unlikely to satisfy this
+permutation check.
+The right-hand side will not be a permutation of the left-hand side,
+and the check will fail.
 
 To clean things up, shuffle the $12$ terms on the right-hand side of @copy2
 so that each variable is in the cell it started at:
