@@ -61,6 +61,14 @@
     [#body]
 )
 
+#let green(body) = block(
+    fill: rgb("#2ecc40"), 
+    inset: 8pt,
+    radius: 4pt,
+    width: 100%,
+    [#body]
+)
+
 #let proof = thmproof("proof", "Proof")
 #let solution = thmproof("proof", "Solution")
 

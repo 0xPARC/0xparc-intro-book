@@ -32,21 +32,25 @@
 #part[Two-party Computation]
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
+#chapter("src/2pc-takeaways.typ")
 
 #part[SNARKs Prelude: Elliptic Curves and Polynomial Commitments]
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
 #chapter("src/kzg.typ")
+#chapter("src/kzg-takeaways.typ")
 
 #part[SNARKs]
 #chapter("src/zkintro.typ")
 #chapter("src/plonk.typ")
 #chapter("src/fs.typ")
+#chapter("src/snark-takeaways.typ")
 
 #part[Fully Homomorphic Encryption]
 #chapter("src/fhe0.typ")
 #chapter("src/lwe.typ")
 #chapter("src/fhe2.typ")
 #chapter("src/fhe3.typ")
+#chapter("src/fhe-takeaways.typ")
 
 
