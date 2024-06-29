@@ -28,6 +28,7 @@ $a = (a_1 , dots.h , a_4)$. There are two sets of claims. Each claim
 $
   y = a_1 x_1 + a_2 x_2 + a_3 x_3 + a_4 x_4 + epsilon, #h(0.3in) epsilon in {0,1}.
 $
+(The $epsilon$ is different from equation to equation.)
 
 One of the sets of claims is "genuine" and comes from a consistent set
 of $a_i$, while the other set is "fake" and has randomly generated $y$
@@ -115,5 +116,5 @@ With these heuristics, we can start by looking at the Red Set, and make vectors 
   $a_1 = 10.$
 + ...
 
-we omit the rest of the solution, which makes for some fun tinkering.
+We omit the rest of the solution, which makes for some fun tinkering.
 ]

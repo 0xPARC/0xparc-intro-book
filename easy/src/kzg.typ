@@ -155,7 +155,8 @@ as long as Peggy has a way to prove the values of $F$ are correct.
 As an artificial example, if Peggy has sent Victor $Com(P_1)$ through $Com(P_6)$,
 and wants to show that
 $ P_1(42) + P_2(42) P_3(42)^4 + P_4(42) P_5(42) P_6(42) = 1337, $
-she could define $F(X) = P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) + P_6(X) - 1337$
+she could define
+$ F(X) := P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) P_6(X) - 1337 $
 and run the same protocol with this $F$.
 This means she doesn't have to reveal any $P_i (42)$, which is great!
 

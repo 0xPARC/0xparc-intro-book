@@ -197,7 +197,7 @@ we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
 #eqn[
-  $ A(omega^i) = a_i, #h(1em) B(omega^i) = b_i, #h(1em) C(omega^i) = c_i #h(1em)
+  $ A(omega^i) = a_i, B(omega^i) = b_i, C(omega^i) = c_i
     " for all " i = 1, 2, ..., n. $
   <plonk-setup>
 ]

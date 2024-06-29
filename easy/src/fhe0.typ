@@ -55,7 +55,7 @@ within the FHE encryption.
 Our protocol uses a cryptosystem built
 from a problem called "learning with errors."
 "Learning with errors" is kind of a strange name;
-We'd call it "approximate linear algebra modulo $q$."
+we'd call it "approximate linear algebra modulo $q$."
 Anyway, we'll start with the learning-with-errors problem
 (@lwe) and how to build cryptography on top of it (@lwe-crypto)
 before we get back to levelled FHE.
