@@ -224,7 +224,7 @@ that can later be "opened" at any value $x in FF_q$.
 
 Both Peggy and Victor know the PLONK instance,
 so they can interpolate a polynomial
-$Q_L(X) in FF_q [X]$ of degree $n-1$ such that
+$Q_L (X) in FF_q [X]$ of degree $n-1$ such that
 $ Q_L (omega^i) = q_(L,i) #h(1em) " for " i = 1, ..., n. $
 The analogous polynomials $Q_R$, $Q_O$, $Q_M$, $Q_C$
 are defined in the same way.

@@ -44,9 +44,9 @@ table of vectors
 $upright(bold(x))$ such that
 $ upright(bold(x)) dot.op upright(bold(v)) approx 0, $ and use that as a
 public key. Given $mu$ and the public key, you can find a matrix $C_0$
-such that $ C_0 upright(bold(v)) approx 0 $ – then take
-$ C = C_0 + mu upright(I d) $, where $upright(I d)$ is the identity
-matrix. And $C_0$ can be built row-by-row… but we won’t get into the
+such that $ C_0 upright(bold(v)) approx 0 $ then take
+$ C = C_0 + mu Id, $ where $Id$ is the identity
+matrix. And $C_0$ can be built row-by-row... but we won’t get into the
 details here.
 
 Indeed homomorphic encryption is already interesting without the
@@ -68,9 +68,9 @@ won’t really use this.
 
 Negation of a bit (NOT) is equally simple, though. If $mu in { 0 , 1 }$
 is a bit, then its negation is simply $1 - mu$. And if $C$ is a
-ciphertext for $mu$, then $upright(I d) - C$ is a ciphertext for
+ciphertext for $mu$, then $Id - C$ is a ciphertext for
 $1 - mu$, since
-$ (upright(I d) - C) upright(bold(v)) = upright(bold(v)) - C upright(bold(v)) approx (1 - mu) upright(bold(v)) . $
+$ (Id - C) upright(bold(v)) = upright(bold(v)) - C upright(bold(v)) approx (1 - mu) upright(bold(v)) . $
 
 Multiplication is also a good operation on bits – it’s just AND. To
 multiply two bits, you just multiply (matrix multiplication) the

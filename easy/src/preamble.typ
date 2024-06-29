@@ -7,6 +7,7 @@
 #let Dec = math.op("Dec")
 #let pk = math.sans("pk")
 #let sk = math.sans("sk")
+#let Id = math.upright("Id")
 
 // https://github.com/vEnhance/dotfiles/blob/main/typst/packages/local/evan/1.0.0/evan.typ
 #import "@preview/ctheorems:1.1.2": *
@@ -139,6 +140,7 @@
     v(-0.5em)
   }
   show quote: set align(center)
+  show table: set align(center)
 
   // Section headers
   set heading(numbering: "1.1")

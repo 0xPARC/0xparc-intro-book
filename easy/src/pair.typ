@@ -2,7 +2,7 @@
 
 = Bilinear pairings on elliptic curves <pair>
 
-Before we are ready for KZG, there is one more piece of elliptic curve math that we need. 
+Before we are ready for KZG, there is one more piece of elliptic curve math that we need.
 
 Recall that the map $[bullet] : FF_q -> E$ is linear,
 meaning that $[a + b] = [a] + [b]$, and $[n a] = n[a]$.
@@ -26,7 +26,7 @@ $ pair : E times E -> ZZ slash N ZZ $
 for some large integer $N$.
 We think this should be called a _bilinear pairing_,
 but for some reason everyone just says _pairing_ instead.
-A curve is called _pairing-friendly_ 
+A curve is called _pairing-friendly_
 if this pairing can be computed reasonably quickly
 (e.g. BN254 is pairing-friendly, but Curve25519 is not).
 
@@ -62,7 +62,7 @@ So this gives us a way to *verify* two-by-two multiplication.
 
 #example[
   Suppose Peggy wants to convince Victor that $y = x^3 + 2$,
-  where Peggy has sent Victor elliptic curve points [x] and [y].
+  where Peggy has sent Victor elliptic curve points $[x]$ and $[y]$.
   To do this, Peggy additionally sends to Victor $[x^2]$ and $[x^3]$.
 
   Given $[x]$, $[x^2]$, $[x^3]$, and $[y]$,
@@ -111,5 +111,3 @@ the values $pair(a, b)$ will be elements of a field of size $p^k$,
 so they will require $256k$ bits even to store.
 For a curve to be "pairing-friendly" -- in order to be able to
 do pairing-based cryptography on it -- we need the value of $k$ to be pretty small.
-
-

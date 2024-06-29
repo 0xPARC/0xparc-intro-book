@@ -63,6 +63,8 @@ For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
 This is the case where $F = max()$, and $x_i$ is the $i$'th person's income.
 
+#todo[Yao's millionaire isn't max, right? It's like which index is max. -Evan]
+
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
 

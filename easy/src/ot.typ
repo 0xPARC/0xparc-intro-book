@@ -19,12 +19,7 @@ But "1-of-$n$ OT" isn't any harder, so we'll do 1-of-$n$.)
 
 Let's imagine that Alice and Bob
 have access to some encryption scheme that is _commutative_:
-$
-  Dec_B( Dec_A
-  ( Enc_B
-  ( Enc_A(x) ) ) )
-  = x.
-$
+$ Dec_B ( Dec_A ( Enc_B ( Enc_A (x) ) ) ) = x. $
 
 In other words, if Alice encrypts a message,
 and Bob applies a second-layer of encryption to the encrypted message,
@@ -44,10 +39,10 @@ and then Bob removes his lock and recovers the message.
 Mathematically, you can get commutative encryption
 by working in a finite group (for example $ZZ_p^times$, or an elliptic curve).
 1. Alice's secret key is an integer $a$;
-she encrypts a message $g$ by raising it to the $a$-th power,
-and she sends Bob $g^a$.
+  she encrypts a message $g$ by raising it to the $a$-th power,
+  and she sends Bob $g^a$.
 2. Bob encrypts again with his own secret key $b$,
-and he sends $(g^a)^b = g^(a b)$ back to Alice.
+  and he sends $(g^a)^b = g^(a b)$ back to Alice.
 3. Now Alice removes her lock by taking an $a$-th root. The result is $g^b$, which she sends back to Bob. And Bob takes another $b$-th root, recovering $g$.
 
 == OT using commutative encryption
@@ -56,7 +51,7 @@ Our first oblivious transfer protocol is built on the commutative encryption we 
 
 Alice has $n$ messages $x_1, dots, x_n$, which we may as well assume are elements of the group $G$. Alice chooses a secret key $a$, encrypts each message, and sends all $n$ ciphertexts to Bob:
 $
-  Enc_a(x_1), dots, Enc_a(x_n).
+  Enc_a (x_1), dots, Enc_a (x_n).
 $
 
 But crucially, Alice sends the ciphertexts in order, so Bob knows which is which.
@@ -64,11 +59,11 @@ But crucially, Alice sends the ciphertexts in order, so Bob knows which is which
 At this point, Bob can't read any of the messages,
 because he doesn't know the keys.
 No problem!
-Bob just picks out the $i$-th ciphertext $Enc_a(x_i)$,
+Bob just picks out the $i$-th ciphertext $Enc_a (x_i)$,
 adds his own layer of encryption onto it,
 and sends the resulting doubly-encoded message back to Alice:
 $
-  Enc_b(Enc_a(x_i)).
+  Enc_b (Enc_a (x_i)).
 $
 
 Alice doesn't know Bob's key $b$,
@@ -79,7 +74,7 @@ $Dec_a$ to it.
 Since the encryption scheme is commutative,
 the result of Alice's decryption is simply
 $
-  Enc_b(x_i),
+  Enc_b (x_i),
 $
 which she sends back to Bob.
 

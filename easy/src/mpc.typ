@@ -34,10 +34,10 @@ Here is our problem setting, slightly more formally:
 
 == Outline of Solution
 
-Our solution will contain two key components: 
+Our solution will contain two key components:
 - Alice constructs a _garbled circuit_
   that takes in the value $b$ (whatever it is)
-  and spits out $f(a, b)$. A _garbled circuit_, roughly speaking, is an "encrypted" circuit that takes encrypted input and creates encrypted output." 
+  and spits out $f(a, b)$. A _garbled circuit_, roughly speaking, is an "encrypted" circuit that takes encrypted input and creates encrypted output."
 - An _oblivious transfer_ is a protocol where X has two messages, $m_0$ and $m_1$. Y can get exactly one of them, $m_i$, without letting X know what $i$ is. In this context, Alice ends up sending Bob a password for his input in a way that Bob doesn't learn the passwords for any other inputs, and Alice doesn't find out which password she sent to Bob.
 
 #todo[
@@ -66,7 +66,7 @@ In slightly more detail:
    for each input Bob wants to plug in --
    a different password for every possible input.
    If Bob has the password for $(b_1, dots, b_n)$,
-   he can learn $f_a(b_1, dots, b_n) = f(a, b)$ --
+   he can learn $f_a (b_1, dots, b_n) = f(a, b)$ --
    but he won't learn anything else about how the circuit works.
 5. Now, Alice has all the passwords for all the possible inputs, but how can she give Bob the password for $(b_1, dots, b_n)$?
    Alice doesn't want to let Bob have any other passwords --
@@ -90,17 +90,14 @@ The gate $G$ will only reveal its value $G(x, y)$
 if you give it the password $P_(x, y)$.
 
 Here is a natural approach to make a garbled gate.
-Choose a _symmetric-key_
-[#footnote("Symmetric-key encryption is probably " +
-"what you think of " +
-"when you think of plain-vanilla encryption: " +
-"You use a secret key $K$ to encrypt a message $m$, " +
-"and then you use the same secret key $K$ to decrypt it.")
-]
-encryption scheme $Enc$
-[#footnote("We'll talk later about what sort of " +
-"encryption scheme is suitable for this...")]
-and publish the following table:
+Choose a _symmetric-key_#footnote[Symmetric-key encryption is probably
+what you think of
+when you think of plain-vanilla encryption:
+You use a secret key $K$ to encrypt a message $m$,
+and then you use the same secret key $K$ to decrypt it.]
+encryption scheme#footnote[We'll talk later about what sort of encryption scheme is suitable for this...]
+$Enc$ and publish the following table:
+
 #table(
   columns: 2,
   [$(0, 0)$], [$Enc_(P_(0, 0))(G(0, 0))$],
@@ -137,10 +134,9 @@ We'll need to make two changes to the protocol.
   Now Bob has one bit coming in for the left-hand input $x$,
   and it came with some password $P_x^(text("left"))$ --
   and then another bit coming in for $y$,
-  that came with some password $P_y^(text("right"))$.
+  with some password $P_y^(text("right"))$.
   To get the combined password $P_(x, y)$,
-  Bob will just concatenate the two passwords
-  $P_x^(text("left"))$ and $P_y^(text("right"))$.
+  Bob concatenates the two passwords $P_x^(text("left"))$ and $P_y^(text("right"))$.
 
 2. To keep the functionality of the circuit hidden,
   we don't want Bob to learn anything about the structure of
@@ -150,7 +146,7 @@ We'll need to make two changes to the protocol.
   This is an easy fix:
   Instead of having the gate output
   both the bit $z$ and the password $P_z$,
-  we'll just have the gate output the password $P_z$.
+  we'll have the gate just output $P_z$.
 
   But now how does Bob know what values to feed into the next gate?
   The left-hand column of the "gate table"
@@ -236,5 +232,3 @@ Bob needs to learn the passwords for all of his input bits. Let's just frame the
 - Alice does not want Bob to learn the other password.
 
 This is where _oblivious transfer_ comes in, which we'll see in @ot.
-
-

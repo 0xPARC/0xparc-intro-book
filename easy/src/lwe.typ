@@ -63,16 +63,15 @@ $(a_1 , dots.h , a_4)$.
 ]
 
 #gray[
-(solution sketch; can be skipped safely): One way to start would be to define an _information
+(Solution sketch; can be skipped safely.) One way to start would be to define an _information
 vector_
 $
   (x_1 , x_2 , x_3 , x_4 lr(|y|) S),
 $
 where $S subset F_11$, to
 mean the statement
-#quote[$sum a_i x_i = y + s$, where $s in S$.]
-In
-particular, a purported approximation
+$ sum a_i x_i = y + s, #text(" where ") s in S. $
+In particular, a purported approximation
 $(x_1 , x_2 , x_3 , x_4) : y$
 in the LWE protocol corresponds to the
 information vector
