@@ -1,3 +1,5 @@
+#import "preamble.typ":*
+
 = Levelled Fully Homomorphic Encryption from Learning with Errors
 <fhe>
 
@@ -94,7 +96,13 @@ $0$ or $1$.
 
 To make this work, we will assume our secret key $upright(bold(v))$ has
 the special form
-$ upright(bold(v)) = (a_1 , 2 a_1 , 4 a_1 , dots.h , 2^k a_1 , a_2 , 2 a_2 , 4 a_2 , dots.h , 2^k a_2 , dots.h , a_r , 2 a_r , 4 a_r , dots.h , 2^k a_r) , $
+#eqn[
+  $ upright(bold(v)) = ( & a_1 , 2 a_1 , 4 a_1 , dots.h , 2^k a_1, \
+    & a_2 , 2 a_2 , 4 a_2 , dots.h , 2^k a_2 , \
+    & dots.v \
+    & a_r , 2 a_r , 4 a_r , dots.h , 2^k a_r) , $
+  <fhe-v-form>
+]
 where $k = ⌊log_2 q⌋$.
 
 To see how this helps us, try the following puzzle. Assume $q = 11$ (so
@@ -125,8 +133,7 @@ to you! As a hint, remember we’re working with numbers modulo 11 – so if
 you come across a number that’s bigger than 11 in your calculation, it’s
 safe to reduce it mod 11.
 
-Similarly, if you know $upright(bold(v))$ has the form
-$ upright(bold(v)) = (a_1 , 2 a_1 , 4 a_1 , dots.h , 2^k a_1 , a_2 , 2 a_2 , 4 a_2 , dots.h , 2^k a_2 , dots.h , a_r , 2 a_r , 4 a_r , dots.h , 2^k a_r) , $
+In general, if you know $upright(bold(v))$ has the form in @fhe-v-form
 and you are given some matrix $C$ with coefficients in
 $ZZ \/ q ZZ$, then you can compute another matrix $"Flatten"(C)$
 such that:
