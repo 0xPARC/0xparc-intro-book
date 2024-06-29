@@ -16,10 +16,10 @@ jobs:
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: fonts-linuxlibertine fonts-noto fonts-inconsolata
-      - name: Typst
-        uses: lvignoli/typst-action@main
-        with:
-          source_file: easy/main.typ
+      - name: Install Typst
+        uses: typst-community/setup-typst@v3
+      - name: Compile main
+        run: typst compile main.typ main.pdf
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
