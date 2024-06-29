@@ -25,13 +25,13 @@ The inputs are divided into two categories:
 
 == Interpolation
 
-The basic idea of Groth16 is to interpolate polynomials 
+The basic idea of Groth16 is to interpolate polynomials
 through the coefficients of the $m$ equations,
 then work with KZG commitments to these polynomials.
 (This is sort of the opposite of the interpolation in PLONK (@plonk),
 where we interpolate
 a polynomial through Peggy's solution $(a_0, ..., a_n)$.
-Philosophically, you might also think of this as verifying a 
+Philosophically, you might also think of this as verifying a
 random linear combination of the $m$ equations --
 where the coefficients of the random linear combination
 are determined by the unknown secret $s$ from the KZG protocol.)
@@ -67,7 +67,7 @@ are known from the trusted setup.
 
 The problem here is for Peggy to convince Victor that these four group elements,
 supposedly $ Com( sum_(i=0)^n a_i U_i ) $ and so forth, are well-formed.
-For example, Peggy needs to show that $ Com( sum_(i=0)^n a_i U_i ) $ 
+For example, Peggy needs to show that $ Com( sum_(i=0)^n a_i U_i ) $
 is a linear combination of the KZG commitments $Com(U_i)$,
 that $ Com( sum_(i=0)^n a_i V_i ) $
 is a linear combination of the KZG commitments $Com(V_i)$,
@@ -84,7 +84,7 @@ so let's get back to a simple toy example.
 #example[
   Suppose there are publicly known group elements
   $ Com(U_1), Com(U_2), dots, Com(U_n). $
-  Suppose Peggy has another group element $g$, 
+  Suppose Peggy has another group element $g$,
   and she wants to show that $g$ has the form
   $ g = a_0 + sum_(i=1)^n a_i Com(U_i), $
   where the $a_i$'s are constants Peggy knows.
@@ -103,7 +103,7 @@ so let's get back to a simple toy example.
   $ g = [a_0] + sum_(i=1)^n a_i Com(U_i) $
   and
   $ h = delta g = a_0 [delta] + sum_(i=1)^n a_i Com(delta U_i). $
-  
+
   Victor can verify that
   $ pair(g, [delta]) = pair( h, [1] ), $
   which shows that the element Peggy said was $delta g$
@@ -111,13 +111,13 @@ so let's get back to a simple toy example.
 
   But Peggy does not know $delta$!
   So (assuming, as usual, that the discrete logarithm problem is hard),
-  the only way Peggy can find elements 
+  the only way Peggy can find elements
   $g$ and $h$ such that $h = delta g$
   is to use the commitments Trent released in trusted setup.
   In other words,
-  $g$ must be a linear combination of 
+  $g$ must be a linear combination of
   the elements $[1], Com(U_1), dots, Com(U_n),$
-  which Peggy knows how to multiply by $delta$, 
+  which Peggy knows how to multiply by $delta$,
   and $h$ must be the same linear combination
   of $[delta], Com(delta U_1), dots, Com(delta U_n)$.
 ] <groth-motiv-1>
@@ -130,7 +130,7 @@ so let's get back to a simple toy example.
   $ Com(U_1), Com(U_2), dots, Com(U_n) $
   and
   $ Com(V_1), Com(V_2), dots, Com(V_n). $
-  Peggy wants to publish 
+  Peggy wants to publish
   $ g_1 = sum_(i=1)^n a_i Com(U_i) $
   and
   $ g_2 = sum_(i=1)^n a_i Com(V_i), $
@@ -159,7 +159,7 @@ so let's get back to a simple toy example.
   and the proof is complete.
 ] <groth-motiv-2>
 
-== The protocol 
+== The protocol
 
 Armed with @groth-motiv-1 and @groth-motiv-2,
 it's not hard to turn our vague idea from earlier
@@ -194,10 +194,10 @@ So far we have ignored the issue of public inputs.
 The values $a_0, a_1, dots, a_ell$ will be public inputs to the circuit,
 so both Peggy and Victor know their values,
 and Victor has to be able to verify that they were assigned correctly.
-The remaining values $a_(ell+1), dots, a_n$ 
+The remaining values $a_(ell+1), dots, a_n$
 will be private.
 
-Trent (who is doing the trusted setup) then selects secrets 
+Trent (who is doing the trusted setup) then selects secrets
 $alpha, beta, delta, epsilon in FF_p$
 and publishes all of the following points on $E$:
 $ [alpha], [beta], [delta], [epsilon], \
@@ -211,7 +211,7 @@ the trusted setup with $delta$ needs to be redone.
 
 This might make the protocol seem limited.
 On the other hand, for practical purposes,
-one can imagine that Peggy has 
+one can imagine that Peggy has
 a really general system of equations
 that she wants to prove many solutions for.
 In this case, Trent can run the trusted setup just once,
@@ -223,10 +223,10 @@ and once the setup is done there is no additional cost.
   When you convert this into a system of quadratic equations
   for PLONK or Groth16,
   both $M$ and $H$ will be public inputs to the system.
-  The equations themselves will depend only on the 
+  The equations themselves will depend only on the
   details of the hash function $op("sha")$.
-  
-  In this case, a single trusted setup can be used 
+
+  In this case, a single trusted setup can be used
   to prove the hash of any message.
 ]
 
@@ -281,7 +281,7 @@ and once the setup is done there is no additional cost.
 + Finally, Victor verifies that
   $ pair(A, B) = pair( [1], C ) + pair(E, G). $
   At this point, Victor already knows that $A$, $B$, $C$, $E$, $H$
-  have the correct form, so this last pairing check 
+  have the correct form, so this last pairing check
   convinces Victor of the key equality,
   $ (sum_(i=0)^n a_i U_i (X)) (sum_(i=0)^n a_i V_i(X))
     = (sum_(i=0)^n a_i W_i(X)) + H(x)T(x). $
@@ -300,7 +300,7 @@ to compute $D_0$ depending on the public input.
 
 It turns out that, by cleverly combining multiple verifications into one,
 you can get away with a proof length of just 3 group elements,
-and verifier work of just 3 elliptic curve pairings 
+and verifier work of just 3 elliptic curve pairings
 (plus the same $O(ell)$ group operations).
 
 Additionally, we didn't make the protocol zero-knowledge.

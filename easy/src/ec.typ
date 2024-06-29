@@ -16,7 +16,7 @@ The roadmap goes roughly as follows:
 Every modern cryptosystem rests on a hard problem
 -- a computationally infeasible challenge
 whose difficulty makes the protocol secure.
-The best-known example is 
+The best-known example is
 #link("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA"),
 which is secure because
 it is hard to factor a composite number (like $6177$)
@@ -43,7 +43,7 @@ The BN254 specification fixes a specific#footnote[
   $
   x &:= &&4965661367192848881 \
   p &:= &&36x^4 + 36x^3 + 24x^2 + 6x + 1 \
-  &= && 218882428718392752222464057452572750886 \ 
+  &= && 218882428718392752222464057452572750886 \
   & && 96311157297823662689037894645226208583 \
   q &:= && 36x^4 + 36x^3 + 18x^2 + 6x + 1 \
   &= && 218882428718392752222464057452572750885 \
@@ -218,7 +218,7 @@ Moving forward we'll abuse notation slightly
 and just write $E$ instead of $E(FF_p)$.
 In fancy language, $E$ will be a one-dimensional vector space over $FF_q$.
 In less fancy language, we'll be working with points on $E$ as black boxes.
-We'll be able to add them, subtract them, 
+We'll be able to add them, subtract them,
 and multiply them by arbitrary scalars from $FF_q$.
 
 Consequently --- and this is important ---
@@ -324,7 +324,7 @@ One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
 (In contrast, RSA needs 2048-4096 bit keys for comparable security.)
 
-#definition[ 
+#definition[
 Let $E$ be an elliptic curve and let $g in E$
 be a fixed point on it of prime order $q approx 2^(254)$.
 For $n in ZZ$ (equivalently $n in FF_q$) we define

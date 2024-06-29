@@ -64,12 +64,12 @@ So this gives us a way to _verify_ two-by-two multiplication.
   where Peggy has sent Victor elliptic curve points [x] and [y].
   To do this, Peggy additionally sends to Victor $[x^2]$ and $[x^3]$.
 
-  Given $[x]$, $[x^2]$, $[x^3]$, and $[y]$, 
+  Given $[x]$, $[x^2]$, $[x^3]$, and $[y]$,
   Victor verifies that:
   - $pair([x^2], 1) = pair([x], [x]) $
   - $pair([x^3], 1) = pair([x^2], [x]) $
   - $[y] = [x^3] + 2 [1]$.
-  
+
   The process of verifying this sort of identity is quite general:
   The prover sends intermediate values as needed
   so that the verifier can verify the claim using only pairings and linearity.
