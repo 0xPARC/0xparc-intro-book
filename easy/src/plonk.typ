@@ -27,16 +27,16 @@ that we have solutions to a system of a system of quadratic equations.
   Suppose we have a system of $m$ equations in $k$ variables $x_1, dots, x_k$:
   $
     Q_1 (x_1 , dots, x_k) & = 0 \
-    dots \
+    dots.v \
     Q_m (x_1 , dots, x_k) & = 0.
   $
 
-  Of these $k$ variables, 
+  Of these $k$ variables,
   the first $ell$ ($x_1, dots, x_ell$) have publicly known, fixed values;
   the remaining $ell - k$ are unknown.
 
   PLONK will let Peggy prove to Victor the following claim:
-  I know $ell - k$ values $x_(ell+1), dots, x_k$ such that 
+  I know $ell - k$ values $x_(ell+1), dots, x_k$ such that
   (when you combine them with the $k$ public fixed values
   $x_1, dots, x_k$)
   the $ell$ values $x_1, dots, x_k$ satisfy all $m$ quadratic equations.
@@ -93,7 +93,7 @@ by a variable $x_i$
 by an equation $x_i^2 = x_i$).
 In this setup, the value $"0xa91af3ac"$
 would be represented by 32 public bits $x_1, dots, x_32$;
-the unknown message $M$ would be represented by 
+the unknown message $M$ would be represented by
 some private variables;
 and the calculation of $op("sha")$
 would introduce a series of constraints,
@@ -152,22 +152,22 @@ systems of quadratic equations of a very particular form:
   $ x * x & = (x^2) text(" (multiplication)") \
   t & = 2 text(" (constant)") \
   (x^2) + t & = y text(" (addition)"). $
-  
-  We'll assign the variables $a_i, b_i, c_i$ for these two gates 
+
+  We'll assign the variables $a_i, b_i, c_i$ for these two gates
   by looking at the equations:
   $ (a_1, b_1, c_1) & = (x, x, x^2) \
   (a_2, b_2, c_2) & = (t = 2, 0, 0) \
   (a_3, b_3, c_3) & = (x^2, t = 2, y). $
 
-  And finally, we'll assign copy constraints 
-  to make sure the variables are faithfully copied 
+  And finally, we'll assign copy constraints
+  to make sure the variables are faithfully copied
   from line to line:
   $ a_1 & = b_1 \
   c_1 & = a_3 \
   a_2 & = b_3. $
 
   If the variables $a_i, b_i, c_i$ satisfy the gate and copy constraints,
-  then $x = a_1$ and $y = c_3$ are forced to satisfy 
+  then $x = a_1$ and $y = c_3$ are forced to satisfy
   the original equation $y = x^2 + 2$.
 ]
 
@@ -312,9 +312,9 @@ And for that, it actually is sufficient that a single random challenge
 $T = lambda$ passes @permcheck-poly: if the two sides of @permcheck-poly
 aren't the same polynomial,
 then the two sides can have at most $n-1$ common values.
-So for a randomly chosen $lambda$ 
+So for a randomly chosen $lambda$
 (chosen from a field with $q approx 2^(256)$ elements),
-the chances that $T = lambda$ passes @permcheck-poly are extremely small. 
+the chances that $T = lambda$ passes @permcheck-poly are extremely small.
 
 We can then get a proof of @permcheck-poly
 using the technique of adding an _accumulator polynomial_.
@@ -405,7 +405,7 @@ Now how can the prover establish @copy2 succinctly?
 The answer is to run a permutation-check on the $3n$ entries of @copy2!
 The prover will simply prove that the twelve matrix entries
 of the matrix on the left
-are a permutation of the twelve matrix entries 
+are a permutation of the twelve matrix entries
 of the matrix on the right.
 
 The reader should check that this is correct!
@@ -427,7 +427,7 @@ We want to prove
     a_3 + omega^3 mu, b_3 + eta omega^3 mu, c_3 + eta^2 omega^3 mu;
     a_4 + omega^4 mu, b_4 + eta omega^4  mu, c_4 + eta^2 omega^4 mu;
   ) \
-  "is a permutation of" \ 
+  "is a permutation of" \
   mat(
   a_1 + #rbox($eta^2 omega^4 mu$), b_1 + eta omega^1 mu, c_1 + #bbox($eta omega^2 mu$) ;
   a_2 + omega^2 mu, b_2+ #bbox($eta^2 omega^1 mu$), c_2 + eta^2 omega^2 mu;

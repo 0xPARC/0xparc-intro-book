@@ -6,7 +6,7 @@
 
 == What is programmable cryptography?
 
-Cryptography is everywhere now 
+Cryptography is everywhere now
 as a field that is widely used in everyday life.
 To be concrete, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
@@ -68,20 +68,20 @@ for _any_ function $F$ as long as we can implement it in code. It generalizes to
 
 === SNARK: proofs of general problems
 
-The _SNARK_, first described in 2012, 
+The _SNARK_, first described in 2012,
 provides a way to produce proofs of *arbitrary* problem statements, once the problem statements are encoded as a system of equations in a certain way.
 The name stands for:
 
 - _Succinct_: the proof length is short (actually constant length).
 - _Non-interactive_: the protocol does not require back-and-forth communication.
-- _Argument_: basically a proof.  
+- _Argument_: basically a proof.
   There's a technical difference, but we won't worry about it.
 - _of Knowledge_: the proof doesn't just show the system of equations has a solution;
   it also shows that the prover knows one.
 
 One additional feature (which we will not cover in these notes) is
 _zero-knowledge (zk)_ (which turns the abbreviation into "zkSNARK"):
-with a zero-knowledge proof, a person reading the proof 
+with a zero-knowledge proof, a person reading the proof
 doesn't learn anything about the solution besides that it's correct.
 
 So, you can think of these as generalizing something like a group signature
@@ -118,10 +118,10 @@ so the server learns nothing about the text you translated.
 
 == Where these fit together
 
-MPC, SNARKs, and FHE are just some of a huge zoo of cryptographic primitives,
+MPC, SNARKs, and FHE are just some examples in a huge zoo of cryptographic primitives,
 from the elementary (public-key cryptography)
 to the impossibly powerful (indistinguishability obfuscation).
-There are protocols for SNARKS, MPC and FHE;
+There are protocols for MPC, SNARKS, and FHE;
 they are very slow, but they can be implemented and used in practice.
 
 This whole field is an active area of research.
@@ -136,4 +136,3 @@ At 0xPARC, we see this as a door to a new world.
 What sort of systems can we build on top of programmable cryptography?
 
 #todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
-
