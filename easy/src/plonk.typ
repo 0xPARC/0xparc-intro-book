@@ -542,11 +542,10 @@ This is simply an application of @root-check.
 Let's say the public witnesses are the values $a_i$, for all $i$ in some set $S$.
 (If some of the $b$'s and $c$'s are also public, we'll just do the same thing for them.)
 The prover can interpolate another polynomial, $A^"public"$,
-such that $A^"public"(omega^i) = a_i$ if $i in S$, and $A^"public"(omega^i) = 0$ if $i in.not S$.
+such that $A^"public" (omega^i) = a_i$ if $i in S$, and $A^"public" (omega^i) = 0$ if $i in.not S$.
 Actually, both the prover and the verifier can compute $A^"public"$, since
 all the values $a_i$ are publicly known!
 
-Now the prover runs @root-check to prove that $A - A^"public"$
-vanishes on $S$.
+Now the prover runs @root-check to prove that $A - A^"public"$ vanishes on $S$.
 (And similarly for $B$ and $C$, if needed.)
 And we're done.
