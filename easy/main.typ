@@ -2,15 +2,16 @@
 
 #let chapter(filename) = {
   include filename
-  pagebreak(weak: true)
 }
 #let part(s) = {
-  set text(size:1.4em, fill: rgb("#002299"))
+  pagebreak(weak: true)
+  set text(fill: rgb("#002299"))
   heading(offset: 0, s)
 }
 
 #show: evan.with(
   title: "Three Easy Pieces in Programmable Cryptography",
+  long-title: [Three Easy Pieces in \ Programmable \ Cryptography],
   author: "0xPARC",
   date: datetime.today(),
 )
@@ -52,5 +53,3 @@
 #chapter("src/fhe2.typ")
 #chapter("src/fhe3.typ")
 #chapter("src/fhe-takeaways.typ")
-
-

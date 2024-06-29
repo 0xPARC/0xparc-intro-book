@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Introduction to fully homomorphic encryption
+= Introduction to FHE
 <fhe-intro>
 
 Alice has a secret $x$, and Bob has a function $f$.
@@ -48,7 +48,7 @@ many operations, the error will exceed $0.5$, and the rounding procedure
 won’t give the right answer anymore. But as long as you’re careful not to go over the error limit, you can
 add ciphertexts with confidence.
 
-For our levelled FHE protocol, our message will be a bit (either 0 or 1) and 
+For our levelled FHE protocol, our message will be a bit (either 0 or 1) and
 our operations will be the logic gates AND and NOT. Because any logic circuit can be built out of AND and NOT gates, we'll be able to perform arbitrary calculations
 within the FHE encryption.
 
