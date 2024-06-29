@@ -63,7 +63,7 @@
 )
 
 #let green(body) = block(
-    fill: rgb("#2ecc40"),
+    fill: rgb("#aaeed9"),
     inset: 8pt,
     radius: 4pt,
     width: 100%,
