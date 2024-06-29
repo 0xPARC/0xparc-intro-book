@@ -5,6 +5,9 @@ permissions:
 
 jobs:
   build_typst_documents:
+    defaults:
+      run:
+        working-directory: "./easy"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
