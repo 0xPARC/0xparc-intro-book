@@ -20,7 +20,7 @@ The best-known example is
 #link("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA"),
 which is secure because
 it is hard to factor a composite number (like $6177$)
-into prime factors ($6177 = 71*87$).
+into prime factors ($6177 = 71 dot 87$).
 
 Our SNARK protocol will be based on a different hard problem:
 the #link("https://w.wiki/9jgX", "discrete logarithm problem")

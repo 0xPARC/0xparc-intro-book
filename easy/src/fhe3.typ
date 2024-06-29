@@ -15,7 +15,7 @@ It might help you to imagine that, instead of AND and NOT,
 the operations we want to encrypt are addition and multiplication.
 If $x$ and $y$ are bits, then
 NOT $x$ is just $1 - x$, and $x$ AND $y$ is just $x y$.
-But it's easier to do algebra with $+$ and $*$.
+But it's easier to do algebra with $+$ and $times$.
 
 Recall the setup from @lwe-crypto: We’re going pick some
 large integer $q$ (in practice $q$ could be anywhere from a few thousand

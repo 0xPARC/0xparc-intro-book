@@ -91,11 +91,11 @@ This section is an aside explaining how the embedding degree affects pairing.
 
 The pairing function $pair(a, b)$ takes as input two points $a, b in E$
 on the elliptic curve,
-and spits out a value $pair(a, b) in FF_{p^k}^*$ --
+and spits out a value $pair(a, b) in FF_(p^k)^times$ --
 in other words, a nonzero element of the finite field of order $p^k$
 (where $k$ is the embedding degree we just defined).
-In fact, this element will always be a $q$th root of unity in $FF_{p^k}$,
-and it will satisfy $pair([m], [n]) = zeta^{m n}$,
+In fact, this element will always be a $q$th root of unity in $FF_(p^k)$,
+and it will satisfy $pair([m], [n]) = zeta^(m n)$,
 where $zeta$ is some fixed $q$th root of unity.
 The construction of the pairing is based on the
 #link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing")

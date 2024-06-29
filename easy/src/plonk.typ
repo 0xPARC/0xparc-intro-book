@@ -149,7 +149,7 @@ systems of quadratic equations of a very particular form:
   like
   $y = x^2 + 2$
   in PLONK. We'll break this down into two steps:
-  $ x * x & = (x^2) text(" (multiplication)") \
+  $ x dot x & = (x^2) text(" (multiplication)") \
   t & = 2 text(" (constant)") \
   (x^2) + t & = y text(" (addition)"). $
 
