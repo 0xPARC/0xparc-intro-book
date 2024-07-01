@@ -61,9 +61,10 @@ and they want to do it without either person learning the other person's input.
 
 For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
-This is the case where $F = max()$, and $x_i$ is the $i$'th person's income.
-
-#todo[Yao's millionaire isn't max, right? It's like which index is max. -Evan]
+This is the case where $F$ is the comparison function
+($F(x_1, x_2)$ is $1$ if $x_1 > x_2$, $2$ if $x_2 > x_1$,
+and $0$ if the two inputs are equal)
+and $x_i$ is the $i$'th person's income.
 
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
