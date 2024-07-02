@@ -222,7 +222,7 @@ We'll be able to add them, subtract them,
 and multiply them by arbitrary scalars from $FF_q$.
 
 Consequently --- and this is important ---
-*one should actually think of $FF_q$ as the base field
+*one should think of $FF_q$ as the base field
 for all our cryptographic primitives*
 (despite the fact that the coordinates of our points are in $FF_p$).
 
@@ -306,7 +306,7 @@ The popular #link("https://w.wiki/9jhp", "Curve25519") is such a curve
 that is also believed to satisfy @ddh.
 Curve25519 is defined as $Y^2 = X^3 + 486662X^2 + X$ over $FF_p$
 for the prime $p := 2^(255)-19$.
-Its order is actually $8$ times a large prime
+Its order is $8$ times a large prime
 $q' := 2^(252) + 27742317777372353535851937790883648493$.
 In that case, to generate a random point on Curve25519 with order $q'$,
 one will usually take a random point in it and multiply it by $8$.

@@ -20,7 +20,7 @@ classical cryptography can achieve:
 - *Hiding inputs*: for example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them has more money
-  without learning the actual incomes.
+  without learning each other's incomes.
 
 Classically, first-generation cryptography relied on coming up for a protocol
 for solving given problems or computing certain functions. _Programmable cryptography_ is a term coined by 0xPARC for a second generation

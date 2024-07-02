@@ -94,7 +94,7 @@ We can observe the following:
 + If we obtain two vectors $(X lr(|y|) S_1)$ and $(X lr(|y|) S_2)$, then
   we have the information (assuming the vectors are accurate)
   $(X lr(|y|) S_1 sect S_2)$. So if we are lucky enough, say, to have
-  $lr(|S_1 sect S_2|) = 1$, then we have found an actual equation with
+  $lr(|S_1 sect S_2|) = 1$, then we have found an exact equation with
   no error.
 + As we linearly combine vectors, their "error part" $S$ gets bigger
   exponentially. So we can only add vectors very few times, ideally just
