@@ -49,7 +49,7 @@ using a general compiler rather than inventing an algorithm specific to SHA256.
 
 == Ideas in programmable cryptography
 
-These notes address programmable cryptography through expositions on specific topics. We quickly bpreview them here.
+These notes address programmable cryptography through expositions on specific topics. We quickly preview them here.
 
 === 2PC: Two-party computation
 
