@@ -49,7 +49,7 @@ using a general compiler rather than inventing an algorithm specific to SHA256.
 
 == Ideas in programmable cryptography
 
-These notes address programmable cryptography through expositions on specific topics. We quickly bpreview them here.
+These notes address programmable cryptography through expositions on specific topics. We quickly preview them here.
 
 === 2PC: Two-party computation
 
@@ -63,7 +63,7 @@ For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
 This is the case where $F = max()$, and $x_i$ is the $i$'th person's income.
 
-#todo[Yao's millionaire isn't max, right? It's like which index is max. -Evan]
+#todo[Yao's millionaire isn't max, right? It's like which index is max. -Evan.]
 
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
@@ -138,3 +138,4 @@ At 0xPARC, we see this as a door to a new world.
 What sort of systems can we build on top of programmable cryptography?
 
 #todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
+#todo[Agree should somehow talk about reduction here, since reader will probably start wondering high-level how you can ensure things are secure (right now first instance is at beginning of Section 3.1 Elliptic Curves) -jbel]
