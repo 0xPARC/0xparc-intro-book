@@ -7,8 +7,8 @@
 == What is programmable cryptography?
 
 Cryptography is everywhere now
-as a field that is widely used in everyday life.
-To be concrete, let's consider two examples of what protocols designed by
+and needs no introduction.
+As examples, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
 
 - *Proofs*. An example of this is digital signature algorithms like RSA,
