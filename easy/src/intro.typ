@@ -7,8 +7,8 @@
 == What is programmable cryptography?
 
 Cryptography is everywhere now
-as a field that is widely used in everyday life.
-To be concrete, let's consider two examples of what protocols designed by
+and needs no introduction.
+As examples, let's consider two examples of what protocols designed by
 classical cryptography can achieve:
 
 - *Proofs*. An example of this is digital signature algorithms like RSA,
@@ -20,7 +20,7 @@ classical cryptography can achieve:
 - *Hiding inputs*: for example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them has more money
-  without learning the actual incomes.
+  without learning each other's incomes.
 
 Classically, first-generation cryptography relied on coming up for a protocol
 for solving given problems or computing certain functions. _Programmable cryptography_ is a term coined by 0xPARC for a second generation
@@ -61,9 +61,10 @@ and they want to do it without either person learning the other person's input.
 
 For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
-This is the case where $F = max()$, and $x_i$ is the $i$'th person's income.
-
-#todo[Yao's millionaire isn't max, right? It's like which index is max. -Evan.]
+This is the case where $F$ is the comparison function
+($F(x_1, x_2)$ is $1$ if $x_1 > x_2$, $2$ if $x_2 > x_1$,
+and $0$ if the two inputs are equal)
+and $x_i$ is the $i$'th person's income.
 
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.

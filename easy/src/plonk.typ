@@ -73,7 +73,7 @@ But it turns out that Quad-SAT is actually reasonably code-able.
 This is the goal of projects like
 #link("https://docs.circom.io/", "Circom"),
 which gives a high-level language that compiles a function like SHA-256
-into a system of equations over $FF_q$ that can actually be used in practice.
+into a system of equations over $FF_q$ that can be used in practice.
 Systems like this are called _arithmetic circuits_,
 and Circom is appropriately short for "circuit compiler".
 If you're curious, you can see how SHA256 is implemented in Circom on
@@ -106,7 +106,7 @@ We won't get into any more details of arithmetization here.
 
 == An instance of PLONK
 
-PLONK is actually going to prove solutions to
+PLONK is going to prove solutions to
 systems of quadratic equations of a very particular form:
 
 #definition[
@@ -308,7 +308,7 @@ Well, actually, it would be necessary and sufficient for the identity
 ]
 to be true, in the sense both sides are the same polynomial in $FF_q [T]$
 in a single formal variable $T$.
-And for that, it actually is sufficient that a single random challenge
+And for that, it is sufficient that a single random challenge
 $T = lambda$ passes @permcheck-poly: if the two sides of @permcheck-poly
 aren't the same polynomial,
 then the two sides can have at most $n-1$ common values.
