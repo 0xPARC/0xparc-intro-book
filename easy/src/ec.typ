@@ -378,7 +378,7 @@ nor reused between signatures, and so on.
 One way to do this would be to pick $r = sha(d, msg)$; this has the
 bonus that it's deterministic as a function of the message and signer.
 
-#todo[minor but i think we want $r=sha(d,msg,salt)$ so that signing the same message multiple times -jbel]
+#todo[minor but i think we want 'r=sha(d,msg,salt)' so that signing the same message multiple times still yields diff signatures -jbel]
 
 In @kzg we will use ideas quite similar to this to
 build the KZG commitment scheme.
