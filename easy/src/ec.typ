@@ -163,7 +163,7 @@ and we can program a computer to compute it. We provide details below to the int
   Y^2 = x_R^3 + 3,
   $
   and since $x_R$ is fixed now, this equation is quadratic.
-  The two roots are $Y = \pm y_R$.
+  The two roots are $Y = plus.minus y_R$.
 
   OK, there are only two intersection points, but
   we say that the third intersection point is "the point at infinity" $O$.
@@ -178,7 +178,7 @@ and we can program a computer to compute it. We provide details below to the int
   $
 
   So:
-  - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
+  - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x_P, -y_P)$.
   - To add two points $P$ and $Q$, compute the line through the two points,
     let $R$ be the third intersection of that line with $E$,
     and set
@@ -186,7 +186,7 @@ and we can program a computer to compute it. We provide details below to the int
     P + Q = -R.
     $
 
-  I just described the group law as a geometric thing,
+  We just described the group law as a geometric thing,
   but there are algebraic formulas to compute it as well.
   They are kind of a mess, but here goes.
 
