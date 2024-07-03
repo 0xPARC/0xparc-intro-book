@@ -256,7 +256,13 @@ we will rely on the so-called _discrete logarithm_ assumption.
 #assumption[Discrete logarithm assumption][
   Let $E$ be the BN254 curve (or another standardized curve).
   Given arbitrary nonzero $g, g' in E$,
-  it's hard to find an integer $n$ such that $n dot g = g'$. (the act of obtaining this integer is called the _discrete logarithm problem_)
+  the _discrete logarithm problem_ asks you
+  to find an integer $n$ such that $n dot g = g'$. 
+
+  Experience suggests that the discrete logarithm problem is hard:
+  in general, we don't know a fast algorithm to solve it.
+  The _discrete logarithm assumption_ 
+  says that no such algorithm exists.
 ] <ddh>
 
 In other words, if one only
