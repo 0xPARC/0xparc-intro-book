@@ -17,7 +17,7 @@ classical cryptography can achieve:
   #link("https://w.wiki/9fXW", "group signature scheme"),
   allowing one member of a group to sign a message on behalf of a group.
 
-- *Hiding inputs*: for example, consider
+- *Hiding inputs*. For example, consider
   #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them has more money
   without learning each other's incomes.
@@ -40,8 +40,8 @@ do any computation so long as someone writes code for it.
 
 The quote on the title page
 ("I have a message $M$ such that $op("sha")(M) = "0x91af3ac..."$")
-is a concrete example;
-the hash function SHA is a particular set of arbitrary instructions,
+is a concrete example.
+The hash function SHA is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
 
@@ -75,7 +75,8 @@ The _SNARK_, first described in 2012,
 provides a way to produce proofs of *arbitrary* problem statements, once the problem statements are encoded as a system of equations in a certain way.
 The name stands for:
 
-- _Succinct_: the proof length is short (actually constant length).
+- _Succinct_: the proof length is short (in fact, it's a constant length,
+  independent of how long the problem is).
 - _Non-interactive_: the protocol does not require back-and-forth communication.
 - _Argument_: basically a proof.
   There's a technical difference, but we won't worry about it.

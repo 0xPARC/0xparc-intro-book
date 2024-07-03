@@ -1,12 +1,24 @@
 #import "preamble.typ":*
 
-Before we talk about SNARKs (specifically, PLONK), it helps to separate out an ingredient that underlies much of programmable cryptography, which is the idea of a _polynomial commitment_. Specifically, we will talk about the KZG polynomial commitment, which plays an important role in PLONK (and many other protocols). For a higher resolution understanding of KZG, it helps to understand _elliptic curves_ (especially in the context of _pairings_), which are ubiquitous in cryptography. If you are uninterested (or experienced) in mathematical details, you can and should skip elliptic curves and jump to @kzg. If you are comfortable with black-boxing @kzg, you can even jump straight to SNARKs into the next chapter.
+Before we talk about SNARKs (specifically, PLONK), it helps to separate out an 
+ingredient that underlies much of programmable cryptography, which is the idea 
+of a _polynomial commitment_. Specifically, we will talk about the KZG 
+polynomial commitment, which plays an important role in PLONK (and many other 
+protocols). For a higher-resolution understanding of KZG, it helps to 
+understand _elliptic curves_ (especially in the context of _pairings_), which 
+are ubiquitous in cryptography. If you are uninterested (or experienced) in 
+mathematical details, you can and should skip elliptic curves and jump to 
+@kzg. If you are comfortable with black-boxing @kzg, you can even jump 
+straight to SNARKs into the next chapter.
 
 The roadmap goes roughly as follows:
 
-- In @ec we will define _elliptic curves_ and describe one standard elliptic curve $E$, the _BN254 curve_,
+- In @ec we will define _elliptic curves_ and describe one standard elliptic 
+  curve $E$, the _BN254 curve_,
   that will be used in these notes.
-- In @discretelog we describe the _discrete logarithm assumption_ (@ddh), which we need to make to provide security to our protocols. As an example, in @eddsa we describe how @ddh
+- In @discretelog we describe the _discrete logarithm assumption_ (@ddh), 
+  which we need to make to provide security to our protocols. As an example, in 
+  @eddsa we describe how @ddh
   can be used to construct a signature scheme, namely
   #link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
 - The EdDSA idea will later grow up to be the KZG commitment scheme in @kzg.
@@ -151,7 +163,7 @@ and we can program a computer to compute it. We provide details below to the int
   Y^2 = x_R^3 + 3,
   $
   and since $x_R$ is fixed now, this equation is quadratic.
-  The two roots are $Y = \pm y_R$.
+  The two roots are $Y = plus.minus y_R$.
 
   OK, there are only two intersection points, but
   we say that the third intersection point is "the point at infinity" $O$.
@@ -166,7 +178,7 @@ and we can program a computer to compute it. We provide details below to the int
   $
 
   So:
-  - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x, -y)$.
+  - Given a point $P = (x_P, y_P)$, its negative is just $-P = (x_P, -y_P)$.
   - To add two points $P$ and $Q$, compute the line through the two points,
     let $R$ be the third intersection of that line with $E$,
     and set
@@ -174,7 +186,7 @@ and we can program a computer to compute it. We provide details below to the int
     P + Q = -R.
     $
 
-  I just described the group law as a geometric thing,
+  We just described the group law as a geometric thing,
   but there are algebraic formulas to compute it as well.
   They are kind of a mess, but here goes.
 
@@ -244,7 +256,13 @@ we will rely on the so-called _discrete logarithm_ assumption.
 #assumption[Discrete logarithm assumption][
   Let $E$ be the BN254 curve (or another standardized curve).
   Given arbitrary nonzero $g, g' in E$,
-  it's hard to find an integer $n$ such that $n dot g = g'$. (the act of obtaining this integer is called the _discrete logarithm problem_)
+  the _discrete logarithm problem_ asks you
+  to find an integer $n$ such that $n dot g = g'$. 
+
+  Experience suggests that the discrete logarithm problem is hard:
+  in general, we don't know a fast algorithm to solve it.
+  The _discrete logarithm assumption_ 
+  says that no such algorithm exists.
 ] <ddh>
 
 In other words, if one only
@@ -304,10 +322,10 @@ There are other curves used in practice for which $E(FF_p)$
 is not a prime, but rather a small multiple of a prime.
 The popular #link("https://w.wiki/9jhp", "Curve25519") is such a curve
 that is also believed to satisfy @ddh.
-Curve25519 is defined as $Y^2 = X^3 + 486662X^2 + X$ over $FF_p$
+Curve25519 is defined as $ Y^2 = X^3 + 486662X^2 + X $ over $FF_p$
 for the prime $p := 2^(255)-19$.
 Its order is $8$ times a large prime
-$q' := 2^(252) + 27742317777372353535851937790883648493$.
+$ q' := 2^(252) + 27742317777372353535851937790883648493. $
 In that case, to generate a random point on Curve25519 with order $q'$,
 one will usually take a random point in it and multiply it by $8$.
 

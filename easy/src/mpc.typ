@@ -37,8 +37,17 @@ Here is our problem setting, slightly more formally:
 Our solution will contain two key components:
 - Alice constructs a _garbled circuit_
   that takes in the value $b$ (whatever it is)
-  and spits out $f(a, b)$. A _garbled circuit_, roughly speaking, is an "encrypted" circuit that takes encrypted input and creates encrypted output."
-- An _oblivious transfer_ is a protocol where X has two messages, $m_0$ and $m_1$. Y can get exactly one of them, $m_i$, without letting X know what $i$ is. In this context, Alice ends up sending Bob a password for his input in a way that Bob doesn't learn the passwords for any other inputs, and Alice doesn't find out which password she sent to Bob.
+  and spits out $f(a, b)$. 
+  A _garbled circuit_, roughly speaking, 
+  is an "encrypted" circuit that takes encrypted input and creates encrypted output.
+- An _oblivious transfer_ is a protocol where Alice has two messages, 
+  $m_0$ and $m_1$. 
+  Bob can get exactly one of them, $m_i$, 
+  without letting Alice know what $i$ is. 
+  In this context, Alice ends up sending Bob a password 
+  for his input in a way that 
+  Bob doesn't learn the passwords for any other inputs, 
+  and Alice doesn't find out which password she sent to Bob.
 
 #todo[
   Ask Gub to paraphrase, he writes well
@@ -66,7 +75,7 @@ In slightly more detail:
    for each input Bob wants to plug in --
    a different password for every possible input.
    If Bob has the password for $(b_1, dots, b_n)$,
-   he can learn $f_a (b_1, dots, b_n) = f(a, b)$ --
+   he can learn $f_a (b_1, dots, b_n) = f(a, b)$,
    but he won't learn anything else about how the circuit works.
 5. Now, Alice has all the passwords for all the possible inputs, but how can she give Bob the password for $(b_1, dots, b_n)$?
    Alice doesn't want to let Bob have any other passwords --

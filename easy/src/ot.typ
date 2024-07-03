@@ -22,7 +22,7 @@ have access to some encryption scheme that is _commutative_:
 $ Dec_B ( Dec_A ( Enc_B ( Enc_A (x) ) ) ) = x. $
 
 In other words, if Alice encrypts a message,
-and Bob applies a second-layer of encryption to the encrypted message,
+and Bob applies a second layer of encryption to the encrypted message,
 it doesn't matter which order Alice and Bob decrypt the message in --
 they will still get the original message back.
 
@@ -30,7 +30,7 @@ A metaphor for commutative encryption
 is a box that's locked with two padlocks.
 Alice puts a message inside the box,
 lock it with her lock, and ship it to Bob.
-Bob puts his own lock back on the box and ships it back to Alice.
+Bob puts his own lock on the box and ships it back to Alice.
 What's special about commutative encryption
 is that Bob's lock doesn't block Alice from unlocking her own --
 so Alice can remove her lock and send it back to Bob,
@@ -139,7 +139,8 @@ In fact, some public-key cryptosystems (like ElGamal)
 have a sort of "homomorphic" property:
 If you know the private keys for to two different public keys $b_1$ and $b_2$,
 then you can compute the private key for the public key $b_2 b_1^(-1)$.
-(In ElGamal, this is true because the private key is just a discrete logarithm.)
+(In ElGamal, this is true because the private key is just the discrete logarithm
+of the public key.)
 So, if Bob could dishonestly decrypt two of Alice's messages,
 he could compute the private key for the public key $r$.
 But $r$ is verifiably random,
