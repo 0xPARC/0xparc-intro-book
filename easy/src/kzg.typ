@@ -105,7 +105,7 @@ $
 $
 Then Peggy sends $[Q(s)]$ as her proof, and the verification equation is that
 $ & pair([Q(s)], [(s-1)(s-2) ... (s-9)]) \
- &  = pair([P(s)] - 100[s^2], [1]). $
+  & = pair([P(s)] - 100[s^2], [1]). $
 
 The full generality just replaces the $100X^2$ with the polynomial
 obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
