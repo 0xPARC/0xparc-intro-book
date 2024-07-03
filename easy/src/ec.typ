@@ -1,12 +1,24 @@
 #import "preamble.typ":*
 
-Before we talk about SNARKs (specifically, PLONK), it helps to separate out an ingredient that underlies much of programmable cryptography, which is the idea of a _polynomial commitment_. Specifically, we will talk about the KZG polynomial commitment, which plays an important role in PLONK (and many other protocols). For a higher resolution understanding of KZG, it helps to understand _elliptic curves_ (especially in the context of _pairings_), which are ubiquitous in cryptography. If you are uninterested (or experienced) in mathematical details, you can and should skip elliptic curves and jump to @kzg. If you are comfortable with black-boxing @kzg, you can even jump straight to SNARKs into the next chapter.
+Before we talk about SNARKs (specifically, PLONK), it helps to separate out an 
+ingredient that underlies much of programmable cryptography, which is the idea 
+of a _polynomial commitment_. Specifically, we will talk about the KZG 
+polynomial commitment, which plays an important role in PLONK (and many other 
+protocols). For a higher-resolution understanding of KZG, it helps to 
+understand _elliptic curves_ (especially in the context of _pairings_), which 
+are ubiquitous in cryptography. If you are uninterested (or experienced) in 
+mathematical details, you can and should skip elliptic curves and jump to 
+@kzg. If you are comfortable with black-boxing @kzg, you can even jump 
+straight to SNARKs into the next chapter.
 
 The roadmap goes roughly as follows:
 
-- In @ec we will define _elliptic curves_ and describe one standard elliptic curve $E$, the _BN254 curve_,
+- In @ec we will define _elliptic curves_ and describe one standard elliptic 
+  curve $E$, the _BN254 curve_,
   that will be used in these notes.
-- In @discretelog we describe the _discrete logarithm assumption_ (@ddh), which we need to make to provide security to our protocols. As an example, in @eddsa we describe how @ddh
+- In @discretelog we describe the _discrete logarithm assumption_ (@ddh), 
+  which we need to make to provide security to our protocols. As an example, in 
+  @eddsa we describe how @ddh
   can be used to construct a signature scheme, namely
   #link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
 - The EdDSA idea will later grow up to be the KZG commitment scheme in @kzg.
