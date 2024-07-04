@@ -194,6 +194,13 @@ Let's now explain how each step works.
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
+#todo[
+  In the paragraph below:
+  Equation number getting overlapped by equation too wide
+
+  Powers of $omega$.  Make them all consistent.  $0$ to $n-1$ or $1$ to $n$?
+  (Also, shouldn't have $omega$ and $omega^1$.)
+]
 Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
 #eqn[

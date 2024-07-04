@@ -35,10 +35,10 @@ that means the original message was 2. The decryption procedure is
 
 (You might be thinking: This is some pretty terrible cryptography,
 because the message isn’t secure. Anyone can figure out how to round a
-number, no secret key required. Yep, you’re right. The actual encryption
-#link("https://hackmd.io/mQB8_nWPTm-Kyua7QgNLNw")[scheme] is more
+number, no secret key required. Yep, you’re right.
+The full scheme (@lwe-crypto) is more
 complicated. But it still has this "rounding-off-errors" feature, and
-that’s what I want to focus on right now.)
+that’s what we want to focus on right now.)
 
 Now imagine that the "operations" you want to perform are addition. (If
 you like, imagine doing the addition modulo 11, so if a number gets too

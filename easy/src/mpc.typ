@@ -30,7 +30,7 @@ Here is our problem setting, slightly more formally:
   suppose that each gate in $C$ accepts either $1$ or $2$ input bits,
   and outputs a single output bit.
 - $A$ and $B$ would like to jointly compute $C (a , b)$ without
-  revealing to each other their secrets.
+  revealing their secrets to each other.
 
 == Outline of Solution
 

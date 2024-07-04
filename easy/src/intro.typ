@@ -8,7 +8,7 @@
 
 Cryptography is everywhere now
 and needs no introduction.
-As examples, let's consider two examples of what protocols designed by
+Let's consider two examples of what protocols designed by
 classical cryptography can achieve:
 
 - *Proofs*. An example of this is digital signature algorithms like RSA,
@@ -45,7 +45,7 @@ The hash function SHA is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
 
-#todo[Brian's image of an alarm clock and a computer chip]
+//#todo[Brian's image of an alarm clock and a computer chip]
 
 == Ideas in programmable cryptography
 
@@ -100,7 +100,7 @@ scheme to authenticating any sort of transaction:
   of course without revealing $M$ or anything about $M$.
 - ... Or really any arbitrarily complicated statement.
 
-#todo[gubsheep's slide had a funny example with emoji, link it]
+//#todo[gubsheep's slide had a funny example with emoji, link it]
 
 This is an active area of research,
 and many different proof systems are known.
