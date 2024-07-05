@@ -65,7 +65,8 @@ The BN254 specification fixes a specific#footnote[
 large prime $p approx 2^(254)$
 (and a second large prime $q approx 2^(254)$ that we define later)
 which has been specifically engineered to have certain properties
-(see e.g. #url("https://hackmd.io/@jpw/bn254")).
+(Jonathan Wang has a #link("https://hackmd.io/@jpw/bn254", "blog post")
+about the properties of this curve).
 The name BN stands for Barreto-Naehrig, two mathematicians who
 #link("https://link.springer.com/content/pdf/10.1007/11693383_22.pdf",
 "proposed a family of such curves in 2006").
