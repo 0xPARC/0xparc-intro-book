@@ -396,8 +396,6 @@ nor reused between signatures, and so on.
 One way to do this would be to pick $r = sha(d, msg)$; this has the
 bonus that it's deterministic as a function of the message and signer.
 
-#todo[minor but i think we want 'r=sha(d,msg,salt)' so that signing the same message multiple times still yields diff signatures -jbel]
-
 In @kzg we will use ideas quite similar to this to
 build the KZG commitment scheme.
 
@@ -410,10 +408,7 @@ are a bunch of randomly chosen points of $E$ with order $q$,
 then it's computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
 $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
-Indeed, even if one fixes any choice of $2n-1$ of the $2n$ coefficients above,
-one cannot find the last coefficient.
-
-#todo[maybe include something like 'because q is large' at the end? -jbel]
+(Remember that $q approx 2^(256)$ is very large.)
 
 #definition[
   In these notes, if there's a globally known elliptic curve $E$
