@@ -439,7 +439,7 @@ To spell this out:
   $ arrow(a) = angle.l a_1, ..., a_n angle.r in FF_q^n $ of scalars,
   the group element
   $ sum a_i g_i = a_1 g_1 + ... + a_n g_n in E $
-  is called the _Pedersen commitment_ of our vector $arrow(a)$.
+  is called the _Pedersen commitment_ to our vector $arrow(a)$.
 ]
 
 The Pedersen commitment is thus a sort of hash function:
