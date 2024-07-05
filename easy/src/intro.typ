@@ -54,15 +54,15 @@ These notes address programmable cryptography through expositions on specific to
 In a _two-party computation_, two people want to
 jointly compute some known function
 $ F(x_1, x_2), $
-where the $i$th person only knows the input $x_i$ ---
+where the $i$-th person only knows the input $x_i$ ---
 and they want to do it without either person learning the other person's input.
 
 For example, in Yao's millionaire problem --- Alice and Bob
 want to know who has a higher income without revealing the incomes themselves.
 This is the case where $F$ is the comparison function
 ($F(x_1, x_2)$ is $1$ if $x_1 > x_2$, $2$ if $x_2 > x_1$,
-and $0$ if the two inputs are equal)
-and $x_i$ is the $i$'th person's income.
+and $0$ if the two inputs are equal),
+and $x_i$ is the $i$-th person's income.
 
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
@@ -121,11 +121,11 @@ so the server learns nothing about the text you translated.
 MPC, SNARKs, and FHE are just some examples in a huge zoo of cryptographic primitives,
 from the elementary (public-key cryptography)
 to the impossibly powerful (indistinguishability obfuscation).
-There are protocols for MPC, SNARKS, and FHE;
+There are protocols for MPC, SNARKs, and FHE;
 they are very slow, but they can be implemented and used in practice.
 
 This whole field is an active area of research.
-- Can we make existing tools (SNARKS, etc.) more efficient?
+- Can we make existing tools (SNARKs, etc.) more efficient?
   For example, the cost of proving a computation in a SNARK
   is currently about $10^6$ times the cost of doing the computation directly.
   Can we bring that number down?

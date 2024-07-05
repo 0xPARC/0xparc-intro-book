@@ -186,7 +186,7 @@ Let's now explain how each step works.
 == Step 1: The commitment
 
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
-we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
+we can fix $omega in FF_q$ to be a primitive $n$-th root of unity.
 
 Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
