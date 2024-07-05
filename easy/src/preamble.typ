@@ -62,9 +62,18 @@
     [#body]
 )
 
+// set this flag to true if we are printing (in which case
+// we will see no blue text but will see subscriipt instead)
+// and false if we are just doing a pdf
+#let print_flag = true
+
 #let cite(linktext, text) = {
-      link(linktext, text)
-      footnote(linktext)
+  if (print_flag == true) {
+    text
+    footnote(linktext)
+  } else {
+    link(linktext, text)
+  }
 }
 
 #let green(body) = block(
