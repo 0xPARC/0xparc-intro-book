@@ -14,11 +14,11 @@ classical cryptography can achieve:
 - *Proofs*. An example of this is digital signature algorithms like RSA,
   where Alice can do some protocol to prove to Bob that a message was sent by her.
   A more complicated example might be a
-  #link("https://w.wiki/9fXW", "group signature scheme"),
+  #cite("https://w.wiki/9fXW", "group signature scheme"),
   allowing one member of a group to sign a message on behalf of a group.
 
 - *Hiding inputs*. For example, consider
-  #link("https://w.wiki/9fXQ", "Yao's millionaire problem"),
+  #cite("https://w.wiki/9fXQ", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them has more money
   without learning each other's incomes.
 

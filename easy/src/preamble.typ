@@ -62,6 +62,11 @@
     [#body]
 )
 
+#let cite(linktext, text) = {
+      link(linktext, text)
+      footnote(linktext)
+}
+
 #let green(body) = block(
     fill: rgb("#aaeed9"),
     inset: 8pt,
