@@ -45,8 +45,6 @@ The hash function SHA is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
 
-//#todo[Brian's image of an alarm clock and a computer chip]
-
 == Ideas in programmable cryptography
 
 These notes address programmable cryptography through expositions on specific topics. We quickly preview them here.
@@ -100,8 +98,6 @@ scheme to authenticating any sort of transaction:
   of course without revealing $M$ or anything about $M$.
 - ... Or really any arbitrarily complicated statement.
 
-//#todo[gubsheep's slide had a funny example with emoji, link it]
-
 This is an active area of research,
 and many different proof systems are known.
 These notes focus on one construction, called PLONK (@plonk).
@@ -139,5 +135,3 @@ This whole field is an active area of research.
 At 0xPARC, we see this as a door to a new world.
 What sort of systems can we build on top of programmable cryptography?
 
-#todo[Import Brian's tree. Talk about reduction? Evan, take a look at the flavor text, idk if I like it - Aard]
-#todo[Agree should somehow talk about reduction here, since reader will probably start wondering high-level how you can ensure things are secure (right now first instance is at beginning of Section 3.1 Elliptic Curves) -jbel]

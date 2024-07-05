@@ -49,12 +49,6 @@ Our solution will contain two key components:
   Bob doesn't learn the passwords for any other inputs, 
   and Alice doesn't find out which password she sent to Bob.
 
-#todo[
-  Ask Gub to paraphrase, he writes well
-
-I rewrote the above slightly. Feel free to discard/give to Gub still [-YZ]
-]
-
 In slightly more detail:
 
 1. Whatever the function $f$ is, we'll assume that it takes $m+n$ bits of input

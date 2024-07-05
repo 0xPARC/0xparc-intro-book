@@ -2,8 +2,6 @@
 
 = Making it non-interactive: Fiat--Shamir
 
-#todo[Gub could you edit this section for good explaininess?]
-
 As we described it,
 PLONK is an interactive protocol.
 Peggy sends Victor some data;

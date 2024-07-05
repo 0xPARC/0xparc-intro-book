@@ -6,12 +6,6 @@
 = PLONK, a zkSNARK protocol <plonk>
 
 
-
-
-
-
-
-
 == Arithmetization <arith-intro>
 
 The promise of programmable cryptography is that we should be able to
@@ -194,13 +188,6 @@ Let's now explain how each step works.
 In PLONK, we'll assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$th root of unity.
 
-#todo[
-  In the paragraph below:
-  Equation number getting overlapped by equation too wide
-
-  Powers of $omega$.  Make them all consistent.  $0$ to $n-1$ or $1$ to $n$?
-  (Also, shouldn't have $omega$ and $omega^1$.)
-]
 Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
 and $C(X)$ in $FF_q [X]$ such that
 #eqn[
@@ -209,7 +196,7 @@ and $C(X)$ in $FF_q [X]$ such that
   <plonk-setup>
 ]
 We specifically choose $omega^i$ because that way,
-if we use @root-check on the set ${omega, omega^1, ..., omega^n}$,
+if we use @root-check on the set ${omega, omega^2, ..., omega^n}$,
 then the polynomial called $Z$ is just
 $Z(X) = (X-omega) ... (X-omega^n) = X^n-1$, which is really nice.
 In fact, often $n$ is chosen to be a power of $2$ so that $A$, $B$, and $C$
@@ -243,7 +230,7 @@ Peggy is trying to convince Victor that the equation
     + Q_M (x) A (x) B (x) + Q_C (x) & = 0 $
   <plonk-gate>
 ]
-is true for the $n$ numbers $x = 1, omega, omega^2, ..., omega^(n-1)$.
+is true for the $n$ numbers $x = omega, omega^2, ..., omega^n$.
 
 However, Peggy has committed $A$, $B$, $C$ already,
 while all the $Q_*$ polynomials are globally known.
@@ -539,9 +526,6 @@ To summarize, the copy-check goes as follows:
 ]
 
 == Public and private witnesses
-
-#todo[(Gub ignore, Aard and Evan to discuss) warning: $A$, $B$, $C$ should not be the lowest degree interpolations, imo
-AV: why not?  I think it's fine if they are]
 
 The last thing to be done is to reveal the value of public witnesses,
 so the prover can convince the verifier that those values are correct.
