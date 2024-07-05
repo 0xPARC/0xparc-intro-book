@@ -1,0 +1,51 @@
+(a list of links... want to deal with them)
+
+ec.typ: 
+#link("https://en.wikipedia.org/wiki/EdDSA", "EdDSA")
+#link("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA")
+#link("https://w.wiki/9jgX", "discrete logarithm problem")
+#link("https://link.springer.com/content/pdf/10.1007/11693383_22.pdf"
+#link("https://w.wiki/5Ck3", "The Hunting of the Snark")
+#link("https://w.wiki/9jhM", "group law on the elliptic curve")
+#link("https://w.wiki/9jim", "repeated squaring")
+#link("https://w.wiki/9jhi", "Hasse's theorem")
+#link("https://w.wiki/9jhp", "Curve25519")
+#link("https://w.wiki/4usy", "EdDSA")
+
+intro.typ
+#link("https://w.wiki/9fXW", "group signature scheme")
+#link("https://w.wiki/9fXQ", "Yao's millionaire problem")
+
+kzg.typ
+#link("https://w.wiki/8Yin", "Lagrange interpolation")
+
+mpc.typ
+#link("https://vitalik.eth.limo/general/2020/03/21/garbled.html")[blog];).
+#link("https://github.com/privacy-scaling-explorations/mpz/tree/dev/garble")[implemented and used today];.
+
+pair.typ
+#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing")
+#link("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes").)
+
+plonk.typ
+#link("https://docs.circom.io/", "Circom"),
+#link("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
+
+zkintro.typ
+#link("https://tlsnotary.org", "TLSNotary").
+
+
+https://w.wiki/9jgX ~~~ https://en.wikipedia.org/wiki/Decisional_Diffie%E2%80%93Hellman_assumption
+https://w.wiki/5Ck3 ~~~ https://en.wikipedia.org/wiki/The_Hunting_of_the_Snark
+https://w.wiki/9jhM ~~~ https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law
+https://w.wiki/9jim ~~~ https://en.wikipedia.org/wiki/Exponentiation_by_squaring#Montgomery's_ladder_technique
+https://w.wiki/9jhi ~~~ https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves
+https://w.wiki/9jhp ~~~ https://en.wikipedia.org/wiki/Curve25519
+https://w.wiki/4usy ~~~ https://en.wikipedia.org/wiki/EdDSA
+https://w.wiki/9fXW ~~~ https://en.wikipedia.org/wiki/Group_signature
+https://w.wiki/9fXQ ~~~ https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem
+https://w.wiki/8Yin ~~~ https://en.wikipedia.org/wiki/Lagrange_polynomial
+
+
+
+
