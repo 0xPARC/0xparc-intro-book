@@ -35,7 +35,7 @@ it is hard to factor a composite number (like $6177$)
 into prime factors ($6177 = 71 dot 87$).
 
 Our SNARK protocol will be based on a different hard problem:
-the #link("https://w.wiki/9jgX", "discrete logarithm problem")
+the "discrete logarithm problem"
 (@discretelog) on elliptic curves.
 But before we get to the problem,
 we need to introduce some of the math behind elliptic curves.
