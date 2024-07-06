@@ -40,7 +40,7 @@ Or: You know a message $M$, and a digital signature proving that $M$ was signed 
 [trusted authority], such that a certain neural network, run on the input $M$, outputs "Good."
 
 One recent application along these lines is
-#link("https://tlsnotary.org", "TLSNotary").
+#cite("https://tlsnotary.org", "TLSNotary").
 TLSNotary lets you certify a transcript of communications with a server
 in a privacy-preserving way: you only reveal the parts you want to.
 

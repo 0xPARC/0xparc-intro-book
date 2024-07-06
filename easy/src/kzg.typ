@@ -108,7 +108,7 @@ $ & pair([Q(s)], [(s-1)(s-2) ... (s-9)]) \
   & = pair([P(s)] - 100[s^2], [1]). $
 
 The full generality just replaces the $100X^2$ with the polynomial
-obtained from #link("https://w.wiki/8Yin", "Lagrange interpolation")
+obtained from #cite("https://w.wiki/8Yin", "Lagrange interpolation")
 (there is a unique such polynomial $f$ of degree $n-1$).
 To spell this out, suppose Peggy wishes to prove to Victor that
 $P(z_i) = y_i$ for $1 <= i <= n$.

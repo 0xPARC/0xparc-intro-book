@@ -98,13 +98,13 @@ In fact, this element will always be a $q$-th root of unity in $FF_(p^k)$,
 and it will satisfy $pair([m], [n]) = zeta^(m n)$,
 where $zeta$ is some fixed $q$-th root of unity.
 The construction of the pairing is based on the
-#link("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing")
+#cite("https://en.wikipedia.org/wiki/Weil_pairing", "Weil pairing")
 in algebraic geometry.
 How to compute these pairings is well beyond the scope of these notes;
 the raw definition is quite abstract,
 and a lot of work has gone into computing the pairings efficiently.
 (For more details, see these
-#link("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes").)
+#cite("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes").)
 
 The difficulty of computing these pairings is determined by the size of $k$:
 the values $pair(a, b)$ will be elements of a field of size $p^k$,

@@ -65,13 +65,13 @@ but they do matter a lot to engineers and end users.
 
 But it turns out that Quad-SAT is actually reasonably code-able.
 This is the goal of projects like
-#link("https://docs.circom.io/", "Circom"),
+#cite("https://docs.circom.io/", "Circom"),
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $FF_q$ that can be used in practice.
 Systems like this are called _arithmetic circuits_,
 and Circom is appropriately short for "circuit compiler".
 If you're curious, you can see how SHA256 is implemented in Circom on
-#link("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
+#cite("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
 "GitHub").
 
 So, the first step in proving a claim like
