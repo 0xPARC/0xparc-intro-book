@@ -2,15 +2,12 @@
 
 = Public-Key Cryptography from LWE
 <lwe-crypto>
-The
-learning with errors
-problem (@lwe), like the discrete log assumption, is one of those "hard problems that you can build cryptography
+The LWE problem (@lwe), like the discrete log assumption, is one of those "hard problems that you can build cryptography
 on." The problem is to solve for constants
 $ a_1, dots, a_n in ZZ \/ q ZZ, $ given a bunch of
-#emph[approximate] equations of the form
-$ a_1 x_1 + dots.h + a_n x_n = y + epsilon.alt , $ where each
-$epsilon.alt$ is a "small" error (in the linked example, $epsilon.alt$
-is either 0 or 1).
+*approximate* equations of the form
+$ y = a_1 x_1 + dots.h + a_n x_n + epsilon.alt , $ where each
+$epsilon.alt$ is a "small" error (for simplicity, say in $\{0, 1\}$).
 
 In @lwe
 we saw how even a small case of this problem ($q = 11$, $n = 4$) can be

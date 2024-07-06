@@ -6,12 +6,12 @@
 As we've seen (@ec),
 a lot of cryptography relies on hard math problems.
 RSA is based on the difficulty of integer factorization;
-elliptic curve cryptography depends on the discrete log problem.
+elliptic curve cryptography depends on the discrete log assumption.
 
 Our protocol for levelled FHE relies on a different hard problem:
 the learning with errors problem (LWE).
 The problem is to solve systems of linear equations,
-except the equations are only approximately true --
+except that the equations are only approximately true --
 they permit a small "error" --
 and instead of solving for rational or real numbers,
 you're solving for integers modulo $q$.
