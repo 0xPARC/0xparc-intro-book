@@ -25,10 +25,9 @@ modulo $q$ – but we’ll also allow the calculations to have a small
 "error" $epsilon.alt$, which will typically be much, much smaller than
 $q$.
 
-Here’s the new idea.
-Our #emph[secret key] will be a vector
-$ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n $ – a
-vector of length $n$, where the entries are integers modulo $q$. Suppose
+As before, our #emph[secret key] will be a vector of length $n$:
+$ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n. $ 
+Suppose
 we want to encode a message $mu$ that’s just a single bit, let’s say
 $mu in { 0 , 1 }$. Our ciphertext will be a square $n$-by-$n$ matrix $C$
 such that $ C upright(bold(v)) approx mu upright(bold(v)) . $ Now if we
@@ -46,13 +45,13 @@ $ upright(bold(x)) dot.op upright(bold(v)) approx 0, $ and use that as a
 public key. Given $mu$ and the public key, you can find a matrix $C_0$
 such that $ C_0 upright(bold(v)) approx 0 $ then take
 $ C = C_0 + mu Id, $ where $Id$ is the identity
-matrix. And $C_0$ can be built row-by-row... but we won’t get into the
-details here.
+matrix. This gives a $C$ such that
 
-Indeed homomorphic encryption is already interesting without the
-public-key feature. If you assume the person encrypting the data knows
-$upright(bold(v))$, it’s easy (linear algebra, again) to find $C$ such
-that $ C upright(bold(v)) approx mu upright(bold(v)). $
+$ C upright(bold(v)) approx mu upright(bold(v)). $
+
+#problem[How do we build such a $C_0$? (One possible direction is to build it row-by-row.)]
+
+== Operations on encrypted data
 
 To make homomorphic encryption work, we need to explain how to operate
 on $mu$. We’ll describe three operations: addition, NOT, and
@@ -66,7 +65,7 @@ Of course, addition on bits isn’t a great operation, because if you add
 $1 + 1$, you get $2$, and $2$ isn’t a legitimate bit anymore. So we
 won’t really use this.
 
-Negation of a bit (NOT) is equally simple, though. If $mu in { 0 , 1 }$
+Negation of a bit (NOT) is equally simple. If $mu in { 0 , 1 }$
 is a bit, then its negation is simply $1 - mu$. And if $C$ is a
 ciphertext for $mu$, then $Id - C$ is a ciphertext for
 $1 - mu$, since
@@ -87,7 +86,7 @@ calculations on your encrypted bits, without ever learning what those
 bits are. At the end of the calculation, you can send the resulting
 ciphertexts back to be decrypted.
 
-== A constraint on the secret key $upright(bold(v))$ and the "Flatten" operation
+== The "Flatten" operation
 <a-constraint-on-the-secret-key-mathbfv-and-the-flatten-operation>
 In order to make the error estimates work out, we’re going to need to
 make it so that all the ciphertext matrices $C$ have "small" entries. In
@@ -127,13 +126,15 @@ $upright(bold(x)) prime = (1 , 0 , 0 , 1)$. You should check for
 yourself to see why this works – it boils down to the fact that
 $(1 , 0 , 0 , 1)$ is the binary expansion of $9$.
 
+#problem[
 How would you flatten a different vector, like
-$ upright(bold(x)) = (9 , 3 , 1 , 4) ? $ I’ll leave this as an exercise
-to you! As a hint, remember we’re working with numbers modulo 11 – so if
+$ upright(bold(x)) = (9 , 3 , 1 , 4) ? $ 
+As a hint, remember we’re working with numbers modulo 11: so if
 you come across a number that’s bigger than 11 in your calculation, it’s
 safe to reduce it mod 11.
+]
 
-In general, if you know $upright(bold(v))$ has the form in @fhe-v-form
+In general, if you know that $upright(bold(v))$ has the form in @fhe-v-form
 and you are given some matrix $C$ with coefficients in
 $ZZ \/ q ZZ$, then you can compute another matrix $"Flatten"(C)$
 such that:
@@ -160,7 +161,7 @@ bigger, say $n approx r log q$, to get the same level of security.
 Now let’s compute more carefully what happens to the error when we add,
 negate, and multiply bits. Suppose
 $ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + epsilon.alt_1 , $ where
-$epsilon.alt_1$ is some vector with all its entries bounded by a bound
+$epsilon.alt_1$ is some vector with all its entries upper bounded by some
 $B$. (And similarly for $C_2$ and $mu_2$.)
 
 When we add two ciphertexts, the errors add:
@@ -176,10 +177,10 @@ $ C_1 C_2 upright(bold(v)) = C_1 (mu_2 upright(bold(v)) + epsilon.alt_2) = mu_1 
 
 Now since $mu_2$ is either $0$ or $1$, we know that $mu_2 epsilon.alt_1$
 is a vector with all entries bounded by $B$. What about
-$C_1 epsilon.alt_2$? Here you have to think for a second about matrix
+$C_1 epsilon.alt_2$? Here we have to think carefully about matrix
 multiplication: when you multiply an $n$-by-$n$ matrix by a vector, each
 entry of the product comes as a sum of $n$ different products. Now we’re
-assuming that $C_1$ is a $0 - 1$ matrix, and all entries of
+assuming that $C_1$ is a $0$-$1$ matrix, and all entries of
 $epsilon.alt_2$ are bounded by $B$… so the product has all entries
 bounded by $n B$. Adding this to the error for $mu_2 epsilon.alt_1$, we
 get that the total error in the product $C_1 C_2 upright(bold(v))$ is
@@ -197,17 +198,13 @@ fact, it’s a question of #emph[circuit depth];: you can start with many
 more than $log_n q$ input bits, but no bit can follow a path of length
 greater than $log_n q$ AND gates.)
 
-This gives us a #emph[levelled] fully homomorphic encryption protocol:
+This gives us a #emph[levelled] FHE protocol:
 it lets us evaluate arbitrary circuits on encrypted data,
 as long as those circuits have bounded depth.
-If we need to evaluate a bigger circuit, we have two options.
+If we need to evaluate a bigger circuit, we have two options:
 + Increase the value of $q$.
   Of course, the cost of the computations increases with $q$.
 + Use some technique to "reset" the error
-  and start anew, as if with a freshly encrypted ciphertext.
-
-  This approach is called "bootstrapping" and it incurs some hefty
+  and start anew, as if with a freshly encrypted ciphertext. This approach is called _bootstrapping_ and it incurs some hefty
   computational costs.
-  But for very, very large circuits, it's the only viable option.
-
-Bootstrapping is beyond the scope of this book.
+  But for very, very large circuits, it's the only viable option. Bootstrapping is beyond the scope of this book.
