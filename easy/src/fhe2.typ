@@ -26,17 +26,21 @@ set" will be exactly the public key.
     align: (auto,),
     table.header([Public Key],),
     table.hline(),
-    [(1, 0, 1, 7) : 2],
-    [(7, 7, 8, 5) : 3],
-    [(9, 3, 0, 6) : 9],
-    [(0, 6, 1, 6) : 9],
-    [(0, 4, 9, 7) : 5],
+    [(1, 0, 1, 7) : 2], 
+    [(5, 8, 4, 10) : 2], 
+    [(7, 7, 8, 5) : 3], 
+    [(5, 1, 10, 6) : 10], 
+    [(8, 0, 2, 4) : 9], 
+    [(9, 3, 0, 6) : 9], 
+    [(0, 6, 1, 6) : 9], 
+    [(0, 4, 9, 7) : 5], 
     [(10, 7, 4, 10) : 10],
-    [(5, 5, 10, 6) : 8],
-    [(10, 7, 3, 1) : 9],
-    [(0, 2, 5, 5) : 6],
-    [(9, 10, 2, 1) : 2],
-    [(2, 3, 4, 5) : 3],
+    [(5, 5, 10, 6) : 9], 
+    [(10, 7, 3, 1) : 9], 
+    [(0, 2, 5, 5) : 6], 
+    [(9, 10, 2, 1) : 3], 
+    [(3, 7, 2, 1) : 6],
+    [(2, 3, 4, 5) : 3], 
     [(2, 1, 6, 9) : 3],
   )]
   , kind: table
@@ -55,17 +59,17 @@ The private key is simply the vector $a$.
   , kind: table
   )
 
-== How to encrypt $mu$?
+== Encryption
 <how-to-encrypt-mu>
 Suppose you have a message $m in { 0 , 5 }$. (You’ll see in a moment why
 we insist that $mu$ is one of these two values.) The ciphertext to
 encrypt $m$ will be a pair $(upright(bold(x)) : y)$, where $x$ is a
 vector, $y$ is a scalar, and
-$upright(bold(x)) dot.op upright(bold(a)) + epsilon.alt = y + mu$, where
+$upright(bold(x)) dot.op upright(bold(a)) + epsilon.alt = y + m$, where
 $epsilon.alt$ is "small".
 
 How to do the encryption? If you’re trying to encrypt, you only have
-access to the public key – that list of pairs $(upright(bold(x)) : y)$
+access to the public key -- that list of pairs $(upright(bold(x)) : y)$
 above. You want to make up your own $upright(bold(x))$, for which you
 know approximately the value $upright(bold(x)) dot.op upright(bold(a))$.
 You could just take one of the vectors $upright(bold(x))$ from the
@@ -83,12 +87,12 @@ just enough to determine $mu$ uniquely.
 So, here’s the method. You choose at random 4 (or fewer) rows of the
 table, and add them up to get a pair $(upright(bold(x)) : y_0)$ with
 $upright(bold(x)) dot.op upright(bold(a)) approx y_0$. Then you take
-$y = y_0 - mu$ (mod $q = 11$ of course), and send the message
+$y = y_0 - m$ (mod $q = 11$ of course), and send the message
 $(upright(bold(x)) : y)$.
 
 == An example
 <an-example>
-Let’s say you randomly choose the first 4 rows:
+Let’s say you randomly choose the 4 rows:
 
 #figure(
   align(center)[#table(
@@ -97,9 +101,9 @@ Let’s say you randomly choose the first 4 rows:
     table.header([Some rows of public key],),
     table.hline(),
     [(1, 0, 1, 7) : 2],
-    [(5, 8, 4, 10) : 9],
+    [(5, 8, 4, 10) : 2],
     [(7, 7, 8, 5) : 3],
-    [(5, 1, 10, 6) : 3],
+    [(5, 1, 10, 6) : 10],
   )]
   , kind: table
   )
@@ -114,6 +118,7 @@ Now you add them up to get the following.
 )],
   kind: table
 )
+(for reference, the actual value is $4$, so our accumulated error is $2$)
 
 Finally, let’s say your message is $m = 5$. So you set
 $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
@@ -130,18 +135,18 @@ $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
 == Decryption
 <decryption>
 Decryption is easy! The decryptor knows
-$ upright(bold(x)) dot.op upright(bold(a)) + epsilon.alt = y + mu $
+$ upright(bold(x)) dot.op upright(bold(a)) + epsilon.alt = y + m $
 where $0 lt.eq epsilon.alt lt.eq 4$.
 
 Plugging in $upright(bold(x))$ and $upright(bold(a))$, the decryptor
 computes $ upright(bold(x)) dot.op upright(bold(a)) = 4 . $ Plugging in
-$y = 1$, we see that $ 4 + epsilon.alt = 1 + mu . $
+$y = 1$, we see that $ 4 + epsilon.alt = 1 + m . $
 
 Now it’s a simple "rounding" problem. We know that $epsilon.alt$ is
-small and positive, so $1 + mu$ is either $4$ or … a little more. (In
-fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $mu$ is
-0 or 5, well, $1 + mu$ had better be 1 or 6… so the only possibility is
-that $1 + mu = 6$, and $mu = 5$.
+small and positive, so $1 + m$ is either $4$ or … a little more (In
+fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
+0 or 5, $1 + m$ had better be 1 or 6, so the only possibility is
+that $m = 5$ (so $1+m = 6$).
 
 == How does this work in general?
 <how-does-this-work-in-general>
@@ -151,30 +156,28 @@ hundreds, and $q$ could be anywhere from "a little bigger than $n$" to
 do FHE, we’re going to want to take $q$ pretty big, so you should
 imagine that $q approx 2^(sqrt(n))$.
 
-For security, the encryption algorithm shouldn’t just take add up 3 or 4
-rows of the public key. In fact we want the encryption algorithm to add
-at least $log (q^n) = n log q$ rows – to be safe, maybe make that number
-a little bigger, say $m = 2 n log q$. Of course, for this to work, the
-public key has to have at least $m$ rows.
-
-So in practice, the public key will have $m = 2 n log q$ rows, and the
+For security, instead of adding $4$ rows of the public key, we want to add
+at least $log (q^n) = n log q$ rows. To be safe, maybe a little bigger, say 
+$m = 2 n log q$ (of course, for this to work, the
+public key has to have at least $m$ rows). The
 encryption algorithm will be "select some subset of the rows at random,
 and add them up".
 
-Of course, combining $m$ rows will have the effect of multiplying the
-error by $m$ – so if the initial $epsilon.alt$ was bounded by $1$, then
+Combining $m$ rows will have the effect of multiplying the
+error by $m$, so if the initial $epsilon.alt$ was bounded by $1$, then
 the error in the ciphertext will be at most $m$. But remember that $q$
 is exponentially large compared to $m$ and $n$ anyway, so a mere factor
-of $m$ isn’t going to scare us!
+of $m$ should not scare us!
 
-Now we could insist that the message is just a single bit – either $0$
-or $⌊q / 2⌋$. Or we could allow the message to be any multiple of some
-constant $r$, where $r$ is bigger than the error bound (right now that’s
-$m$) – which allows you to encode a message space of size $q \/ r$
+To generalize our choice of $m$ in $\{0,5\}$, we could encode a single bit
+by using either $0$ or $⌊q / 2⌋$ to obtain maximum separation and thus
+tolerance to error. Alternatively, we could allow the message to be any
+multiple of some constant $r$, where $r$ is bigger than the error bound (right
+now that’s $m$), which allows you to encode a message space of size $q \/ r$
 rather than just a single bit.
 
 When we do FHE, we’re going to apply many operations to a ciphertext,
 and each is going to cause the error to grow. We’re going to have to put
-some effort into keeping the error under control –
+some effort into keeping the error under control,
 and the size of $q\/ r$ will determine how many operations
 we can do before the error grows too big.

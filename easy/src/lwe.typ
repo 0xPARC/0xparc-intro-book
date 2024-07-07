@@ -63,7 +63,7 @@ $(a_1 , dots.h , a_4)$.
 ]
 
 #gray[
-(Solution sketch; can be skipped safely.) One way to start would be to define an _information
+(*Solution sketch; can be skipped safely.*) One way to start would be to define an _information
 vector_
 $
   (x_1 , x_2 , x_3 , x_4 lr(|y|) S),

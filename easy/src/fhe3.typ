@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Levelled Fully Homomorphic Encryption from Learning with Errors
+= Levelled FHE from LWE
 <fhe>
 
 == The main idea: Approximate eigenvalues
@@ -11,7 +11,7 @@ In other words:
 We want to be able to encrypt bits (0s and 1s)
 and operate on them with AND and NOT gates.
 
-It might help you to imagine that, instead of AND and NOT,
+It might help to imagine that, instead of AND and NOT,
 the operations we want to encrypt are addition and multiplication.
 If $x$ and $y$ are bits, then
 NOT $x$ is just $1 - x$, and $x$ AND $y$ is just $x y$.
