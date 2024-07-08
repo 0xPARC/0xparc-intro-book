@@ -13,7 +13,7 @@ Cryptography is so ubiquitous that it has become invisible:
 
 However, there is actually a lot more cryptography that have been implemented in academic and other smaller circles, such as #cite("https://w.wiki/9fXW", "group signature schemes") (more advanced versions of digital signatures supporting multiple participants) or  commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
 
-Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice. Recent advances in blockchain, especially due to the success of cryptocurrencies, have driven demand for practical implementations of these technologies. Much of this demand can be summarized as:
+Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice, often with a ambitious sense of scale. Their spirit can be summarized as:
 
 #quote[
   We want cryptography that can
@@ -35,11 +35,22 @@ yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
 ]
 
-This led 0xPARC to coin the term _programmable cryptography_ to differentiate this "second generation" technology from "classical" cryptography that solve specific problems and/or involve specific functions. Programmable cryptograph has both a surprisingly high amount of theory but also a surprisingly low amount of implementation. The friction that is happening right now, as theory meets reality, is both exciting and enlightening.
+This led 0xPARC to coin the term _programmable cryptography_ to differentiate 
+this "second generation" technology from "classical" cryptography that solve 
+specific problems and/or involve specific functions. 
+
+Programmable cryptography has both a surprisingly high amount of theory but 
+also a surprisingly low amount of implementation. Recent advances in 
+blockchain, especially due to the success of cryptocurrencies, have driven 
+demand for practical implementations of programmable cryptography. The friction
+that is forming right now, as theory meets reality, is both exciting and 
+enlightening.
 
 == Ideas in programmable cryptography
 
-Our work presents programmable cryptography through specific topics in (to the best of our ability) self-contained "easy pieces," imitating Richard Feynman's approach to physics exposition. We quickly preview them here.
+Our work presents programmable cryptography through specific topics in (to the 
+best of our ability) self-contained "easy pieces," imitating Richard Feynman's 
+approach to wonderful physics exposition. We quickly preview them here.
 
 === 2PC: Two-party computation
 
