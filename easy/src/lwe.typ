@@ -16,7 +16,7 @@ they permit a small "error" --
 and instead of solving for rational or real numbers,
 you're solving for integers modulo $q$.
 
-Here’s a concrete example of a LWE problem and how one might attack it
+Here’s a concrete example of an LWE problem and how one might attack it
 "by hand." This exercise will make the inherent difficulty of the
 problem quite intuitive.
 
@@ -51,12 +51,12 @@ $(a_1 , dots.h , a_4)$.
     [(0, 4, 9, 7) : 5], [(10, 6, 1, 6) : 9],
     [(10, 7, 4, 10) : 10], [(3, 1, 10, 9) : 7],
     [(5, 5, 10, 6) : 9], [(2, 4, 10, 3) : 7],
-    [(10, 7, 3, 1) : 9], [(10, 4, 6, 4) : 2],
-    [(0, 2, 5, 5) : 6], [(8, 5, 7, 2) : 2],
+    [(10, 7, 3, 1) : 9], [(10, 4, 6, 4) : 7],
+    [(0, 2, 5, 5) : 6], [(8, 5, 7, 2) : 5],
     [(9, 10, 2, 1) : 3], [(4, 7, 0, 0) : 8],
     [(3, 7, 2, 1) : 6], [(0, 3, 0, 0) : 0],
-    [(2, 3, 4, 5) : 3], [(8, 3, 2, 7) : 8],
-    [(2, 1, 6, 9) : 3], [(4, 6, 6, 3) : 2],
+    [(2, 3, 4, 5) : 3], [(8, 3, 2, 7) : 5],
+    [(2, 1, 6, 9) : 3], [(4, 6, 6, 3) : 1],
   )]
   , kind: table
   )
@@ -68,7 +68,7 @@ vector_
 $
   (x_1 , x_2 , x_3 , x_4 lr(|y|) S),
 $
-where $S subset F_11$, to
+where $S subset FF_11$, to
 mean the statement
 $ sum a_i x_i = y + s, #text(" where ") s in S. $
 In particular, a purported approximation
