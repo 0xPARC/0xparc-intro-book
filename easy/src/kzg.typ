@@ -167,12 +167,25 @@ To be fully explicit, here is the algorithm:
   Peggy can establish the value of $F$ at any point in $FF_q$.
   Peggy wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.
 
-  1. Both parties compute the polynomial
+  1. If she has not already done so, Peggy sends to Victor
+    a commitment $Com(F)$ to $F$.#footnote[
+      In fact, it is enough for Peggy to have some way
+      to prove to Victor the values of $F$.
+
+      So for example, if $F$ is a product of two polynomials
+      $F = F_1 F_2$, 
+      and Peggy has already sent commitments to $F_1$ and $F_2$,
+      then there is no need for Peggy to commit to $F$.
+
+      Instead, in Step 5 below, Peggy opens $Com(F_1)$ and $Com(F_2)$ at $lambda$,
+      and that proves to Victor the value of $F(lambda) = F_1 (lambda) F_2 (lambda)$.
+    ]
+  2. Both parties compute the polynomial
     $ Z(X) := product_(z in S) (X-z) in FF_q [X]. $
-  2. Peggy does polynomial long division to compute $H(X) = F(X) / Z(X)$.
-  3. Peggy sends $Com(H)$.
-  4. Victor picks a random challenge $lambda in FF_q$
+  3. Peggy does polynomial long division to compute $H(X) = F(X) / Z(X)$.
+  4. Peggy sends $Com(H)$.
+  5. Victor picks a random challenge $lambda in FF_q$
     and asks Peggy to open $Com(H)$ at $lambda$,
     as well as the value of $F$ at $lambda$.
-  5. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
+  6. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
 ] <root-check>
