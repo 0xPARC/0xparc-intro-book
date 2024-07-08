@@ -45,7 +45,7 @@ using a general compiler rather than inventing an algorithm specific to SHA256.
 ]
 
 This led 0xPARC to coin the term _programmable cryptography_ to differentiate 
-this "second generation" technology from "classical" cryptography that solve 
+this "second-generation" technology from "classical" cryptography that solve 
 specific problems and/or involve specific functions. 
 
 Programmable cryptography has both a surprisingly high amount of theory but 
