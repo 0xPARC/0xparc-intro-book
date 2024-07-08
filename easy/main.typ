@@ -5,7 +5,7 @@
 }
 #let part(s) = {
   pagebreak(weak: true)
-  set text(fill: rgb("#002299"))
+  //set text(fill: rgb("#002299"))
   heading(offset: 0, s)
 }
 
