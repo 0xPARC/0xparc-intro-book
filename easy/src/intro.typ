@@ -39,13 +39,6 @@ This led 0xPARC to coin the term _programmable cryptography_ to differentiate
 this "second generation" technology from "classical" cryptography that solve 
 specific problems and/or involve specific functions. 
 
-Programmable cryptography has both a surprisingly high amount of theory but 
-also a surprisingly low amount of implementation. Recent advances in 
-blockchain, especially due to the success of cryptocurrencies, have driven 
-demand for practical implementations of programmable cryptography. The friction
-that is forming right now, as theory meets reality, is both exciting and 
-enlightening.
-
 == Ideas in programmable cryptography
 
 Our work presents programmable cryptography through specific topics in (to the 
@@ -108,22 +101,33 @@ another language and give you $Enc(y)$, where $y$ is the translation of $x$.
 You can then decrypt and obtain $y$, knowing that the server cannot extract 
 anything meaningful from $Enc(x)$ without your secret key.
 
-== Where these fit together
+== From One Door to the Next
 
-MPC, SNARKs, and FHE are just some examples in a huge zoo of cryptographic primitives,
-from the elementary (public-key cryptography)
-to the impossibly powerful (indistinguishability obfuscation).
-There are protocols for MPC, SNARKs, and FHE;
-they are very slow, but they can be implemented and used in practice.
+Programmable cryptography has both a surprisingly high amount of theory but 
+also a surprisingly low amount of implementation. Recent advances in 
+blockchain, especially due to the success of cryptocurrencies, have driven 
+demand for practical implementations of programmable cryptography. The friction
+that is forming right now, as theory meets reality, is both exciting and 
+enlightening.
 
-This whole field is an active area of research.
-- Can we make existing tools (SNARKs, etc.) more efficient?
-  For example, the cost of proving a computation in a SNARK
-  is currently about $10^6$ times the cost of doing the computation directly.
-  Can we bring that number down?
-- What other cryptographic games can we play
-  to develop new sorts of programmable cryptography functionality?
+At least for the protocols we mention, they can be implemented, but usually at a high cost (for example, the cost of proving a computation in a SNARK is currently about $10^6$ times the 
+cost of doing the computation directly). Can we bring that number down? What
+other cryptographic systems can be build on top of this technology?
 
-At 0xPARC, we see this as a door to a new world.
-What sort of systems can we build on top of programmable cryptography?
+It is as if we have stepped through a door into a different biome
+in the Labyrinth of Cryptography. Behind us are a series of doors and rooms 
+that housed great Ideas in first-generation cryptography, where we have
+explored, exploited, and mastered first-generation cryptography for 
+many decades. Suddenly, the rooms in this biome contain Ideas at a much 
+bigger scale. In front of us, intrepid explorers have actually gone even 
+further, into rooms that house even harder to imagine behemoths of Ideas, such
+as witness encryption (WE) and indistinguishability obfuscation (IO). 
 
+It is easy to be carried away by the staggering possibilities and imagine a
+perfect "post-cryptographic" world where everyone has control over all their 
+data and everyone's security preferences are completely fulfilled. It is also 
+easy to be cynical and assume that these ideas will get no further than the next
+version of cryptocurrency scams or private communication servers. Reality in
+technology is always somewhere in the middle, like the Internet that both 
+offers free search and information to everyone but is also mostly being used
+to consume videos. No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography. We hope that these "easy pieces" will inspire you to read, imagine, and build.
