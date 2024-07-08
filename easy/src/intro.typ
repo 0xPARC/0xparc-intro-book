@@ -129,4 +129,6 @@ easy to be cynical and assume that these ideas will get no further than the next
 version of cryptocurrency scams or private communication servers. Reality in
 technology is always somewhere in the middle, like the Internet that both 
 offers free search and information to everyone but is also mostly being used
-to consume videos. No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography before the door into the even deeper biomes. We hope that these "easy pieces" will inspire you to read, imagine, and build.
+to consume videos on the phone. 
+
+No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography before doors that lead into even deeper biomes. We hope that these "easy pieces" will inspire you to read, imagine, and build.
