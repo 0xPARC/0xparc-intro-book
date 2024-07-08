@@ -16,6 +16,7 @@ lets you perform operations on encrypted data. But unlike FHE, there
 will be a limit on the number of operations you can perform before the
 data must be decrypted.
 
+Why is there a limit?
 Loosely speaking, the encryption procedure will involve some sort of
 "noise" or "error." As long as the error is not too big, the message can
 be decoded without trouble. But each operation on the encrypted data
@@ -48,7 +49,7 @@ within the FHE encryption.
 Our protocol uses a cryptosystem built
 from a problem called "learning with errors."
 "Learning with errors" is kind of a strange name;
-we'd call it "approximate linear algebra modulo $q$."
+it would make more sense to call it "approximate linear algebra modulo $q$."
 Anyway, we'll start with the learning-with-errors problem
 (@lwe) and how to build cryptography on top of it (@lwe-crypto)
 before we get back to levelled FHE.

@@ -118,7 +118,7 @@ Now you add them up to get the following.
 )],
   kind: table
 )
-(for reference, the actual value is $4$, so our accumulated error is $2$)
+(For reference, the actual value is $4$, so our accumulated error is $2$.)
 
 Finally, let’s say your message is $m = 5$. So you set
 $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
