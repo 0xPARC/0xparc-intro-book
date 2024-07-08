@@ -207,4 +207,4 @@ If we need to evaluate a bigger circuit, we have two options:
 + Use some technique to "reset" the error
   and start anew, as if with a freshly encrypted ciphertext. This approach is called _bootstrapping_ and it incurs some hefty
   computational costs.
-  But for very, very large circuits, it's the only viable option. Bootstrapping is beyond the scope of this book.
+  But for large circuits, it's the only viable option. Bootstrapping is beyond the scope of this book.
