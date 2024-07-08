@@ -22,6 +22,16 @@ and Victor's verification is much faster.
 (As a tradeoff, writing a SNARK proof of a calculation is much slower
 than just doing the calculation.)
 
+The name stands for:
+
+- _Succinct_: the proof length is short (in fact, it's a constant length,
+  independent of how long the problem is).
+- _Non-interactive_: the protocol does not require back-and-forth communication.
+- _Argument_: basically a proof.
+  There's a technical difference, but we won't worry about it.
+- _of Knowledge_: the proof doesn't just show the system of equations has a solution;
+  it also shows that the prover knows one.
+
 We won't discuss it here, but it is also possible and frequently useful to make a _zero knowledge (zk)_ SNARK. These are typically called "zkSNARKs." This gives Peggy a guarantee
 that Victor will not learn anything about the intermediate steps
 in her calculation, aside from any particular steps Peggy chooses to reveal.

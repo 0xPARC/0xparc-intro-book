@@ -67,56 +67,46 @@ and $0$ if the two inputs are equal),
 and $x_i$ is the $i$-th person's income.
 
 Two-party computation makes a promise that we'll be able to do this
-for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
+for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography. 
 
-=== SNARK: proofs of general problems
+=== SNARK: proofs of general statements
 
-The _SNARK_, first described in 2012,
-provides a way to produce proofs of *arbitrary* problem statements, once the problem statements are encoded as a system of equations in a certain way.
-The name stands for:
+A powerful way of thinking of a signature scheme is that it is a *proof*. Specifically, Alice's signature is a proof that "I [the
+person who generated the signature] know Alice's private key." Similarly, a 
+group signature can be thought of as a succinct proof that "I know one of 
+Alice, Bob, or Charlie's private keys". 
 
-- _Succinct_: the proof length is short (in fact, it's a constant length,
-  independent of how long the problem is).
-- _Non-interactive_: the protocol does not require back-and-forth communication.
-- _Argument_: basically a proof.
-  There's a technical difference, but we won't worry about it.
-- _of Knowledge_: the proof doesn't just show the system of equations has a solution;
-  it also shows that the prover knows one.
+In the spirit of programmable cryptography, a _SNARK_ generalizes this concept
+as a "proof system" protocol that produces efficient proofs of *arbitrary* 
+statements of the form:
 
-One additional feature (which we will not cover in these notes) is
-_zero-knowledge (zk)_ (which turns the abbreviation into "zkSNARK"):
-with a zero-knowledge proof, a person reading the proof
-doesn't learn anything about the solution besides that it's correct.
+#quote[
+  I know $X$ such that $F(X, Y) = Z$, where $Y,Z$ are public.
+]
+once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $op("SHA256") (M) = Y$."
 
-So, you can think of these as generalizing something like a group signature
-scheme to authenticating any sort of transaction:
-
-- A normal signature scheme is a (zero-knowledge, succinct, non-interactive)
-  proof that "I know Alice's private key".
-- A group signature scheme can be construed as a succinct proof that
-  "I know one of Alice, Bob, or Charlie's private keys".
-- But you could also use a zkSNARK to prove a statement like
-  "I know a message $M$ such that $sha(M) = "0x91af3ac..."$",
-  of course without revealing $M$ or anything about $M$.
-- ... Or really any arbitrarily complicated statement.
-
-This is an active area of research,
-and many different proof systems are known.
-These notes focus on one construction, called PLONK (@plonk).
-
+SNARKS are an active area of research, and many different SNARKs are known.
+Our work focuses on a particular example, PLONK (@plonk).
 
 === FHE: Fully homomorphic encryption
 
-In _fully homomorphic encryption_, one person encrypts some data $x$,
-and then anybody can perform arbitrary operations on the encrypted data $x$
-without being able to read $x$.
+Imagine you have some private text that you want to translate into another
+language. While many services today will do this, even for free, we can also
+imagine that you care about security a lot and you really don't want the 
+translating service to know anything about your text at all (e.g. selling the
+text to someone else, adding your text to large language models that can then
+be reverse-engineered to find your private information, blackmail you...).
 
-For example, imagine you have some private text that you want to
-translate into another language.
-You encrypt the text and feed it to your favorite FHE machine translation server.
-You decrypt the server's output and get the translation.
-The server only ever sees encrypted text,
-so the server learns nothing about the text you translated.
+In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
+and then a second person can perform arbitrary operations on the encrypted data
+$x$ without being able to read $x$. 
+
+With this technology, you have a solution to your problem! (and also much more, 
+such as a dating service who does not even know the names of people it provides 
+matchmaking to) You simply encrypt your text $Enc(x)$ and send it to your FHE machine translation server. The server will faithfully translate it into 
+another language and give you $Enc(y)$, where $y$ is the translation of $x$. 
+You can then decrypt and obtain $y$, knowing that the server cannot extract 
+anything meaningful from $Enc(x)$ without your secret key.
 
 == Where these fit together
 
