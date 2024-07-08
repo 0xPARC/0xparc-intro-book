@@ -61,7 +61,7 @@ because he doesn't know the keys.
 No problem!
 Bob just picks out the $i$-th ciphertext $Enc_a (x_i)$,
 adds his own layer of encryption onto it,
-and sends the resulting doubly-encoded message back to Alice:
+and sends the resulting doubly-encrypted message back to Alice:
 $
   Enc_b (Enc_a (x_i)).
 $

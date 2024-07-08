@@ -16,7 +16,7 @@ For PLONK (and Groth16 in the next section), the choice that's used is:
 *systems of quadratic equations over $FF_q$*.
 
 In other words, PLONK is going to give us the ability to prove
-that we have solutions to a system of a system of quadratic equations.
+that we have solutions to a system of quadratic equations.
 #situation[
   Suppose we have a system of $m$ equations in $k$ variables $x_1, dots, x_k$:
   $
@@ -27,20 +27,33 @@ that we have solutions to a system of a system of quadratic equations.
 
   Of these $k$ variables,
   the first $ell$ ($x_1, dots, x_ell$) have publicly known, fixed values;
-  the remaining $ell - k$ are unknown.
+  the remaining $k - ell$ are unknown.
 
   PLONK will let Peggy prove to Victor the following claim:
-  I know $ell - k$ values $x_(ell+1), dots, x_k$ such that
-  (when you combine them with the $k$ public fixed values
-  $x_1, dots, x_k$)
-  the $ell$ values $x_1, dots, x_k$ satisfy all $m$ quadratic equations.
+  I know $k - ell$ values $x_(ell+1), dots, x_k$ such that
+  (when you combine them with the $ell$ public fixed values
+  $x_1, dots, x_ell$)
+  the $k$ values $x_1, dots, x_k$ satisfy all $m$ quadratic equations.
 ]
 
-This leads to the natural question of how a function like SHA256 can be encoded
+This leads to the natural question of how a function like 
+the hash function SHA-256 can be encoded
 into a system of quadratic equations.
 Well, quadratic equations over $FF_q$,
-viewed as an NP-problem called Quad-SAT, is pretty clearly NP-complete,
-as the following example shows:
+viewed as an NP-problem called Quad-SAT, is NP-complete,
+as the following example shows.
+
+(If you're not familiar with NP-completeness,
+the point of the example is to show that
+"any problem" can be converted to a system of quadratic equations,
+so that solutions to the problem give you
+solutions to the system of equations.
+
+In the example, the "any problem" will be encoded 
+as a Boolean algebra problem called 3-SAT:
+a system of constraints, like "(a_1 AND a_2) OR NOT a_3,"
+in variables $a_1, a_2, dots$ that can take the Boolean values
+TRUE or FALSE.)
 
 #remark([Quad-SAT is pretty obviously NP-complete])[
   If you can't see right away that Quad-SAT is NP-complete,
@@ -70,13 +83,13 @@ which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $FF_q$ that can be used in practice.
 Systems like this are called _arithmetic circuits_,
 and Circom is appropriately short for "circuit compiler".
-If you're curious, you can see how SHA256 is implemented in Circom on
+If you're curious, you can see how SHA-256 is implemented in Circom on
 #cite("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
 "GitHub").
 
 So, the first step in proving a claim like
 "I have a message $M$ such that
-  $op("sha")(M) = "0xa91af3ac..."$"
+  $sha(M) = "0xa91af3ac..."$"
 is to translate the claim into a system of quadratic equations.
 This process is called "arithmetization."
 
@@ -131,7 +144,7 @@ systems of quadratic equations of a very particular form:
   we get an "addition" gate
   $a_i + b_i = c_i,$
   while if we set
-  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, 0, -1, 0 ), $
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 0, 0, -1, 1, 0 ), $
   we get a "multiplication" gate
   $a_i b_i = c_i.$
   Finally, if $q$ is any constant, then

@@ -12,7 +12,7 @@ what could be learned by knowing both $a$ and $f (a , b)$), and likewise
 for Bob.
 
 Yao’s Garbled Circuits is one of the most well-known 2PC protocols
-(Vitalik has a great explanation on his
+(Vitalik Buterin has a great explanation on his
 #cite("https://vitalik.eth.limo/general/2020/03/21/garbled.html")[blog];).
 The protocol is quite clever, and optimized variants of the protocol are
 being
@@ -98,7 +98,7 @@ what you think of
 when you think of plain-vanilla encryption:
 You use a secret key $K$ to encrypt a message $m$,
 and then you use the same secret key $K$ to decrypt it.]
-encryption scheme#footnote[We'll talk later about what sort of encryption scheme is suitable for this...]
+encryption scheme
 $Enc$ and publish the following table:
 
 #table(
@@ -169,10 +169,10 @@ We'll need to make two changes to the protocol.
   so the outputs will be (the passwords encoding) 0, 0, 0, 1.
   #table(
   columns: 2,
-  [$sha(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
+  [$hash(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
 )
 
 == How Bob uses one gate
@@ -189,11 +189,11 @@ Let's play through one round of Bob's gate-using protocol.
 2. Bob takes the two passwords, concatenates them, and computes a hash.
   Now Bob has
   $
-    sha(P_0^(text("left")), P_1^(text("right"))).
+    hash(P_0^(text("left")), P_1^(text("right"))).
   $
 
 3. Bob finds the row of the table indexed by
-  $sha(P_0^(text("left")), P_1^(text("right")))$,
+  $hash(P_0^(text("left")), P_1^(text("right")))$,
   and he uses it to look up
   $
     Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out"))).
@@ -204,7 +204,7 @@ Let's play through one round of Bob's gate-using protocol.
   to decrypt
   $P_0^(text("out")).$
 
-5. Now Bob has the password for the bit 0, to feed into the next gate --
+5. Now Bob has the password for the bit 0 to feed into the next gate --
   but he doesn't know his bit is 0.
 
 So Bob is exactly where he started:

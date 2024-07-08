@@ -147,8 +147,8 @@ computes $ upright(bold(x)) dot.op upright(bold(a)) = 4 . $ Plugging in
 $y = 1$, we see that $ 4 + epsilon.alt = 1 + m . $
 
 Now it’s a simple "rounding" problem. We know that $epsilon.alt$ is
-small and positive, so $1 + m$ is either $4$ or … a little more (In
-fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
+small and positive, so $1 + m$ is either $4$ or … a little more. 
+(In fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
 0 or 5, $1 + m$ had better be 1 or 6, so the only possibility is
 that $m = 5$ (so $1+m = 6$).
 

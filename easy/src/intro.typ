@@ -8,12 +8,21 @@
 
 Cryptography is so ubiquitous that it has become invisible:
 - _Encryption_ (hiding and then decoding messages) make people talking to each other over apps and computers talking to each other over protocols (like SSH) secure.
-- _Digital signatures_ (signing a message with some data that anyone can verify must come from some specific identity) authenticates people's identity, so you know that the website you are going to is actually what it says it is.
-- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) allows people to set up instructure remotely to do other cryptography, such as faster encryption algorithms.
+- _Digital signatures_ 
+  (signing a message with some data that anyone can verify must come from some specific identity) 
+  authenticate people's identity, so you know that the website you are going to is actually what it says it is.
+- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) 
+  allow people to set up secure connections remotely, 
+  without having to meet in person to agree on a key.
 
-However, there is actually a lot more cryptography that have been implemented in academic and other smaller circles, such as #cite("https://w.wiki/9fXW", "group signature schemes") (more advanced versions of digital signatures supporting multiple participants) or  commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
+However, there is actually a lot more cryptography that has been implemented in academic and other smaller circles, 
+such as #cite("https://w.wiki/9fXW", "group signature schemes") 
+(more advanced versions of digital signatures supporting multiple participants) 
+and commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
 
-Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice, often with a ambitious sense of scale. Their spirit can be summarized as:
+Even beyond this, there is cryptography that has been theoretically constructed 
+but barely (or never) tried in practice, often with a ambitious sense of scale. 
+Its spirit can be summarized as:
 
 #quote[
   We want cryptography that can
@@ -28,15 +37,15 @@ do any computation so long as someone writes code for it.
 
 #remark[
   The quote on the title page
-("I have a message $M$ such that $op("sha")(M) = "0x91af3ac..."$")
+("I have a message $M$ such that $sha(M) = "0x91af3ac..."$")
 is a concrete example.
-The hash function SHA is a particular set of arbitrary instructions,
+The hash function sha is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
-using a general compiler rather than inventing an algorithm specific to SHA256.
+using a general compiler rather than inventing an algorithm specific to SHA-256.
 ]
 
 This led 0xPARC to coin the term _programmable cryptography_ to differentiate 
-this "second generation" technology from "classical" cryptography that solve 
+this "second-generation" technology from "classical" cryptography that solve 
 specific problems and/or involve specific functions. 
 
 == Ideas in programmable cryptography
@@ -76,7 +85,7 @@ statements of the form:
 #quote[
   I know $X$ such that $F(X, Y) = Z$, where $Y,Z$ are public.
 ]
-once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $op("SHA256") (M) = Y$."
+once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $sha(M) = Y$."
 
 SNARKS are an active area of research, and many different SNARKs are known.
 Our work focuses on a particular example, PLONK (@plonk).
@@ -88,18 +97,23 @@ language. While many services today will do this, even for free, we can also
 imagine that you care about security a lot and you really don't want the 
 translating service to know anything about your text at all (e.g. selling the
 text to someone else, adding your text to large language models that can then
-be reverse-engineered to find your private information, blackmail you...).
+be reverse-engineered to find your private information, blackmailing you...).
 
 In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
 and then a second person can perform arbitrary operations on the encrypted data
 $x$ without being able to read $x$. 
 
-With this technology, you have a solution to your problem! (and also much more, 
-such as a dating service who does not even know the names of people it provides 
-matchmaking to) You simply encrypt your text $Enc(x)$ and send it to your FHE machine translation server. The server will faithfully translate it into 
+With this technology, you have a solution to your problem!  
+You simply encrypt your text $Enc(x)$ and send it to your FHE machine translation server. 
+The server will faithfully translate it into 
 another language and give you $Enc(y)$, where $y$ is the translation of $x$. 
 You can then decrypt and obtain $y$, knowing that the server cannot extract 
 anything meaningful from $Enc(x)$ without your secret key.
+
+(You could imagine many more applications of FHE, 
+such as a dating service that does not even know the names of people it 
+provides 
+matchmaking to.)
 
 == From One Door to the Next
 
@@ -113,14 +127,6 @@ enlightening.
 At least for the protocols we mention, they can be implemented, but usually at a high cost (for example, the cost of proving a computation in a SNARK is currently about $10^6$ times the 
 cost of doing the computation directly). Can we bring that number down? What
 other cryptographic systems can be build on top of this technology?
-
-In the Labyrinth of Cryptography, behind us are a series of doors and rooms 
-that housed great Ideas in first-generation cryptography; we have
-explored, exploited, and mastered these Ideas for 
-many decades. After a specific door, however, the rooms in the Labyrinth
-suddenly now house Ideas at a much bigger scale, as if we stepped into a 
-completely different biome. In front of us, intrepid explorers have actually gone even further, into rooms that house even bigger behemoths of Ideas, such
-as witness encryption (WE) and indistinguishability obfuscation (IO). 
 
 It is easy to be carried away by the staggering possibilities and imagine a
 perfect "post-cryptographic" world where everyone has control over all their 
