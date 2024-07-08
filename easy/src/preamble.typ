@@ -67,16 +67,6 @@
 // we will see no blue text but will see subscriipt instead)
 // and false if we are just doing a pdf
 #let print_flag = true
-
-#let cite(linktext, text) = {
-  if (print_flag == true) {
-    text
-    footnote(linktext)
-  } else {
-    link(linktext, text)
-  }
-}
-
 #let green(body) = block(
     fill: rgb("#aaeed9"),
     inset: 8pt,
@@ -94,6 +84,16 @@
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
 }
+
+#let cite(target_url, plaintext) = {
+  if (print_flag == true) {
+    plaintext
+    footnote(url(target_url))
+  } else {
+    link(target_url, text(font:fonts.mono, plaintext))
+  }
+}
+
 #let pmod(x) = $space (mod #x)$
 
 // Main entry point to use in a global show rule
