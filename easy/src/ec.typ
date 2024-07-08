@@ -328,7 +328,7 @@ for the prime $p := 2^(255)-19$.
 Its order is $8$ times a large prime
 $ q' := 2^(252) + 27742317777372353535851937790883648493. $
 In that case, to generate a random point on Curve25519 with order $q'$,
-one will usually take a random point in it and multiply it by $8$.
+one will usually take a random point on the curve and multiply it by $8$.
 
 BN254 is also engineered to have a property called _pairing-friendly_,
 which is defined in @pairing-friendly when we need it later.

@@ -16,7 +16,7 @@ For PLONK (and Groth16 in the next section), the choice that's used is:
 *systems of quadratic equations over $FF_q$*.
 
 In other words, PLONK is going to give us the ability to prove
-that we have solutions to a system of a system of quadratic equations.
+that we have solutions to a system of quadratic equations.
 #situation[
   Suppose we have a system of $m$ equations in $k$ variables $x_1, dots, x_k$:
   $
