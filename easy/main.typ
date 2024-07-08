@@ -18,7 +18,7 @@
 
 #quote[
   I can now prove to you that I have a message $M$ such that
-  $op("sha")(M) = "0xa91af3ac..."$, without revealing $M$.
+  $op("SHA")(M) = "0xa91af3ac..."$, without revealing $M$.
   But not just for SHA. I can do this for any function you want.
 ]
 
