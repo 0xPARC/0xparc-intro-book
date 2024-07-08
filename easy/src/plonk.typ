@@ -144,7 +144,7 @@ systems of quadratic equations of a very particular form:
   we get an "addition" gate
   $a_i + b_i = c_i,$
   while if we set
-  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, 0, -1, 0 ), $
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 0, 0, -1, 1, 0 ), $
   we get a "multiplication" gate
   $a_i b_i = c_i.$
   Finally, if $q$ is any constant, then
