@@ -8,10 +8,17 @@
 
 Cryptography is so ubiquitous that it has become invisible:
 - _Encryption_ (hiding and then decoding messages) make people talking to each other over apps and computers talking to each other over protocols (like SSH) secure.
-- _Digital signatures_ (signing a message with some data that anyone can verify must come from some specific identity) authenticates people's identity, so you know that the website you are going to is actually what it says it is.
-- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) allows people to set up instructure remotely to do other cryptography, such as faster encryption algorithms.
+- _Digital signatures_ 
+  (signing a message with some data that anyone can verify must come from some specific identity) 
+  authenticate people's identity, so you know that the website you are going to is actually what it says it is.
+- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) 
+  allow people to set up secure connections remotely, 
+  without having to meet in person to agree on a key.
 
-However, there is actually a lot more cryptography that have been implemented in academic and other smaller circles, such as #cite("https://w.wiki/9fXW", "group signature schemes") (more advanced versions of digital signatures supporting multiple participants) or  commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
+However, there is actually a lot more cryptography that has been implemented in academic and other smaller circles, 
+such as #cite("https://w.wiki/9fXW", "group signature schemes") 
+(more advanced versions of digital signatures supporting multiple participants) 
+and commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
 
 Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice, often with a ambitious sense of scale. Their spirit can be summarized as:
 
