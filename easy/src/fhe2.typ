@@ -59,6 +59,10 @@ The private key is simply the vector $a$.
   , kind: table
   )
 
+Since the LWE problem is hard,
+we can release the public key to everybody,
+and they will not be able to determine the private key.
+
 == Encryption
 <how-to-encrypt-mu>
 Suppose you have a message $m in { 0 , 5 }$. (You’ll see in a moment why
