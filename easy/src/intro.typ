@@ -6,59 +6,50 @@
 
 == What is programmable cryptography?
 
-Cryptography is everywhere now
-and needs no introduction.
-Let's consider two examples of what protocols designed by
-classical cryptography can achieve:
+Cryptography is so ubiquitous that it has become invisible:
+- _Encryption_ (hiding and then decoding messages) make people talking to each other over apps and computers talking to each other over protocols (like SSH) secure.
+- _Digital signatures_ (signing a message with some data that anyone can verify must come from some specific identity) authenticates people's identity, so you know that the website you are going to is actually what it says it is.
+- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) allows people to set up instructure remotely to do other cryptography, such as faster encryption algorithms.
 
-- *Proofs*. An example of this is digital signature algorithms like RSA,
-  where Alice can do some protocol to prove to Bob that a message was sent by her.
-  A more complicated example might be a
-  #cite("https://w.wiki/9fXW", "group signature scheme"),
-  allowing one member of a group to sign a message on behalf of a group.
+However, there is actually a lot more cryptography that have been implemented in academic and other smaller circles, such as #cite("https://w.wiki/9fXW", "group signature schemes") (more advanced versions of digital signatures supporting multiple participants) or  commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
 
-- *Hiding inputs*. For example, consider
-  #cite("https://w.wiki/9fXQ", "Yao's millionaire problem"),
-  where Alice and Bob wants to know which of them has more money
-  without learning each other's incomes.
-
-Classically, first-generation cryptography relied on coming up for a protocol
-for solving given problems or computing certain functions. _Programmable cryptography_ is a term coined by 0xPARC for a second generation
-of cryptographic primitives that have arisen in the last 15 or so years.
-The goal of this "second-generation cryptography" can be described as:
+Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice. Recent advances in blockchain, especially due to the success of cryptocurrencies, have driven demand for practical implementations of these technologies. Much of this demand can be summarized as:
 
 #quote[
-  We want to devise cryptographic primitives that can
-  be programmed to work on *arbitrary* problems and functions,
+  We want cryptography that can
+  be "programmed" to work on *arbitrary* problems and functions,
   rather than designing protocols on a per-problem or per-function basis.
 ]
 
-To draw an analogy, it's sort of like going from older single-purpose hardware,
-like a digital alarm clock or thermostat,
-to a general-purpose device, like a smartphone, which can
+To draw an analogy, it's like going from single-purpose hardware
+(like a digital alarm clock or thermostat)
+to a general-purpose device (like a smartphone) which can
 do any computation so long as someone writes code for it.
 
-The quote on the title page
+#remark[
+  The quote on the title page
 ("I have a message $M$ such that $op("sha")(M) = "0x91af3ac..."$")
 is a concrete example.
 The hash function SHA is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA256.
+]
+
+This led 0xPARC to coin the term _programmable cryptography_ to differentiate this "second generation" technology from "classical" cryptography that solve specific problems and/or involve specific functions. Programmable cryptograph has both a surprisingly high amount of theory but also a surprisingly low amount of implementation. The friction that is happening right now, as theory meets reality, is both exciting and enlightening.
 
 == Ideas in programmable cryptography
 
-These notes address programmable cryptography through expositions on specific topics. We quickly preview them here.
+Our work presents programmable cryptography through specific topics in (to the best of our ability) self-contained "easy pieces," imitating Richard Feynman's approach to physics exposition. We quickly preview them here.
 
 === 2PC: Two-party computation
 
-In a _two-party computation_, two people want to
+In a _two-party computation (2PC)_, two people want to
 jointly compute some known function
 $ F(x_1, x_2), $
-where the $i$-th person only knows the input $x_i$ ---
-and they want to do it without either person learning the other person's input.
+where the $i$-th person only knows the input $x_i$, without either person learning the other person's input.
 
-For example, in Yao's millionaire problem --- Alice and Bob
-want to know who has a higher income without revealing the incomes themselves.
+For example, in  #cite("https://w.wiki/9fXQ", "Yao's millionaire problem"), Alice and Bob
+want to know who has a higher income without revealing their own amounts.
 This is the case where $F$ is the comparison function
 ($F(x_1, x_2)$ is $1$ if $x_1 > x_2$, $2$ if $x_2 > x_1$,
 and $0$ if the two inputs are equal),
