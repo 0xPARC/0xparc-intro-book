@@ -161,7 +161,7 @@ bigger, say $n approx r log q$, to get the same level of security.
 Now let’s compute more carefully what happens to the error when we add,
 negate, and multiply bits. Suppose
 $ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + epsilon.alt_1 , $ where
-$epsilon.alt_1$ is some vector with all its entries upper bounded by some
+$epsilon.alt_1$ is some vector with all its entries bounded by some
 $B$. (And similarly for $C_2$ and $mu_2$.)
 
 When we add two ciphertexts, the errors add:
