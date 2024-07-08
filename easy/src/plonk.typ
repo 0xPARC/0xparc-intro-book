@@ -447,7 +447,7 @@ $
     sigma_a (omega^3) = omega^3,
     sigma_b (omega^3) = eta omega^3,
     sigma_c (omega^3) = eta^2 omega^3;
-    sigma_a (omega^4) = #rbox($omega^r$),
+    sigma_a (omega^4) = #rbox($omega^1$),
     sigma_b (omega^4) = eta omega^4,
     sigma_c (omega^4) = #rbox($omega^4$).
   )
