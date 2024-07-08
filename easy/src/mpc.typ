@@ -204,7 +204,7 @@ Let's play through one round of Bob's gate-using protocol.
   to decrypt
   $P_0^(text("out")).$
 
-5. Now Bob has the password for the bit 0, to feed into the next gate --
+5. Now Bob has the password for the bit 0 to feed into the next gate --
   but he doesn't know his bit is 0.
 
 So Bob is exactly where he started:
