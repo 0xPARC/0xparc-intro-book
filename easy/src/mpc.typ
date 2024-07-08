@@ -98,7 +98,7 @@ what you think of
 when you think of plain-vanilla encryption:
 You use a secret key $K$ to encrypt a message $m$,
 and then you use the same secret key $K$ to decrypt it.]
-encryption scheme#footnote[We'll talk later about what sort of encryption scheme is suitable for this...]
+encryption scheme
 $Enc$ and publish the following table:
 
 #table(
