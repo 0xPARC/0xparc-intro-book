@@ -20,7 +20,9 @@ such as #cite("https://w.wiki/9fXW", "group signature schemes")
 (more advanced versions of digital signatures supporting multiple participants) 
 and commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
 
-Even beyond this, there is cryptography that have been theoretically constructed but barely (or never) tried in practice, often with a ambitious sense of scale. Their spirit can be summarized as:
+Even beyond this, there is cryptography that has been theoretically constructed 
+but barely (or never) tried in practice, often with a ambitious sense of scale. 
+Its spirit can be summarized as:
 
 #quote[
   We want cryptography that can
