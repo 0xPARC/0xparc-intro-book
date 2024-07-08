@@ -110,12 +110,16 @@ In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
 and then a second person can perform arbitrary operations on the encrypted data
 $x$ without being able to read $x$. 
 
-With this technology, you have a solution to your problem! (and also much more, 
-such as a dating service who does not even know the names of people it provides 
-matchmaking to) You simply encrypt your text $Enc(x)$ and send it to your FHE machine translation server. The server will faithfully translate it into 
+With this technology, you have a solution to your problem!  
+You simply encrypt your text $Enc(x)$ and send it to your FHE machine translation server. 
+The server will faithfully translate it into 
 another language and give you $Enc(y)$, where $y$ is the translation of $x$. 
 You can then decrypt and obtain $y$, knowing that the server cannot extract 
 anything meaningful from $Enc(x)$ without your secret key.
+
+(You could imagine many more applications of FHE, 
+such as a dating service that does not even know the names of people it provides 
+matchmaking to.)
 
 == Where these fit together
 
@@ -134,5 +138,5 @@ This whole field is an active area of research.
   to develop new sorts of programmable cryptography functionality?
 
 At 0xPARC, we see this as a door to a new world.
-What sort of systems can we build on top of programmable cryptography?
+What sorts of systems can we build on top of programmable cryptography?
 
