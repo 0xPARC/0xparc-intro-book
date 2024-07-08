@@ -37,11 +37,11 @@ do any computation so long as someone writes code for it.
 
 #remark[
   The quote on the title page
-("I have a message $M$ such that $op("sha")(M) = "0x91af3ac..."$")
+("I have a message $M$ such that $sha(M) = "0x91af3ac..."$")
 is a concrete example.
-The hash function SHA is a particular set of arbitrary instructions,
+The hash function sha is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
-using a general compiler rather than inventing an algorithm specific to SHA256.
+using a general compiler rather than inventing an algorithm specific to SHA-256.
 ]
 
 This led 0xPARC to coin the term _programmable cryptography_ to differentiate 
@@ -92,7 +92,7 @@ statements of the form:
 #quote[
   I know $X$ such that $F(X, Y) = Z$, where $Y,Z$ are public.
 ]
-once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $op("SHA256") (M) = Y$."
+once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $sha(M) = Y$."
 
 SNARKS are an active area of research, and many different SNARKs are known.
 Our work focuses on a particular example, PLONK (@plonk).

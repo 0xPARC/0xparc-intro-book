@@ -169,10 +169,10 @@ We'll need to make two changes to the protocol.
   so the outputs will be (the passwords encoding) 0, 0, 0, 1.
   #table(
   columns: 2,
-  [$sha(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$sha(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
+  [$hash(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+  [$hash(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
 )
 
 == How Bob uses one gate
@@ -189,11 +189,11 @@ Let's play through one round of Bob's gate-using protocol.
 2. Bob takes the two passwords, concatenates them, and computes a hash.
   Now Bob has
   $
-    sha(P_0^(text("left")), P_1^(text("right"))).
+    hash(P_0^(text("left")), P_1^(text("right"))).
   $
 
 3. Bob finds the row of the table indexed by
-  $sha(P_0^(text("left")), P_1^(text("right")))$,
+  $hash(P_0^(text("left")), P_1^(text("right")))$,
   and he uses it to look up
   $
     Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out"))).

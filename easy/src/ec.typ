@@ -372,7 +372,7 @@ given her published public key $[d]$.
   1. Alice picks a random scalar $r in FF_q$ (keeping this secret)
     and publishes $[r] in E$.
   2. Alice generates a number $n in FF_q$ by hashing $msg$ with all public information,
-    say $ n := sha([r], msg, [d]). $
+    say $ n := hash([r], msg, [d]). $
   3. Alice publishes the integer $ s := (r + d n) mod q. $
 
   In other words, the signature is the ordered pair $([r], s)$.
@@ -394,7 +394,7 @@ The number $r$ is called a _blinding factor_ because
 its use prevents Bob from stealing Alice's secret key $d$ from the published $s$.
 It's therefore imperative that $r$ isn't known to Bob
 nor reused between signatures, and so on.
-One way to do this would be to pick $r = sha(d, msg)$; this has the
+One way to do this would be to pick $r = hash(d, msg)$; this has the
 bonus that it's deterministic as a function of the message and signer.
 
 In @kzg we will use ideas quite similar to this to

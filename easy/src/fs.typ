@@ -62,10 +62,10 @@ Fiat--Shamir turns it into the following noninteractive protocol.
   known to both Peggy and Victor.
 
   1. Peggy sends $Com(F)$ and $Com(H)$.
-  2. Peggy computes $lambda in FF_q$ by $lambda = sha(Com(F), Com(H))$.
+  2. Peggy computes $lambda in FF_q$ by $lambda = hash(Com(F), Com(H))$.
   3. Peggy opens both $Com(F)$ and $Com(H)$ at $lambda$.
   4. Victor verifies that
-    $lambda = sha(Com(F), Com(H))$ and $F(lambda) = Z(lambda) H(lambda)$.
+    $lambda = hash(Com(F), Com(H))$ and $F(lambda) = Z(lambda) H(lambda)$.
 ]
 
 We can apply the Fiat--Shamir heuristic to the full PLONK protocol.

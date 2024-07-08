@@ -1,5 +1,6 @@
 #let pair = math.op("pair")
-#let sha = math.op("hash")
+#let sha = math.op("sha")
+#let hash = math.op("hash")
 #let msg = math.sans("msg")
 #let Com = math.op("Com")
 #let Flatten = math.op("Flatten")
