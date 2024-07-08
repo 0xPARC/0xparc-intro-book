@@ -48,7 +48,7 @@ This led 0xPARC to coin the term _programmable cryptography_ to differentiate
 this "second-generation" technology from "classical" cryptography that solve 
 specific problems and/or involve specific functions. 
 
-Programmable cryptography has both a surprisingly high amount of theory but 
+Programmable cryptography has a surprisingly high amount of theory but 
 also a surprisingly low amount of implementation. Recent advances in 
 blockchain, especially due to the success of cryptocurrencies, have driven 
 demand for practical implementations of programmable cryptography. The friction
@@ -104,7 +104,7 @@ language. While many services today will do this, even for free, we can also
 imagine that you care about security a lot and you really don't want the 
 translating service to know anything about your text at all (e.g. selling the
 text to someone else, adding your text to large language models that can then
-be reverse-engineered to find your private information, blackmail you...).
+be reverse-engineered to find your private information, blackmailing you...).
 
 In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
 and then a second person can perform arbitrary operations on the encrypted data
