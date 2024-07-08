@@ -116,9 +116,9 @@ other cryptographic systems can be build on top of this technology?
 
 It is as if we have stepped through a door into a different biome
 in the Labyrinth of Cryptography. Behind us are a series of doors and rooms 
-that housed great Ideas in first-generation cryptography, where we have
-explored, exploited, and mastered first-generation cryptography for 
-many decades. Suddenly, the rooms in this biome contain Ideas at a much 
+that housed great Ideas in first-generation cryptography; we have
+explored, exploited, and mastered these Ideas for 
+many decades. Abruptly, the rooms in this new biome contain Ideas at a much 
 bigger scale. In front of us, intrepid explorers have actually gone even 
 further, into rooms that house even harder to imagine behemoths of Ideas, such
 as witness encryption (WE) and indistinguishability obfuscation (IO). 
@@ -130,4 +130,4 @@ easy to be cynical and assume that these ideas will get no further than the next
 version of cryptocurrency scams or private communication servers. Reality in
 technology is always somewhere in the middle, like the Internet that both 
 offers free search and information to everyone but is also mostly being used
-to consume videos. No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography. We hope that these "easy pieces" will inspire you to read, imagine, and build.
+to consume videos. No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography before the door into the even deeper biomes. We hope that these "easy pieces" will inspire you to read, imagine, and build.
