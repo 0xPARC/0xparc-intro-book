@@ -19,7 +19,7 @@ But "1-of-$n$ OT" isn't any harder, so we'll do 1-of-$n$.)
 
 Let's imagine that Alice and Bob
 have access to some encryption scheme that is _commutative_:
-$ Dec_B ( Dec_A ( Enc_B ( Enc_A (x) ) ) ) = x. $
+$ Dec_b ( Dec_a ( Enc_b ( Enc_a (x) ) ) ) = x. $
 
 In other words, if Alice encrypts a message,
 and Bob applies a second layer of encryption to the encrypted message,
