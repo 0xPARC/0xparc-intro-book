@@ -71,7 +71,7 @@ for _any_ function $F$ as long as we can implement it in code. It generalizes to
 
 == SNARK: proofs of general statements
 
-A powerful way of thinking of a signature scheme is that it is a *proof*. Specifically, Alice's signature is a proof that "I [the
+A powerful way of thinking about a signature scheme is that it is a *proof*. Specifically, Alice's signature is a proof that "I [the
 person who generated the signature] know Alice's private key." Similarly, a
 group signature can be thought of as a succinct proof that "I know one of
 Alice, Bob, or Charlie's private keys".
