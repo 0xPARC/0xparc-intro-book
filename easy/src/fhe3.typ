@@ -26,7 +26,7 @@ modulo $q$ – but we’ll also allow the calculations to have a small
 $q$.
 
 As before, our #emph[secret key] will be a vector of length $n$:
-$ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n. $ 
+$ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n. $
 Suppose
 we want to encode a message $mu$ that’s just a single bit, let’s say
 $mu in { 0 , 1 }$. Our ciphertext will be a square $n$-by-$n$ matrix $C$
@@ -128,7 +128,7 @@ $(1 , 0 , 0 , 1)$ is the binary expansion of $9$.
 
 #problem[
 How would you flatten a different vector, like
-$ upright(bold(x)) = (9 , 3 , 1 , 4) ? $ 
+$ upright(bold(x)) = (9 , 3 , 1 , 4) ? $
 As a hint, remember we’re working with numbers modulo 11: so if
 you come across a number that’s bigger than 11 in your calculation, it’s
 safe to reduce it mod 11.

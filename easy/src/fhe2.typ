@@ -26,21 +26,21 @@ set" will be exactly the public key.
     align: (auto,),
     table.header([Public Key],),
     table.hline(),
-    [(1, 0, 1, 7) : 2], 
-    [(5, 8, 4, 10) : 2], 
-    [(7, 7, 8, 5) : 3], 
-    [(5, 1, 10, 6) : 10], 
-    [(8, 0, 2, 4) : 9], 
-    [(9, 3, 0, 6) : 9], 
-    [(0, 6, 1, 6) : 9], 
-    [(0, 4, 9, 7) : 5], 
+    [(1, 0, 1, 7) : 2],
+    [(5, 8, 4, 10) : 2],
+    [(7, 7, 8, 5) : 3],
+    [(5, 1, 10, 6) : 10],
+    [(8, 0, 2, 4) : 9],
+    [(9, 3, 0, 6) : 9],
+    [(0, 6, 1, 6) : 9],
+    [(0, 4, 9, 7) : 5],
     [(10, 7, 4, 10) : 10],
-    [(5, 5, 10, 6) : 9], 
-    [(10, 7, 3, 1) : 9], 
-    [(0, 2, 5, 5) : 6], 
-    [(9, 10, 2, 1) : 3], 
+    [(5, 5, 10, 6) : 9],
+    [(10, 7, 3, 1) : 9],
+    [(0, 2, 5, 5) : 6],
+    [(9, 10, 2, 1) : 3],
     [(3, 7, 2, 1) : 6],
-    [(2, 3, 4, 5) : 3], 
+    [(2, 3, 4, 5) : 3],
     [(2, 1, 6, 9) : 3],
   )]
   , kind: table
@@ -147,7 +147,7 @@ computes $ upright(bold(x)) dot.op upright(bold(a)) = 4 . $ Plugging in
 $y = 1$, we see that $ 4 + epsilon.alt = 1 + m . $
 
 Now it’s a simple "rounding" problem. We know that $epsilon.alt$ is
-small and positive, so $1 + m$ is either $4$ or … a little more. 
+small and positive, so $1 + m$ is either $4$ or … a little more.
 (In fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
 0 or 5, $1 + m$ had better be 1 or 6, so the only possibility is
 that $m = 5$ (so $1+m = 6$).
@@ -161,7 +161,7 @@ do FHE, we’re going to want to take $q$ pretty big, so you should
 imagine that $q approx 2^(sqrt(n))$.
 
 For security, instead of adding $4$ rows of the public key, we want to add
-at least $log (q^n) = n log q$ rows. To be safe, maybe a little bigger, say 
+at least $log (q^n) = n log q$ rows. To be safe, maybe a little bigger, say
 $m = 2 n log q$ (of course, for this to work, the
 public key has to have at least $m$ rows). The
 encryption algorithm will be "select some subset of the rows at random,

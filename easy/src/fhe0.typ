@@ -9,7 +9,7 @@ Actually, Alice wants Bob to compute $f(x)$ -- but
 she doesn't want to tell him $x$. What Alice wants is a _fully homomorphic encryption (FHE)_ protocol, meaning:
 1. Alice encrypts $x$ and sends Bob $Enc (x)$.
 2. Bob then "applies $f$ to the ciphertext" and obtains $Enc (f(x))$, sending it to Alice.
-3. Alice decrypts $Enc (f(x))$ to learn $f(x)$. 
+3. Alice decrypts $Enc (f(x))$ to learn $f(x)$.
 
 _Levelled FHE_ is a weaker version of FHE. Like FHE, levelled FHE
 lets you perform operations on encrypted data. But unlike FHE, there
@@ -27,7 +27,7 @@ operations you can do before the error gets too big.
 As a sort of silly example, imagine your message is a whole number
 between 0 and 10 (so it’s one of 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), and
 your "encryption scheme" encrypts the message as a real number that is
-very close to the message, and decrypts a real number by "round to the nearest integer." So, the message 2 might be encrypted as 1.999832. 
+very close to the message, and decrypts a real number by "round to the nearest integer." So, the message 2 might be encrypted as 1.999832.
 
 (You might be thinking: This is some pretty terrible cryptography,
 because the message isn’t secure. Anyone can figure out how to round a

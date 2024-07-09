@@ -13,8 +13,8 @@ perform proofs for arbitrary functions.
 That means we need a "programming language" that we'll write our function in.
 For PLONK, the choice that's used is:
 *systems of quadratic equations over $FF_q$*. In other words, PLONK is going to
-give us the ability to prove that we have solutions to a system of quadratic 
-equations. 
+give us the ability to prove that we have solutions to a system of quadratic
+equations.
 
 #situation[
   Suppose we have a system of $m$ equations in $k$ variables $x_1, dots, x_k$:
@@ -38,15 +38,15 @@ equations.
 This leads to the natural question of how a function like SHA-256 can be encoded
 into a system of quadratic equations. This process of encoding a problem
 into algebra is called _arithmetization_. It turns out that quadratic equations
-over $FF_q$, viewed as an NP problem called Quad-SAT, is _NP-complete_; 
-in other words, any NP problem can be rewritten as a system of quadratic equations. 
+over $FF_q$, viewed as an NP problem called Quad-SAT, is _NP-complete_;
+in other words, any NP problem can be rewritten as a system of quadratic equations.
 If you are not familiar with this concept, the upshot is that Quad-SAT
 being NP-complete means it can serve as a reasonable arithmetization that can
 express most reasonable (NP) problems.
 
 #remark([Quad-SAT is NP-complete])[
-  We assume knowledge of 3-SAT and it being NP-complete. 
-  The following example instance illustrates how to convert 
+  We assume knowledge of 3-SAT and it being NP-complete.
+  The following example instance illustrates how to convert
   any instance of 3-SAT into a Quad-SAT problem:
   $
     x_i^2 &= x_i #h(1em) forall 1 <= i <= 1000 & \

@@ -42,7 +42,7 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
   this is a case of the discrete logarithm problem.
 
   You can make the protocol somewhat more secure by involving several different trusted parties.
-  The first party chooses a random $s_1$, computes $[s_1^0], ..., [s_1^M]$, 
+  The first party chooses a random $s_1$, computes $[s_1^0], ..., [s_1^M]$,
   and then discards $s_1$.
   The second party chooses $s_2$ and computes
   $[(s_1 s_2)^0], ..., [(s_1 s_2)^M]$.
@@ -174,7 +174,7 @@ To be fully explicit, here is the algorithm:
       to prove to Victor the values of $F$.
 
       So for example, if $F$ is a product of two polynomials
-      $F = F_1 F_2$, 
+      $F = F_1 F_2$,
       and Peggy has already sent commitments to $F_1$ and $F_2$,
       then there is no need for Peggy to commit to $F$.
 
