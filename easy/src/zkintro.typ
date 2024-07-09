@@ -12,12 +12,12 @@ is too lazy to redo the whole calculation himself.
   and she wants to prove that she found a solution
   without saying what the solution is.
 - Maybe it's just a really long, annoying calculation,
-  and Victor doesn't have the energy to check it all line-by-line.
+  and Victor does not have the energy to check it all line-by-line.
 
 A _SNARK_#h(0.05em) lets Peggy (the "prover")
 send Victor (the "verifier") a short proof
 that she has indeed done the calculation correctly.
-The proof will much shorter than the original calculation,
+The proof will be much shorter than the original calculation,
 and Victor's verification is much faster.
 (As a tradeoff, writing a SNARK proof of a calculation is much slower
 than just doing the calculation.)

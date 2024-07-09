@@ -5,7 +5,7 @@
 
 = Copy Constraints in PLONK <copy-constraints>
 
-The last step is to check the copy constraints.
+Now we elaborate on Step 3 which we deferred back in @copy-constraint-deferred.
 As an example, the constraints might be:
 $ a_1 = a_4 = c_4
   #h(1em) "and" #h(1em)
@@ -212,9 +212,9 @@ There are six initialization conditions
     F_a (omega^1) &= A(omega^1) + omega^1 mu + lambda \
     F_b (omega^1) &= B(omega^1) + eta omega^1 mu + lambda \
     F_c (omega^1) &= C(omega^1) + eta^2 omega^1 mu + lambda \
-    F_a (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
-    F_b (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
-    F_c (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
+    F_a' (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
+    F_b' (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
+    F_c' (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
   $
   <copycheck-init>
 ]
