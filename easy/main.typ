@@ -19,7 +19,7 @@
 )
 
 #quote[
-  I can now prove to you that I have a message $M$ such that
+  I can prove to you that I have a message $M$ such that
   $sha(M) = "0xa91af3ac..."$, without revealing $M$.
   But not just for the hash function sha.
   I can do this for any function you want.
