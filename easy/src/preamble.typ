@@ -119,7 +119,8 @@
   set page(
     width: 5.5in,
     height: 8.5in,
-    margin: auto,
+    margin: (inside: 0.6in, outside: 0.4in, y: 0.75in),
+    header-ascent: 50%,
     header: context {
       set text(size:0.8em)
       if (not maketitle or counter(page).get().first() > 1) {
