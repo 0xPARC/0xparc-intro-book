@@ -20,7 +20,7 @@ To be concrete, let's consider two examples of what protocols designed by classi
 - _Confidential computing_. For example, consider
   #cite("https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem", "Yao's millionaire problem"),
   where Alice and Bob wants to know which of them makes more money
-  without learning each others' actual incomes.
+  without learning anything more about each other's incomes.
 
 Classically, first-generation cryptography relied on coming up with a protocol
 for solving given problems or computing certain functions.
