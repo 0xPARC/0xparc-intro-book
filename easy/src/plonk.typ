@@ -11,7 +11,7 @@
 The promise of programmable cryptography is that we should be able to
 perform proofs for arbitrary functions.
 That means we need a "programming language" that we'll write our function in.
-For PLONK (and Groth16 in the next section), the choice that's used is:
+For PLONK, the choice that's used is:
 *systems of quadratic equations over $FF_q$*. In other words, PLONK is going to
 give us the ability to prove that we have solutions to a system of quadratic 
 equations. 
@@ -38,15 +38,16 @@ equations.
 This leads to the natural question of how a function like SHA-256 can be encoded
 into a system of quadratic equations. This process of encoding a problem
 into algebra is called _arithmetization_. It turns out that quadratic equations
-over $FF_q$, viewed as an NP-problem called Quad-SAT, is _NP-complete_; 
-recall that NP-complete problems are that they are problems complex 
-enough that all problems in the well-known family of NP problems reduce to
-them; in other words, any NP problem can be rewritten into an NP-complete problem. If you are not familiar with this concept, the upshot is that Quad-SAT
+over $FF_q$, viewed as an NP problem called Quad-SAT, is _NP-complete_; 
+in other words, any NP problem can be rewritten as a system of quadratic equations. 
+If you are not familiar with this concept, the upshot is that Quad-SAT
 being NP-complete means it can serve as a reasonable arithmetization that can
 express most reasonable (NP) problems.
 
 #remark([Quad-SAT is NP-complete])[
-  We assume knowledge of 3-SAT and it being NP-complete. The following example instance illustrates how to convert any instance of 3-SAT into a Quad-SAT problem:
+  We assume knowledge of 3-SAT and it being NP-complete. 
+  The following example instance illustrates how to convert 
+  any instance of 3-SAT into a Quad-SAT problem:
   $
     x_i^2 &= x_i #h(1em) forall 1 <= i <= 1000 & \
     y_1 &= (1-x_(42)) dot x_(17), & #h(1em) & 0 = y_1 dot x_(53) & \
@@ -243,7 +244,7 @@ So this is a direct application of @root-check:
     (globally known from the PLONK instance).
   2. Peggy uses @root-check to convince Victor that @plonk-gate
     holds for $X = omega^i$
-    (that is, the left-hand side is is indeed divisible by $Z(X) := X^n-1$).
+    (that is, the left-hand side is indeed divisible by $Z(X) := X^n-1$).
 ]
 
 
@@ -282,8 +283,8 @@ or there are at most $3n-4$ values for which it's true
 == Step 3: Proving the copy constraints
 
 The copy constraints are the trickiest step.
-There are a few moving parts to this idea, so we skip it for now and dedicate a
-whole subsection to it.
+There are a few moving parts to this idea, so we skip it for now and dedicate
+@copy-constraints to it.
 
 == Public and private witnesses
 

@@ -5,7 +5,12 @@
 
 = Copy Constraints in PLONK <copy-constraints>
 
-To ease into it slightly,
+The last step is to check the copy constraints.
+As an example, the constraints might be:
+$ a_1 = a_4 = c_4
+  #h(1em) "and" #h(1em)
+  b_2 = c_1. $
+Before we show how to check this,
 we provide a solution to a "simpler" problem called "permutation-check".
 Then we explain how to deal with the full copy check.
 
