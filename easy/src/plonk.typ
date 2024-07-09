@@ -287,7 +287,7 @@ The copy constraints are the trickiest step.
 There are a few moving parts to this idea, so we skip it for now and dedicate
 @copy-constraints to it.
 
-== Public and private witnesses
+== Step 4: Public and private witnesses
 
 The last thing to be done is to reveal the value of public witnesses,
 so the prover can convince the verifier that those values are correct.
