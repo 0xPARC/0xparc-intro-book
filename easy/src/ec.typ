@@ -107,7 +107,7 @@ is the point at infinity $O$. This addition can be formalized as a _group law_, 
 This group law involves some kind of heavy algebra.
 It's not important to understand exactly how it works.
 All you really need to take away from this section is that there is some group law,
-and we can program a computer to compute it. We provide details below to the interested reader.
+and we can program a computer to compute it. We provide details below for the interested reader.
 
 #gray[
   So, let's get started.
