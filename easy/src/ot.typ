@@ -125,7 +125,7 @@ Bob chooses $i$, computes a public-private key pair,
 and sets $b_i$ equal to that key.
 Then all the other terms $b_1, dots, b_n$
 are determined by the arithmetic progression requirement $b_j = b_i + (j-i)r$.
-(Or if the keys are elements of a group in multiplicative notation,
+(Or, if the keys are elements of a group in multiplicative notation,
 we could write this as $b_j = r^(j-i) dot b_i$.)
 
 Is this secure?
