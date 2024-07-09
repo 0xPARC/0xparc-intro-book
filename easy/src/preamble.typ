@@ -88,7 +88,7 @@
 #let cite(target_url, plaintext) = {
   if (print_flag == true) {
     plaintext
-    footnote(url(target_url))
+    footnote(text(font:fonts.mono, target_url))
   } else {
     link(target_url, text(font:fonts.mono, plaintext))
   }
