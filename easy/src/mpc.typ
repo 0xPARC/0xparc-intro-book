@@ -37,16 +37,16 @@ Here is our problem setting, slightly more formally:
 Our solution will contain two key components:
 - Alice constructs a _garbled circuit_
   that takes in the value $b$ (whatever it is)
-  and spits out $f(a, b)$. 
-  A _garbled circuit_, roughly speaking, 
+  and spits out $f(a, b)$.
+  A _garbled circuit_, roughly speaking,
   is an "encrypted" circuit that takes encrypted input and creates encrypted output.
-- An _oblivious transfer_ is a protocol where Alice has two messages, 
-  $m_0$ and $m_1$. 
-  Bob can get exactly one of them, $m_i$, 
-  without letting Alice know what $i$ is. 
-  In this context, Alice ends up sending Bob a password 
-  for his input in a way that 
-  Bob doesn't learn the passwords for any other inputs, 
+- An _oblivious transfer_ is a protocol where Alice has two messages,
+  $m_0$ and $m_1$.
+  Bob can get exactly one of them, $m_i$,
+  without letting Alice know what $i$ is.
+  In this context, Alice ends up sending Bob a password
+  for his input in a way that
+  Bob doesn't learn the passwords for any other inputs,
   and Alice doesn't find out which password she sent to Bob.
 
 In slightly more detail:
@@ -103,6 +103,7 @@ $Enc$ and publish the following table:
 
 #table(
   columns: 2,
+  inset: (x: 5pt, y: 8pt),
   [$(0, 0)$], [$Enc_(P_(0, 0))(G(0, 0))$],
   [$(0, 1)$], [$Enc_(P_(0, 1))(G(0, 1))$],
   [$(1, 0)$], [$Enc_(P_(1, 0))(G(1, 0))$],
@@ -168,12 +169,13 @@ We'll need to make two changes to the protocol.
   For simplicity, I'll assume it's an AND gate --
   so the outputs will be (the passwords encoding) 0, 0, 0, 1.
   #table(
-  columns: 2,
-  [$hash(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$hash(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
-  [$hash(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
-  [$hash(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
-)
+    columns: 2,
+    inset: (x: 5pt, y: 8pt),
+    [$hash(P_0^(text("left")), P_0^(text("right")))$], [$Enc_(P_0^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+    [$hash(P_0^(text("left")), P_1^(text("right")))$], [$Enc_(P_0^(text("left")), P_1^(text("right"))) (P_0^(text("out")))$],
+    [$hash(P_1^(text("left")), P_0^(text("right")))$], [$Enc_(P_1^(text("left")), P_0^(text("right"))) (P_0^(text("out")))$],
+    [$hash(P_1^(text("left")), P_1^(text("right")))$], [$Enc_(P_1^(text("left")), P_1^(text("right"))) (P_1^(text("out")))$],
+  )
 
 == How Bob uses one gate
 
