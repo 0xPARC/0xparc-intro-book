@@ -106,10 +106,6 @@ another language and give you $Enc(y)$, where $y$ is the translation of $x$.
 You can then decrypt and obtain $y$, knowing that the server cannot extract
 anything meaningful from $Enc(x)$ without your secret key.
 
-(You could imagine many more applications of FHE,
-such as a dating service that doesn't know anything about people it
-is matchmaking.)
-
 = Programmable Cryptography in the World
 
 In the past decade, there has been both a surprisingly high amount of theoretical work but also
