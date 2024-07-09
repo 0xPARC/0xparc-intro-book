@@ -108,7 +108,7 @@ anything meaningful from $Enc(x)$ without your secret key.
 
 = Programmable Cryptography in the World
 
-In the past decade, there has been both a surprisingly high amount of theoretical work but also
+In the past decade, there has been a surprisingly high amount of theoretical work but also
 a surprisingly low amount of implementation work on primitives in programmable cryptography.
 However, recent advances in areas like
 blockchain and other decentralized systems are rapidly driving
