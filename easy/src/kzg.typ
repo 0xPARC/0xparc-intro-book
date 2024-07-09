@@ -132,7 +132,7 @@ The verification runtime is a single pairing plus however long
 it takes to compute the Lagrange interpolation $f$.
 
 
-== Root check (using long division with commitment schemes)
+== Root check
 
 To make PLONK work, we're going to need a small variant
 of the multi-opening protocol for KZG commitments (@multi-openings),
