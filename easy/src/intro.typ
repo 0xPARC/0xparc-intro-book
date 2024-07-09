@@ -19,8 +19,8 @@ To be concrete, let's consider two examples of what protocols designed by classi
   which allows one member of a group to sign a message on behalf of the group.
 - _Confidential computing_. For example, consider
   #cite("https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem", "Yao's millionaire problem"),
-  where Alice and Bob wants to know which of them makes more money
-  without learning anything more about each other's incomes.
+  where Alice and Bob want to know which of them makes more money
+  without learning anything more about each other's incomes. With cryptography, Alice and Bob could use a two-party computation protocol designed specifically for this purpose.
 
 Classically, first-generation cryptography relied on coming up with a protocol
 for solving given problems or computing certain functions.
