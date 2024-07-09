@@ -1,8 +1,6 @@
 #import "preamble.typ":*
 
-= KZG Takeaways
-
-#green[
+#takeaway[KZG Takeaways][
 1. _Elliptic curves_ are very useful in cryptography. Roughly speaking, they are sets of points (usually in $FF_p^2$) that satisfy some group law / "addition." The BN254 curve is a good "typical curve" to keep in mind.
 2. The _discrete logarithm_ assumption is a common "hard problem assumption" used in cryptography with different groups. Specifically, since elliptic curves are groups, discrete logarithm over elliptic curves is very often used.
 3. _Commitment schemes_ are ways for one party to commit values to another. Elliptic curves enable _Pedersen commitments_, a very useful example of a commitment scheme.

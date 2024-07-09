@@ -56,30 +56,33 @@
 
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 #let gray(body) = block(
-    fill: luma(210),
-    inset: 8pt,
-    radius: 4pt,
-    width: 100%,
-    [#body]
+  fill: rgb("#eeeeee"),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [#body]
 )
 
 // set this flag to true if we are printing (in which case
-// we will see no blue text but will see subscriipt instead)
+// we will see no blue text but will see subscript instead)
 // and false if we are just doing a pdf
 #let print_flag = true
-#let green(body) = block(
-    fill: rgb("#aaeed9"),
-    inset: 8pt,
-    radius: 4pt,
-    width: 100%,
-    [#body]
+#let takeaway(title, body) = block(
+  fill: rgb("#eeeeee"),
+  inset: 8pt,
+  radius: 4pt,
+  breakable: false,
+  [
+    = #title
+    #body
+  ]
 )
 
 #let proof = thmproof("proof", "Proof")
 #let solution = thmproof("proof", "Solution")
 
-#let assumption = thmbox("main", "Assumption", fill: rgb("#eeeeaa"), base_level: 1)
-#let goal = thmbox("main", "Goal", fill: rgb("#eeeeaa"), base_level: 1)
+#let assumption = thmbox("main", "Assumption", fill: rgb("#ffffdd"), base_level: 1)
+#let goal = thmbox("main", "Goal", fill: rgb("#ffffdd"), base_level: 1)
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
