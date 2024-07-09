@@ -45,6 +45,7 @@
 #part[SNARKs]
 #chapter("src/zkintro.typ")
 #chapter("src/plonk.typ")
+#chapter("src/copy-constraints.typ")
 #chapter("src/fs.typ")
 #chapter("src/snark-takeaways.typ")
 
