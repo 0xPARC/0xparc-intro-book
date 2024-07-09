@@ -11,9 +11,9 @@ $f (a , b)$, but Alice shouldn’t learn anything about $b$ (other than
 what could be learned by knowing both $a$ and $f (a , b)$), and likewise
 for Bob.
 
-Yao’s Garbled Circuits is one of the most well-known 2PC protocols
+Yao’s Garbled Circuits is one of the most well-known 2PC protocols.
 (Vitalik Buterin has a great explanation on his
-#cite("https://vitalik.eth.limo/general/2020/03/21/garbled.html")[blog];).
+#cite("https://vitalik.eth.limo/general/2020/03/21/garbled.html")[blog];.)
 The protocol is quite clever, and optimized variants of the protocol are
 being
 #cite("https://github.com/privacy-scaling-explorations/mpz/tree/dev/garble")[implemented and used today];.
