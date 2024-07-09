@@ -16,7 +16,9 @@ The goal of a _polynomial commitment scheme_ is to have the following API:
   - Peggy can then send a short "proof" convincing Victor that $y$ is the
     correct value, without having to reveal $P$.
 
-The _Kate-Zaverucha-Goldberg (KZG)_ commitment scheme is amazingly efficient because both the commitment and proof lengths are a single point on $E$, encodable in 256 bits.
+The _Kate-Zaverucha-Goldberg (KZG)_ commitment scheme is amazingly efficient 
+because both the commitment and proof lengths are a single point on $E$, 
+encodable in 256 bits, no matter how many coefficients the polynomial has.
 
 == The setup
 
