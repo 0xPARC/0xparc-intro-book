@@ -83,7 +83,7 @@ And Bob decrypts the message to learn $x_i$.
 == OT in one step
 
 The protocol above required one and a half rounds of communication:
-Alice sent two messages to Bob, and Bob sent one message back to Alice.
+In total, Alice sent two messages to Bob, and Bob sent one message to Alice.
 
 We can do better, using public-key cryptography.
 

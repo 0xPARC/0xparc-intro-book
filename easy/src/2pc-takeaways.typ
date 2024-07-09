@@ -5,7 +5,7 @@
   function over their respective secret inputs. We can think of this
   as your prototypical _2PC_ (two-party computation).
 2. The main ingredient of a garbled circuit is _garbled gates_,
-  which area gates whose functionality is hidden. This can be done
+  which are gates whose functionality is hidden. This can be done
   by Alice precomputing different outputs of the garbled circuit
   based on all possible inputs of Bob, and then letting Bob pick one.
 3. Bob "picks an input" with the technique of _oblivious transfer (OT)_.
