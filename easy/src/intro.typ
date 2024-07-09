@@ -81,7 +81,7 @@ as a "proof system" protocol that produces efficient proofs of *arbitrary*
 statements of the form:
 
 #quote[
-  I know $X$ such that $F(X, Y) = Z$, where $Y,Z$ are public.
+  I know $X$ such that $F(X, Y) = Z$, where $Y,Z$ are public,
 ]
 once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $sha(M) = Y$."
 
