@@ -95,6 +95,7 @@
 }
 
 #let pmod(x) = $space (mod #x)$
+#let rstate = state("rhead", "Table of contents")
 
 // Main entry point to use in a global show rule
 #let evan(
@@ -120,15 +121,18 @@
     height: 8.5in,
     margin: auto,
     header: context {
-      set align(right)
       set text(size:0.8em)
       if (not maketitle or counter(page).get().first() > 1) {
-        text(weight:"bold", title)
-        if (author != none) {
+        if (calc.rem(counter(page).get().first(), 2) == 0) {
+          set align(left)
+          text(weight:"bold", title)
           h(0.2em)
           sym.dash.em
           h(0.2em)
           text(style:"italic", author)
+        } else {
+          set align(right)
+          text(weight:"bold", rstate.get())
         }
       }
     },

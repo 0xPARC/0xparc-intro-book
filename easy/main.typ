@@ -4,8 +4,10 @@
   include filename
 }
 #let part(s) = {
+  let rstate = state("rhead", "")
+  rstate.update(rhead => s)
   pagebreak(weak: true)
-  //set text(fill: rgb("#002299"))
+  // set text(fill: rgb("#002299"))
   heading(offset: 0, s)
 }
 
@@ -19,17 +21,17 @@
 #quote[
   I can now prove to you that I have a message $M$ such that
   $sha(M) = "0xa91af3ac..."$, without revealing $M$.
-  But not just for the hash function sha. 
+  But not just for the hash function sha.
   I can do this for any function you want.
 ]
 
 #toc
 #pagebreak()
 
-
-#chapter("src/intro.typ")
-
 #set heading(offset: 1)
+
+#part[Introduction]
+#chapter("src/intro.typ")
 
 #part[Two-party Computation]
 #chapter("src/mpc.typ")
