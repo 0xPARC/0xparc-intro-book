@@ -37,7 +37,7 @@ so Alice can remove her lock and send it back to Bob,
 and then Bob removes his lock and recovers the message.
 
 Mathematically, you can get commutative encryption
-by working in a finite group (for example $ZZ_p^times$, or an elliptic curve).
+by working in a finite group (for example $FF_p^times$, or an elliptic curve).
 1. Alice's secret key is an integer $a$;
   she encrypts a message $g$ by raising it to the $a$-th power,
   and she sends Bob $g^a$.
