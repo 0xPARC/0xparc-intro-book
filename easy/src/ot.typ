@@ -29,7 +29,7 @@ they will still get the original message back.
 A metaphor for commutative encryption
 is a box that's locked with two padlocks.
 Alice puts a message inside the box,
-lock it with her lock, and ship it to Bob.
+locks it with her lock, and ships it to Bob.
 Bob puts his own lock on the box and ships it back to Alice.
 What's special about commutative encryption
 is that Bob's lock doesn't block Alice from unlocking her own --
