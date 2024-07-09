@@ -6,23 +6,27 @@
 
 == What is programmable cryptography?
 
-Cryptography is so ubiquitous that it has become invisible:
-- _Encryption_ (hiding and then decoding messages) make people talking to each other over apps and computers talking to each other over protocols (like SSH) secure.
-- _Digital signatures_ 
-  (signing a message with some data that anyone can verify must come from some specific identity) 
-  authenticate people's identity, so you know that the website you are going to is actually what it says it is.
-- _Key exchanges_ (allowing two parties to agree on a secret piece of data, even talking over an public channel) 
-  allow people to set up secure connections remotely, 
-  without having to meet in person to agree on a key.
+Cryptography is everywhere now and needs no introduction.
+_Programmable cryptography_ is a term coined by 0xPARC for a second generation
+of cryptographic primitives that has arisen in the last 15 or so years.
 
-However, there is actually a lot more cryptography that has been implemented in academic and other smaller circles, 
-such as #cite("https://w.wiki/9fXW", "group signature schemes") 
-(more advanced versions of digital signatures supporting multiple participants) 
-and commitment schemes (general methods to commit to some secret that is to be revealed later in a way that prevents cheating).
+To be concrete, let's consider two examples of what protocols designed by classical cryptography can do:
 
-Even beyond this, there is cryptography that has been theoretically constructed 
-but barely (or never) tried in practice, often with a ambitious sense of scale. 
-Its spirit can be summarized as:
+- _Digital signatures_. 
+  RSA and ElGamal are examples of digital signature algorithms,
+  where Alice can perform some protocol to prove to Bob that she knows some secret numbers (for example, the discrete logarithm of some public value) that only she ought to know.
+  A more complicated example might be a
+  #cite("https://w.wiki/9fXW", "group signature scheme"),
+  which allows one member of a group to sign a message on behalf of the group.
+- _Confidential computing_. For example, consider
+  #cite("https://w.wiki/9fXQ", "Yao's millionaire problem"),
+  where Alice and Bob wants to know which of them makes more money
+  without learning each others' actual incomes.
+
+Classically, first-generation cryptography relied on coming up with a protocol
+for solving given problems or computing certain functions.
+The goal of the second-generation "programmable cryptography" can
+then be described as:
 
 #quote[
   We want cryptography that can
@@ -44,15 +48,10 @@ yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA-256.
 ]
 
-This led 0xPARC to coin the term _programmable cryptography_ to differentiate 
-this "second-generation" technology from "classical" cryptography that solve 
-specific problems and/or involve specific functions. 
-
 == Ideas in programmable cryptography
 
-Our work presents programmable cryptography through specific topics in (to the 
-best of our ability) self-contained "easy pieces," imitating Richard Feynman's 
-approach to wonderful physics exposition. We quickly preview them here.
+Our work presents programmable cryptography through specific topics in several self-contained "easy pieces," imitating Richard Feynman's 
+wonderful approach to physics exposition. We quickly preview them here.
 
 === 2PC: Two-party computation
 
@@ -111,38 +110,28 @@ You can then decrypt and obtain $y$, knowing that the server cannot extract
 anything meaningful from $Enc(x)$ without your secret key.
 
 (You could imagine many more applications of FHE, 
-such as a dating service that does not even know the names of people it 
-provides 
-matchmaking to.)
+such as a dating service that doesn't know anything about people it 
+is matchmaking.)
 
-== From One Door to the Next
+== Programmable Cryptography in the World
 
-Programmable cryptography has both a surprisingly high amount of theory but 
-also a surprisingly low amount of implementation. Recent advances in 
-blockchain, especially due to the success of cryptocurrencies, have driven 
-demand for practical implementations of programmable cryptography. The friction
-that is forming right now, as theory meets reality, is both exciting and 
+In the past decade, there has been both a surprisingly high amount of theoretical work but also
+a surprisingly low amount of implementation work on primitives in programmable cryptography.
+However, recent advances in areas like
+blockchain and other decentralized systems are rapidly driving 
+demand for practical implementations of programmable cryptography. The gap
+that is being revealed right now, as theory meets reality, is exciting and 
 enlightening.
 
-At least for the protocols we mention, they can be implemented, but usually at a high cost (for example, the cost of proving a computation in a SNARK is currently about $10^6$ times the 
-cost of doing the computation directly). Can we bring that number down? What
-other cryptographic systems can be build on top of this technology?
+Many of the protocols we mention in this book can be implemented today, but only at a very high cost (for example, the cost of proving a computation in a SNARK can be millions of times the 
+cost of performing the computation directly). As we study the theory of programmable cryptography, it is useful to keep in mind some practical questions. Can we reduce the theoretical overhead of programmable cryptography? How can we make programmable cryptography systems more performant for modern hardware and software systems? What
+other systems or applications can be built on top of this technology?
 
-In the Labyrinth of Cryptography, behind us are a series of doors and rooms 
-that housed great Ideas in first-generation cryptography; we have
-explored, exploited, and mastered these Ideas for 
-many decades. After a specific door, however, the rooms in the Labyrinth
-suddenly now contain much bigger Ideas, as if we stepped into a 
-completely different biome. In front of us, intrepid explorers have actually gone even further, into places where even bigger behemoths of Ideas roam, such
-as witness encryption (WE) and indistinguishability obfuscation (IO). 
-
-It is easy to be carried away by the staggering possibilities and imagine a
+It is easy to be carried away by the staggering possibilities, and to imagine a
 perfect "post-cryptographic" world where everyone has control over all their 
 data and everyone's security preferences are completely fulfilled. It is also 
 easy to be cynical and assume that these ideas will get no further than the next
-version of cryptocurrency scams or private communication servers. Reality in
-technology is always somewhere in the middle, like the Internet that both 
-offers free search and information to everyone but is also mostly being used
-to consume videos on the phone. 
+version of cryptocurrency scams at worst, or of private communication servers at best. Reality is always somewhere in the middle; the Internet 
+today offers free search and civilization-scale repositories of information to everyone, but is also used for plenty of frivolous or even antisocial activity.
 
-No matter what the future actually holds, one thing is clear --- it is up for people who are technically capable, intellectually curious, and morally sound to guide this next stage of evolution of cryptography before doors that lead into even deeper biomes. We hope that these "easy pieces" will inspire you to read, imagine, and build.
+No matter what the future actually holds, one thing is clear - it is up to people who are capable, curious, and optimistic to guide the next stage of the evolution of cryptography-based systems. We hope that these "easy pieces" will inspire you to read, imagine, and build.
