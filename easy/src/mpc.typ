@@ -22,9 +22,9 @@ being
 <the-problem>
 Here is our problem setting, slightly more formally:
 
-- $A$ knows a secret bitstring $a$ of length $s$ bits
-- $B$ knows a secret bitstring $b$ of length $t$ bits
-- $C$ is a binary circuit, which takes in $s + t$ bits, and runs them
+- Alice knows a secret bitstring $a$ of length $s$ bits.
+- Bob knows a secret bitstring $b$ of length $t$ bits.
+- $f$ is a binary circuit, which takes in $s + t$ bits, and runs them
   through some $n$ gates. The outputs of some of the gates are the
   public outputs of the circuit. Without loss of generality, let’s also
   suppose that each gate in $C$ accepts either $1$ or $2$ input bits,

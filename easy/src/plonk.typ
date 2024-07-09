@@ -125,9 +125,7 @@ systems of quadratic equations of a very particular form:
 #remark("From Quad-SAT to PLONK")[
   PLONK might look less general than Quad-SAT,
   but it turns out you can convert any Quad-SAT problem to PLONK.
-]
 
-#gray[
   First off, note that if we set
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 1, -1, 0, 0 ), $
   we get an "addition" gate
