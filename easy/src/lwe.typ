@@ -16,6 +16,9 @@ they permit a small "error" --
 and instead of solving for rational or real numbers,
 you're solving for integers modulo $q$.
 
+== A small example of an LWE problem
+<lwe-small>
+
 Here’s a concrete example of an LWE problem and how one might attack it
 "by hand." This exercise will make the inherent difficulty of the
 problem quite intuitive.
@@ -117,3 +120,12 @@ With these heuristics, we can start by looking at the Red Set, and make vectors 
 
 We omit the rest of the solution, which makes for some fun tinkering.
 ]
+
+== General problem
+
+The LWE problem (@lwe), like the discrete log assumption, is one of those "hard problems that you can build cryptography
+on." The problem is to solve for constants
+$ a_1, dots, a_n in ZZ \/ q ZZ, $ given a bunch of
+*approximate* equations of the form
+$ y = a_1 x_1 + dots.h + a_n x_n + epsilon.alt , $ where each
+$epsilon.alt$ is a "small" error (for simplicity, say in $\{0, 1\}$).
