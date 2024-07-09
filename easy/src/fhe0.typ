@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= FHE and Leveled FHE
+= FHE and Levelled FHE
 <fhe-intro>
 
 Alice has a secret $x$, and Bob has a function $f$.
