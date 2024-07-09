@@ -29,7 +29,7 @@ Here is our problem setting, slightly more formally:
   public outputs of the circuit. Without loss of generality, let’s also
   suppose that each gate in $C$ accepts either $1$ or $2$ input bits,
   and outputs a single output bit.
-- $A$ and $B$ would like to jointly compute $C (a , b)$ without
+- Alice and Bob would like to jointly compute $C (a , b)$ without
   revealing their secrets to each other.
 
 == Outline of Solution
