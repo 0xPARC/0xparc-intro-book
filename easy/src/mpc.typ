@@ -20,10 +20,10 @@ being
 <the-problem>
 Here is our problem setting, slightly more formally:
 
-- Alice knows a secret bitstring $a$ of length $s$ bits.
-- Bob knows a secret bitstring $b$ of length $t$ bits.
-- $f$ is a binary circuit, which takes in $s + t$ bits, and runs them
-  through some $n$ gates. The outputs of some of the gates are the
+- Alice knows a secret bitstring $a$ of length $m$ bits.
+- Bob knows a secret bitstring $b$ of length $n$ bits.
+- $f$ is a binary circuit, which takes in $m + n$ bits, and runs them
+  through some $k$ gates. The outputs of some of the gates are the
   public outputs of the circuit. Without loss of generality, let’s also
   suppose that each gate in $f$ accepts either $1$ or $2$ input bits,
   and outputs a single output bit.
