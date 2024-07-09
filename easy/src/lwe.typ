@@ -106,7 +106,7 @@ With these heuristics, we can start by looking at the Red Set, and make vectors 
   $(0 , 3 , 0 , 0 lr(|0|) { 0 , - 1 }),$ which immediately gives
   $a_2 in { 0 , 7 }$.
 + $(4 , 7 , 0 , 0 lr(|8|) { 0 , - 1 })$ gives
-  $4 a_1 + 7 a_2 in { 7 , 8 },$ Since $7 a_2 in { 0 , 5 },$
+  $4 a_1 + 7 a_2 in { 7 , 8 }.$ Also, since $7 a_2 in { 0 , 5 },$
   $ 4 a_1 in { 7 , 8 } - { 0 , 5 } = { 7 , 8 , 2 , 3 }, $ and
   $a_1 in { 10 , 2 , 6 , 9 }.$
 + Adding $ (10 , 4 , 4 , 3 lr(|1|) { 0 , - 1 }) + (7 , 7 , 7 , 8 lr(|5|) { 0 , - 1 }) $ gives $(6 , 0 , 0 , 0 lr(|6|) { 0 , - 1 , - 2 }),$
