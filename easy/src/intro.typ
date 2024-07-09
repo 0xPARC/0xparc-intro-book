@@ -128,6 +128,14 @@ At least for the protocols we mention, they can be implemented, but usually at a
 cost of doing the computation directly). Can we bring that number down? What
 other cryptographic systems can be build on top of this technology?
 
+In the Labyrinth of Cryptography, behind us are a series of doors and rooms 
+that housed great Ideas in first-generation cryptography; we have
+explored, exploited, and mastered these Ideas for 
+many decades. After a specific door, however, the rooms in the Labyrinth
+suddenly now house Ideas at a much bigger scale, as if we stepped into a 
+completely different biome. In front of us, intrepid explorers have actually gone even further, into rooms that house even bigger behemoths of Ideas, such
+as witness encryption (WE) and indistinguishability obfuscation (IO). 
+
 It is easy to be carried away by the staggering possibilities and imagine a
 perfect "post-cryptographic" world where everyone has control over all their 
 data and everyone's security preferences are completely fulfilled. It is also 
