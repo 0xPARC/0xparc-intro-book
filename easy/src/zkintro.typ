@@ -14,7 +14,7 @@ is too lazy to redo the whole calculation himself.
 - Maybe it's just a really long, annoying calculation,
   and Victor doesn't have the energy to check it all line-by-line.
 
-A _SNARK_ lets Peggy (the "prover")
+A _SNARK_#h(0.05em) lets Peggy (the "prover")
 send Victor (the "verifier") a short proof
 that she has indeed done the calculation correctly.
 The proof will much shorter than the original calculation,
@@ -53,4 +53,3 @@ One recent application along these lines is
 #cite("https://tlsnotary.org", "TLSNotary").
 TLSNotary lets you certify a transcript of communications with a server
 in a privacy-preserving way: you only reveal the parts you want to.
-
