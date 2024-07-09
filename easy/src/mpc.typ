@@ -97,7 +97,7 @@ Choose a _symmetric-key_#footnote[Symmetric-key encryption is probably
 what you think of
 when you think of plain-vanilla encryption:
 You use a secret key $K$ to encrypt a message $m$,
-and then you use the same secret key $K$ to decrypt it.]
+and then you (or someone else) use the same secret key $K$ to decrypt it.]
 encryption scheme
 $Enc$ and publish the following table:
 
