@@ -402,7 +402,7 @@ build the KZG commitment scheme.
 
 == Example application: Pedersen commitments <pedersen>
 
-A _commitment scheme_ is a protocol where Alice wants to commit some value $x$ to Bob that is later revealed. Typically Alice gives Bob some "commitment" $c(x)$ and later reveals $x$. What we want is that this protocol is both _binding_ (Alice cannot change her mind about $x$ depending on Bob's later actions) and _hiding_ (Bob does not get any information about $x$ from $c(x)$). The KZG scheme we are building towards will be a commitment scheme for polynomials, but we can already use elliptic curves to commit *numbers* with something called a Pedersen commitment, which we will now describe.
+A _commitment scheme_ is a protocol where Alice wants to commit some value $x$ to Bob that is later revealed. Typically Alice gives Bob some "commitment" $Com(x)$ and later reveals $x$. What we want is that this protocol is both _binding_ (Alice cannot change her mind about $x$ depending on Bob's later actions) and _hiding_ (Bob does not get any information about $x$ from $Com(x)$). The KZG scheme we are building towards will be a commitment scheme for polynomials, but we can already use elliptic curves to commit *numbers* with something called a Pedersen commitment, which we will now describe.
 
 A multivariable generalization of @ddh is that if $g_1, ..., g_n in E$
 are a bunch of randomly chosen points of $E$ with order $q$,

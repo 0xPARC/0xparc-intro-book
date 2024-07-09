@@ -23,9 +23,8 @@ equations.
     dots.v \
     Q_m (x_1 , dots, x_k) & = 0.
   $
-
   Of these $k$ variables,
-  the first $ell$ ($x_1, dots, x_ell$) have publicly known, fixed values;
+  the first $ell$ variables $x_1, dots, x_ell$ have publicly known, fixed values;
   the remaining $k - ell$ are unknown.
 
   PLONK will let Peggy prove to Victor the following claim:
@@ -44,7 +43,7 @@ If you are not familiar with this concept, the upshot is that Quad-SAT
 being NP-complete means it can serve as a reasonable arithmetization that can
 express most reasonable (NP) problems.
 
-#remark([Quad-SAT is NP-complete])[
+#remark([Example of Quad-SAT encoding 3-SAT])[
   We assume knowledge of 3-SAT and it being NP-complete.
   The following example instance illustrates how to convert
   any instance of 3-SAT into a Quad-SAT problem:
@@ -134,10 +133,10 @@ systems of quadratic equations of a very particular form:
   $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 0, 0, -1, 1, 0 ), $
   we get a "multiplication" gate
   $a_i b_i = c_i.$
-  Finally, if $q$ is any constant, then
-  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 0, 0, 0, -q ), $
+  Finally, if $kappa$ is any constant, then
+  $ ( q_(L,i), q_(R,i), q_(O,i), q_(M,i), q_(C,i)) = ( 1, 0, 0, 0, -kappa ), $
   gives the constraint
-  $a_i = q.$
+  $a_i = kappa.$
 
   Now imagine we want to encode some quadratic equation
   like
@@ -279,7 +278,7 @@ or there are at most $3n-4$ values for which it's true
 ]
 */
 
-== Step 3: Proving the copy constraints
+== Step 3: Proving the copy constraints <copy-constraint-deferred>
 
 The copy constraints are the trickiest step.
 There are a few moving parts to this idea, so we skip it for now and dedicate

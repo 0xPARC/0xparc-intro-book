@@ -49,7 +49,7 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
   And so forth.
   In the end, the value $s$ will be the product of the secrets $s_i$
   chosen by the $i$ parties... so the only way they can break secrecy
-  is if all the "trusted parties" collaborate.
+  is if all the "trusted parties" collude.
 ]
 
 #pagebreak() // TODO manual pagebreak for printed easy; stopgap hack
@@ -148,7 +148,8 @@ Here's the problem statement:
 
 Peggy just needs to show is that $P_1-P_2$
 is divisible by $Z(X) := product_(z in S) (X-z)$.
-This can be done by committing the quotient $H(X) := (P_1(X) - P_2(X)) / Z(X)$.
+This can be done by committing the quotient
+$ H(X) := (P_1(X) - P_2(X)) / Z(X). $
 Victor then gives a random challenge $lambda in FF_q$,
 and then Peggy opens $Com(P_1)$, $Com(P_2)$, and $Com(H)$ at $lambda$.
 
