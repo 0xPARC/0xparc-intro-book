@@ -59,7 +59,7 @@ jointly compute some known function
 $ F(x_1, x_2), $
 where the $i$-th person only knows the input $x_i$, without either person learning the other person's input.
 
-For example, in  #cite("https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem", "Yao's millionaire problem"), Alice and Bob
+For example, in Yao's millionaire problem, Alice and Bob
 want to know who has a higher income without revealing their own amounts.
 This is the case where $F$ is the comparison function
 ($F(x_1, x_2)$ is $1$ if $x_1 > x_2$, $2$ if $x_2 > x_1$,
