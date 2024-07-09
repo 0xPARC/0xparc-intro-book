@@ -119,25 +119,26 @@
   set page(
     width: 5.5in,
     height: 8.5in,
-    margin: (inside: 0.6in, outside: 0.4in, y: 0.75in),
-    header-ascent: 50%,
+    margin: (inside: 0.6in, outside: 0.6in, top: 0.8in, bottom: 0.5in),
+    header-ascent: 40%,
     header: context {
-      set text(size:0.8em)
+      set text(size: 0.85em)
       if (not maketitle or counter(page).get().first() > 1) {
         if (calc.rem(counter(page).get().first(), 2) == 0) {
-          set align(left)
+          str(counter(page).get().first())
+          h(1fr)
           text(weight:"bold", title)
           h(0.2em)
           sym.dash.em
           h(0.2em)
           text(style:"italic", author)
         } else {
-          set align(right)
           text(weight:"bold", rstate.get())
+          h(1fr)
+          str(counter(page).get().first())
         }
       }
     },
-    numbering: "1",
   )
   set par(
     justify: true
