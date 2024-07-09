@@ -186,7 +186,7 @@ $
 Then the prover can start defining accumulator polynomials, after
 re-introducing the random challenge $lambda$ from permutation-check.
 We're going to need six in all, three for each side of @copy3:
-we call them $F_a$, $F_b$, $F_c$, $F_a'$, $F_b'$, $F_c'$.
+we call them $F_a$, $F_b$, $F_c$, $F'_a$, $F'_b$, $F'_c$.
 The ones on the left-hand side are interpolated so that
 #eqn[
   $
@@ -212,9 +212,9 @@ There are six initialization conditions
     F_a (omega^1) &= A(omega^1) + omega^1 mu + lambda \
     F_b (omega^1) &= B(omega^1) + eta omega^1 mu + lambda \
     F_c (omega^1) &= C(omega^1) + eta^2 omega^1 mu + lambda \
-    F_a' (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
-    F_b' (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
-    F_c' (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
+    F'_a (omega^1) &= A(omega^1) + sigma_a (omega^1) mu + lambda \
+    F'_b (omega^1) &= B(omega^1) + sigma_b (omega^1) mu + lambda \
+    F'_c (omega^1) &= C(omega^1) + sigma_c (omega^1) mu + lambda.
   $
   <copycheck-init>
 ]
@@ -233,7 +233,7 @@ and six accumulation conditions
 before the final product condition
 #eqn[
   $
-  F_a (1) F_b (1) F_c (1) = F'_a (1) F'_b (1) F'_c (1)
+  F_a (1) F_b (1) F_c (1) = F'_a (1) F'_b (1) F'_c (1).
   $
   <copycheck-final>
 ]
