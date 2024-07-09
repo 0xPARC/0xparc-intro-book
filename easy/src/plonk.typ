@@ -229,9 +229,10 @@ Now, what do the gate constraints amount to?
 Peggy is trying to convince Victor that the equation
 #eqn[
   $ Q_L (x) A (x) + Q_R (x) B (x) + Q_O (x) C (x) & \
-    + Q_M (x) A (x) B (x) + Q_C (x) & = 0 $
+    #hide[0] + Q_M (x) A (x) B (x) + Q_C (x) & = 0 $
   <plonk-gate>
 ]
+// stopgap: #hide[0] equivalent to latex phantom for plus sign spacing
 is true for the $n$ numbers $x = omega, omega^2, ..., omega^n$.
 
 However, Peggy has committed $A$, $B$, $C$ already,

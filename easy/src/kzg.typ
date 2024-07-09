@@ -52,6 +52,8 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
   is if all the "trusted parties" collaborate.
 ]
 
+#pagebreak() // TODO manual pagebreak for printed easy; stopgap hack
+
 == The KZG commitment scheme
 
 Peggy has a polynomial $P(X) in FF_p [X]$.

@@ -100,7 +100,7 @@ However, right now it only has the structure of a set.
 
 The beauty of elliptic curves
 is that it's possible to define an *addition* operation on the curve;
-this is called the #cite(https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law"", "group law on the elliptic curve").
+this is called the #cite("https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law", "group law on the elliptic curve").
 This addition will make $E(FF_p)$ into an abelian group whose identity element
 is the point at infinity $O$. This addition can be formalized as a _group law_, which is an equation that points on the curve must follow.
 
