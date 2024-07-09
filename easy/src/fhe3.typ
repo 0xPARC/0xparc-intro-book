@@ -78,9 +78,9 @@ multiply two bits, you just multiply (matrix multiplication) the
 ciphertexts:
 $ C_1 C_2 upright(bold(v)) approx C_1 (mu_2 upright(bold(v))) = mu_2 C_1 upright(bold(v)) approx mu_2 mu_1 upright(bold(v)) = mu_1 mu_2 upright(bold(v)) . $
 
-(At this point you might be concerned about this symbol $approx$ and
+At this point you might be concerned about this symbol $approx$ and
 what happens to the size of the error. That’s an important issue, and
-we’ll come back to it.)
+we'll resolve it with the help of a special operation called "Flatten."
 
 Anyway, once you have AND and NOT, you can build arbitrary logic gates –
 and this is what we mean when we say you can perform arbitrary
