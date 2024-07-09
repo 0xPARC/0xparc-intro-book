@@ -2,22 +2,17 @@
 
 = Public-Key Cryptography from LWE
 <lwe-crypto>
-The LWE problem (@lwe), like the discrete log assumption, is one of those "hard problems that you can build cryptography
-on." The problem is to solve for constants
-$ a_1, dots, a_n in ZZ \/ q ZZ, $ given a bunch of
-*approximate* equations of the form
-$ y = a_1 x_1 + dots.h + a_n x_n + epsilon.alt , $ where each
-$epsilon.alt$ is a "small" error (for simplicity, say in $\{0, 1\}$).
 
-In @lwe
+In @lwe-small
 we saw how even a small case of this problem ($q = 11$, $n = 4$) can be
 annoyingly tricky. In the real world, you should imagine that $n$ and
 $q$ are much bigger – maybe $n$ is in the range
 $100 lt.eq n lt.eq 1000$, and $q$ could be anywhere from $n^2$ to
 $2^(sqrt(n))$, say.
 
-Now let’s see how to turn this into a public-key cryptosystem. We’ll use
-the same numbers from the "blue set" in @lwe. In fact, that "blue
+As an example of how LWE can be used,
+let’s see how to turn LWE into a public-key cryptosystem. We’ll use
+the same numbers from the "blue set" in @lwe-small. In fact, that "blue
 set" will be exactly the public key.
 
 #figure(

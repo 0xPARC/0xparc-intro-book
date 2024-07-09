@@ -36,8 +36,9 @@ then decryption is easy: Just compute the $i$-th entry of
 $C upright(bold(v))$, and determine whether it is closer to $0$ or to
 $v_i$.
 
+#remark[
 With a bit of effort, it’s possible to make this into a public-key
-cryptosystem. Just like in @lwe-crypto,
+cryptosystem too. Just like in @lwe-crypto,
 the main idea is to release a
 table of vectors
 $upright(bold(x))$ such that
@@ -50,6 +51,7 @@ matrix. This gives a $C$ such that
 $ C upright(bold(v)) approx mu upright(bold(v)). $
 
 #problem[How do we build such a $C_0$? (One possible direction is to build it row-by-row.)]
+]
 
 == Operations on encrypted data
 
