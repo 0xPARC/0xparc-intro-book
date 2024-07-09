@@ -91,7 +91,7 @@ The constants $p$ and $q$ are contrived so that the following holds:
 ]
 #definition[
   This prime $q approx 2^(254)$ is affectionately called the _Baby Jubjub prime_
-  (a reference to #cite("https://w.wiki/5Ck3", "The Hunting of the Snark")).
+  (a reference to #cite("https://en.wikipedia.org/wiki/The_Hunting_of_the_Snark", "The Hunting of the Snark")).
   It will usually be denoted by $q$ in these notes.
 ]
 
@@ -100,7 +100,7 @@ However, right now it only has the structure of a set.
 
 The beauty of elliptic curves
 is that it's possible to define an *addition* operation on the curve;
-this is called the #cite("https://w.wiki/9jhM", "group law on the elliptic curve").
+this is called the #cite(https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law"", "group law on the elliptic curve").
 This addition will make $E(FF_p)$ into an abelian group whose identity element
 is the point at infinity $O$. This addition can be formalized as a _group law_, which is an equation that points on the curve must follow.
 
@@ -280,7 +280,7 @@ In other words, $n$ will generally be thought of as being up to about $2^(254)$ 
 
 On the other hand, given $g in E$,
 one can compute $n dot g$ in just $O(log n)$ operations,
-by #cite("https://w.wiki/9jim", "repeated squaring").
+by #cite("https://en.wikipedia.org/wiki/Exponentiation_by_squaring", "repeated squaring").
 For example, to compute $400g$, one only needs to do $10$ additions,
 rather than $400$: one starts with
 $
@@ -312,7 +312,7 @@ once the identity element $O = (0, oo)$ is added in.
 
 How large is $E(FF_p)$?
 There is a theorem called
-#cite("https://w.wiki/9jhi", "Hasse's theorem") that states
+#cite("https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves", "Hasse's theorem") that states
 the number of points in $E(FF_p)$ is between $p+1-2sqrt(p)$ and $p+1+2sqrt(p)$.
 But there is no promise that $E(FF_p)$ will be _prime_;
 consequently, it may not be a cyclic group either.
@@ -321,7 +321,7 @@ the choice of constants in BN254 is engineered to get a prime order.
 
 There are other curves used in practice for which $E(FF_p)$
 is not a prime, but rather a small multiple of a prime.
-The popular #cite("https://w.wiki/9jhp", "Curve25519") is such a curve
+The popular #cite("https://en.wikipedia.org/wiki/Curve25519", "Curve25519") is such a curve
 that is also believed to satisfy @ddh.
 Curve25519 is defined as $ Y^2 = X^3 + 486662X^2 + X $ over $FF_p$
 for the prime $p := 2^(255)-19$.
@@ -337,7 +337,7 @@ which is defined in @pairing-friendly when we need it later.
 == Example application: EdDSA signature scheme <eddsa>
 
 We'll show how @ddh can be used to construct a signature scheme that replaces RSA.
-This scheme is called #cite("https://w.wiki/4usy", "EdDSA"),
+This scheme is called #cite("https://en.wikipedia.org/wiki/EdDSA", "EdDSA"),
 and it's used quite frequently (e.g. in OpenSSH and GnuPG).
 One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
