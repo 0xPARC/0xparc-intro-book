@@ -93,9 +93,7 @@ Our work focuses on a particular example, PLONK (@plonk).
 Imagine you have some private text that you want to translate into another
 language. While many services today will do this, even for free, we can also
 imagine that you care about security a lot and you really don't want the
-translating service to know anything about your text at all (e.g. selling the
-text to someone else, adding your text to large language models that can then
-be reverse-engineered to find your private information, blackmailing you...).
+translating service to know anything about your text at all.
 
 In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
 and then a second person can perform arbitrary operations on the encrypted data
@@ -129,8 +127,8 @@ other systems or applications can be built on top of this technology?
 It is easy to be carried away by the staggering possibilities, and to imagine a
 perfect "post-cryptographic" world where everyone has control over all their
 data and everyone's security preferences are completely fulfilled. It is also
-easy to be cynical and assume that these ideas will get no further than the next
-version of cryptocurrency scams at worst, or of private communication servers at best. Reality is always somewhere in the middle; the Internet
+easy to be cynical and assume that these ideas will go nowhere.
+Reality is always somewhere in the middle; the Internet
 today offers free search and civilization-scale repositories of information to everyone, but is also used for plenty of frivolous or even antisocial activity.
 
 No matter what the future actually holds, one thing is clear - it is up to people who are capable, curious, and optimistic to guide the next stage of the evolution of cryptography-based systems. We hope that these "easy pieces" will inspire you to read, imagine, and build.
