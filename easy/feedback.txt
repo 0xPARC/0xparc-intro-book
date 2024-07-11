@@ -1,0 +1,8 @@
+
+Aard's mom: Why can you reduce anything to quadsat?
+
+Yan might want to write something general about arithmetizations.
+
+Ryan: What are the three easy pieces?  It's strange for the user to open the book and not see three.
+
+Elaine will write ORAM
