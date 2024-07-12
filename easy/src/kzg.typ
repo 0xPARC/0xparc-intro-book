@@ -54,7 +54,7 @@ Then anyone in the world can use the resulting sequence for KZG commitments.
   is if all the "trusted parties" collude.
 ]
 
-#pagebreak() // TODO manual pagebreak for printed easy; stopgap hack
+// #pagebreak() // TODO manual pagebreak for printed easy; stopgap hack
 
 == The KZG commitment scheme
 
