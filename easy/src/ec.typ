@@ -31,8 +31,8 @@ whose difficulty makes the protocol secure.
 The best-known example is
 #cite("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA"),
 which is secure because
-it is hard to factor a composite number (like $6177$)
-into prime factors ($6177 = 71 dot 87$).
+it is hard to factor a composite number (like $6887$)
+into prime factors ($6887 = 71 dot 97$).
 
 Our SNARK protocol will be based on a different hard problem:
 the "discrete logarithm problem"
