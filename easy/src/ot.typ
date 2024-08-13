@@ -4,6 +4,8 @@
 <ot>
 
 Alice has $n$ messages $x_1, dots, x_n$.
+For simplicity we'll assume the messages are pairwise distinct
+(if not, one can pad them with random bits).
 Bob wants to request the $i$-th message,
 without letting Alice learn anything about the value of $i$.
 Alice wants to send Bob $x_i$,
