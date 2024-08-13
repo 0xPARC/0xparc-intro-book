@@ -12,7 +12,7 @@ To be concrete, let's consider two examples of what protocols designed by classi
 
 - _Digital signatures_.
   RSA and ElGamal are examples of digital signature algorithms,
-  where Alice can perform some protocol to prove to Bob that she 
+  where Alice can perform some protocol to prove to Bob that she
   endorses a message.
   A more complicated example might be a
   #cite("https://en.wikipedia.org/wiki/Group_signature", "group signature scheme"),

@@ -43,8 +43,8 @@ by working in a finite group (for example $FF_p^times$, or an elliptic curve).
   and she sends Bob $g^a$.
 2. Bob encrypts again with his own secret key $b$,
   and he sends $(g^a)^b = g^(a b)$ back to Alice.
-3. Now Alice removes her lock by taking an $a$-th root. 
-  The result is $g^b$, which she sends back to Bob. 
+3. Now Alice removes her lock by taking an $a$-th root.
+  The result is $g^b$, which she sends back to Bob.
 4. Bob takes a $b$-th root, recovering $g$.
 
 == OT using commutative encryption
@@ -85,7 +85,7 @@ And Bob decrypts the message to learn $x_i$.
 == OT in one step
 
 The protocol above required one and a half rounds of communication:
-In total, Alice sent two messages to Bob (steps 1 and 3), 
+In total, Alice sent two messages to Bob (steps 1 and 3),
 and Bob sent one message to Alice (step 2).
 
 We can do better, using public-key cryptography.
