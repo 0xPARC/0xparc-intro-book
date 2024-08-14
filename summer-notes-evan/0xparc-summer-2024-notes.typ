@@ -9,6 +9,6 @@
 
 #toc
 
-#include "src/symposium.typ"
-#include "src/research-workshop.typ"
-#include "src/math-seminar.typ"
+#include "src/0801-symposium.typ"
+#include "src/0803-research-workshop.typ"
+#include "src/0812-math-seminar.typ"
