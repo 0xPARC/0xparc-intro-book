@@ -12,3 +12,4 @@
 #include "src/0801-symposium.typ"
 #include "src/0803-research-workshop.typ"
 #include "src/0812-math-seminar.typ"
+#include "src/0813-math-seminar.typ"
