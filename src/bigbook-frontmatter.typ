@@ -1,14 +1,18 @@
 #import "preamble.typ":*
 
-= Frontmatter
+= About this novel
 
-These are compiled lecture notes from a reading group hosted by the
-#link("https://0xparc.org", "0xPARC Foundation").
-It's not meant to be a exhaustive textbook or mathematically complete reference,
+This novel _Notes on Programmable Cryptography_ is a sequel
+to the novella _Three Easy Pieces in Programmable Cryptography_,
+from the #link("https://0xparc.org", "0xPARC Foundation").
+Whereas the novella was short enough to print and give to friends
+as a souvenir to read on a plane ride,
+this novel is meant to be a bit of a deeper dive.
+Nonetheless, it's still not meant to be a exhaustive textbook or mathematically complete reference;
 but rather a introduction to the general landscape and ideas for newcomers.
 
 We assume a bit of general undergraduate math background, but not too much.
-(For example, I'll just use the word "abelian group" freely,
+(For example, we'll just use the word "abelian group" freely,
 and the reader is assumed to know modular arithmetic.)
 We don't assume specialized knowledge like elliptic curve magic.
 

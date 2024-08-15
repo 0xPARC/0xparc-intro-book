@@ -99,6 +99,14 @@
 
 #let pmod(x) = $space (mod #x)$
 #let rstate = state("rhead", "Table of contents")
+#let part(s) = {
+  let rstate = state("rhead", "")
+  rstate.update(rhead => s)
+  pagebreak(weak: true)
+  // set text(fill: rgb("#002299"))
+  heading(offset: 0, s)
+}
+
 
 // Main entry point to use in a global show rule
 #let evan(

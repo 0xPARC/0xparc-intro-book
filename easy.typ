@@ -9,13 +9,6 @@
 #let chapter(filename) = {
   include filename
 }
-#let part(s) = {
-  let rstate = state("rhead", "")
-  rstate.update(rhead => s)
-  pagebreak(weak: true)
-  // set text(fill: rgb("#002299"))
-  heading(offset: 0, s)
-}
 
 #show: evan.with(
   title: "Three Easy Pieces in Programmable Cryptography",

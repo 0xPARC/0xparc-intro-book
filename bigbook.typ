@@ -1,13 +1,7 @@
 #import "src/preamble.typ":*
 #let chapter(filename) = {
   include filename
-  pagebreak(weak: true)
 }
-#let part(s) = {
-  set text(size:1.4em, fill: rgb("#002299"))
-  heading(numbering: none, s)
-}
-
 #show: evan.with(
   title: "Notes on Programmable Cryptography",
   author: "0xPARC",
@@ -24,27 +18,44 @@
 #toc
 #pagebreak()
 
-#chapter("src/frontmatter.typ")
-#chapter("src/intro.typ")
+#set heading(offset: 1)
+#part[Introduction]
+#chapter("src/bigbook-frontmatter.typ")
+#chapter("src/intro.typ") // needs some rewriting though
 
-#part[zkSNARK constructions]
-#chapter("src/h-zksnark.typ")
+#part[Two-party Computation]
+#chapter("src/mpc.typ")
+#chapter("src/ot.typ")
+#chapter("src/2pc-takeaways.typ")
+
+#part[SNARKs Prelude: Elliptic Curves and Polynomial Commitments]
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
 #chapter("src/kzg.typ")
-#chapter("src/ipa.typ")
+#chapter("src/kzg-takeaways.typ")
+
+#part[Your first SNARK: The PLONK Protocol]
+#chapter("src/zkintro.typ")
 #chapter("src/plonk.typ")
+#chapter("src/copy-constraints.typ")
+#chapter("src/fs.typ")
+#chapter("src/snark-takeaways.typ")
+
+#part[Another STARK: GROTH-16]
+#chapter("src/ipa.typ")
 #chapter("src/groth16.typ")
-#chapter("src/cq.typ")
 
-#part[Multi-party computation and garbled circuits]
-#chapter("src/h-mpc.typ")
-#chapter("src/mpc.typ")
-
-#part[Fully homomorphic encryption]
-#chapter("src/h-fhe.typ")
-
-#part[Appendix: Classical PCP]
-#chapter("src/h-classical-pcp.typ")
+#part[Binius]
 #chapter("src/sumcheck.typ")
-#chapter("src/pcp.typ")
+
+#part[Fully Homomorphic Encryption with LWE]
+#chapter("src/fhe0.typ")
+#chapter("src/lwe.typ")
+#chapter("src/fhe2.typ")
+#chapter("src/fhe3.typ")
+#chapter("src/fhe-takeaways.typ")
+
+#part[Oblivious RAM]
+
+#part[Others]
+#chapter("src/cq.typ")
