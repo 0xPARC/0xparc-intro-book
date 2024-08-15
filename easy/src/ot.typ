@@ -4,12 +4,15 @@
 <ot>
 
 Alice has $n$ messages $x_1, dots, x_n$.
-For simplicity we'll assume the messages are pairwise distinct
-(if not, one can pad them with random bits).
+We'll assume the messages are essentially unrelated to each other
+(since we could always pad them with random bits).
 Bob wants to request the $i$-th message,
 without letting Alice learn anything about the value of $i$.
 Alice wants to send Bob $x_i$,
-without letting him learn anything about the other $n-1$ messages. An _oblivious transfer (OT)_ allows Alice to transfer a single message to Bob, but she remains oblivious as to which message she has transferred. We'll see two simple protocols to achieve this.
+without letting him learn anything about the other $n-1$ messages.
+An _oblivious transfer (OT)_ allows Alice to transfer a single message to Bob,
+but she remains oblivious as to which message she has transferred.
+We'll see two simple protocols to achieve this.
 
 (In fact, for two-party computation,
 we only need "1-of-2 OT":
@@ -53,7 +56,8 @@ by working in a finite group (for example $FF_p^times$, or an elliptic curve).
 
 Our first oblivious transfer protocol is built on the commutative encryption we just described.
 
-Alice has $n$ messages $x_1, dots, x_n$, which we may as well assume are elements of the group $G$. Alice chooses a secret key $a$, encrypts each message, and sends all $n$ ciphertexts to Bob:
+Alice has $n$ messages $x_1, dots, x_n$, which we may as well assume are elements of the group $G$.
+Alice chooses a secret key $a$, encrypts each message, and sends all $n$ ciphertexts to Bob:
 $
   Enc_a (x_1), dots, Enc_a (x_n).
 $
