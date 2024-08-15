@@ -57,5 +57,7 @@
 
 #part[Oblivious RAM]
 
+#part[Obfuscation]
+
 #part[Others]
 #chapter("src/cq.typ")
