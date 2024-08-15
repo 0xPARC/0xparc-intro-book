@@ -120,10 +120,6 @@
 
   // General settings
   set page(
-    width: 5.5in,
-    height: 8.5in,
-    margin: (inside: 0.6in, outside: 0.6in, top: 0.8in, bottom: 0.5in),
-    header-ascent: 40%,
     header: context {
       set text(size: 0.85em)
       if (not maketitle or counter(page).get().first() > 1) {

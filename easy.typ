@@ -1,4 +1,10 @@
 #import "src/preamble.typ":*
+#set page(
+  width: 5.5in,
+  height: 8.5in,
+  margin: (inside: 0.6in, outside: 0.6in, top: 0.8in, bottom: 0.5in),
+  header-ascent: 40%,
+)
 
 #let chapter(filename) = {
   include filename
