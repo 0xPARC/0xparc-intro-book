@@ -132,8 +132,8 @@ and gives a reason to believe this is "pretty good" for the second criteria.
 The point is that $M_(a,b,c)$ is _always_ going to equal zero if any of the variables are equal.
 That means we expect $det M_(a,b,c)$ will always at least have to be "divisible" by
 $(a-b)(a-c)(b-c)$, depending on what you mean by "divisible".
-The fact that the Vandermonde determinant has no additional "garbage" factors is,
-philosophically, means we can't compress the sizes of $f$, $g$, $h$ in a meaningful further way.
+The fact that the Vandermonde determinant has no additional "garbage" factors means,
+philosophically, we can't compress the sizes of $f$, $g$, $h$ in a meaningful further way.
 
 == Lagrange interpolation
 
