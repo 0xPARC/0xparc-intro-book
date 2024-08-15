@@ -162,12 +162,12 @@ bigger, say $n approx r log q$, to get the same level of security.
 <error-analysis>
 Now let’s compute more carefully what happens to the error when we add,
 negate, and multiply bits. Suppose
-$ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + epsilon.alt_1 , $ where
-$epsilon.alt_1$ is some vector with all its entries bounded by some
+$ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + upright(bold(epsilon))_1 , $ where
+$upright(bold(epsilon))_1$ is some vector with all its entries bounded by some
 $B$. (And similarly for $C_2$ and $mu_2$.)
 
 When we add two ciphertexts, the errors add:
-$ (C_1 + C_2) upright(bold(v)) = (mu_1 + mu_2) upright(bold(v)) + (epsilon.alt_1 + epsilon.alt_2) . $
+$ (C_1 + C_2) upright(bold(v)) = (mu_1 + mu_2) upright(bold(v)) + (upright(bold(epsilon))_1 + upright(bold(epsilon))_2) . $
 So the error on the sum will be bounded by $2 B$.
 
 Negation is similar to addition – in fact, the error won’t change at
@@ -175,16 +175,16 @@ all.
 
 Multiplication is more complicated, and this is why we insisted that all
 ciphertexts have entries in ${ 0 , 1 }$. We compute
-$ C_1 C_2 upright(bold(v)) = C_1 (mu_2 upright(bold(v)) + epsilon.alt_2) = mu_1 mu_2 upright(bold(v)) + (mu_2 epsilon.alt_1 + C_1 epsilon.alt_2) . $
+$ C_1 C_2 upright(bold(v)) = C_1 (mu_2 upright(bold(v)) + upright(bold(epsilon))_2) = mu_1 mu_2 upright(bold(v)) + (mu_2 upright(bold(epsilon))_1 + C_1 upright(bold(epsilon))_2) . $
 
-Now since $mu_2$ is either $0$ or $1$, we know that $mu_2 epsilon.alt_1$
+Now since $mu_2$ is either $0$ or $1$, we know that $mu_2 upright(bold(epsilon))_1$
 is a vector with all entries bounded by $B$. What about
-$C_1 epsilon.alt_2$? Here we have to think carefully about matrix
+$C_1 upright(bold(epsilon))_2$? Here we have to think carefully about matrix
 multiplication: when you multiply an $n$-by-$n$ matrix by a vector, each
 entry of the product comes as a sum of $n$ different products. Now we’re
 assuming that $C_1$ is a $0$-$1$ matrix, and all entries of
-$epsilon.alt_2$ are bounded by $B$… so the product has all entries
-bounded by $n B$. Adding this to the error for $mu_2 epsilon.alt_1$, we
+$upright(bold(epsilon))_2$ are bounded by $B$… so the product has all entries
+bounded by $n B$. Adding this to the error for $mu_2 upright(bold(epsilon))_1$, we
 get that the total error in the product $C_1 C_2 upright(bold(v))$ is
 bounded by $(n + 1) B$.
 
