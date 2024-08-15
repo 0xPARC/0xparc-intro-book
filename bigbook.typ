@@ -9,15 +9,16 @@
 }
 
 #show: evan.with(
-  title: "More Topics in Programmable Cryptography",
+  title: "Notes on Programmable Cryptography",
   author: "0xPARC",
   date: datetime.today(),
 )
 
-#quote(attribution: [gubsheep introducing progcrypto to Evan for the first time])[
-  Evan, I can now prove to you that I have a message $M$ such that
+#quote[
+  I can prove to you that I have a message $M$ such that
   $op("sha")(M) = "0xa91af3ac..."$, without revealing $M$.
-  But not just for SHA. I can do this for any function you want.
+  But not just for the hash function SHA.
+  I can do this for any function you want.
 ]
 
 #toc
