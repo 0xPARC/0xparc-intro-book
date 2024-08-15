@@ -157,16 +157,16 @@ imagine that $q approx 2^(sqrt(n))$.
 
 For security, instead of adding $4$ rows of the public key, we want to add
 at least $log (q^n) = n log q$ rows. To be safe, maybe a little bigger, say
-$m = 2 n log q$ (of course, for this to work, the
-public key has to have at least $m$ rows). The
+$N = 2 n log q$ (of course, for this to work, the
+public key has to have at least $N$ rows). The
 encryption algorithm will be "select some subset of the rows at random,
 and add them up".
 
-Combining $m$ rows will have the effect of multiplying the
-error by $m$, so if the initial $epsilon.alt$ was bounded by $1$, then
-the error in the ciphertext will be at most $m$. But remember that $q$
-is exponentially large compared to $m$ and $n$ anyway, so a mere factor
-of $m$ should not scare us!
+Combining $N$ rows will have the effect of multiplying the
+error by $N$, so if the initial $epsilon.alt$ was bounded by $1$, then
+the error in the ciphertext will be at most $N$. But remember that $q$
+is exponentially large compared to $N$ and $n$ anyway, so a mere factor
+of $N$ should not scare us!
 
 To generalize our choice of $m$ in $\{0,5\}$, we could encode a single bit
 by using either $0$ or $⌊q / 2⌋$ to obtain maximum separation and thus
