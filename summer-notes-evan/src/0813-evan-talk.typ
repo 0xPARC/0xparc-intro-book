@@ -161,7 +161,7 @@ I'm going to show you yet another magic trick:
 how you can solve for $(x,y,z)$ in your head, too.
 
 The idea is to consider the polynomial whose roots are $3$ and $5$, namely
-$ P(n) = (n-3)(n-5) = n^2 - 8 n + 15 $.
+$ P(n) = (n-3)(n-5) = n^2 - 8 n + 15. $
 Now the trick is that this polynomial has $P(3) = P(5) = 0$ by definition,
 and so $(x,y,z) = (1, -8, 15)$ will actually satisfy the second two equations! Indeed,
 $
