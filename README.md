@@ -19,7 +19,6 @@ The source files are written in [Typst](https://typst.app).
 
 ![Where to find artifacts for the latest compiled build.](artifacts.png)
 
-## Spot a typo?
+## Spot a typo? Have a suggestion?
 
-You can download PDF's from the releases on the right
-(they are also uploaded as artifacts on every pushed commit).
+Please open a [GitHub issue](https://github.com/tideofwords/0xparc-intro-book/issues)!
