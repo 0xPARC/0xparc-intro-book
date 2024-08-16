@@ -146,7 +146,7 @@ So Alice is guaranteed that Bob only knows how to decrypt (at most) one message.
 
 In fact, some public-key cryptosystems (like ElGamal)
 have a sort of "homomorphic" property:
-If you know the private keys for to two different public keys $b_1$ and $b_2$,
+If you know the private keys for two different public keys $b_1$ and $b_2$,
 then you can compute the private key for the public key $b_2 b_1^(-1)$.
 (In ElGamal, this is true because the private key is just the discrete logarithm
 of the public key.)
