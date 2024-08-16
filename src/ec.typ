@@ -378,7 +378,7 @@ given her published public key $[d]$.
   In other words, the signature is the ordered pair $([r], s)$.
 ]
 
-#algorithm[EdDSA signature generation][
+#algorithm[EdDSA signature verification][
   For Bob to verify a signature $([r], s)$ for $msg$:
 
   1. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.
