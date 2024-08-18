@@ -14,7 +14,7 @@ for Bob.
 Yao’s Garbled Circuits is one of the most well-known 2PC protocols.
 The protocol is quite clever, and optimized variants of the protocol are
 being
-#cite("https://github.com/privacy-scaling-explorations/mpz/tree/dev/garble")[implemented and used today];.
+#cite("https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble")[implemented and used today];.
 
 == The Problem
 <the-problem>
