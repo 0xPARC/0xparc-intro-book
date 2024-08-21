@@ -1,6 +1,6 @@
 #import "@local/evan:1.0.0":*
 
-= Practice run for Evan's talk
+= Evan's talk (delivered August 19)
 
 == Overview
 
