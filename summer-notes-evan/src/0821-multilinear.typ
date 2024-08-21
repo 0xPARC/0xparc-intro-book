@@ -1,6 +1,6 @@
 #import "@local/evan:1.0.0":*
 
-= Advanced math seminar: Multilinear polynomial commitment scheme (Aard Vark)
+= Advanced math seminar for August 21: Multilinear polynomial commitment scheme (Aard Vark)
 
 == What is Binius and why is it important?
 
