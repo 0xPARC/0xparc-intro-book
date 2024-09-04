@@ -18,25 +18,28 @@ encrypted as it is stored in memory and on disk. Now, the enclave has a
 secret key that can decrypt the data and perform computation inside. At
 first sight, this seems to solve the privacy problem, since data is
 always encrypted in transit and at rest, and the server cannot see the
-contents. Unfortunately, it is well-known that encryption alone provides
-little privacy in such scenarios. In particular, the enclave will need
+contents. 
+
+Unfortunately, encryption alone provides
+little privacy in such scenarios. The enclave will need
 to access encrypted entries stored on disk, and the server’s operating
 system can easily observe the #emph[access patterns];, i.e., which
 memory pages are being fetched by the enclave. The access patterns leak
 exactly who Alice’s friends are even if the data is encrypted!
 
 In general, access patterns of a program leak sensitive information
-about your private data. For example, if you are performing binary
+about your private data. As a simpler example, if you are performing binary
 search over a sorted array, the entries accessed during the search would
 leak your private query. 
 
-More generally, it is also helpful to think of
+We can also think of
 access pattern leakage through a programming language perspective: for
 example, the following program has an `if`-branch dependent on secret
 inputs (e.g., think of the secret input as the last bit of a secret key)
 Thus by observing whether memory location `x` or `y` is accessed, one
 can infer which branch is taken.
 
+#align(center)[
 #block[
 ```
 if (s) {
@@ -45,11 +48,11 @@ if (s) {
   mem[y]
 }
 ```
-
+]
 ]
 Therefore, we want to solve the following challenge:
 
-- #emph[How can we provably hide access patterns while preserving
+#quote[How can we provably hide access patterns while preserving
   efficiency?]
 
 The solution Signal eventually deployed is an algorithmic technique
@@ -124,13 +127,13 @@ given, and thus we only care about hiding the access patterns.
 
 = Naı̈ve Solutions
 <naıve-solutions>
-==== Naı̈ve solution 1.
+== Naı̈ve solution 1.
 <naıve-solution-1.>
 One trivial solution is for the client to read all blocks from the
 server upon every logical request. Obviously this scheme leaks nothing
 but would be prohibitively expensive.
 
-==== Naı̈ve solution 2.
+== Naı̈ve solution 2.
 <naıve-solution-2.>
 Another trivial solution is for the client to store all blocks, and thus
 the client need not access the server to answer any memory request. But
@@ -138,7 +141,7 @@ this defeats the numerous advantages of cloud outsourcing in the first
 place. #emph[Henceforth, we require that client store only a small
 amount of blocks] (e.g., constant or polylogarithmic in $N$).
 
-==== Naı̈ve solution 3.
+== Naı̈ve solution 3.
 <naıve-solution-3.>
 Another naı̈ve idea is to randomly permute all memory blocks through a
 secret permutation known only to the client. Whenever the client wishes
@@ -155,7 +158,7 @@ two blocks are accessed together). As mentioned earlier, one can
 such statistical information to infer sensitive
 secrets.
 
-==== Important observation.
+== Important observation.
 <important-observation.>
 The above naı̈ve solution 3 gives us the following useful insight:
 informally, if we want a "non-trivial" ORAM scheme, it appears that we
@@ -164,9 +167,7 @@ next access to the same block goes back to the same location, we can
 thus leak statistical information. It helps to keep this observation in
 mind when we describe our ORAM scheme later.
 
-= Binary-Tree ORAM
-<binary-tree-oram>
-== Data Structure
+= Binary-Tree ORAM: Data Structure
 <data-structure>
 We will learn about tree-based ORAMs. 
 Then, we will mention an
@@ -174,7 +175,7 @@ improvement called #cite("https://eprint.iacr.org/2013/280.pdf", "Path ORAM"),
 which is the scheme
 that Signal has deployed.
 
-==== Server data structure.
+== Server data structure.
 <server-data-structure.>
 The server stores a binary tree, where each node is called a
 #emph[bucket];, and each bucket is a finite array that can hold up to
@@ -184,7 +185,7 @@ later. Some of the blocks stored by the server are #emph[real];, other
 blocks are #emph[dummy];. As will be clear later, these dummy blocks are
 introduced for security.
 
-==== Main path invariant.
+== Main path invariant.
 <main-path-invariant.>
 The most important invariant is that at any point of time, each block is
 mapped to a random path in the tree (also referred to as the block’s
@@ -193,7 +194,7 @@ leaf node — and thus a path can be specified by the corresponding leaf
 node’s identifier. When a block is mapped to a path, it means that the
 block can legitimately reside anywhere along the path.
 
-==== Imaginary position map.
+== Imaginary position map.
 <imaginary-position-map.>
 For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
@@ -203,11 +204,11 @@ $Theta (N log N)$ bits to store — but later we can recursively outsource
 the storage of the position map to the server by placing them in
 progressively smaller ORAMs.
 
-== Operations
+= Binary Tree ORAM: Operations
 <operations>
 We now describe how to access blocks in our ORAM scheme.
 
-==== Fetching a block.
+== Fetching a block.
 <fetching-a-block.>
 Given how our data structures are set up, accessing a block is very
 easy: the client simply looks up its local position map, finds out on
@@ -215,7 +216,7 @@ which path the block is residing, and then reads each and every block on
 the path. As long as the main invariant is respected, the client is
 guaranteed to find the desired block.
 
-==== Remapping a block.
+== Remapping a block.
 <remapping-a-block.>
 Recall that earlier, we have gained the informal insight that whenever a
 block is accessed, it should relocate. Here, whenever we access a block,
@@ -248,7 +249,7 @@ capacity of $Z$, and if we keep writing blocks back to the root, soon
 enough the root bucket will overflow! Therefore, we now introduce a new
 procedure called #emph[eviction] to cope with this problem.
 
-==== Eviction.
+== Eviction.
 <eviction.>
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
@@ -360,7 +361,7 @@ So far, we have not argued why any bucket that receives a block always
 has space for this block — we will give an informal analysis later to show
 that this is indeed the case.
 
-==== Algorithm pseudo-code.
+== Algorithm pseudo-code.
 <algorithm-pseudo-code.>
 We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 @alg:evict.
@@ -374,13 +375,13 @@ secure, the server should not be able to tell whether the block’s
 content has changed upon seeing the new ciphertext.
 
 ]
-== Analysis
+= Analysis
 <analysis>
 We will now discuss why the aforementioned binary-tree ORAM construction
 1) preserves obliviousness; and 2) is correct except with negligible in
 $N$ probability.
 
-==== Obliviousness.
+== Obliviousness.
 <obliviousness.>
 Obliviousness is in fact easy to see. First, whenever a block is
 accessed, it is assigned to a new path and the choice of the new path is
@@ -389,7 +390,7 @@ the server simply observes a random path being accessed. Second, observe
 that the entire eviction process does not depend on the input requests
 at all.
 
-==== Correctness.
+== Correctness.
 <correctness.>
 Correctness is somewhat more tricky to argue. As mentioned earlier, to
 argue correctness, we must argue why no overflow will ever occur except
