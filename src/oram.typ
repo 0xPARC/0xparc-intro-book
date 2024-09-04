@@ -333,28 +333,34 @@ We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 
 
 #algorithm[
+$mono("Access")(mono("op"), mono("addr") , mono("data"))$
+
 
 #strong[Assume:] each block is of the form
-$(sans(a d d r) , sans(d a t a) , l)$ where $l$ denotes the block’s
+$(mono("addr") , mono("data") , l)$ where $l$ denotes the block’s
 current designated path.
 
-1. $l^(\*) arrow.l^(\$) [1 . . N]$,
-$l arrow.l mono("position") [sans(a d d r)]$,
-$mono("position") [sans(a d d r)] arrow.l l^(\*)$.
+1. 
+  $l^(\*) arrow.l^(\$) [1 . . N]$, 
+  $l arrow.l mono("position")[mono("addr")]$,
+  $mono("position")[mono("addr")] arrow.l l^(\*)$.
+
 2. For each bucket from leaf $l$ to root do:
-  3. Scan $sans("bucket")$, and if
-$(sans(a d d r) , sans(d a t a)_0 , \_) in sans("bucket")$ then let
-$sans("data")^(\*) arrow.l sans("data")_0$ and remove this block from
-bucket.
+
+  3. Scan $mono("bucket")$, and if
+    $(mono("addr") , mono("data")_0 , \_) in mono("bucket")$ then let
+    $mono("data")^(\*) arrow.l mono("data")_0$ and remove this block from
+    bucket.
+    
 4. End for
 
-5. if $sans(o p) = mono("read")$ then add
-$(sans(a d d r) , sans(d a t a)^(\*) , l^(\*))$ to the root bucket; else
-add $(sans(a d d r) , sans(d a t a) , l^(\*))$ to the root bucket.
+5. If $mono("op") = mono("read")$ then add
+  $(mono("addr") , mono("data")^(\*) , l^(\*))$ to the root bucket; else
+  add $(mono("addr") , mono("data") , l^(\*))$ to the root bucket.
 
 6. Call the $mono("Evict")$ subroutine.
 
-7. Return $sans(d a t a)^(\*)$.
+7. Return $mono("data")^(\*)$.
 
 ]<alg:access>
 #algorithm[
