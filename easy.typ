@@ -60,3 +60,6 @@
 #chapter("src/fhe2.typ")
 #chapter("src/fhe3.typ")
 #chapter("src/fhe-takeaways.typ")
+
+#part[Oblivious RAM]
+#chapter("src/oram.typ")
