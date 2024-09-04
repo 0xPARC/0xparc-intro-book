@@ -333,8 +333,8 @@ We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 
 
 #algorithm[
-$mono("Access")(mono("op"), mono("addr") , mono("data"))$
-
+The procedure $mono("Access")(mono("op"), mono("addr") , mono("data"))$
+where $mono("op") = mono("read")$ or $mono("op") = mono("write")$
 
 #strong[Assume:] each block is of the form
 $(mono("addr") , mono("data") , l)$ where $l$ denotes the block’s
@@ -344,36 +344,36 @@ current designated path.
   $l^(\*) arrow.l^(\$) [1 . . N]$, 
   $l arrow.l mono("position")[mono("addr")]$,
   $mono("position")[mono("addr")] arrow.l l^(\*)$.
-
 2. For each bucket from leaf $l$ to root do:
-
   3. Scan $mono("bucket")$, and if
     $(mono("addr") , mono("data")_0 , \_) in mono("bucket")$ then let
     $mono("data")^(\*) arrow.l mono("data")_0$ and remove this block from
     bucket.
-    
 4. End for
-
 5. If $mono("op") = mono("read")$ then add
   $(mono("addr") , mono("data")^(\*) , l^(\*))$ to the root bucket; else
   add $(mono("addr") , mono("data") , l^(\*))$ to the root bucket.
-
 6. Call the $mono("Evict")$ subroutine.
-
 7. Return $mono("data")^(\*)$.
-
 ]<alg:access>
 #algorithm[
-#block[
-$sans("bucket")_0$, $sans("bucket")_1 arrow.l$ randomly choose $2$
-distinct buckets in the level $d$ (for the root level, pick one bucket).
-$sans("block") :=$ pop a real block from $sans("bucket")$ if one exists;
-else $sans("block") := (tack.t , tack.t , tack.t)$. : scan the child
-bucket reading and writing every block. If $sans("block")$ is real and
-wants to go to the child, write $sans("block")$ to an empty slot in the
-child bucket.
+The procedure $mono("evict")$
 
-]
+1. For each level $d$ from the root to the level of leaves $-1$, do:
+  2. $mono("bucket")_0$, $mono("bucket")_1 arrow.l$ 
+    randomly choose $2$
+    distinct buckets in the level $d$ (for the root level, pick one bucket).
+  3. For $mono("bucket") in \{ mono("bucket")_0, mono("bucket")_1 \}$ do:
+    4. $sans("block") :=$ pop a real block from $sans("bucket")$ if one exists;
+      else $sans("block") := (tack.t , tack.t , tack.t)$.
+    5. For each of the two children of $mono("bucket")$ in a fixed order: 
+      scan the child
+      bucket reading and writing every block. 
+      If $sans("block")$ is real and
+      wants to go to the child, write $sans("block")$ to an empty slot in the
+      child bucket.
+  6. End for
+7. End for
 ]<alg:evict>
 
 #block[
