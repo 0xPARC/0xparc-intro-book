@@ -164,7 +164,7 @@ We'll need to make two changes to the protocol.
 
   Of course, the solution is to use a hash function!
   So here is the new version of our garbled gate.
-  For simplicity, I'll assume it's an AND gate --
+  For simplicity, we'll assume it's an AND gate --
   so the outputs will be (the passwords encoding) 0, 0, 0, 1.
   #table(
     columns: 2,

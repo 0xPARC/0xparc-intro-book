@@ -32,7 +32,7 @@ if this pairing can be computed reasonably quickly
 
 This construction actually uses some really deep number theory
 (heavier than all the math in @ec)
-that is well beyond the scope of these lecture notes.
+that is well beyond the scope of this modest book.
 Fortunately, we won't need the details of how it works;
 but we'll comment briefly in @pairing-friendly on what curves it can be done on.
 And this pairing algorithm needs to be worked out just once for the curve $E$;
