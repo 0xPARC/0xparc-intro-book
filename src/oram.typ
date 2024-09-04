@@ -1,4 +1,5 @@
 #import "preamble.typ":*
+// #import algorithmic: algorithm
 
 To motivate Oblivious RAM, let us think of Signal’s usage scenario.
 Signal is an encrypted messenger app with billions of users. They want
@@ -283,42 +284,6 @@ a few important considerations when performing such eviction:
   can avoid overflow almost surely (i.e., no overflow except with
   negligible in $N$ probability).
 
-#algorithm[
-#strong[Assume:] each block is of the form
-$(sans(a d d r) , sans(d a t a) , l)$ where $l$ denotes the block’s
-current designated path.
-
-#block[
-$l^(\*) arrow.l^(\$) [1 . . N]$,
-$l arrow.l mono("position") [sans(a d d r)]$,
-$mono("position") [sans(a d d r)] arrow.l l^(\*)$. Scan
-$sans("bucket")$, and if
-$(sans(a d d r) , sans(d a t a)_0 , \_) in sans("bucket")$ then let
-$sans("data")^(\*) arrow.l sans("data")_0$ and remove this block from
-bucket.
-
-if $sans(o p) = mono("read")$ then add
-$(sans(a d d r) , sans(d a t a)^(\*) , l^(\*))$ to the root bucket; else
-add $(sans(a d d r) , sans(d a t a) , l^(\*))$ to the root bucket.
-
-Call the $mono("Evict")$ subroutine.
-
-$sans(d a t a)^(\*)$.
-
-]
-]<alg:access>
-#algorithm[
-#block[
-$sans("bucket")_0$, $sans("bucket")_1 arrow.l$ randomly choose $2$
-distinct buckets in the level $d$ (for the root level, pick one bucket).
-$sans("block") :=$ pop a real block from $sans("bucket")$ if one exists;
-else $sans("block") := (tack.t , tack.t , tack.t)$. : scan the child
-bucket reading and writing every block. If $sans("block")$ is real and
-wants to go to the child, write $sans("block")$ to an empty slot in the
-child bucket.
-
-]
-]<alg:evict>
 #figure(image("binaryoram16-evict.png"),
   caption: [
     The `Evict` algorithm. Upon every data access operation, 2 buckets
@@ -365,6 +330,45 @@ that this is indeed the case.
 <algorithm-pseudo-code.>
 We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 @alg:evict.
+
+
+#algorithm[
+
+#strong[Assume:] each block is of the form
+$(sans(a d d r) , sans(d a t a) , l)$ where $l$ denotes the block’s
+current designated path.
+
+1. $l^(\*) arrow.l^(\$) [1 . . N]$,
+$l arrow.l mono("position") [sans(a d d r)]$,
+$mono("position") [sans(a d d r)] arrow.l l^(\*)$.
+2. For each bucket from leaf $l$ to root do:
+  3. Scan $sans("bucket")$, and if
+$(sans(a d d r) , sans(d a t a)_0 , \_) in sans("bucket")$ then let
+$sans("data")^(\*) arrow.l sans("data")_0$ and remove this block from
+bucket.
+4. End for
+
+5. if $sans(o p) = mono("read")$ then add
+$(sans(a d d r) , sans(d a t a)^(\*) , l^(\*))$ to the root bucket; else
+add $(sans(a d d r) , sans(d a t a) , l^(\*))$ to the root bucket.
+
+6. Call the $mono("Evict")$ subroutine.
+
+7. Return $sans(d a t a)^(\*)$.
+
+]<alg:access>
+#algorithm[
+#block[
+$sans("bucket")_0$, $sans("bucket")_1 arrow.l$ randomly choose $2$
+distinct buckets in the level $d$ (for the root level, pick one bucket).
+$sans("block") :=$ pop a real block from $sans("bucket")$ if one exists;
+else $sans("block") := (tack.t , tack.t , tack.t)$. : scan the child
+bucket reading and writing every block. If $sans("block")$ is real and
+wants to go to the child, write $sans("block")$ to an empty slot in the
+child bucket.
+
+]
+]<alg:evict>
 
 #block[
 #strong[Remark 2];. Note that in a full-fledged implementation, all
