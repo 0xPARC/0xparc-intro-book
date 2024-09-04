@@ -388,16 +388,22 @@ content has changed upon seeing the new ciphertext.
 = Analysis
 <analysis>
 We will now discuss why the aforementioned binary-tree ORAM construction
-1) preserves obliviousness; and 2) is correct except with negligible in
-$N$ probability.
+
+1) preserves obliviousness; and 
+
+2) is correct (except with negligible probability).
 
 == Obliviousness.
 <obliviousness.>
-Obliviousness is in fact easy to see. First, whenever a block is
+Obliviousness is easy to see. 
+
+First, whenever a block is
 accessed, it is assigned to a new path and the choice of the new path is
-kept secret from the server. Thus, whenever the block is accessed again,
-the server simply observes a random path being accessed. Second, observe
-that the entire eviction process does not depend on the input requests
+kept secret from the server. So whenever the block is accessed again,
+the server simply sees a random path being accessed. 
+
+Second, 
+the entire eviction process does not depend on the input requests
 at all.
 
 == Correctness.
@@ -415,74 +421,59 @@ probability. ]
 
 ] <clm:bucketsize>
 #block[
-#emph[Proof.] Note that for the leaf nodes, we can apply a standard
-balls-and-bins analysis, that is, if we throw $N$ balls into $N$ bins at
-random, then by Chernoff bound, we have that for any super-constant
-function $alpha (dot.op)$,
-$ Pr [upright("max bin load") > alpha log N] lt.eq exp (- Omega (N)) $
+#emph[Proof.] 
+We will give a heuristic outline of a proof.
+The full argument uses results from
+#cite("https://en.wikipedia.org/wiki/Queueing_theory", "queueing theory"),
+in particular 
+#cite("https://en.wikipedia.org/wiki/Burke%27s_theorem", "Burke's theorem").
 
-Henceforth we focus on analyzing non-leaf buckets. We shall first give a
-"cheating" proof, which is almost correct but to formalize it requires
-some extra work as explained later.
-
-- First, observe that the root bucket (i.e., level $0$ of the ORAM tree)
+- The root bucket (i.e., level $0$ of the ORAM tree)
   receives exactly $1$ incoming block with every access, but we get to
   evict the root bucket twice upon every access, and thus whatever
-  enters the root gets evicted immediately. The root bucket is a special
-  case and henceforth we no longer need to consider the root bucket in
-  the analysis below.
+  enters the root gets evicted immediately.
 
 - Now consider a bucket at level $1$ of the ORAM tree. On average, one
-  out of every two accesses (think about why), a block will enqueue in
+  out of every two accesses, a block will enqueue in
   the bucket. With probability $1$, the bucket will be chosen for
   eviction. If the bucket is chosen for eviction, a block gets to
   dequeue from this bucket.
 
-- Similarly, now consider a bucket at level $2$ of the ORAM tree. On
-  average, one out of every four accesses (think about why), a block
+- Similarly, consider a bucket at level $2$ of the ORAM tree. On
+  average, one out of every four accesses, a block
   will enqueue in the bucket. With probability $1 / 2$, the bucket will
   be chosen for eviction.
 
-- In general, we can conclude that for any non-leaf level $i > 1$ of the
-  ORAM tree, with each access, one out of every $2^i$ accesses, a block
-  will enqueue, and with probability $1 / 2^(i - 1)$, the bucket is
+- In general, at level $i > 1$ of the
+  ORAM tree, a block will enqueue on one out of every $2^i$ accesses, 
+  and with probability $1 / 2^(i - 1)$, the bucket is
   chosen for eviction.
 
 Now we see a useful pattern: for every non-leaf and non-root level of
 the tree, with every ORAM access, the dequeue probability is twice as
-large as the enqueue probability. This reminds us of the standard
-discrete-time M/M/1 queue which you might have learned about in a basic
-probability class. Recall that in general, in a discrete-time M/M/1
-queue,
+large as the enqueue probability. 
+This situation is well-known in queueing theory as the
+"M/M/1 queue":
 
 - Every time step, with probability $p$, an item enqueues;
 
 - Every time step, with probability $2 p$, an item dequeues if the queue
   is non-empty.
 
-Standard Markov chain analysis tells us that at any given time (prove
-this on your own, or alternatively we can do this proof together in a
-guided fashion in our homework)
-$ Pr [upright("M/M/1 queue length") > R] lt.eq exp (Omega (- R)) $
+Since the bucket is drained (on average) twice as fast as it is filled,
+we expect that it's very unlikely for a lot of blocks to accumulate
+in any one bucket.
 
-Thus, if each bucket indeed behaves like an M/M/1 queue, we could just
-apply this standard M/M/1 queue analysis to prove Claim~@clm:bucketsize
-(please do the remaining work yourself: remember, it involves applying a
-union bound over all time steps).
+Indeed, one can prove an exponential bound on the probability
+that any one bucket gets too full:
+$ Pr [upright("number of items in queue") > R] lt.eq exp (Omega (- R)). $
 
-- #emph[Unfortunately, we cheated here. Can you spot why?]
-
+Unfortunately, this doesn't quite finish our analysis of the ORAM tree.
 The reason is that the buckets in the ORAM tree are not independent, and
 our informal argument above ignored possible dependence between buckets.
-Well, fortunately, it turns out that this is not a big issue, and if we
-simply apply the discrete version of Burkes’ theorem for tandem
-queues, we can in fact turn the above informal analysis into a
-formal proof! Imprecisely speaking, Burkes’ theorem says that in such a
-tandem queuing system as the above, even though the queue lengths are
-not independent, it turns out that the #emph[marginal] stationary
-distribution of each queue’s length is the same as having independent
-M/M/1 queues.~◻
-
+It turns out that this gap can be filled using Burke's theorem.
+But at this point the reader should already be convinced that 
+the result is at least quite plausible.
 ]
 = Binary-Tree ORAM: Recursion
 <binary-tree-oram-recursion>
