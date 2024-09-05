@@ -11,8 +11,8 @@
 }
 
 #show: evan.with(
-  title: "Three Easy Pieces in Programmable Cryptography",
-  long-title: [Three Easy Pieces in \ Programmable \ Cryptography],
+  title: "Four Easy Pieces in Programmable Cryptography",
+  long-title: [Four Easy Pieces in \ Programmable \ Cryptography],
   author: "0xPARC",
   date: datetime.today(),
 )

@@ -3,7 +3,7 @@
 = About this novel
 
 This novel _Notes on Programmable Cryptography_ is a sequel
-to the novella _Three Easy Pieces in Programmable Cryptography_,
+to the novella Four Easy Pieces in Programmable Cryptography_,
 from the #link("https://0xparc.org", "0xPARC Foundation").
 Whereas the novella was short enough to print and give to friends
 as a souvenir to read on a plane ride,

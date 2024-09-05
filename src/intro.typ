@@ -86,7 +86,7 @@ statements of the form:
 once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $sha(M) = Y$."
 
 SNARKS are an active area of research, and many different SNARKs are known.
-Our work focuses on a particular example, PLONK (@plonk).
+We will focus on a particular example, PLONK (@plonk).
 
 == FHE: Fully homomorphic encryption
 
@@ -105,6 +105,30 @@ The server will faithfully translate it into
 another language and give you $Enc(y)$, where $y$ is the translation of $x$.
 You can then decrypt and obtain $y$, knowing that the server cannot extract
 anything meaningful from $Enc(x)$ without your secret key.
+
+== ORAM: Oblivious RAM
+
+You want to perform a private computation on a large database.
+The database is so large that you can't store it yourself --
+and you don't trust the server it's stored on.
+
+First off, you'll encrypt the data, so the server can't read it.
+But the server still has an attack:
+they can study your #emph[access patterns].
+For example, they can see which records you access most frequently,
+or which records you access at the same time as other records.
+In many applications this is enough for the server to learn
+sensitive information.
+
+Oblivious RAM protects against exactly this sort of attack.
+Oblivious RAM is an algorithm you use to "scramble" your
+memory access requests.
+When you feed your request into the ORAM algorithm,
+the ORAM algorithm sends some scrambled
+read and write requests to the server.
+Only one of the scrambled requests is the request you are interested in;
+the others keep the server from learning
+which request you care about.
 
 = Programmable Cryptography in the World
 
