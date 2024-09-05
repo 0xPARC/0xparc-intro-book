@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-#takeaway[2PC Takeaways][
+#takeaway[2PC takeaways][
 1. A _garbled circuit_ allows Alice and Bob to jointly compute some
   function over their respective secret inputs. We can think of this
   as your prototypical _2PC_ (two-party computation).

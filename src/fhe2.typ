@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Public-Key Cryptography from LWE
+= Public-key cryptography from LWE
 <lwe-crypto>
 
 In @lwe-small

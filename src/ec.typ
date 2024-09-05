@@ -249,7 +249,7 @@ for all our cryptographic primitives*
   while the prime $p$ is unnamed and doesn't get any screen-time later.
 ]
 
-= Discrete Logarithm <discretelog>
+= Discrete logarithm <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called _discrete logarithm_ assumption.

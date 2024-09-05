@@ -3,7 +3,7 @@
 #let rbox(s) = [#text(red)[#ellipse(stroke: red, inset: 2pt, s)]]
 #let bbox(s) = [#text(blue)[#rect(stroke: blue, inset: 4pt, s)]]
 
-= Copy Constraints in PLONK <copy-constraints>
+= Copy constraints in PLONK <copy-constraints>
 
 Now we elaborate on Step 3 which we deferred back in @copy-constraint-deferred.
 As an example, the constraints might be:

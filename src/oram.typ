@@ -167,7 +167,7 @@ two blocks are accessed together). As mentioned earlier, one can
 such statistical information to infer sensitive
 secrets.
 
-== Important observation.
+== Important observation
 <important-observation.>
 The above naive solution 3 gives us the following useful insight:
 informally, if we want a "non-trivial" ORAM scheme, it appears that we
@@ -184,7 +184,7 @@ improvement called #cite("https://eprint.iacr.org/2013/280.pdf", "Path ORAM"),
 which is the scheme
 that Signal has deployed.
 
-== Server data structure.
+== Server data structure
 <server-data-structure.>
 The server stores a binary tree, where each node is called a
 #emph[bucket];, and each bucket is a finite array that can hold up to
@@ -194,7 +194,7 @@ later. Some of the blocks stored by the server are #emph[real];, other
 blocks are #emph[dummy];. As will be clear later, these dummy blocks are
 introduced for security.
 
-== Main path invariant.
+== Main path invariant
 <main-path-invariant.>
 The most important invariant is that at any point of time, each block is
 mapped to a random path in the tree (also referred to as the block’s
@@ -203,7 +203,7 @@ leaf node — and thus a path can be specified by the corresponding leaf
 node’s identifier. When a block is mapped to a path, it means that the
 block can legitimately reside anywhere along the path.
 
-== Imaginary position map.
+== Imaginary position map
 <imaginary-position-map.>
 For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
@@ -217,7 +217,7 @@ progressively smaller ORAMs.
 <operations>
 We now describe how to access blocks in our ORAM scheme.
 
-== Fetching a block.
+== Fetching a block
 <fetching-a-block.>
 Given how our data structures are set up, accessing a block is very
 easy: the client simply looks up its local position map, finds out on
@@ -225,7 +225,7 @@ which path the block is residing, and then reads each and every block on
 the path. As long as the main invariant is respected, the client is
 guaranteed to find the desired block.
 
-== Remapping a block.
+== Remapping a block
 <remapping-a-block.>
 Recall that earlier, we have gained the informal insight that whenever a
 block is accessed, it should relocate. Here, whenever we access a block,
@@ -258,7 +258,7 @@ capacity of $Z$, and if we keep writing blocks back to the root, soon
 enough the root bucket will overflow! Therefore, we now introduce a new
 procedure called #emph[eviction] to cope with this problem.
 
-== Eviction.
+== Eviction
 <eviction.>
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
@@ -299,7 +299,7 @@ a few important considerations when performing such eviction:
     data block will be evicted to one of its children. To ensure
     security, a dummy eviction is performed for the child that does not
     receive a block; further, if the bucket chosen for eviction is
-    empty, dummy evictions are performed on both children buckets. In
+    empty, dummy evictions are performed on both child buckets. In
     this figure, $R$ denotes a real eviction and $D$ denotes a dummy
     eviction.
   ]
@@ -334,7 +334,7 @@ So far, we have not argued why any bucket that receives a block always
 has space for this block — we will give an informal analysis later to show
 that this is indeed the case.
 
-== Algorithm pseudo-code.
+== Algorithm pseudo-code
 <algorithm-pseudo-code.>
 We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 @alg:evict.
@@ -401,7 +401,7 @@ We will now discuss why the aforementioned binary-tree ORAM construction
 
 2) is correct (except with negligible probability).
 
-== Obliviousness.
+== Obliviousness
 <obliviousness.>
 Obliviousness is easy to see. 
 
@@ -414,7 +414,7 @@ Second,
 the entire eviction process does not depend on the input requests
 at all.
 
-== Correctness.
+== Correctness
 <correctness.>
 Correctness is somewhat more tricky to argue. As mentioned earlier, to
 argue correctness, we must argue why no overflow will ever occur except

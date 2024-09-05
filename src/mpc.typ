@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Garbled Circuits
+= Garbled circuits
 
 Imagine Alice and Bob each have some secret values
 $a$ and $b$, and would like to jointly compute some function $f$ over
@@ -11,12 +11,12 @@ $f (a , b)$, but Alice shouldn’t learn anything about $b$ (other than
 what could be learned by knowing both $a$ and $f (a , b)$), and likewise
 for Bob.
 
-Yao’s Garbled Circuits is one of the most well-known 2PC protocols.
+Yao’s garbled circuits is one of the most well-known 2PC protocols.
 The protocol is quite clever, and optimized variants of the protocol are
 being
 #cite("https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble")[implemented and used today];.
 
-== The Problem
+== The problem
 <the-problem>
 Here is our problem setting, slightly more formally:
 
@@ -30,7 +30,7 @@ Here is our problem setting, slightly more formally:
 - Alice and Bob would like to jointly compute $f (a , b)$ without
   revealing their secrets to each other.
 
-== Outline of Solution
+== Outline of solution
 
 Our solution will contain two key components:
 - Alice constructs a _garbled circuit_

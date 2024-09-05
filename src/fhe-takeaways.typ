@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-#takeaway[FHE Takeaways][
+#takeaway[FHE takeaways][
 1. A _fully homomorphic encryption_ protocol allows Bob to compute some function $f(x)$ for Alice in a way that Bob doesn't get to know $x$ or $f(x)$.
 2. The hard problem backing known FHE protocols is the _learning with errors (LWE)_ problem, which comes down to deciding if a system of "approximate equations" over $FF_q$ is consistent.
 3. The main idea of this approach to FHEs is to use "approximate eigenvalues" as the encrypted computation and an "approximate eigenvector" as the secret key.

@@ -1,6 +1,6 @@
 #import "preamble.typ":*
 
-= Oblivious Transfer
+= Oblivious transfer
 <ot>
 
 Alice has $n$ messages $x_1, dots, x_n$.

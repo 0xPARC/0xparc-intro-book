@@ -63,3 +63,4 @@
 
 #part[Oblivious RAM]
 #chapter("src/oram.typ")
+#chapter("src/oram-takeaways.typ")

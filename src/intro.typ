@@ -69,7 +69,7 @@ and $x_i$ is the $i$-th person's income.
 Two-party computation makes a promise that we'll be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
 
-== SNARK: proofs of general statements
+== SNARK: Proofs of general statements
 
 A powerful way of thinking about a signature scheme is that it is a *proof*. Specifically, Alice's signature is a proof that "I [the
 person who generated the signature] know Alice's private key." Similarly, a
@@ -130,7 +130,7 @@ Only one of the scrambled requests is the request you are interested in;
 the others keep the server from learning
 which request you care about.
 
-= Programmable Cryptography in the World
+= Programmable cryptography in the world
 
 In the past decade, there has been a surprisingly high amount of theoretical work but also
 a surprisingly low amount of implementation work on primitives in programmable cryptography.
