@@ -10,7 +10,7 @@ her friends. The problem is that many users want to keep their address
 book private, and Signal wants to provide contact discovery without
 learning the users’ contacts.
 
-A naïve solution is to rely on trusted hardware. Suppose Signal has a
+A naive solution is to rely on trusted hardware. Suppose Signal has a
 secure processor (e.g., Intel SGX) on its server. One can think of the
 secure processor as providing a hardware sandbox (often referred to as
 an #emph[enclave];). Now, Alice sends her address book in encrypted
@@ -77,11 +77,10 @@ Let us explain the parts of an ORAM system.
 An ORAM algorithm (the #emph[client];) 
 sits between a #emph[user]; who wants to access memory
 and a #emph[server]; that has memory capabilities.
-From the server's perspective,
-the server simply acts as a memory:
+At the server-ORAM interface, the server simply acts as a memory:
 the ORAM client sends read and write requests to the server,
 and the server responds.
-From the user's perspective,
+Between the ORAM and the user,
 the user submits #emph[logical] read and write requests
 to the ORAM client,
 and the client will reply to each (after interaction with the server).
@@ -93,17 +92,18 @@ our ORAM algorithm will support $N$ blocks of logical memory.
 
 Formally, the user sends to the algorithm
 a sequence of #emph[logical] requests, where each logical request
-is of the form \$\$\\text{
-(\\texttt{read}, {\\ensuremath{\\mathsf{addr}}}) or  (\\texttt{write}, {\\ensuremath{\\mathsf{addr}}}, {\\ensuremath{\\mathsf{data}}}).
-}\$\$
+is of the form
+$(mono("read"), mono("addr"))$ or $(mono("write"), mono("addr"),
+mono("data"))$.
 
 After each user request, the ORAM algorithm interacts with 
 the server to make a sequence of
 #emph[physical] accesses, where each physical access either reads or
 writes a block to a physical location.
 
-After these accesses, the ORAM algorithm
-returns an answer to the user's logical input request. 
+And finally, the ORAM algorithm
+turns back to the user and
+returns an answer to the logical request. 
 
 For example, in Signal’s scenario, 
 the "user" and the "ORAM client"
@@ -118,33 +118,41 @@ For any two #emph[logical] request sequences, the ORAM’s
 resulting #emph[physical] access sequences will be indistinguishable.
 
 #remark[
-Note that in our definition of $sans("Addresses")$,
-i.e., what the adversary can observe, we did not include the contents of
-the memory blocks, only the physical addresses and whether each physical
-access is a read or write. In practice, we may use encryption to hide
-the contents of the blocks — here we simply assume secure encryption as
-given, and thus we only care about hiding the access patterns.
+In this security requirement, 
+we require that the server learn nothing from the list of
+physical addresses, and whether each physical
+access is a read or write.
+We don't say anything about the data that is written to physical memory.
+
+In practice, we need to use encryption to hide
+the contents of the blocks. 
+For example, if we read a block and then write it back,
+we should re-encrypt it with a different ciphertext,
+or else the server would recognize it as the same block.
+
+From now on we will simply assume secure encryption as
+given, and focus on hiding the access patterns.
 ]
 
-= Naı̈ve Solutions
-<naıve-solutions>
-== Naı̈ve solution 1.
-<naıve-solution-1.>
+= Naive Solutions
+<naive-solutions>
+== Naive solution 1
+<naive-solution-1.>
 One trivial solution is for the client to read all blocks from the
 server upon every logical request. Obviously this scheme leaks nothing
 but would be prohibitively expensive.
 
-== Naı̈ve solution 2.
-<naıve-solution-2.>
+== Naive solution 2
+<naive-solution-2.>
 Another trivial solution is for the client to store all blocks, and thus
 the client need not access the server to answer any memory request. But
 this defeats the numerous advantages of cloud outsourcing in the first
 place. #emph[Henceforth, we require that client store only a small
 amount of blocks] (e.g., constant or polylogarithmic in $N$).
 
-== Naı̈ve solution 3.
-<naıve-solution-3.>
-Another naı̈ve idea is to randomly permute all memory blocks through a
+== Naive solution 3
+<naive-solution-3.>
+Another naive idea is to randomly permute all memory blocks through a
 secret permutation known only to the client. Whenever the client wishes
 to access a block, it will appear to the server to reside at a random
 location.
@@ -161,7 +169,7 @@ secrets.
 
 == Important observation.
 <important-observation.>
-The above naı̈ve solution 3 gives us the following useful insight:
+The above naive solution 3 gives us the following useful insight:
 informally, if we want a "non-trivial" ORAM scheme, it appears that we
 may have to relocate a block after it is accessed — otherwise, if the
 next access to the same block goes back to the same location, we can
