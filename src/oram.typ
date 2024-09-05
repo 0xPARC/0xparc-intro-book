@@ -341,7 +341,7 @@ We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 
 
 #algorithm[
-The procedure $mono("Access")(mono("op"), mono("addr") , mono("data"))$
+The procedure $mono("Access")(mono("op"), mono("addr") , mono("data")^(\*))$
 where $mono("op") = mono("read")$ or $mono("op") = mono("write")$
 
 #strong[Assume:] each block is of the form
@@ -356,7 +356,7 @@ current designated path.
   3. Scan $mono("bucket")$, and if
     $(mono("addr") , mono("data")_0 , \_) in mono("bucket")$ then let
     $mono("data")^(\*) arrow.l mono("data")_0$ and remove this block from
-    bucket.
+    $mono("bucket")$.
 4. End for
 5. If $mono("op") = mono("read")$ then add
   $(mono("addr") , mono("data")^(\*) , l^(\*))$ to the root bucket; else
@@ -516,22 +516,21 @@ recursion.
 The design of the above binary-tree ORAM is a little silly: whenever we
 visit a triplet of buckets for eviction, we only evict one block. For
 this reason, the bucket size needs to be super-logarithmic to get
-negligible failure probability. The reason is that the original
-binary-tree ORAM was designed to fit the proof the authors had in mind.
+negligible failure probability.
 It turns out that if we instead use a more aggressive eviction
 algorithm, and with a more sophisticated proof, the bucket size can be
 made constant. At this point, we are ready to introduce an improved
 version called Path ORAM.
 
 Unlike the above binary-tree ORAM, in Path ORAM, every bucket has
-constant size (e.g., 4 or 5) except the root bucket which is
+constant size (e.g., 4 or 5), except the root bucket which is
 super-logarithmic in size. Every time we access some path to fetch a
 block, we also perform eviction on the same path. In particular, we will
 rearrange the blocks on the path in the most aggressive manner possible:
 we want to move the blocks as close to the leaf level as possible, but
 #emph[without violating the path invariant];. With Path ORAM, every
-access operation touches a single path, and hence the name Path ORAM.
-With Path ORAM, the cost of each access is $O (alpha log^2 N)$ for an
+access operation touches a single path, hence the name Path ORAM.
+The cost of each access is $O (alpha log^2 N)$ for an
 arbitarily small superconstant function $alpha$.
 
 == Other Applications of ORAM
