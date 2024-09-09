@@ -187,7 +187,10 @@ that Signal has deployed.
 
 == Server data structure
 <server-data-structure.>
-The server stores a binary tree, where each node is called a
+The server stores a binary tree with $N$ leaves.
+(If necessary, replace $N$ with the next larger power of $2$.)
+
+Each node is called a
 #emph[bucket];, and each bucket is a finite array that can hold up to
 $Z$ number of blocks — for now, think of $Z$ as being relatively small
 (maybe polylogarithmic in $N$); we will describe how to parametrize $Z$
@@ -389,14 +392,13 @@ The procedure $mono("evict")$
 7. End for
 ]<alg:evict>
 
-#block[
-#strong[Remark 2];. Note that in a full-fledged implementation, all
+#remark[
+Note that in a full-fledged implementation, all
 blocks are typically encrypted to hide the contents of the block.
 Whenever reading and writing back a block, the block must be
 re-encrypted prior to being written back. If the encryption scheme is
 secure, the server should not be able to tell whether the block’s
 content has changed upon seeing the new ciphertext.
-
 ]
 = Analysis
 <analysis>
@@ -421,7 +423,7 @@ at all.
 
 == Correctness
 <correctness.>
-Correctness is somewhat more tricky to argue. As mentioned earlier, to
+Correctness is somewhat trickier to argue. As mentioned earlier, to
 argue correctness, we must argue why no overflow will ever occur except
 with negligible probability — as long as the bucket size $Z$ is set
 appropriately.
@@ -433,36 +435,32 @@ many accesses, no bucket overflows except with negligible in $N$
 probability. ]
 
 ] <clm:bucketsize>
-#block[
-#emph[Proof.] 
-We will give a heuristic outline of a proof.
-The full argument uses results from
+#proof[
+The full proof uses results from
 #cite("https://en.wikipedia.org/wiki/Queueing_theory", "queueing theory"),
 in particular 
 #cite("https://en.wikipedia.org/wiki/Burke%27s_theorem", "Burke's theorem").
+We will give a heuristic argument that doesn't require
+any specialized knowledge.
 
 - The root bucket (level $0$ of the ORAM tree)
-  receives exactly $1$ incoming block with every access, but we get to
-  evict the root bucket twice upon every access, and thus whatever
-  enters the root gets evicted immediately.
+  receives exactly $1$ incoming block with every access,
+  and it is evicted on every access,
+  so the root bucket always ends up empty.
 
-- Now consider a bucket at level $1$ of the ORAM tree. On average, one
-  out of every two accesses, a block will enqueue in
-  the bucket. With probability $1$, the bucket will be chosen for
-  eviction. If the bucket is chosen for eviction, a block gets to
-  dequeue from this bucket.
+- There are $N$ leaf buckets, and $N$ blocks are assigned to them at random.
+  We leave it as an exercise to check that
+  the probability that more than $(log N)^2$ blocks are assigned to any one leaf
+  is negligible than $N$ 
+  (in other words: decays faster than $N^k$, for every $k$).
 
-- Similarly, consider a bucket at level $2$ of the ORAM tree. On
-  average, one out of every four accesses, a block
-  will enqueue in the bucket. With probability $1 / 2$, the bucket will
-  be chosen for eviction.
-
-- In general, at level $i > 1$ of the
-  ORAM tree, a block will enqueue on one out of every $2^i$ accesses, 
+- Now consider a bucket, neither root nor leaf,
+  at level $i gt.eq 1$ of the ORAM tree.
+  A block will enqueue on one out of every $2^i$ accesses, 
   and with probability $1 / 2^(i - 1)$, the bucket is
   chosen for eviction.
 
-Now we see a useful pattern: for every non-leaf and non-root level of
+So for every non-leaf and non-root level of
 the tree, with every ORAM access, the dequeue probability is twice as
 large as the enqueue probability. 
 This situation is well-known in queueing theory as the
