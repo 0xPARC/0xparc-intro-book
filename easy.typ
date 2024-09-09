@@ -33,34 +33,34 @@
 
 #set heading(offset: 1)
 
-#part[Introduction]
+#part[Introduction][Brian Gu and Yan X Zhang]
 #chapter("src/intro.typ")
 
-#part[Two-party Computation]
+#part[Two-party Computation][Brian Gu and Brian Lawrence]
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
 #chapter("src/2pc-takeaways.typ")
 
-#part[SNARKs Prelude: Elliptic Curves and Polynomial Commitments]
+#part[SNARKs Prelude: Elliptic Curves and Polynomial Commitments][Evan Chen]
 #chapter("src/ec.typ")
 #chapter("src/pair.typ")
 #chapter("src/kzg.typ")
 #chapter("src/kzg-takeaways.typ")
 
-#part[SNARKs]
+#part[SNARKs][Evan Chen]
 #chapter("src/zkintro.typ")
 #chapter("src/plonk.typ")
 #chapter("src/copy-constraints.typ")
 #chapter("src/fs.typ")
 #chapter("src/snark-takeaways.typ")
 
-#part[Fully Homomorphic Encryption]
+#part[Fully Homomorphic Encryption][Brian Lawrence and Yan X Zhang]
 #chapter("src/fhe0.typ")
 #chapter("src/lwe.typ")
 #chapter("src/fhe2.typ")
 #chapter("src/fhe3.typ")
 #chapter("src/fhe-takeaways.typ")
 
-#part[Oblivious RAM]
+#part[Oblivious RAM][Elaine Shi]
 #chapter("src/oram.typ")
 #chapter("src/oram-takeaways.typ")
