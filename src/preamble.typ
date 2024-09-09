@@ -104,7 +104,7 @@
   rstate.update(rhead => s)
   pagebreak(weak: true)
   // set text(fill: rgb("#002299"))
-  heading(offset: 0, s)
+  align(center)[#heading(offset: 0, s)]
   align(center)[#names]
 }
 
