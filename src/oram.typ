@@ -11,7 +11,7 @@ book private, and Signal wants to provide contact discovery without
 learning the users’ contacts.
 
 A naive solution is to rely on trusted hardware. Suppose Signal has a
-secure processor (e.g., Intel SGX) on its server. One can think of the
+secure processor (like Intel SGX) on its server. One can think of the
 secure processor as providing a hardware sandbox (often referred to as
 an #emph[enclave];). Now, Alice sends her address book in encrypted
 format to the server’s enclave; further, the server’s database is also
@@ -36,8 +36,9 @@ leak your private query.
 We can also think of
 access pattern leakage through a programming language perspective: for
 example, the following program has an `if`-branch dependent on secret
-inputs (e.g., think of the secret input as the last bit of a secret key)
-Thus by observing whether memory location `x` or `y` is accessed, one
+inputs. 
+(Maybe the secret input is the last bit of a secret key).
+By observing whether memory location `x` or `y` is accessed, one
 can infer which branch is taken.
 
 #align(center)[
@@ -66,7 +67,7 @@ Oblivious RAM (ORAM) is a powerful cryptographic protocol that
 
 We would like to ensure a very strong notion of security. In particular,
 no information should be leaked about: 1) which data block is being
-accessed; 2) the age of the data block (i.e., when it was last
+accessed; 2) the age of the data block (when it was last
 accessed); 3) whether a single block is being requested repeatedly
 (frequency); 4) whether data blocks are often being accessed
 together (co-occurrence); or 5) whether each access is a read or a
@@ -98,7 +99,7 @@ mono("data"))$.
 
 After each user request, the ORAM algorithm interacts with 
 the server to make a sequence of
-#emph[physical] accesses, where each physical access either reads or
+#emph[physical] memory accesses, where each physical access either reads or
 writes a block to a physical location.
 
 And finally, the ORAM algorithm
@@ -119,14 +120,14 @@ resulting #emph[physical] access sequences will be indistinguishable.
 
 #remark[
 In this security requirement, 
-we require that the server learn nothing from the list of
+we require that the server learn nothing from observing only the list of
 physical addresses, and whether each physical
 access is a read or write.
 We don't say anything about the data that is written to physical memory.
 
 In practice, we need to use encryption to hide
 the contents of the blocks. 
-For example, if we read a block and then write it back,
+If we read a block and then write it back,
 we should re-encrypt it with a different ciphertext,
 or else the server would recognize it as the same block.
 
@@ -148,7 +149,7 @@ Another trivial solution is for the client to store all blocks, and thus
 the client need not access the server to answer any memory request. But
 this defeats the numerous advantages of cloud outsourcing in the first
 place. #emph[Henceforth, we require that client store only a small
-amount of blocks] (e.g., constant or polylogarithmic in $N$).
+amount of blocks] (maybe constant or polylogarithmic in $N$).
 
 == Naive solution 3
 <naive-solution-3.>
@@ -157,11 +158,11 @@ secret permutation known only to the client. Whenever the client wishes
 to access a block, it will appear to the server to reside at a random
 location.
 
-Indeed, this scheme gives a secure #emph[one-time] ORAM scheme, i.e., it
+Indeed, this scheme gives a secure #emph[one-time] ORAM scheme: it
 provides security if every block is accessed only once. However, if the
 client needs to access each block multiple times, then the access
-patterns will leak statistical information such as frequency (i.e., how
-often the same block is accessed) and co-occurrence (i.e., how likely
+patterns will leak statistical information such as frequency (how
+often the same block is accessed) and co-occurrence (how likely
 two blocks are accessed together). As mentioned earlier, one can
 #cite("https://www.ndss-symposium.org/wp-content/uploads/2017/09/06_1.pdf", "leverage")
 such statistical information to infer sensitive
@@ -189,10 +190,11 @@ that Signal has deployed.
 The server stores a binary tree, where each node is called a
 #emph[bucket];, and each bucket is a finite array that can hold up to
 $Z$ number of blocks — for now, think of $Z$ as being relatively small
-(e.g., polylogarithmic in $N$); we will describe how to parametrize $Z$
+(maybe polylogarithmic in $N$); we will describe how to parametrize $Z$
 later. Some of the blocks stored by the server are #emph[real];, other
 blocks are #emph[dummy];. As will be clear later, these dummy blocks are
-introduced for security.
+introduced for security: 
+we do not want the server to learn which buckets hold real blocks.
 
 == Main path invariant
 <main-path-invariant.>
@@ -210,7 +212,7 @@ that we can get rid of later). We assume that the client can store a
 somewhat large position map that records the designated path of every
 block. In general, such a position map would require roughly
 $Theta (N log N)$ bits to store — but later we can recursively outsource
-the storage of the position map to the server by placing them in
+the storage of the position map to the server by placing position maps in
 progressively smaller ORAMs.
 
 = Binary Tree ORAM: Operations
@@ -233,7 +235,8 @@ we must remap it to a randomly chosen new path — otherwise, we would end
 up going back to the same path if the block is requested again, thus
 leaking statistical information.
 
-To remap the block, we choose a fresh new path, and update the client’s
+To remap the block, we choose a fresh new path, 
+and we update the client’s
 position map to associate the new path with the block. We now would like
 to write this block back to the tree, to somewhere on the new path (and
 if the request is a `write` request, the block’s contents are updated
@@ -242,8 +245,9 @@ turns out that we cannot write the block back directly to the leaf
 bucket of the new path — since doing so would reveal which new path the
 block got assigned, this leaks information since if the next request
 asks for the same block, it would then go to this new path; otherwise
-most likely the next request will go to a different path. By a similar
-reasoning, we cannot write this block back to any internal nodes of the
+most likely the next request will go to a different path. 
+For the same reason, 
+we cannot write this block back to any internal nodes of the
 new path either, since writing to any internal node on the new path also
 leaks partial information about the new path.
 
@@ -270,14 +274,14 @@ correctness failure happens only with negligible probability.
 
 The high-level idea is very simple: whenever we can, we will try to move
 blocks in the tree closer to the leaves, to allow space to free up in
-smaller levels of the tree (i.e., levels closer to the root). There are
+smaller levels of the tree (levels closer to the root). There are
 a few important considerations when performing such eviction:
 
-- Data movement during eviction must respect the main path invariant,
-  i.e., each block can only be moved into buckets in which it can
+- Data movement during eviction must respect the main path invariant:
+  each block can only be moved into buckets in which it can
   legitimately reside.
 
-- Data movement during eviction must retain #emph[obliviousness];, i.e.,
+- Data movement during eviction must retain #emph[obliviousness]:
   the physical locations accessed during eviction should be independent
   of the input requests to the ORAM.
 
@@ -289,8 +293,8 @@ a few important considerations when performing such eviction:
   want the eviction cost to be too expensive. Therefore, another tricky
   issue is how we can design an eviction algorithm that achieves the
   best of both worlds: with a small number of eviction operations, we
-  can avoid overflow almost surely (i.e., no overflow except with
-  negligible in $N$ probability).
+  want to keep the probability of overflow very small 
+  (technically: negligible in $N$).
 
 #figure(image("binaryoram16-evict.png"),
   caption: [
@@ -309,7 +313,7 @@ We describe a simple candidate eviction scheme, and we will give an
 informal analysis of the scheme later:
 
 - #emph[\[An eviction algorithm\]] Upon every data access, we choose
-  random $2$ buckets in every level of the tree for eviction (for the
+  at random $2$ buckets in every level of the tree for eviction (for the
   root level, pick one bucket). If a bucket is chosen for eviction, we
   will pop an arbitrary block (if one exists) from the bucket, and write
   the block to one of its children.
@@ -318,7 +322,7 @@ Note that depending on the chosen block’s designated path, there is only
 one child where the block can legitimately go. We must take precautions
 to hide where this block is going: thus for the remaining child that
 does not receive a block, we can perform a "dummy" eviction.
-Additionally, if the bucket chosen for eviction is empty (i.e., does not
+Additionally, if the bucket chosen for eviction is empty (does not
 contain any real blocks), then we make a dummy eviction for both
 children — this way we avoid leaking the information that the chosen
 bucket is empty.
@@ -349,7 +353,8 @@ $(mono("addr") , mono("data") , l)$ where $l$ denotes the block’s
 current designated path.
 
 1. 
-  $l^(\*) arrow.l^(\$) [1 . . N]$, 
+  Let $l^(\*)$ be a random value from $1$ to $N$.
+  Assign 
   $l arrow.l mono("position")[mono("addr")]$,
   $mono("position")[mono("addr")] arrow.l l^(\*)$.
 2. For each bucket from leaf $l$ to root do:
@@ -436,7 +441,7 @@ The full argument uses results from
 in particular 
 #cite("https://en.wikipedia.org/wiki/Burke%27s_theorem", "Burke's theorem").
 
-- The root bucket (i.e., level $0$ of the ORAM tree)
+- The root bucket (level $0$ of the ORAM tree)
   receives exactly $1$ incoming block with every access, but we get to
   evict the root bucket twice upon every access, and thus whatever
   enters the root gets evicted immediately.
@@ -501,7 +506,7 @@ We can thus conclude with the following theorem.
 #cite("https://eprint.iacr.org/2011/407.pdf", "Binary-tree ORAM")
 #emph[For any
 super-constant function $alpha (dot.op)$, there is an ORAM scheme that
-achieves $O (alpha log^3 N)$ cost for each access, i.e., each logical
+achieves $O (alpha log^3 N)$ cost for each access: each logical
 request will translate to $O (alpha log^3 N)$ physical accesses; and
 moreover, the client is required to store only $O (1)$ number of
 blocks.]
@@ -523,7 +528,7 @@ made constant. At this point, we are ready to introduce an improved
 version called Path ORAM.
 
 Unlike the above binary-tree ORAM, in Path ORAM, every bucket has
-constant size (e.g., 4 or 5), except the root bucket which is
+constant size (maybe 4 or 5), except the root bucket which is
 super-logarithmic in size. Every time we access some path to fetch a
 block, we also perform eviction on the same path. In particular, we will
 rearrange the blocks on the path in the most aggressive manner possible:

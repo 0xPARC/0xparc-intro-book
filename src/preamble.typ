@@ -99,7 +99,15 @@
 
 #let pmod(x) = $space (mod #x)$
 #let rstate = state("rhead", "Table of contents")
-#let part(s, names) = {
+#let part(s) = {
+  let rstate = state("rhead", "")
+  rstate.update(rhead => s)
+  pagebreak(weak: true)
+  // set text(fill: rgb("#002299"))
+  align(center)[#heading(offset: 0, s)]
+}
+
+#let authoredpart(s, names) = {
   let rstate = state("rhead", "")
   rstate.update(rhead => s)
   pagebreak(weak: true)
@@ -107,6 +115,7 @@
   align(center)[#heading(offset: 0, s)]
   align(center)[#names]
 }
+
 
 
 // Main entry point to use in a global show rule
