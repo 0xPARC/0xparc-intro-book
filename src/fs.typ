@@ -1,6 +1,6 @@
 #import("preamble.typ"):*
 
-= Making it non-interactive: Fiat--Shamir
+= Making it non-interactive: Fiat-Shamir
 
 As we described it,
 PLONK is an interactive protocol.
@@ -17,7 +17,7 @@ Peggy sends Victor some data once.
 Victor reads the data, does some calculation,
 and convinces himself of the truth of Peggy's claim.
 
-We will do this using a general trick, called the "Fiat--Shamir heuristic."
+We will do this using a general trick, called the "Fiat-Shamir heuristic."
 
 Let us step back and philosophize for a moment.
 Why does Victor need to send challenges at all?
@@ -53,7 +53,7 @@ version of @root-check.
   4. Victor verifies $F(lambda) = Z(lambda) H(lambda)$.
 ]
 
-Fiat--Shamir turns it into the following noninteractive protocol.
+Fiat-Shamir turns it into the following noninteractive protocol.
 
 #algorithm[
   Peggy wants to prove to Victor that two polynomials $F$ and $H$
@@ -68,7 +68,7 @@ Fiat--Shamir turns it into the following noninteractive protocol.
     $lambda = hash(Com(F), Com(H))$ and $F(lambda) = Z(lambda) H(lambda)$.
 ]
 
-We can apply the Fiat--Shamir heuristic to the full PLONK protocol.
+We can apply the Fiat-Shamir heuristic to the full PLONK protocol.
 Now Peggy can write the whole proof herself
 (without waiting for Victor's challenges),
 and publish it.

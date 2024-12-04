@@ -11,7 +11,7 @@ $100 lt.eq n lt.eq 1000$, and $q$ could be anywhere from $n^2$ to
 $2^(sqrt(n))$, say.
 
 As an example of how LWE can be used,
-let’s see how to turn LWE into a public-key cryptosystem. We’ll use
+let us see how to turn LWE into a public-key cryptosystem. We will use
 the same numbers from the "blue set" in @lwe-small. In fact, that "blue
 set" will be exactly the public key.
 
@@ -60,30 +60,30 @@ and they will not be able to determine the private key.
 
 == Encryption
 <how-to-encrypt-mu>
-Suppose you have a message $m in { 0 , 5 }$. (You’ll see in a moment why
+Suppose you have a message $m in { 0 , 5 }$. (You will see in a moment why
 we insist that $mu$ is one of these two values.) The ciphertext to
 encrypt $m$ will be a pair $(upright(bold(x)) : y)$, where $x$ is a
 vector, $y$ is a scalar, and
 $upright(bold(x)) dot.op upright(bold(a)) + epsilon.alt = y + m$, where
 $epsilon.alt$ is "small".
 
-How to do the encryption? If you’re trying to encrypt, you only have
+How to do the encryption? If you are trying to encrypt, you only have
 access to the public key -- that list of pairs $(upright(bold(x)) : y)$
 above. You want to make up your own $upright(bold(x))$, for which you
 know approximately the value $upright(bold(x)) dot.op upright(bold(a))$.
 You could just take one of the vectors $upright(bold(x))$ from the
-table, but that wouldn’t be very secure: if I see your ciphertext, I can
+table, but that would not be very secure: If I see your ciphertext, I can
 find that $upright(bold(x))$ in the table and use it to decrypt $mu$.
 
 Instead, you are going to combine several rows of the table to get your
-vector $upright(bold(x))$. Now you have to be careful: when you combine
-rows of the table, the errors will add up. We’re guaranteed that each
+vector $upright(bold(x))$. Now you have to be careful: When you combine
+rows of the table, the errors will add up. We are guaranteed that each
 row of the table has $epsilon.alt$ either $0$ or $1$. So if you add at
-most $4$ rows, then the total $epsilon.alt$ will be at most $4$. Since
-$mu$ is either $0$ or $5$ (and we’re working modulo $q = 11$), that’s
+most four rows, then the total $epsilon.alt$ will be at most $4$. Since
+$mu$ is either $0$ or $5$ (and we are working modulo $q = 11$), that is
 just enough to determine $mu$ uniquely.
 
-So, here’s the method. You choose at random 4 (or fewer) rows of the
+So, here is the method. You choose at random four (or fewer) rows of the
 table, and add them up to get a pair $(upright(bold(x)) : y_0)$ with
 $upright(bold(x)) dot.op upright(bold(a)) approx y_0$. Then you take
 $y = y_0 - m$ (mod $q = 11$ of course), and send the message
@@ -91,7 +91,7 @@ $(upright(bold(x)) : y)$.
 
 == An example
 <an-example>
-Let’s say you randomly choose the 4 rows:
+Let us say you randomly choose the four rows:
 
 #figure(
   align(center)[#table(
@@ -119,7 +119,7 @@ Now you add them up to get the following.
 )
 (For reference, the actual value is $4$, so our accumulated error is $2$.)
 
-Finally, let’s say your message is $m = 5$. So you set
+Finally, let us say your message is $m = 5$. So you set
 $y = y_0 - m = 6 - 5 = 1$, and send the ciphertext:
 #figure(
   align(center)[#table(
@@ -141,9 +141,9 @@ Plugging in $upright(bold(x))$ and $upright(bold(a))$, the decryptor
 computes $ upright(bold(x)) dot.op upright(bold(a)) = 4 . $ Plugging in
 $y = 1$, we see that $ 4 + epsilon.alt = 1 + m . $
 
-Now it’s a simple "rounding" problem. We know that $epsilon.alt$ is
+Now it is a simple "rounding" problem. We know that $epsilon.alt$ is
 small and positive, so $1 + m$ is either $4$ or … a little more.
-(In fact, it’s one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
+(In fact, it is one of $4 , 5 , 6 , 7 , 8$.) On the other hand, since $m$ is
 0 or 5, $1 + m$ had better be 1 or 6, so the only possibility is
 that $m = 5$ (so $1+m = 6$).
 
@@ -152,7 +152,7 @@ that $m = 5$ (so $1+m = 6$).
 In practice, $n$ and $q$ are often much larger. Maybe $n$ is in the
 hundreds, and $q$ could be anywhere from "a little bigger than $n$" to
 "almost exponentially large in $n$," say $q = 2^(sqrt(n))$. In fact, to
-do FHE, we’re going to want to take $q$ pretty big, so you should
+do FHE, we are going to want to take $q$ pretty big, so you should
 imagine that $q approx 2^(sqrt(n))$.
 
 For security, instead of adding $4$ rows of the public key, we want to add
@@ -172,11 +172,11 @@ To generalize our choice of $m$ in $\{0,5\}$, we could encode a single bit
 by using either $0$ or $⌊q / 2⌋$ to obtain maximum separation and thus
 tolerance to error. Alternatively, we could allow the message to be any
 multiple of some constant $r$, where $r$ is bigger than the error bound (right
-now that’s $m$), which allows you to encode a message space of size $q \/ r$
+now that is $m$), which allows you to encode a message space of size $q \/ r$
 rather than just a single bit.
 
-When we do FHE, we’re going to apply many operations to a ciphertext,
-and each is going to cause the error to grow. We’re going to have to put
+When we do FHE, we are going to apply many operations to a ciphertext,
+and each is going to cause the error to grow. We are going to have to put
 some effort into keeping the error under control,
 and the size of $q\/ r$ will determine how many operations
 we can do before the error grows too big.

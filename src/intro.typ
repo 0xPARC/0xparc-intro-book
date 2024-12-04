@@ -8,17 +8,17 @@ Cryptography is everywhere now and needs no introduction.
 _Programmable cryptography_ is a term coined by 0xPARC for a second generation
 of cryptographic primitives that has arisen in the last 15 or so years.
 
-To be concrete, let's consider two examples of what protocols designed by classical cryptography can do:
+To be concrete, let us consider two examples of what protocols designed by classical cryptography can do:
 
 - _Digital signatures_.
   RSA and ElGamal are examples of digital signature algorithms,
   where Alice can perform some protocol to prove to Bob that she
   endorses a message.
   A more complicated example might be a
-  #cite("https://en.wikipedia.org/wiki/Group_signature", "group signature scheme"),
+  #cite("https://en.wikipedia.org/wiki/Group_signature", "group signature scheme,")
   which allows one member of a group to sign a message on behalf of the group.
 - _Confidential computing_. For example, consider
-  #cite("https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem", "Yao's millionaire problem"),
+  #cite("https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem", "Yao's millionaire problem,")
   where Alice and Bob want to know which of them makes more money
   without learning anything more about each other's incomes. With cryptography, Alice and Bob could use a two-party computation protocol designed specifically for this purpose.
 
@@ -33,7 +33,7 @@ then be described as:
   rather than designing protocols on a per-problem or per-function basis.
 ]
 
-To draw an analogy, it's like going from single-purpose hardware
+To draw an analogy, it is like going from single-purpose hardware
 (like a digital alarm clock or thermostat)
 to a general-purpose device (like a smartphone) which can
 do any computation so long as someone writes code for it.
@@ -52,7 +52,7 @@ using a general compiler rather than inventing an algorithm specific to SHA-256.
 Our work presents programmable cryptography through specific topics in several self-contained "easy pieces," imitating Richard Feynman's
 wonderful approach to physics exposition. We quickly preview them here.
 
-== 2PC: Two-party computation
+== 2PC: two-party computation
 
 In a _two-party computation (2PC)_, two people want to
 jointly compute some known function
@@ -66,15 +66,15 @@ This is the case where $F$ is the comparison function
 and $0$ if the two inputs are equal),
 and $x_i$ is the $i$-th person's income.
 
-Two-party computation makes a promise that we'll be able to do this
+Two-party computation makes a promise that we will be able to do this
 for _any_ function $F$ as long as we can implement it in code. It generalizes to _multi-party computation (MPC)_, which is one of the main classes of programmable cryptography.
 
-== SNARK: Proofs of general statements
+== SNARKs: proofs of general statements
 
 A powerful way of thinking about a signature scheme is that it is a *proof*. Specifically, Alice's signature is a proof that "I [the
 person who generated the signature] know Alice's private key." Similarly, a
 group signature can be thought of as a succinct proof that "I know one of
-Alice, Bob, or Charlie's private keys".
+Alice, Bob, or Charlie's private keys."
 
 In the spirit of programmable cryptography, a _SNARK_ generalizes this concept
 as a "proof system" protocol that produces efficient proofs of *arbitrary*
@@ -85,14 +85,14 @@ statements of the form:
 ]
 once the statement is encoded as a system of equations. One such statement would be "I know $M$ such that $sha(M) = Y$."
 
-SNARKS are an active area of research, and many different SNARKs are known.
+SNARKs are an active area of research, and many different SNARKs are known.
 We will focus on a particular example, PLONK (@plonk).
 
-== FHE: Fully homomorphic encryption
+== FHE: fully homomorphic encryption
 
 Imagine you have some private text that you want to translate into another
 language. While many services today will do this, even for free, we can also
-imagine that you care about security a lot and you really don't want the
+imagine that you care about security a lot and you really do not want the
 translating service to know anything about your text at all.
 
 In _fully homomorphic encryption (FHE)_, one person encrypts some data $x$,
@@ -109,18 +109,18 @@ anything meaningful from $Enc(x)$ without your secret key.
 == ORAM: Oblivious RAM
 
 You want to perform a private computation on a large database.
-The database is so large that you can't store it yourself --
-and you don't trust the server it's stored on.
+The database is so large that you cannot store it yourself --
+and you do not trust the server it is stored on.
 
-First off, you'll encrypt the data, so the server can't read it.
+First off, you will encrypt the data, so the server cannot read it.
 But the server still has an attack:
-they can study your #emph[access patterns].
+They can study your #emph[access patterns].
 For example, they can see which records you access most frequently,
 or which records you access at the same time as other records.
 In many applications this is enough for the server to learn
 sensitive information.
 
-Oblivious RAM protects against exactly this sort of attack.
+_Oblivious RAM (ORAM)_ protects against exactly this sort of attack.
 Oblivious RAM is an algorithm you use to "scramble" your
 memory access requests.
 When you feed your request into the ORAM algorithm,

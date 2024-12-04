@@ -23,7 +23,7 @@ encodable in 256 bits, no matter how many coefficients the polynomial has.
 == The setup
 
 Remember the notation $[n] := n dot g in E$ defined in @armor. To set up the KZG commitment scheme,
-a trusted party needs to pick a secret scalar $s in FF_q$ and publishes
+a trusted party needs to pick a secret scalar $s in FF_q$ and publish
 $ [s^0], [s^1], ..., [s^M] $
 for some large $M$, the maximum degree of a polynomial the scheme needs to support.
 This means anyone can evaluate $[P(s)]$ for any given polynomial $P$ of degree up to $M$.
@@ -84,16 +84,16 @@ If Peggy wishes to convince Victor that $P(z) = y$, then:
 
 If Peggy is truthful, then @kzg-verify will certainly check out.
 
-If $y != P(z)$, then Peggy can't do the polynomial long division described above.
+If $y != P(z)$, then Peggy cannot do the polynomial long division described above.
 So to cheat Victor, she needs to otherwise find an element
 $ 1/(s-x) ([P(s)]-[y]) in E. $
-Since $s$ is a secret nobody knows, there isn't any known way to do this.
+Since $s$ is a secret nobody knows, there is not any known way to do this.
 
 == Multi-openings <multi-openings>
 
 To reveal $P$ at a single value $z$, we did polynomial division
 to divide $P(X)$ by $X-z$.
-But there's no reason we have to restrict ourselves to linear polynomials;
+But there is no reason we have to restrict ourselves to linear polynomials;
 this would work equally well with higher-degree polynomials,
 while still using only a single 256-bit curve point for the proof.
 
@@ -136,10 +136,10 @@ it takes to compute the Lagrange interpolation $f$.
 
 == Root check
 
-To make PLONK work, we're going to need a small variant
+To make PLONK work, we are going to need a small variant
 of the multi-opening protocol for KZG commitments (@multi-openings),
-which we call _root-check_ (not a standard name).
-Here's the problem statement:
+which we call _root check_ (not a standard name).
+Here is the problem statement:
 
 #problem[
   Suppose one had two polynomials $P_1$ and $P_2$,
@@ -148,7 +148,7 @@ Here's the problem statement:
   the equation $P_1(z) = P_2(z)$ for all $z$ in some large finite set $S$.
 ]
 
-Peggy just needs to show is that $P_1-P_2$
+Peggy just needs to show that $P_1-P_2$
 is divisible by $Z(X) := product_(z in S) (X-z)$.
 This can be done by committing the quotient
 $ H(X) := (P_1(X) - P_2(X)) / Z(X). $
@@ -164,11 +164,11 @@ $ P_1(42) + P_2(42) P_3(42)^4 + P_4(42) P_5(42) P_6(42) = 1337, $
 she could define
 $ F(X) := P_1(X) + P_2(X) P_3(X)^4 + P_4(X) P_5(X) P_6(X) - 1337 $
 and run the same protocol with this $F$.
-This means she doesn't have to reveal any $P_i (42)$, which is great!
+This means she does not have to reveal any $P_i (42)$, which is great!
 
 To be fully explicit, here is the algorithm:
 
-#algorithm[Root-check][
+#algorithm[Root check][
   Assume that $F$ is a polynomial for which
   Peggy can establish the value of $F$ at any point in $FF_q$.
   Peggy wants to convince Victor that $F$ vanishes on a given finite set $S subset.eq FF_q$.

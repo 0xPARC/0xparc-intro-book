@@ -1,12 +1,12 @@
 #import "preamble.typ":*
 
-= Levelled FHE from LWE
+= Leveled FHE from LWE
 <fhe>
 
-== The main idea: Approximate eigenvalues
+== The main idea: approximate eigenvalues
 
 Now we want to turn the public-key encryption from @lwe-crypto
-into a levelled FHE scheme.
+into a leveled FHE scheme.
 In other words:
 We want to be able to encrypt bits (0s and 1s)
 and operate on them with AND and NOT gates.
@@ -15,29 +15,29 @@ It might help to imagine that, instead of AND and NOT,
 the operations we want to encrypt are addition and multiplication.
 If $x$ and $y$ are bits, then
 NOT $x$ is just $1 - x$, and $x$ AND $y$ is just $x y$.
-But it's easier to do algebra with $+$ and $times$.
+But it is easier to do algebra with $+$ and $times$.
 
-Recall the setup from @lwe-crypto: We’re going pick some
+Recall the setup from @lwe-crypto: We are going pick some
 large integer $q$ (in practice $q$ could be anywhere from a few thousand
 to $2^1000$), and do "approximate linear algebra" modulo $q$. In other
-words, we’ll do linear algebra, where all our calculations are done
-modulo $q$ – but we’ll also allow the calculations to have a small
+words, we will do linear algebra, where all our calculations are done
+modulo $q$ – but we will also allow the calculations to have a small
 "error" $epsilon.alt$, which will typically be much, much smaller than
 $q$.
 
 As before, our #emph[secret key] will be a vector of length $n$:
 $ upright(bold(v)) = (v_1, dots, v_n) in (ZZ \/ q ZZ)^n. $
 Suppose
-we want to encode a message $mu$ that’s just a single bit, let’s say
+we want to encode a message $mu$ that is just a single bit, let us say
 $mu in { 0 , 1 }$. Our ciphertext will be a square $n$-by-$n$ matrix $C$
 such that $ C upright(bold(v)) approx mu upright(bold(v)) . $ Now if we
 assume that $upright(bold(v))$ has at least one "big" entry (say $v_i$),
-then decryption is easy: Just compute the $i$-th entry of
+then decryption is easy: just compute the $i$-th entry of
 $C upright(bold(v))$, and determine whether it is closer to $0$ or to
 $v_i$.
 
 #remark[
-With a bit of effort, it’s possible to make this into a public-key
+With a bit of effort, it is possible to make this into a public-key
 cryptosystem too. Just like in @lwe-crypto,
 the main idea is to release a
 table of vectors
@@ -56,16 +56,16 @@ $ C upright(bold(v)) approx mu upright(bold(v)). $
 == Operations on encrypted data
 
 To make homomorphic encryption work, we need to explain how to operate
-on $mu$. We’ll describe three operations: addition, NOT, and
+on $mu$. We will describe three operations: addition, NOT, and
 multiplication (aka AND).
 
-Addition is simple: Just add the matrices. If
+Addition is simple: just add the matrices. If
 $C_1 upright(bold(v)) approx mu_1 upright(bold(v))$ and
 $C_2 upright(bold(v)) approx mu_2 upright(bold(v))$, then
 $ (C_1 + C_2) upright(bold(v)) = C_1 upright(bold(v)) + C_2 upright(bold(v)) approx mu_1 upright(bold(v)) + mu_2 upright(bold(v)) = (mu_1 + mu_2) upright(bold(v)) . $
-Of course, addition on bits isn’t a great operation, because if you add
-$1 + 1$, you get $2$, and $2$ isn’t a legitimate bit anymore. So we
-won’t really use this.
+Of course, addition on bits is not a great operation, because if you add
+$1 + 1$, you get $2$, and $2$ is not a legitimate bit anymore. So we
+will not really use this.
 
 Negation of a bit (NOT) is equally simple. If $mu in { 0 , 1 }$
 is a bit, then its negation is simply $1 - mu$. And if $C$ is a
@@ -73,14 +73,14 @@ ciphertext for $mu$, then $Id - C$ is a ciphertext for
 $1 - mu$, since
 $ (Id - C) upright(bold(v)) = upright(bold(v)) - C upright(bold(v)) approx (1 - mu) upright(bold(v)) . $
 
-Multiplication is also a good operation on bits – it’s just AND. To
+Multiplication is also a good operation on bits – it is just AND. To
 multiply two bits, you just multiply (matrix multiplication) the
 ciphertexts:
 $ C_1 C_2 upright(bold(v)) approx C_1 (mu_2 upright(bold(v))) = mu_2 C_1 upright(bold(v)) approx mu_2 mu_1 upright(bold(v)) = mu_1 mu_2 upright(bold(v)) . $
 
 At this point you might be concerned about this symbol $approx$ and
-what happens to the size of the error. That’s an important issue, and
-we'll resolve it with the help of a special operation called "Flatten."
+what happens to the size of the error. That is an important issue, and
+we will resolve it with the help of a special operation called "Flatten."
 
 Anyway, once you have AND and NOT, you can build arbitrary logic gates –
 and this is what we mean when we say you can perform arbitrary
@@ -90,7 +90,7 @@ ciphertexts back to be decrypted.
 
 == The "Flatten" operation
 <a-constraint-on-the-secret-key-mathbfv-and-the-flatten-operation>
-In order to make the error estimates work out, we’re going to need to
+In order to make the error estimates work out, we are going to need to
 make it so that all the ciphertext matrices $C$ have "small" entries. In
 fact, we will be able to make it so that all entries of $C$ are either
 $0$ or $1$.
@@ -109,11 +109,11 @@ where $k = ⌊log_2 q⌋$.
 To see how this helps us, try the following puzzle. Assume $q = 11$ (so
 all our vectors have entries modulo 11), and $r = 1$, so our secret key
 has the form $ upright(bold(v)) = (a_1 , 2 a_1 , 4 a_1 , 8 a_1) . $ You
-know $upright(bold(v))$ has this form, but you don’t know the specific
+know $upright(bold(v))$ has this form, but you do not know the specific
 value of $a_1$.
 
-Now suppose I give you the vector
-$ upright(bold(x)) = (9 , 0 , 0 , 0) . $ I ask you for another vector
+Now suppose we give you the vector
+$ upright(bold(x)) = (9 , 0 , 0 , 0) . $ We ask you for another vector
 $ "Flatten"(upright(bold(x))) = upright(bold(x)) prime , $ where
 $upright(bold(x)) prime$ has to have the following two properties:
 - $upright(bold(x)) prime dot.op upright(bold(v)) = upright(bold(x)) dot.op upright(bold(v))$,
@@ -131,8 +131,8 @@ $(1 , 0 , 0 , 1)$ is the binary expansion of $9$.
 #problem[
 How would you flatten a different vector, like
 $ upright(bold(x)) = (9 , 3 , 1 , 4) ? $
-As a hint, remember we’re working with numbers modulo 11: so if
-you come across a number that’s bigger than 11 in your calculation, it’s
+As a hint, remember we are working with numbers modulo 11: So if
+you come across a number that is bigger than 11 in your calculation, it is
 safe to reduce it mod 11.
 ]
 
@@ -160,7 +160,7 @@ bigger, say $n approx r log q$, to get the same level of security.
 
 == Error analysis
 <error-analysis>
-Now let’s compute more carefully what happens to the error when we add,
+Now let us compute more carefully what happens to the error when we add,
 negate, and multiply bits. Suppose
 $ C_1 upright(bold(v)) = mu_1 upright(bold(v)) + upright(bold(epsilon))_1 , $ where
 $upright(bold(epsilon))_1$ is some vector with all its entries bounded by some
@@ -170,7 +170,7 @@ When we add two ciphertexts, the errors add:
 $ (C_1 + C_2) upright(bold(v)) = (mu_1 + mu_2) upright(bold(v)) + (upright(bold(epsilon))_1 + upright(bold(epsilon))_2) . $
 So the error on the sum will be bounded by $2 B$.
 
-Negation is similar to addition – in fact, the error won’t change at
+Negation is similar to addition – in fact, the error will not change at
 all.
 
 Multiplication is more complicated, and this is why we insisted that all
@@ -180,8 +180,8 @@ $ C_1 C_2 upright(bold(v)) = C_1 (mu_2 upright(bold(v)) + upright(bold(epsilon))
 Now since $mu_2$ is either $0$ or $1$, we know that $mu_2 upright(bold(epsilon))_1$
 is a vector with all entries bounded by $B$. What about
 $C_1 upright(bold(epsilon))_2$? Here we have to think carefully about matrix
-multiplication: when you multiply an $n$-by-$n$ matrix by a vector, each
-entry of the product comes as a sum of $n$ different products. Now we’re
+multiplication: When you multiply an $n$-by-$n$ matrix by a vector, each
+entry of the product comes as a sum of $n$ different products. Now we are
 assuming that $C_1$ is a $0$-$1$ matrix, and all entries of
 $upright(bold(epsilon))_2$ are bounded by $B$… so the product has all entries
 bounded by $n B$. Adding this to the error for $mu_2 upright(bold(epsilon))_1$, we
@@ -193,15 +193,15 @@ you think carefully about this
 protocol, you will
 see that the error is bounded by approximately $n log q$). Every
 addition operation will double the error bound; every multiplication
-(AND gate) will multiply it by $(n + 1)$. And you can’t allow the
+(AND gate) will multiply it by $(n + 1)$. And you cannot allow the
 error to exceed $q \/ 2$ – otherwise the message cannot be decrypted. So
 you can perform calculations of up to approximately $log_n q$ steps. (In
-fact, it’s a question of #emph[circuit depth];: you can start with many
+fact, it is a question of #emph[circuit depth];: You can start with many
 more than $log_n q$ input bits, but no bit can follow a path of length
 greater than $log_n q$ AND gates.)
 
-This gives us a #emph[levelled] FHE protocol:
-it lets us evaluate arbitrary circuits on encrypted data,
+This gives us a #emph[leveled] FHE protocol:
+It lets us evaluate arbitrary circuits on encrypted data,
 as long as those circuits have bounded depth.
 If we need to evaluate a bigger circuit, we have two options:
 + Increase the value of $q$.
@@ -209,4 +209,4 @@ If we need to evaluate a bigger circuit, we have two options:
 + Use some technique to "reset" the error
   and start anew, as if with a freshly encrypted ciphertext. This approach is called _bootstrapping_ and it incurs some hefty
   computational costs.
-  But for large circuits, it's the only viable option. Bootstrapping is beyond the scope of this book.
+  But for large circuits, it is the only viable option. Bootstrapping is beyond the scope of this book.

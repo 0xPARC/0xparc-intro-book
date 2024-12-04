@@ -6,7 +6,7 @@ Before we are ready for KZG, there is one more piece of elliptic curve math that
 
 Recall that the map $[bullet] : FF_q -> E$ is linear,
 meaning that $[a + b] = [a] + [b]$, and $[n a] = n[a]$.
-But as written we can't do "armored multiplication":
+But as written we cannot do "armored multiplication":
 
 #claim[
   As far as we know, given $[a]$ and $[b]$, one cannot compute $[a b]$.
@@ -28,13 +28,13 @@ We think this should be called a _bilinear pairing_,
 but for some reason everyone just says _pairing_ instead.
 A curve is called _pairing-friendly_
 if this pairing can be computed reasonably quickly
-(e.g. BN254 is pairing-friendly, but Curve25519 is not).
+(e.g., BN254 is pairing-friendly, but Curve25519 is not).
 
 This construction actually uses some really deep number theory
 (heavier than all the math in @ec)
 that is well beyond the scope of this modest book.
-Fortunately, we won't need the details of how it works;
-but we'll comment briefly in @pairing-friendly on what curves it can be done on.
+Fortunately, we will not need the details of how it works;
+but we will comment briefly in @pairing-friendly on what curves it can be done on.
 And this pairing algorithm needs to be worked out just once for the curve $E$;
 and then anyone in the world can use the published curve for their protocol.
 
@@ -45,14 +45,14 @@ because both sides will equal $m n pair([1], [1])$.
 So this gives us a way to *verify* two-by-two multiplication.
 
 #remark[
-  The last sentence is worth bearing in mind: in all the protocols we'll see,
+  The last sentence is worth bearing in mind: In all the protocols we will see,
   the pairing is only used by the verifier Victor, never by the prover Peggy.
 ]
 
-#remark[We don't know how to do multilinear pairings][
-  On the other hand, we currently don't seem to know a good
+#remark[We do not know how to do multilinear pairings][
+  On the other hand, we currently do not seem to know a good
   way to do _multilinear_ pairings.
-  For example, we don't know a good trilinear map
+  For example, we do not know a good trilinear map
   $E times E times E -> ZZ slash N ZZ$
   that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
   (without knowing one of $[a b]$, $[b c]$, $[c a]$).
@@ -104,10 +104,10 @@ How to compute these pairings is well beyond the scope of these notes;
 the raw definition is quite abstract,
 and a lot of work has gone into computing the pairings efficiently.
 (For more details, see these
-#cite("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes").)
+#cite("https://crypto.stanford.edu/pbc/notes/ep/pairing.html", "notes."))
 
 The difficulty of computing these pairings is determined by the size of $k$:
-the values $pair(a, b)$ will be elements of a field of size $p^k$,
+The values $pair(a, b)$ will be elements of a field of size $p^k$,
 so they will require $256k$ bits even to store.
 For a curve to be "pairing-friendly" -- in order to be able to
 do pairing-based cryptography on it -- we need the value of $k$ to be pretty small.

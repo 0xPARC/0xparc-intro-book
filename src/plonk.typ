@@ -10,8 +10,8 @@
 
 The promise of programmable cryptography is that we should be able to
 perform proofs for arbitrary functions.
-That means we need a "programming language" that we'll write our function in.
-For PLONK, the choice that's used is:
+That means we need a "programming language" that we will write our function in.
+For PLONK, the choice that is used is:
 *systems of quadratic equations over $FF_q$*. In other words, PLONK is going to
 give us the ability to prove that we have solutions to a system of quadratic
 equations.
@@ -61,19 +61,19 @@ express most reasonable (NP) problems.
 
 So for example, any NP decision problem should be encodable.
 Still, such a theoretical reduction might not be usable in practice:
-polynomial factors might not matter in complexity theory,
+Polynomial factors might not matter in complexity theory,
 but they do matter a lot to engineers and end users.
 
-But it turns out that Quad-SAT is actually reasonably code-able.
+But it turns out that Quad-SAT is actually reasonably codeable.
 This is the goal of projects like
 #cite("https://docs.circom.io/", "Circom"),
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $FF_q$ that can be used in practice.
 Systems like this are called _arithmetic circuits_,
 and Circom is appropriately short for "circuit compiler".
-If you're curious, you can see how SHA-256 is implemented in Circom on
+If you are curious, you can see how SHA-256 is implemented in Circom on
 #cite("https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom",
-"GitHub").
+"GitHub.")
 
 So, the first step in proving a claim like
 "I have a message $M$ such that
@@ -94,7 +94,7 @@ and the calculation of $op("sha")$
 would introduce a series of constraints,
 maybe involving some additional variables.
 
-We won't get into any more details of arithmetization here.
+We will not get into any more details of arithmetization here.
 
 
 
@@ -118,7 +118,7 @@ systems of quadratic equations of a very particular form:
 
   The _copy constraints_ are a bunch of assertions that some of the
   $3n$ variables should be equal to each other,
-  so e.g. "$a_1 = c_7$", "$b_17 = b_42$", and so on.
+  e.g., "$a_1 = c_7$", "$b_17 = b_42$", and so on.
 ]
 
 #remark("From Quad-SAT to PLONK")[
@@ -141,18 +141,18 @@ systems of quadratic equations of a very particular form:
   Now imagine we want to encode some quadratic equation
   like
   $y = x^2 + 2$
-  in PLONK. We'll break this down into two steps:
+  in PLONK. We will break this down into two steps:
   $ x dot x & = (x^2) text(" (multiplication)") \
   t & = 2 text(" (constant)") \
   (x^2) + t & = y text(" (addition)"). $
 
-  We'll assign the variables $a_i, b_i, c_i$ for these two gates
+  We will assign the variables $a_i, b_i, c_i$ for these two gates
   by looking at the equations:
   $ (a_1, b_1, c_1) & = (x, x, x^2) \
   (a_2, b_2, c_2) & = (t = 2, 0, 0) \
   (a_3, b_3, c_3) & = (x^2, t = 2, y). $
 
-  And finally, we'll assign copy constraints
+  And finally, we will assign copy constraints
   to make sure the variables are faithfully copied
   from line to line:
   $ a_1 & = b_1 \
@@ -164,10 +164,10 @@ systems of quadratic equations of a very particular form:
   the original equation $y = x^2 + 2$.
 ]
 
-Back to PLONK: Our protocol needs to do the following:
+Back to PLONK. Our protocol needs to do the following:
 Peggy and Victor have a PLONK instance given to them.
 Peggy has a solution to the system of equations,
-i.e. an assignment of values to each $a_i$, $b_i$, $c_i$ such that
+i.e., an assignment of values to each $a_i$, $b_i$, $c_i$ such that
 all the gate constraints and all the copy constraints are satisfied.
 Peggy wants to prove this to Victor succinctly
 and without revealing the solution itself.
@@ -180,11 +180,11 @@ The protocol then proceeds by having:
 3. Peggy proves to Victor that the commitment from Step 1
   also satisfies the copy constraints.
 
-Let's now explain how each step works.
+Let us now explain how each step works.
 
-== Step 1: The commitment
+== Step 1: the commitment
 
-In PLONK, we'll assume that $q equiv 1 mod n$, which means that
+In PLONK, we will assume that $q equiv 1 mod n$, which means that
 we can fix $omega in FF_q$ to be a primitive $n$-th root of unity.
 
 Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$, $B(X)$,
@@ -200,9 +200,9 @@ then the polynomial called $Z$ is just
 $Z(X) = (X-omega) ... (X-omega^n) = X^n-1$, which is really nice.
 In fact, often $n$ is chosen to be a power of $2$ so that $A$, $B$, and $C$
 are very easy to compute, using a fast Fourier transform.
-(Note: When you're working in a finite field, the fast Fourier transform
+(Note: When you are working in a finite field, the fast Fourier transform
 is sometimes called the "number theoretic transform" (NTT)
-even though it's exactly the same as the usual FFT.)
+even though it is exactly the same as the usual FFT.)
 
 Then:
 #algorithm("Commitment step of PLONK")[
@@ -213,7 +213,7 @@ To reiterate, each commitment is a
 single value -- a 256-bit elliptic curve point --
 that can later be "opened" at any value $x in FF_q$.
 
-== Step 2: Gate-check
+== Step 2: gate check
 
 Both Peggy and Victor know the PLONK instance,
 so they can interpolate a polynomial
@@ -236,7 +236,7 @@ However, Peggy has committed $A$, $B$, $C$ already,
 while all the $Q_*$ polynomials are globally known.
 So this is a direct application of @root-check:
 
-#algorithm[Gate-check][
+#algorithm[Gate check][
   1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
     from the $5n$ coefficients $q_*$
     (globally known from the PLONK instance).
@@ -278,19 +278,19 @@ or there are at most $3n-4$ values for which it's true
 ]
 */
 
-== Step 3: Proving the copy constraints <copy-constraint-deferred>
+== Step 3: proving the copy constraints <copy-constraint-deferred>
 
 The copy constraints are the trickiest step.
 There are a few moving parts to this idea, so we skip it for now and dedicate
 @copy-constraints to it.
 
-== Step 4: Public and private witnesses
+== Step 4: public and private witnesses
 
 The last thing to be done is to reveal the value of public witnesses,
 so the prover can convince the verifier that those values are correct.
 This is simply an application of @root-check.
-Let's say the public witnesses are the values $a_i$, for all $i$ in some set $S$.
-(If some of the $b$'s and $c$'s are also public, we'll just do the same thing for them.)
+Let us say the public witnesses are the values $a_i$, for all $i$ in some set $S$.
+(If some of the $b$'s and $c$'s are also public, we will just do the same thing for them.)
 The prover can interpolate another polynomial, $A^"public"$,
 such that $A^"public" (omega^i) = a_i$ if $i in S$, and $A^"public" (omega^i) = 0$ if $i in.not S$.
 Actually, both the prover and the verifier can compute $A^"public"$, since
@@ -298,4 +298,4 @@ all the values $a_i$ are publicly known!
 
 Now the prover runs @root-check to prove that $A - A^"public"$ vanishes on $S$.
 (And similarly for $B$ and $C$, if needed.)
-And we're done.
+And we are done.

@@ -13,5 +13,5 @@
   encryption or public-key cryptography.
 4. More generally, it is also possible for a group of people to
   compute whatever secret function they want, which is the field of
-  _multiparty computation (MPC)_.
+  _multi-party computation (MPC)_.
 ]

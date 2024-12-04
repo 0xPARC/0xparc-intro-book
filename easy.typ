@@ -36,7 +36,7 @@
 #authoredpart[Introduction][Brian Gu and Yan X Zhang]
 #chapter("src/intro.typ")
 
-#authoredpart[Two-party Computation][Brian Gu and Brian Lawrence]
+#authoredpart[Two-Party Computation][Brian Gu and Brian Lawrence]
 #chapter("src/mpc.typ")
 #chapter("src/ot.typ")
 #chapter("src/2pc-takeaways.typ")

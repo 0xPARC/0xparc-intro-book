@@ -20,7 +20,7 @@ The roadmap goes roughly as follows:
   which we need to make to provide security to our protocols. As an example, in
   @eddsa we describe how @ddh
   can be used to construct a signature scheme, namely
-  #cite("https://en.wikipedia.org/wiki/EdDSA", "EdDSA").
+  #cite("https://en.wikipedia.org/wiki/EdDSA", "EdDSA.")
 - The EdDSA idea will later grow up to be the KZG commitment scheme in @kzg.
 
 = Elliptic curves <ec>
@@ -29,7 +29,7 @@ Every modern cryptosystem rests on a hard problem
 -- a computationally infeasible challenge
 whose difficulty makes the protocol secure.
 The best-known example is
-#cite("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA"),
+#cite("https://en.wikipedia.org/wiki/RSA_(cryptosystem)", "RSA,")
 which is secure because
 it is hard to factor a composite number (like $6887$)
 into prime factors ($6887 = 71 dot 97$).
@@ -69,7 +69,7 @@ which has been specifically engineered to have certain properties
 about the properties of this curve).
 The name BN stands for Barreto-Naehrig, two mathematicians who
 #cite("https://link.springer.com/content/pdf/10.1007/11693383_22.pdf",
-"proposed a family of such curves in 2006").
+"proposed a family of such curves in 2006.")
 
 #definition[
   The _BN254 curve_ is the elliptic curve
@@ -79,7 +79,7 @@ The name BN stands for Barreto-Naehrig, two mathematicians who
 ]
 
 So each point on $E(FF_p)$ is an ordered pair $(X,Y) in FF_p^2$ satisfying @bn254eqn.
-Okay, actually, that's a white lie: conventionally,
+Okay, actually, that is a white lie: Conventionally,
 there is one additional point $O = (0, oo)$ called the "point at infinity"
 added in (whose purpose we describe in the next section).
 
@@ -91,26 +91,26 @@ The constants $p$ and $q$ are contrived so that the following holds:
 ]
 #definition[
   This prime $q approx 2^(254)$ is affectionately called the _Baby Jubjub prime_
-  (a reference to #cite("https://en.wikipedia.org/wiki/The_Hunting_of_the_Snark", "The Hunting of the Snark")).
+  (a reference to #cite("https://en.wikipedia.org/wiki/The_Hunting_of_the_Snark", "The Hunting of the Snark."))
   It will usually be denoted by $q$ in these notes.
 ]
 
-So at this point, we have a bag of $q$ points denoted $E(FF_p)$.
+So, at this point, we have a bag of $q$ points denoted $E(FF_p)$.
 However, right now it only has the structure of a set.
 
 The beauty of elliptic curves
-is that it's possible to define an *addition* operation on the curve;
-this is called the #cite("https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law", "group law on the elliptic curve").
+is that it is possible to define an *addition* operation on the curve;
+this is called the #cite("https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law", "group law on the elliptic curve.")
 This addition will make $E(FF_p)$ into an abelian group whose identity element
-is the point at infinity $O$. This addition can be formalized as a _group law_, which is an equation that points on the curve must follow.
+is the point at infinity $O$. This addition can be formalized as a _group law_. 
 
-This group law involves some kind of heavy algebra.
-It's not important to understand exactly how it works.
+This group law involves some heavy algebra.
+It is not important to understand exactly how it works.
 All you really need to take away from this section is that there is some group law,
 and we can program a computer to compute it. We provide details below for the interested reader.
 
 #gray[
-  So, let's get started.
+  So, let us get started.
   The equation of $E$ is cubic -- the highest-degree terms have degree $3$.
   This means that (in general) if you take a line $y = m x + b$ and intersect it with $E$,
   the line will meet $E$ in exactly three points.
@@ -123,11 +123,11 @@ and we can program a computer to compute it. We provide details below for the in
 
   (You might be wondering how we can do geometry
   when the coordinates $x$ and $y$ are in a finite field.
-  It turns out that all the geometric operations we're describing --
+  It turns out that all the geometric operations we are describing --
   like finding the intersection of a curve with a line --
-  can be translated into algebra.
-  And then you just do the algebra in your finite field.
-  But we'll come back to this.)
+  can be translated into algebra, 
+  and then you just do the algebra in your finite field.
+  We will come back to this.)
 
   Why three points?
   Algebraically, if you take the equations $Y^2 = X^3 + 3$ and $Y = m X + b$
@@ -137,11 +137,11 @@ and we can program a computer to compute it. We provide details below for the in
   (m X + b)^2 = X^3 + 3,
   $
   which is a degree-3 polynomial in $X$,
-  so it has (at most) 3 roots.
-  And in fact if it has 2 roots, it's guaranteed to have a third
-  (because you can factor out the first two roots, and then you're left with a linear factor).
+  so it has (at most) three roots.
+  In fact if it has two roots, it is guaranteed to have a third
+  (because you can factor out the first two roots, and then you are left with a linear factor).
 
-  OK, so given two points $P$ and $Q$, how do we find their sum $P+Q$?
+  Now given two points $P$ and $Q$, how do we find their sum $P+Q$?
   We can draw the line through the two points.
   That line -- like any line -- will intersect $E$ in three points:
   $P$, $Q$, and a third point $R$.
@@ -159,16 +159,16 @@ and we can program a computer to compute it. We provide details below for the in
   If you take the vertical line $X = x_R$,
   and try to intersect it with the curve,
   it looks like there are only two intersection points.
-  After all, we're solving
+  After all, we are solving
   $
   Y^2 = x_R^3 + 3,
   $
   and since $x_R$ is fixed now, this equation is quadratic.
   The two roots are $Y = plus.minus y_R$.
 
-  OK, there are only two intersection points, but
+  There are only two intersection points, but
   we say that the third intersection point is "the point at infinity" $O$.
-  (The reason for this lies in projective geometry, but we won't get into it.)
+  (The reason for this lies in projective geometry, but we will not get into it.)
   So the group law here tells us
   $
     (x_R, y_R) + (x_R, -y_R) + O = O.
@@ -212,10 +212,10 @@ and we can program a computer to compute it. We provide details below for the in
 
   There are separate formulas to deal with various special cases
   (if $P = Q$, you need to compute the tangent line to $E$ at $P$, for example),
-  but we won't get into it.
+  but we will not get into it.
 ]
 
-In summary we have endowed the set of points $E(FF_p)$ with the additional
+In summary, we have endowed the set of points $E(FF_p)$ with the additional
 structure of an abelian group, which happens to have exactly $q$ elements.
 However, an abelian group with prime order is necessarily cyclic.
 In other words:
@@ -227,11 +227,11 @@ In other words:
 ]
 
 In these notes, this isomorphism will basically be a standing assumption.
-Moving forward we'll abuse notation slightly
+Moving forward, we will abuse notation slightly
 and just write $E$ instead of $E(FF_p)$.
 In fancy language, $E$ will be a one-dimensional vector space over $FF_q$.
-In less fancy language, we'll be working with points on $E$ as black boxes.
-We'll be able to add them, subtract them,
+In less fancy language, we will be working with points on $E$ as black boxes.
+We will be able to add them, subtract them,
 and multiply them by arbitrary scalars from $FF_q$.
 
 Consequently --- and this is important ---
@@ -246,13 +246,13 @@ for all our cryptographic primitives*
   Since $q approx 2^(254)$,
   that means we are doing something like $256$-bit integer arithmetic.
   This is why the baby Jubjub prime $q$ gets a special name,
-  while the prime $p$ is unnamed and doesn't get any screen-time later.
+  while the prime $p$ is unnamed and does not get any screen-time later.
 ]
 
 = Discrete logarithm <discretelog>
 
 For our systems to be useful, rather than relying on factoring,
-we will rely on the so-called _discrete logarithm_ assumption.
+we will rely on the so-called _discrete logarithm assumption_.
 
 #assumption[Discrete logarithm assumption][
   Let $E$ be the BN254 curve (or another standardized curve).
@@ -261,7 +261,7 @@ we will rely on the so-called _discrete logarithm_ assumption.
   to find an integer $n$ such that $n dot g = g'$.
 
   Experience suggests that the discrete logarithm problem is hard:
-  in general, we don't know a fast algorithm to solve it.
+  In general, we do not know a fast algorithm to solve it.
   The _discrete logarithm assumption_
   says that no such algorithm exists.
 ] <ddh>
@@ -280,9 +280,9 @@ In other words, $n$ will generally be thought of as being up to about $2^(254)$ 
 
 On the other hand, given $g in E$,
 one can compute $n dot g$ in just $O(log n)$ operations,
-by #cite("https://en.wikipedia.org/wiki/Exponentiation_by_squaring", "repeated squaring").
+by #cite("https://en.wikipedia.org/wiki/Exponentiation_by_squaring", "repeated squaring.")
 For example, to compute $400g$, one only needs to do $10$ additions,
-rather than $400$: one starts with
+rather than $400$: One starts with
 $
   2g &= g + g \
   4g &= 2g + 2g \
@@ -336,9 +336,9 @@ which is defined in @pairing-friendly when we need it later.
 
 == Example application: EdDSA signature scheme <eddsa>
 
-We'll show how @ddh can be used to construct a signature scheme that replaces RSA.
-This scheme is called #cite("https://en.wikipedia.org/wiki/EdDSA", "EdDSA"),
-and it's used quite frequently (e.g. in OpenSSH and GnuPG).
+We will show how @ddh can be used to construct a signature scheme that replaces RSA.
+This scheme is called #cite("https://en.wikipedia.org/wiki/EdDSA", "EdDSA,")
+and it is used quite frequently (e.g., in OpenSSH and GnuPG).
 One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
 (In contrast, RSA needs 2048-4096 bit keys for comparable security.)
@@ -350,9 +350,9 @@ For $n in ZZ$ (equivalently $n in FF_q$) we define
 $ [n] := n dot g in E. $
 ] <armor>
 
-The hardness of discrete logarithm means that, given $[n]$, we cannot get $n$.
+The hardness of the discrete logarithm means that, given $[n]$, we cannot get $n$.
 You can almost think of the notation as an "armor" on the integer $n$:
-it conceals the integer, but still allows us to perform (armored) addition:
+It conceals the integer, but still allows us to perform (armored) addition:
 $ [a+b] = [a] + [b]. $
 In other words, $n |-> [n]$ viewed as a map $FF_q -> E$ is $FF_q$-linear.
 
@@ -392,10 +392,10 @@ due to @ddh.
 
 The number $r$ is called a _blinding factor_ because
 its use prevents Bob from stealing Alice's secret key $d$ from the published $s$.
-It's therefore imperative that $r$ isn't known to Bob
+It is therefore imperative that $r$ is not known to Bob
 nor reused between signatures, and so on.
 One way to do this would be to pick $r = hash(d, msg)$; this has the
-bonus that it's deterministic as a function of the message and signer.
+bonus that it is deterministic as a function of the message and signer.
 
 In @kzg we will use ideas quite similar to this to
 build the KZG commitment scheme.
@@ -406,32 +406,32 @@ A _commitment scheme_ is a protocol where Alice wants to commit some value $x$ t
 
 A multivariable generalization of @ddh is that if $g_1, ..., g_n in E$
 are a bunch of randomly chosen points of $E$ with order $q$,
-then it's computationally infeasible to find
+then it is computationally infeasible to find
 $(a_1, ..., a_n) != (b_1, ..., b_n) in FF_q^n$ such that
 $ a_1 g_1 + ... + a_n g_n = b_1 g_1 + ... + b_n g_n. $
 (Remember that $q approx 2^(256)$ is very large.)
 
 #definition[
-  In these notes, if there's a globally known elliptic curve $E$
+  In these notes, if there is a globally known elliptic curve $E$
   and points $g_1, ..., g_n$ have order $q$ and no known nontrivial
   linear dependencies between them,
-  we'll say they're a _computational basis over $FF_q$_.
+  we will say they are a _computational basis over $FF_q$_.
 ] <comp_basis>
 
 #remark[
-  This may horrify pure mathematicians because we're pretending the map
+  This may horrify pure mathematicians because we are pretending the map
   $ FF_q^n -> FF_q " by " (a_1, ..., a_n) |-> sum_1^n a_i g_i $
   is injective,
   even though the domain is an $n$-dimensional $FF_q$-vector space
   and the codomain is one-dimensional.
   This can feel weird because our instincts from linear algebra in pure math
   are wrong now. This map, while not injective in theory,
-  ends up being injective *in practice* (because we can't find collisions).
+  ends up being injective *in practice* (because we cannot find collisions).
   And this is a critical standing assumption for this entire framework!
 ]
 
 This injectivity gives us a sort of hash function on vectors
-(with "linearly independent" now being phrased as "we can't find a collision").
+(with "linearly independent" now being phrased as "we cannot find a collision").
 To spell this out:
 
 #definition[
@@ -444,10 +444,10 @@ To spell this out:
 ]
 
 The Pedersen commitment is thus a sort of hash function:
-given the group element above,
+Given the group element above,
 one cannot recover any of the $a_i$;
 but given the entire vector $arrow(a)$
 one can compute the Pedersen commitment easily.
 
-We won't use Pedersen commitments in this book,
+We will not use Pedersen commitments in this book,
 but they will be closely related to KZG.

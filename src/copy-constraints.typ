@@ -11,10 +11,10 @@ $ a_1 = a_4 = c_4
   #h(1em) "and" #h(1em)
   b_2 = c_1. $
 Before we show how to check this,
-we provide a solution to a "simpler" problem called "permutation-check".
+we provide a solution to a "simpler" problem called "permutation check".
 Then we explain how to deal with the full copy check.
 
-== Easier case: permutation-check
+== Easier case: permutation check
 
 #problem[
 Suppose we have polynomials $P, Q in FF_q [X]$
@@ -31,11 +31,11 @@ Well, actually, it would be necessary and sufficient for the identity
     = (T+Q(omega^1))(T+Q(omega^2)) ... (T+Q(omega^n)) $
   <permcheck-poly>
 ]
-to be true, in the sense both sides are the same polynomial in $FF_q [T]$
+to be true, in the sense that both sides are the same polynomial
 in a single formal variable $T$.
 And for that, it is sufficient that a single random challenge
-$T = lambda$ passes @permcheck-poly: if the two sides of @permcheck-poly
-aren't the same polynomial,
+$T = lambda$ passes @permcheck-poly: If the two sides of @permcheck-poly
+are not the same polynomial,
 then the two sides can have at most $n-1$ common values.
 So for a randomly chosen $lambda$
 (chosen from a field with $q approx 2^(256)$ elements),
@@ -55,7 +55,7 @@ Then the accumulator $F_Q in FF_q [T]$ is defined analogously.
 
 So to prove @permcheck-poly, the following algorithm works:
 
-#algorithm[Permutation-check][
+#algorithm[Permutation check][
   Suppose Peggy has committed $Com(P)$ and $Com(Q)$.
 
   1. Victor sends a random challenge $lambda in FF_q$.
@@ -75,12 +75,12 @@ So to prove @permcheck-poly, the following algorithm works:
 
 == Copy check
 
-Moving on to copy-check, let's look at a concrete example where $n=4$.
+Moving on to copy check, let us look at a concrete example where $n=4$.
 Suppose that our copy constraints were
 $ #rbox($a_1$) = #rbox($a_4$) = #rbox($c_4$)
   #h(1em) "and" #h(1em)
   #bbox($b_2$) = #bbox($c_1$). $
-(We've colored and circled the variables that will move around for readability.)
+(We have colored and circled the variables that will move around for readability.)
 So, the copy constraint means we want the following equality of matrices:
 #eqn[
   $
@@ -102,9 +102,9 @@ So, the copy constraint means we want the following equality of matrices:
   <copy1>
 ]
 Again, our goal is to make this into a _single_ equation.
-There's a really clever way to do this by tagging each entry with $+ eta^j omega^k mu$
+There is a really clever way to do this by tagging each entry with $+ eta^j omega^k mu$
 in reading order for $j = 0, 1, 2$ and $k = 1, ..., n$;
-here $eta in FF_q$ is any number such that $eta^2$ doesn't happen to be a power of $omega$,
+here $eta in FF_q$ is any number such that $eta^2$ does not happen to be a power of $omega$,
 so all the tags are distinct.
 Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
 #eqn[
@@ -127,7 +127,7 @@ Specifically, if @copy1 is true, then for any $mu in FF_q$, we also have
   <copy2>
 ]
 Now how can the prover establish @copy2 succinctly?
-The answer is to run a permutation-check on the $3n$ entries of @copy2!
+The answer is to run a permutation check on the $3n$ entries of @copy2!
 The prover will simply prove that the twelve matrix entries
 of the matrix on the left
 are a permutation of the twelve matrix entries
@@ -135,14 +135,14 @@ of the matrix on the right.
 
 The reader should check that this is correct!
 If the prover starts with values $a_i$, $b_i$, and $c_i$
-that don't satisfy all the copy constraints,
+that do not satisfy all the copy constraints,
 then a randomly selected $mu$ is very unlikely to satisfy this
 permutation check.
 The right-hand side will not be a permutation of the left-hand side,
 and the check will fail.
 
 To clean things up, shuffle the $12$ terms on the right-hand side of @copy2
-so that each variable is in the cell it started at:
+so that each variable is in the cell it started at.
 We want to prove
 #eqn[
   $
@@ -184,9 +184,9 @@ $
   )
 $
 Then the prover can start defining accumulator polynomials, after
-re-introducing the random challenge $lambda$ from permutation-check.
-We're going to need six in all, three for each side of @copy3:
-we call them $F_a$, $F_b$, $F_c$, $F'_a$, $F'_b$, $F'_c$.
+re-introducing the random challenge $lambda$ from permutation check.
+We are going to need six in all, three for each side of @copy3:
+We call them $F_a$, $F_b$, $F_c$, $F'_a$, $F'_b$, $F'_c$.
 The ones on the left-hand side are interpolated so that
 #eqn[
   $
@@ -238,8 +238,8 @@ before the final product condition
   <copycheck-final>
 ]
 
-To summarize, the copy-check goes as follows:
-#algorithm[Copy-check][
+To summarize, the copy check goes as follows:
+#algorithm[Copy check][
   0. Peggy has already sent the three commitments
     $Com(A), Com(B), Com(C)$ to Victor;
     these commitments bind her to the values of all the variables

@@ -3,23 +3,23 @@
 = A hard problem: learning with errors
 <lwe>
 
-As we've seen (@ec),
+As we have seen (@ec),
 a lot of cryptography relies on hard math problems.
 RSA is based on the difficulty of integer factorization;
 elliptic curve cryptography depends on the discrete log assumption.
 
-Our protocol for levelled FHE relies on a different hard problem:
+Our protocol for leveled FHE relies on a different hard problem:
 the learning with errors problem (LWE).
 The problem is to solve systems of linear equations,
 except that the equations are only approximately true --
 they permit a small "error" --
 and instead of solving for rational or real numbers,
-you're solving for integers modulo $q$.
+you are solving for integers modulo $q$.
 
 == A small example of an LWE problem
 <lwe-small>
 
-Here’s a concrete example of an LWE problem and how one might attack it
+Here is a concrete example of an LWE problem and how one might attack it
 "by hand." This exercise will make the inherent difficulty of the
 problem quite intuitive.
 
@@ -101,7 +101,7 @@ We can observe the following:
   no error.
 + As we linearly combine vectors, their "error part" $S$ gets bigger
   exponentially. So we can only add vectors very few times, ideally just
-  1 or 2 times, before they start being unusable.
+  one or two times, before they start being unusable.
 
 With these heuristics, we can start by looking at the Red Set, and make vectors with many $0$’s in the same places.
 

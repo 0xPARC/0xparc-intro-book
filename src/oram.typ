@@ -34,7 +34,7 @@ search over a sorted array, the entries accessed during the search would
 leak your private query. 
 
 We can also think of
-access pattern leakage through a programming language perspective: for
+access pattern leakage through a programming language perspective. For
 example, the following program has an `if`-branch dependent on secret
 inputs. 
 (Maybe the secret input is the last bit of a secret key).
@@ -60,7 +60,7 @@ Therefore, we want to solve the following challenge:
 The solution Signal eventually deployed is an algorithmic technique
 called Oblivious RAM (ORAM).
 
-= Oblivious RAM: Problem Definitions
+= Oblivious RAM: problem definitions
 <oblivious-ram-problem-definitions>
 Oblivious RAM (ORAM) is a powerful cryptographic protocol that
 #emph[provably] hides access patterns to sensitive data.
@@ -79,7 +79,7 @@ An ORAM algorithm (the #emph[client];)
 sits between a #emph[user]; who wants to access memory
 and a #emph[server]; that has memory capabilities.
 At the server-ORAM interface, the server simply acts as a memory:
-the ORAM client sends read and write requests to the server,
+The ORAM client sends read and write requests to the server,
 and the server responds.
 Between the ORAM and the user,
 the user submits #emph[logical] read and write requests
@@ -123,7 +123,7 @@ In this security requirement,
 we require that the server learn nothing from observing only the list of
 physical addresses, and whether each physical
 access is a read or write.
-We don't say anything about the data that is written to physical memory.
+We do not say anything about the data that is written to physical memory.
 
 In practice, we need to use encryption to hide
 the contents of the blocks. 
@@ -135,7 +135,7 @@ From now on we will simply assume secure encryption as
 given, and focus on hiding the access patterns.
 ]
 
-= Naive Solutions
+= Naive solutions
 <naive-solutions>
 == Naive solution 1
 <naive-solution-1.>
@@ -158,7 +158,7 @@ secret permutation known only to the client. Whenever the client wishes
 to access a block, it will appear to the server to reside at a random
 location.
 
-Indeed, this scheme gives a secure #emph[one-time] ORAM scheme: it
+Indeed, this scheme gives a secure #emph[one-time] ORAM scheme: It
 provides security if every block is accessed only once. However, if the
 client needs to access each block multiple times, then the access
 patterns will leak statistical information such as frequency (how
@@ -171,17 +171,17 @@ secrets.
 == Important observation
 <important-observation.>
 The above naive solution 3 gives us the following useful insight:
-informally, if we want a "non-trivial" ORAM scheme, it appears that we
+Informally, if we want a "non-trivial" ORAM scheme, it appears that we
 may have to relocate a block after it is accessed — otherwise, if the
 next access to the same block goes back to the same location, we can
 thus leak statistical information. It helps to keep this observation in
 mind when we describe our ORAM scheme later.
 
-= Binary-Tree ORAM: Data Structure
+= Binary-tree ORAM: data structure
 <data-structure>
 We will learn about tree-based ORAMs. 
 Then, we will mention an
-improvement called #cite("https://eprint.iacr.org/2013/280.pdf", "Path ORAM"),
+improvement called #cite("https://eprint.iacr.org/2013/280.pdf", "Path ORAM,")
 which is the scheme
 that Signal has deployed.
 
@@ -197,7 +197,7 @@ $Z$ number of blocks — for now, think of $Z$ as being relatively small
 later. Some of the blocks stored by the server are #emph[real];, other
 blocks are #emph[dummy];. As will be clear later, these dummy blocks are
 introduced for security: 
-we do not want the server to learn which buckets hold real blocks.
+We do not want the server to learn which buckets hold real blocks.
 
 == Main path invariant
 <main-path-invariant.>
@@ -218,7 +218,7 @@ $Theta (N log N)$ bits to store — but later we can recursively outsource
 the storage of the position map to the server by placing position maps in
 progressively smaller ORAMs.
 
-= Binary Tree ORAM: Operations
+= Binary-tree ORAM: operations
 <operations>
 We now describe how to access blocks in our ORAM scheme.
 
@@ -245,14 +245,12 @@ to write this block back to the tree, to somewhere on the new path (and
 if the request is a `write` request, the block’s contents are updated
 before being written back to the server). But doing this is tricky! It
 turns out that we cannot write the block back directly to the leaf
-bucket of the new path — since doing so would reveal which new path the
-block got assigned, this leaks information since if the next request
-asks for the same block, it would then go to this new path; otherwise
-most likely the next request will go to a different path. 
+bucket of the new path, since doing so would reveal which new path the
+block got assigned to.
 For the same reason, 
-we cannot write this block back to any internal nodes of the
-new path either, since writing to any internal node on the new path also
-leaks partial information about the new path.
+we cannot write this block back to any internal nodes of the 
+new path either, since writing to any internal node on the new path also 
+leaks partial information about the new path. 
 
 It turns out that the only safe location to write the block back is to
 the root bucket! The root bucket resides on every path, and thus writing
@@ -260,7 +258,7 @@ the block back to the root does not violate the main path invariant; and
 further, it does not leak any information about the new path.
 
 Now this is great. Our idea thus is to write this block back to the root
-bucket. However, there is also an obvious problem! The root bucket has a
+bucket. However, there is also an obvious problem. The root bucket has a
 capacity of $Z$, and if we keep writing blocks back to the root, soon
 enough the root bucket will overflow! Therefore, we now introduce a new
 procedure called #emph[eviction] to cope with this problem.
@@ -275,17 +273,17 @@ since there is no space to hold it on the server, and this can affect
 the correctness of our ORAM scheme. However, we will guarantee that such
 correctness failure happens only with negligible probability.
 
-The high-level idea is very simple: whenever we can, we will try to move
+The high-level idea is very simple: Whenever we can, we will try to move
 blocks in the tree closer to the leaves, to allow space to free up in
 smaller levels of the tree (levels closer to the root). There are
 a few important considerations when performing such eviction:
 
 - Data movement during eviction must respect the main path invariant:
-  each block can only be moved into buckets in which it can
+  Each block can only be moved into buckets in which it can
   legitimately reside.
 
 - Data movement during eviction must retain #emph[obliviousness]:
-  the physical locations accessed during eviction should be independent
+  The physical locations accessed during eviction should be independent
   of the input requests to the ORAM.
 
 - As we perform eviction, we pay a cost for this maintenance operation
@@ -295,13 +293,13 @@ a few important considerations when performing such eviction:
   overflows are less likely to happen. On the other hand, we also do not
   want the eviction cost to be too expensive. Therefore, another tricky
   issue is how we can design an eviction algorithm that achieves the
-  best of both worlds: with a small number of eviction operations, we
+  best of both worlds: With a small number of eviction operations, we
   want to keep the probability of overflow very small 
   (technically: negligible in $N$).
 
 #figure(image("binaryoram16-evict.png"),
   caption: [
-    The `Evict` algorithm. Upon every data access operation, 2 buckets
+    The `Evict` algorithm. Upon every data access operation, two buckets
     are chosen at every level of the tree for eviction during which one
     data block will be evicted to one of its children. To ensure
     security, a dummy eviction is performed for the child that does not
@@ -323,7 +321,7 @@ informal analysis of the scheme later:
 
 Note that depending on the chosen block’s designated path, there is only
 one child where the block can legitimately go. We must take precautions
-to hide where this block is going: thus for the remaining child that
+to hide where this block is going: Thus for the remaining child that
 does not receive a block, we can perform a "dummy" eviction.
 Additionally, if the bucket chosen for eviction is empty (does not
 contain any real blocks), then we make a dummy eviction for both
@@ -351,7 +349,7 @@ We present the algorithm’s pseudo-code in Algorithms~@alg:access and
 The procedure $mono("Access")(mono("op"), mono("addr") , mono("data")^(\*))$
 where $mono("op") = mono("read")$ or $mono("op") = mono("write")$
 
-#strong[Assume:] each block is of the form
+#strong[Assume:] Each block is of the form
 $(mono("addr") , mono("data") , l)$ where $l$ denotes the block’s
 current designated path.
 
@@ -428,19 +426,17 @@ argue correctness, we must argue why no overflow will ever occur except
 with negligible probability — as long as the bucket size $Z$ is set
 appropriately.
 
-#claim[
-(Bucket size and overflow probability). #emph[If the
+#claim[Bucket size and overflow probability][If the
 bucket size $Z$ is super-logarithmic in $N$, then over any polynomially
 many accesses, no bucket overflows except with negligible in $N$
-probability. ]
-
-] <clm:bucketsize>
+probability.
+]<clm:bucketsize>
 #proof[
 The full proof uses results from
-#cite("https://en.wikipedia.org/wiki/Queueing_theory", "queueing theory"),
+#cite("https://en.wikipedia.org/wiki/Queueing_theory", "queueing theory,")
 in particular 
-#cite("https://en.wikipedia.org/wiki/Burke%27s_theorem", "Burke's theorem").
-We will give a heuristic argument that doesn't require
+#cite("https://en.wikipedia.org/wiki/Burke%27s_theorem", "Burke's theorem.")
+We will give a heuristic argument that does not require
 any specialized knowledge.
 
 - The root bucket (level $0$ of the ORAM tree)
@@ -472,25 +468,25 @@ This situation is well-known in queueing theory as the
   is non-empty.
 
 Since the bucket is drained (on average) twice as fast as it is filled,
-we expect that it's very unlikely for a lot of blocks to accumulate
+we expect that it is very unlikely for a lot of blocks to accumulate
 in any one bucket.
 
 Indeed, one can prove an exponential bound on the probability
 that any one bucket gets too full:
 $ Pr [upright("number of items in queue") > R] lt.eq exp (Omega (- R)). $
 
-Unfortunately, this doesn't quite finish our analysis of the ORAM tree.
+Unfortunately, this does not quite finish our analysis of the ORAM tree.
 The reason is that the buckets in the ORAM tree are not independent, and
 our informal argument above ignored possible dependence between buckets.
 It turns out that this gap can be filled using Burke's theorem.
 But at this point the reader should already be convinced that 
 the result is at least quite plausible.
 ]
-= Binary-Tree ORAM: Recursion
+= Binary-tree ORAM: recursion
 <binary-tree-oram-recursion>
 So far, we have cheated and pretended that the client can store a large
 position map. We now describe how to get rid of this position map. The
-idea is simple: instead of storing the position map on the client side,
+idea is simple: Instead of storing the position map on the client side,
 we simply store it in a smaller ORAM denoted $sans("posORAM")_1$ on the
 server. The position map of $sans("posORAM")_1$ will then be stored in
 an even smaller ORAM denoted $sans("posORAM")_2$ on the server, and so
@@ -500,15 +496,14 @@ $O (log N)$ levels of recursion would suffice.
 
 We can thus conclude with the following theorem.
 
-#theorem[
-#cite("https://eprint.iacr.org/2011/407.pdf", "Binary-tree ORAM")
-#emph[For any
+#theorem[#cite("https://eprint.iacr.org/2011/407.pdf", "Binary-tree ORAM")][
+For any
 super-constant function $alpha (dot.op)$, there is an ORAM scheme that
 achieves $O (alpha log^3 N)$ cost for each access: each logical
 request will translate to $O (alpha log^3 N)$ physical accesses; and
 moreover, the client is required to store only $O (1)$ number of
 blocks.]
-]
+
 Note that in the total cost $O (alpha log^3 N)$, an $alpha log N$ factor
 comes from the bucket size; another $log N$ factor comes from the total
 height of the tree; and the remaining $log N$ factors comes from the
@@ -516,7 +511,7 @@ recursion.
 
 = Path ORAM
 <path-oram>
-The design of the above binary-tree ORAM is a little silly: whenever we
+The design of the above binary-tree ORAM is a little silly: Whenever we
 visit a triplet of buckets for eviction, we only evict one block. For
 this reason, the bucket size needs to be super-logarithmic to get
 negligible failure probability.
@@ -530,13 +525,13 @@ constant size (maybe 4 or 5), except the root bucket which is
 super-logarithmic in size. Every time we access some path to fetch a
 block, we also perform eviction on the same path. In particular, we will
 rearrange the blocks on the path in the most aggressive manner possible:
-we want to move the blocks as close to the leaf level as possible, but
+We want to move the blocks as close to the leaf level as possible, but
 #emph[without violating the path invariant];. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM.
 The cost of each access is $O (alpha log^2 N)$ for an
 arbitarily small superconstant function $alpha$.
 
-== Other Applications of ORAM
+== Other applications of ORAM
 <other-applications-of-oram>
 ORAM promises many potential applications. For instance, in Large
 Language Models (LLMs), a commonly used technique is called Retrieval
@@ -557,6 +552,6 @@ binary search in a sorted database requires only logarithmic time on a
 RAM, but it requires linear cost when expressed as a circuit.
 Fortunately, ORAM again comes to our rescue. There is a line of work on
 RAM-model MPC, and the idea is that we first translate the RAM to an
-oblivious RAM, and at this point all the memory accesses are safe to
+Oblivious RAM, and at this point all the memory accesses are safe to
 reveal. At this moment, we can use MPC to securely emulate a "secure
 processor" that performs computation while accessing memory obliviously.

@@ -6,5 +6,5 @@
   and it does not learn which blocks correspond to which memory items.
 3. Every time the ORAM client accesses a block, it writes that block back to the root.
 4. A randomized eviction procedure moves blocks away from the root,
-  so individual nodes of the tree don't overflow.
+  so individual nodes of the tree do not overflow.
 ]
