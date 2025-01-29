@@ -1,0 +1,145 @@
+\section{KZG commitments}\label{kzg}
+
+The goal of a \emph{polynomial commitment scheme} is to have the
+following API:
+
+\begin{itemize}
+\item
+  Peggy has a secret polynomial
+  \(P(X) \in {\mathbb{F}}_{q}\lbrack X\rbrack\).
+\item
+  Peggy sends a short ``commitment'' to the polynomial (like a hash).
+\item
+  This commitment should have the additional property that Peggy should
+  be able to ``open'' the commitment at any \(z \in {\mathbb{F}}_{q}\).
+  Specifically:
+
+  \begin{itemize}
+  \item
+    Victor has an input \(z \in {\mathbb{F}}_{q}\) and wants to know
+    \(P(z)\).
+  \item
+    Peggy knows \(P\) so she can compute \(P(z)\); she sends the
+    resulting number \(y = P(z)\) to Victor.
+  \item
+    Peggy can then send a short ``proof'' convincing Victor that \(y\)
+    is the correct value, without having to reveal \(P\).
+  \end{itemize}
+\end{itemize}
+
+The \emph{Kate-Zaverucha-Goldberg (KZG)} commitment scheme is amazingly
+efficient because both the commitment and proof lengths are a single
+point on \(E\), encodable in 256 bits, no matter how many coefficients
+the polynomial has.
+
+\subsection{The setup}
+
+Remember the notation \(\lbrack n\rbrack ≔ n \cdot g \in E\) defined in
+{[}armor{]}. To set up the KZG commitment scheme, a trusted party needs
+to pick a secret scalar \(s \in {\mathbb{F}}_{q}\) and publish
+\[\left\lbrack s^{0} \right\rbrack,\left\lbrack s^{1} \right\rbrack,\ldots,\left\lbrack s^{M} \right\rbrack\]
+for some large \(M\), the maximum degree of a polynomial the scheme
+needs to support. This means anyone can evaluate
+\(\left\lbrack P(s) \right\rbrack\) for any given polynomial \(P\) of
+degree up to \(M\). For example,
+\[\left\lbrack s^{2} + 8s + 6 \right\rbrack = \left\lbrack s^{2} \right\rbrack + 8\lbrack s\rbrack + 6\lbrack 1\rbrack.\]
+Meanwhile, the secret scalar \(s\) is never revealed to anyone.
+
+The setup only needs to be done by a trusted party once for the curve
+\(E\). Then anyone in the world can use the resulting sequence for KZG
+commitments.
+
+strong(Remark):\\
+
+\subsection{The KZG commitment scheme}
+
+Peggy has a polynomial \(P(X) \in {\mathbb{F}}_{p}\lbrack X\rbrack\). To
+commit to it:
+
+strong(Algorithm):\\
+Creating a KZG commitment This computation is possible as
+\(\left\lbrack s^{i} \right\rbrack\) are globally known.
+
+Now consider an input \(z \in {\mathbb{F}}_{p}\); Victor wants to know
+the value of \(P(z)\). If Peggy wishes to convince Victor that
+\(P(z) = y\), then:
+
+strong(Algorithm):\\
+Opening a KZG commitment
+
+If Peggy is truthful, then {[}kzg-verify{]} will certainly check out.
+
+If \(y \neq P(z)\), then Peggy cannot do the polynomial long division
+described above. So to cheat Victor, she needs to otherwise find an
+element
+\[\frac{1}{s - x}\left( \left\lbrack P(s) \right\rbrack - \lbrack y\rbrack \right) \in E.\]
+Since \(s\) is a secret nobody knows, there is not any known way to do
+this.
+
+\subsection{Multi-openings}\label{multi-openings}
+
+To reveal \(P\) at a single value \(z\), we did polynomial division to
+divide \(P(X)\) by \(X - z\). But there is no reason we have to restrict
+ourselves to linear polynomials; this would work equally well with
+higher-degree polynomials, while still using only a single 256-bit curve
+point for the proof.
+
+For example, suppose Peggy wanted to prove that \(P(1) = 100\),
+\(P(2) = 400\), \ldots, \(P(9) = 8100\). (We chose these numbers so that
+\(P(X) = 100X^{2}\) for \(X = 1,\ldots,9\).)
+
+Evaluating a polynomial at \(1,2,\ldots,9\) is essentially the same as
+dividing by \((X - 1)(X - 2)\ldots(X - 9)\) and taking the remainder. In
+other words, if Peggy does a polynomial long division, she will find
+that
+\[P(X) = Q(X)\left( (X - 1)(X - 2)\ldots(X - 9) \right) + 100X^{2.}\]
+Then Peggy sends \(\left\lbrack Q(s) \right\rbrack\) as her proof, and
+the verification equation is that \[\begin{aligned}
+ & \operatorname{pair}(\left\lbrack Q(s) \right\rbrack,\left\lbrack (s - 1)(s - 2)\ldots(s - 9) \right\rbrack) \\
+ & = \operatorname{pair}(\left\lbrack P(s) \right\rbrack - 100\left\lbrack s^{2} \right\rbrack,\lbrack 1\rbrack).
+\end{aligned}\]
+
+The full generality just replaces the \(100X^{2}\) with the polynomial
+obtained from Lagrange interpolation\footnote{https://en.wikipedia.org/wiki/Lagrange\_polynomial}
+(there is a unique such polynomial \(f\) of degree \(n - 1\)). To spell
+this out, suppose Peggy wishes to prove to Victor that
+\(P\left( z_{i} \right) = y_{i}\) for \(1 \leq i \leq n\).
+
+strong(Algorithm):\\
+Opening a KZG commitment at \(n\) values
+
+So one can even open the polynomial \(P\) at \(1000\) points with a
+single 256-bit proof. The verification runtime is a single pairing plus
+however long it takes to compute the Lagrange interpolation \(f\).
+
+\subsection{Root check}
+
+To make PLONK work, we are going to need a small variant of the
+multi-opening protocol for KZG commitments
+(\hyperref[multi-openings]{{[}multi-openings{]}}), which we call
+\emph{root check} (not a standard name). Here is the problem statement:
+
+strong(Problem):\\
+
+Peggy just needs to show that \(P_{1} - P_{2}\) is divisible by
+\(Z(X) ≔ \prod_{z \in S}(X - z)\). This can be done by committing the
+quotient \[H(X) ≔ \frac{P_{1}(X) - P_{2}(X)}{Z(X)}.\] Victor then gives
+a random challenge \(\lambda \in {\mathbb{F}}_{q}\), and then Peggy
+opens \(\operatorname{Com}(P_{1})\), \(\operatorname{Com}(P_{2})\), and
+\(\operatorname{Com}(H)\) at \(\lambda\).
+
+But we can actually do this more generally with \emph{any} polynomial
+expression \(F\) in place of \(P_{1} - P_{2}\), as long as Peggy has a
+way to prove the values of \(F\) are correct. As an artificial example,
+if Peggy has sent Victor \(\operatorname{Com}(P_{1})\) through
+\(\operatorname{Com}(P_{6})\), and wants to show that
+\[P_{1}(42) + P_{2}(42)P_{3}(42)^{4} + P_{4}(42)P_{5}(42)P_{6}(42) = 1337,\]
+she could define
+\[F(X) ≔ P_{1}(X) + P_{2}(X)P_{3}(X)^{4} + P_{4}(X)P_{5}(X)P_{6}(X) - 1337\]
+and run the same protocol with this \(F\). This means she does not have
+to reveal any \(P_{i}(42)\), which is great!
+
+To be fully explicit, here is the algorithm:
+
+strong(Algorithm):\\
+Root check \phantomsection\label{root-check}{}
