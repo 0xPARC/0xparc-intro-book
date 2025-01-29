@@ -73,7 +73,7 @@ So this gives a way to provide a construction of a good vector $w$
 of half the length (in the new basis) given a good vector $v$.
 
 This suggests the following protocol:
-#algorithm[Reducing IPA for $n=2$ to $n=1$][
+#algorithm[Reducing IPA for $n=2$ to $n=1$:
   1. Peggy, who knows the $a_i$'s, computes
     $ w_L := a_2 g_1 + b_1 h_2 + a_2 b_1 u in E
     #h(1em) "and" #h(1em)
@@ -149,7 +149,7 @@ $v = a_1 g_1 + ... + a_6 g_6 + b_1 h_1 + ... + b_6 h_6 + c u $
 is good with respect to the length-thirteen basis
 $angle.l g_1, ..., h_6, u angle.r$.
 
-#algorithm[Reducing IPA for $n=6$ to $n=3$][
+#algorithm[Reducing IPA for $n=6$ to $n=3$:
   1. Peggy computes
     $ w_L &= (a_4 g_1 + a_5 g_2 + a_6 g_3) + (b_1 h_4 + b_2 h_5 + b_3 h_6)
       + (a_1 b_4 + a_2 b_5 + a_3 b_6) u \
@@ -177,7 +177,7 @@ Is there a way to proceed without revealing anything about $a$, $b$, $c$?
 
 The answer is yes, we just need more blinding factors.
 
-#algorithm[The $n=1$ case of IPA][
+#algorithm[The $n=1$ case of IPA:
   1. Peggy picks random blinding factors $a', b' in FF_q$.
   2. Peggy sends the following Pedersen commitments:
   $
@@ -217,7 +217,7 @@ where $ arrow(b) = angle.l 1, 0, ..., 0 angle.r $
 has a $1$ in the $1$st position and $0$'s elsewhere.
 To spell this out:
 
-#algorithm[Revealing $a_1$ in a Pedersen commitment][
+#algorithm[Revealing $a_1$ in a Pedersen commitment:
   1. Both parties compute $w = v + h_1 + a_1 u$.
   2. Peggy runs IPA on $w$ to convince Victor that $w$ is good.
 ]
@@ -234,7 +234,7 @@ This can also be done straightforwardly:
 show that the dot products of $arrow(a)$ and $arrow(a)'$
 with a random other vector $arrow(lambda)$ are equal.
 
-#algorithm[Matching Pedersen commitments][
+#algorithm[Matching Pedersen commitments:
   1. Victor picks a random challenge vector
     $arrow(lambda) = angle.l lambda_1, ..., lambda_n angle.r in FF_q^n$.
   2. Both parties compute its Pedersen commitment

@@ -1,0 +1,13 @@
+- urls in footnotes, make correctly clickable
+- sections -> subsections
+- chapter headers, title and authors
+- check for {[}...{]}  (this is an incorrect ref)
+- check for \left( \right), they make extra space and get rid of them
+- fix all theorems etc, everything in a box:
+    - search for "strong"
+    - go through book for theorems etc.
+- fix numbering of theorems etc
+- find Caroline's notion doc
+- search for 2^254, approx, FF (without backslash)
+- search for \phantomsection and fix
+- search for \hyperref and fix

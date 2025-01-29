@@ -55,7 +55,7 @@ Then the accumulator $F_Q in FF_q [T]$ is defined analogously.
 
 So to prove @permcheck-poly, the following algorithm works:
 
-#algorithm[Permutation check][
+#algorithm[Permutation check:
   Suppose Peggy has committed $Com(P)$ and $Com(Q)$.
 
   1. Victor sends a random challenge $lambda in FF_q$.
@@ -239,7 +239,7 @@ before the final product condition
 ]
 
 To summarize, the copy check goes as follows:
-#algorithm[Copy check][
+#algorithm[Copy check:
   0. Peggy has already sent the three commitments
     $Com(A), Com(B), Com(C)$ to Victor;
     these commitments bind her to the values of all the variables
@@ -255,3 +255,6 @@ To summarize, the copy check goes as follows:
     for $X in {omega, omega^2, ..., omega^(n-1)}$.
   6. Peggy uses @root-check to prove @copycheck-final holds.
 ]
+
+
+

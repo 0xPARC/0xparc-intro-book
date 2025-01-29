@@ -426,7 +426,8 @@ argue correctness, we must argue why no overflow will ever occur except
 with negligible probability — as long as the bucket size $Z$ is set
 appropriately.
 
-#claim[Bucket size and overflow probability][If the
+#claim[Bucket size and overflow probability:
+If the
 bucket size $Z$ is super-logarithmic in $N$, then over any polynomially
 many accesses, no bucket overflows except with negligible in $N$
 probability.
@@ -496,7 +497,7 @@ $O (log N)$ levels of recursion would suffice.
 
 We can thus conclude with the following theorem.
 
-#theorem[#cite("https://eprint.iacr.org/2011/407.pdf", "Binary-tree ORAM")][
+#theorem[#cite("https://eprint.iacr.org/2011/407.pdf", "Binary-tree ORAM"):
 For any
 super-constant function $alpha (dot.op)$, there is an ORAM scheme that
 achieves $O (alpha log^3 N)$ cost for each access: each logical

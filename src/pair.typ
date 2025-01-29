@@ -49,7 +49,7 @@ So this gives us a way to *verify* two-by-two multiplication.
   the pairing is only used by the verifier Victor, never by the prover Peggy.
 ]
 
-#remark[We do not know how to do multilinear pairings][
+#remark[We do not know how to do multilinear pairings:
   On the other hand, we currently do not seem to know a good
   way to do _multilinear_ pairings.
   For example, we do not know a good trilinear map

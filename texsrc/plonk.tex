@@ -1,0 +1,193 @@
+\subsection{PLONK, a zkSNARK protocol}
+\label{plonk}
+
+\subsubsection{Arithmetization}
+\label{arith-intro}
+
+The promise of programmable cryptography is that we should be able to
+perform proofs for arbitrary functions. That means we need a
+``programming language'' that we will write our function in. For PLONK,
+the choice that is used is: \textbf{systems of quadratic equations over
+\({\mathbb{F}}_{q}\)}. In other words, PLONK is going to give us the
+ability to prove that we have solutions to a system of quadratic
+equations.
+
+strong(Situation):\\
+
+This leads to the natural question of how a function like SHA-256 can be
+encoded into a system of quadratic equations. This process of encoding a
+problem into algebra is called \emph{arithmetization}. It turns out that
+quadratic equations over \({\mathbb{F}}_{q}\), viewed as an NP problem
+called Quad-SAT, is \emph{NP-complete}; in other words, any NP problem
+can be rewritten as a system of quadratic equations. If you are not
+familiar with this concept, the upshot is that Quad-SAT being
+NP-complete means it can serve as a reasonable arithmetization that can
+express most reasonable (NP) problems.
+
+strong(Remark):\\
+\phantomsection\label{np-complete}{}
+
+So for example, any NP decision problem should be encodable. Still, such
+a theoretical reduction might not be usable in practice: Polynomial
+factors might not matter in complexity theory, but they do matter a lot
+to engineers and end users.
+
+But it turns out that Quad-SAT is actually reasonably codeable. This is
+the goal of projects like Circom\footnote{https://docs.circom.io/},
+which gives a high-level language that compiles a function like SHA-256
+into a system of equations over \({\mathbb{F}}_{q}\) that can be used in
+practice. Systems like this are called \emph{arithmetic circuits}, and
+Circom is appropriately short for ``circuit compiler''. If you are
+curious, you can see how SHA-256 is implemented in Circom on
+GitHub.\footnote{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
+
+So, the first step in proving a claim like ``I have a message \(M\) such
+that \(\operatorname{sha}(M) = \ 0xa91af3ac...\)'' is to translate the
+claim into a system of quadratic equations. This process is called
+``arithmetization.''
+
+One approach (suggested by \hyperref[np-complete]{{[}np-complete{]}}) is
+to represent each bit involved in the calculation by a variable
+\(x_{i}\) (which would then be constrained to be either 0 or 1 by an
+equation \(x_{i}^{2} = x_{i}\)). In this setup, the value \(0xa91af3ac\)
+would be represented by 32 public bits \(x_{1},\ldots,x_{32}\); the
+unknown message \(M\) would be represented by some private variables;
+and the calculation of \(\operatorname{sha}\) would introduce a series
+of constraints, maybe involving some additional variables.
+
+We will not get into any more details of arithmetization here.
+
+\subsubsection{An instance of PLONK}
+
+PLONK is going to prove solutions to systems of quadratic equations of a
+very particular form:
+
+strong(Definition):\\
+
+strong(Remark):\\
+
+Back to PLONK. Our protocol needs to do the following: Peggy and Victor
+have a PLONK instance given to them. Peggy has a solution to the system
+of equations, i.e., an assignment of values to each \(a_{i}\),
+\(b_{i}\), \(c_{i}\) such that all the gate constraints and all the copy
+constraints are satisfied. Peggy wants to prove this to Victor
+succinctly and without revealing the solution itself. The protocol then
+proceeds by having:
+
+\begin{enumerate}
+\item
+  Peggy sends a polynomial commitment corresponding to \(a_{i}\),
+  \(b_{i}\), and \(c_{i}\) (the details of what polynomial are described
+  below).
+\item
+  Peggy proves to Victor that the commitment from Step 1 satisfies the
+  gate constraints.
+\item
+  Peggy proves to Victor that the commitment from Step 1 also satisfies
+  the copy constraints.
+\end{enumerate}
+
+Let us now explain how each step works.
+
+\subsubsection{Step 1: the commitment}
+
+In PLONK, we will assume that \(q \equiv 1\operatorname{mod}n\), which
+means that we can fix \(\omega \in {\mathbb{F}}_{q}\) to be a primitive
+\(n\)-th root of unity.
+
+Then, by polynomial interpolation, Peggy chooses polynomials \(A(X)\),
+\(B(X)\), and \(C(X)\) in \({\mathbb{F}}_{q}\lbrack X\rbrack\) such that
+\[A\left( \omega^{i} \right) = a_{i},B\left( \omega^{i} \right) = b_{i},C\left( \omega^{i} \right) = c_{i}\text{  for all  }i = 1,2,\ldots,n.\]
+\phantomsection\label{plonk-setup}{}
+
+We specifically choose \(\omega^{i}\) because that way, if we use
+{[}root-check{]} on the set
+\(\left\{ \omega,\omega^{2},\ldots,\omega^{n} \right\}\), then the
+polynomial called \(Z\) is just
+\(Z(X) = (X - \omega)\ldots\left( X - \omega^{n} \right) = X^{n} - 1\),
+which is really nice. In fact, often \(n\) is chosen to be a power of
+\(2\) so that \(A\), \(B\), and \(C\) are very easy to compute, using a
+fast Fourier transform. (Note: When you are working in a finite field,
+the fast Fourier transform is sometimes called the ``number theoretic
+transform'' (NTT) even though it is exactly the same as the usual FFT.)
+
+Then:
+
+strong(Algorithm):\\
+``Commitment step of PLONK'':
+
+\begin{enumerate}
+\item
+  Peggy interpolates \(A\), \(B\), \(C\) as in
+  \hyperref[plonk-setup]{{[}plonk-setup{]}}.
+\item
+  Peggy sends \(\operatorname{Com}(A)\), \(\operatorname{Com}(B)\),
+  \(\operatorname{Com}(C)\) to Victor.
+\end{enumerate}
+
+To reiterate, each commitment is a single value -- a 256-bit elliptic
+curve point -- that can later be ``opened'' at any value
+\(x \in {\mathbb{F}}_{q}\).
+
+\subsubsection{Step 2: gate check}
+
+Both Peggy and Victor know the PLONK instance, so they can interpolate a
+polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}\lbrack X\rbrack\) of degree
+\(n - 1\) such that
+\[Q_{L}\left( \omega^{i} \right) = q_{L,i}\quad\text{ for  }i = 1,\ldots,n.\]
+The analogous polynomials \(Q_{R}\), \(Q_{O}\), \(Q_{M}\), \(Q_{C}\) are
+defined in the same way.
+
+Now, what do the gate constraints amount to? Peggy is trying to convince
+Victor that the equation \[\begin{aligned}
+Q_{L}(x)A(x) + Q_{R}(x)B(x) + Q_{O}(x)C(x) \\
+\phantom{0} + Q_{M}(x)A(x)B(x) + Q_{C}(x) & = 0
+\end{aligned}\] \phantomsection\label{plonk-gate}{}
+
+is true for the \(n\) numbers
+\(x = \omega,\omega^{2},\ldots,\omega^{n}\).
+
+However, Peggy has committed \(A\), \(B\), \(C\) already, while all the
+\(Q_{\ast}\) polynomials are globally known. So this is a direct
+application of {[}root-check{]}:
+
+strong(Algorithm):\\
+Gate check:
+
+\begin{enumerate}
+\item
+  Both parties interpolate five polynomials
+  \(Q_{\ast} \in {\mathbb{F}}_{q}\lbrack X\rbrack\) from the \(5n\)
+  coefficients \(q_{\ast}\) (globally known from the PLONK instance).
+\item
+  Peggy uses {[}root-check{]} to convince Victor that
+  \hyperref[plonk-gate]{{[}plonk-gate{]}} holds for \(X = \omega^{i}\)
+  (that is, the left-hand side is indeed divisible by
+  \(Z(X) := X^{n} - 1\)).
+\end{enumerate}
+
+\subsubsection{Step 3: proving the copy
+constraints}\label{copy-constraint-deferred}
+
+The copy constraints are the trickiest step. There are a few moving
+parts to this idea, so we skip it for now and dedicate
+{[}copy-constraints{]} to it.
+
+\subsubsection{Step 4: public and private witnesses}
+
+The last thing to be done is to reveal the value of public witnesses, so
+the prover can convince the verifier that those values are correct. This
+is simply an application of {[}root-check{]}. Let us say the public
+witnesses are the values \(a_{i}\), for all \(i\) in some set \(S\). (If
+some of the \(b\)`s and \(c\)`s are also public, we will just do the
+same thing for them.) The prover can interpolate another polynomial,
+\(A^{\text{public}}\), such that
+\(A^{\text{public }}\left( \omega^{i} \right) = a_{i}\) if \(i \in S\),
+and \(A^{\text{public }}\left( \omega^{i} \right) = 0\) if
+\(i \notin S\). Actually, both the prover and the verifier can compute
+\(A^{\text{public}}\), since all the values \(a_{i}\) are publicly
+known!
+
+Now the prover runs {[}root-check{]} to prove that
+\(A - A^{\text{public}}\) vanishes on \(S\). (And similarly for \(B\)
+and \(C\), if needed.) And we are done.

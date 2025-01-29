@@ -1,0 +1,61 @@
+\documentclass{article}
+
+
+\usepackage{amsfonts, amsmath, amsthm, graphicx, hyperref, xcolor}
+
+
+\newcommand{\redoval}[1]{\textcolor{red}{\boldsymbol{#1}}}
+\newcommand{\bluerect}[1]{\textcolor{blue}{\boldsymbol{#1}}}
+
+\newcommand{\sha}{\operatorname{sha}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+
+% \numberwithin{theorem}{section}
+
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+\input{intro}
+
+\section{Two-Party Computation}
+\input{mpc}
+\input{ot}
+\input{2pc-takeaways}
+\input{ec}
+\input{pair}
+\input{kzg}
+\input{kzg-takeaways}
+
+\section{SNARKs}
+\input{zkintro}
+\input{plonk}
+\input{copy-constraints}
+\input{fs}
+\input{snark-takeaways}
+
+\section{Fully Homomorphic Encryption}
+\input{fhe0}
+\input{lwe}
+\input{fhe2}
+\input{fhe3}
+\input{fhe-takeaways}
+
+\section{Oblivious RAM}
+\input{oram}
+\input{oram-takeaways}
+
+\end{document}

@@ -43,7 +43,7 @@ If you are not familiar with this concept, the upshot is that Quad-SAT
 being NP-complete means it can serve as a reasonable arithmetization that can
 express most reasonable (NP) problems.
 
-#remark([Example of Quad-SAT encoding 3-SAT])[
+#remark[Example of Quad-SAT encoding 3-SAT:
   We assume knowledge of 3-SAT and it being NP-complete.
   The following example instance illustrates how to convert
   any instance of 3-SAT into a Quad-SAT problem:
@@ -121,7 +121,7 @@ systems of quadratic equations of a very particular form:
   e.g., "$a_1 = c_7$", "$b_17 = b_42$", and so on.
 ]
 
-#remark("From Quad-SAT to PLONK")[
+#remark["From Quad-SAT to PLONK":
   PLONK might look less general than Quad-SAT,
   but it turns out you can convert any Quad-SAT problem to PLONK.
 
@@ -205,7 +205,7 @@ is sometimes called the "number theoretic transform" (NTT)
 even though it is exactly the same as the usual FFT.)
 
 Then:
-#algorithm("Commitment step of PLONK")[
+#algorithm["Commitment step of PLONK":
   1. Peggy interpolates $A$, $B$, $C$ as in @plonk-setup.
   2. Peggy sends $Com(A)$, $Com(B)$, $Com(C)$ to Victor.
 ]
@@ -236,7 +236,7 @@ However, Peggy has committed $A$, $B$, $C$ already,
 while all the $Q_*$ polynomials are globally known.
 So this is a direct application of @root-check:
 
-#algorithm[Gate check][
+#algorithm[Gate check:
   1. Both parties interpolate five polynomials $Q_* in FF_q [X]$
     from the $5n$ coefficients $q_*$
     (globally known from the PLONK instance).
@@ -269,7 +269,7 @@ either the equation holds for every input
 or there are at most $3n-4$ values for which it's true
 (two different polynomials of degree $3(n-1)$ can agree at up to $3n-4$ points).
 
-#algorithm("Proving PLONK satisfies the gate constraints")[
+#algorithm["Proving PLONK satisfies the gate constraints":
   1. Peggy computes $H(X) in FF_q [X]$ using polynomial long division
     and sends $Com(H)$ to Victor.
   2. Victor picks a random challenge and asks Peggy to open

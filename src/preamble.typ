@@ -11,7 +11,7 @@
 #let Id = math.upright("Id")
 
 // https://github.com/vEnhance/dotfiles/blob/main/typst/packages/local/evan/1.0.0/evan.typ
-#import "@preview/ctheorems:1.1.2": *
+// #import "@preview/ctheorems:1.1.2": *
 
 #let fonts = (
   text: ("Linux Libertine"),
@@ -41,20 +41,39 @@
   s
 }
 
-#let theorem = thmbox("main", "Theorem", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
-#let lemma = thmbox("main", "Lemma", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
-#let proposition = thmbox("main", "Proposition", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
-#let claim = thmbox("main", "Claim", fill: rgb("#ffeeee"), base_level: 1, breakable: true)
-#let definition = thmbox("main", "Definition", fill: rgb("#ddddff"), base_level: 1, breakable: true)
-#let example = thmbox("main", "Example", fill: rgb("#ffffdd"), base_level: 1, breakable: true)
-#let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1, breakable: true)
-#let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1, breakable: true)
-#let situation = thmbox("main", "Situation", fill: rgb("#eeeeee"), base_level: 1, breakable: true)
+#let thmboxold(kind, title, fill: rgb("white"), base_level: 1, breakable: false, body) = block[
+  rectangle[
+    fill: fill,
+    inset: 1em,
+    radius: 0.25em,
+    stroke: black,
+  ](
+    strong(#title): #body
+  )
+]
 
-#let problem = thmplain("main", "Problem", base_level: 1)
-#let exercise = thmplain("main", "Problem", base_level: 1)
 
-#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
+#let thmbox(kind, body) = block[
+    strong(#kind): \
+    #body
+]
+
+
+
+#let theorem(body) = thmbox("Theorem", body) // fill: rgb("#ffeeee"), 
+#let lemma(body) = thmbox("Lemma", body) // fill: rgb("#ffeeee")
+#let proposition(body) = thmbox("Proposition", body) // fill: rgb("#ffeeee")
+#let claim(body) = thmbox("Claim", "", body) // fill: rgb("#ffeeee")
+#let definition(body) = thmbox("Definition", "", body) //  fill: rgb("#ddddff")
+#let example(body) = thmbox("Example", body) // fill: rgb("#ffffdd"),
+#let algorithm(body) = thmbox("Algorithm", body) // rgb("#ddffdd")
+#let remark(body) = thmbox("Remark", "", body) // fill: rgb("#eeeeee")
+#let situation(body) = thmbox("Situation", "", body) // fill: rgb("#eeeeee")
+
+#let problem(body) = thmbox("Problem", "", body) // fill: rgb("#ffffff")
+#let exercise(body) = thmbox("Problem", body)
+
+#let todo(body) = thmbox("TODO", fill: rgb("#ddaa77")).with(numbering: none, body)
 #let gray(body) = block(
   fill: rgb("#eeeeee"),
   inset: 8pt,
@@ -78,11 +97,11 @@
   ]
 )
 
-#let proof = thmproof("proof", "Proof")
-#let solution = thmproof("proof", "Solution")
+#let proof(body) = thmbox("Proof", body)
+#let solution(body) = thmbox("Solution", body)
 
-#let assumption = thmbox("main", "Assumption", fill: rgb("#ffffdd"), base_level: 1)
-#let goal = thmbox("main", "Goal", fill: rgb("#ffffdd"), base_level: 1)
+#let assumption(body) = thmbox("Assumption", body) // fill: rgb("#ffffdd")
+#let goal(body) = thmbox("Goal", body) // fill: rgb("#ffffdd")
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))

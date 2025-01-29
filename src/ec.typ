@@ -84,7 +84,7 @@ there is one additional point $O = (0, oo)$ called the "point at infinity"
 added in (whose purpose we describe in the next section).
 
 The constants $p$ and $q$ are contrived so that the following holds:
-#theorem[BN254 has prime order][
+#theorem[BN254 has prime order:
   Let $E$ be the BN254 curve.
   The number of points in $E(FF_p)$,
   including the point at infinity $O$, is a prime $q approx 2^(254)$.
@@ -220,7 +220,7 @@ structure of an abelian group, which happens to have exactly $q$ elements.
 However, an abelian group with prime order is necessarily cyclic.
 In other words:
 
-#theorem[The group BN254 is isomorphic to $ZZ slash q ZZ$][
+#theorem[The group BN254 is isomorphic to $ZZ slash q ZZ$:
   Let $E$ be the BN254 curve.
   We have the isomorphism of abelian groups
   $ E(FF_p) tilde.equiv ZZ slash q ZZ. $
@@ -254,7 +254,7 @@ for all our cryptographic primitives*
 For our systems to be useful, rather than relying on factoring,
 we will rely on the so-called _discrete logarithm assumption_.
 
-#assumption[Discrete logarithm assumption][
+#assumption[Discrete logarithm assumption:
   Let $E$ be the BN254 curve (or another standardized curve).
   Given arbitrary nonzero $g, g' in E$,
   the _discrete logarithm problem_ asks you
@@ -272,7 +272,7 @@ For cryptography, we generally assume $g$ has order $q$,
 so we will talk about $n in NN$ and $n in FF_q$ interchangeably.
 In other words, $n$ will generally be thought of as being up to about $2^(254)$ in size.
 
-#remark[The name "discrete log"][
+#remark[The name "discrete log":
   This problem is called discrete log because if one used multiplicative notation
   for the group operation, it looks like solving $g^n = g'$ instead.
   We will never use this multiplicative notation in these notes.
@@ -358,7 +358,7 @@ In other words, $n |-> [n]$ viewed as a map $FF_q -> E$ is $FF_q$-linear.
 
 So now suppose Alice wants to set up a signature scheme.
 
-#algorithm[EdDSA public and secret key][
+#algorithm[EdDSA public and secret key:
   1. Alice picks a random integer $d in FF_q$ as her _secret key_ (a piece of information that she needs to keep private for the security of the protocol).
   2. Alice publishes $[d] in E$ as her _public key_ (a piece of information which, even when obtained by adversaries, does not challenge the security of the protocol).
 ]
@@ -366,7 +366,7 @@ So now suppose Alice wants to set up a signature scheme.
 Now suppose Alice wants to prove to Bob that she approves the message $msg$,
 given her published public key $[d]$.
 
-#algorithm[EdDSA signature generation][
+#algorithm[EdDSA signature generation:
   Suppose Alice wants to sign a message $msg$.
 
   1. Alice picks a random scalar $r in FF_q$ (keeping this secret)
@@ -378,7 +378,7 @@ given her published public key $[d]$.
   In other words, the signature is the ordered pair $([r], s)$.
 ]
 
-#algorithm[EdDSA signature verification][
+#algorithm[EdDSA signature verification:
   For Bob to verify a signature $([r], s)$ for $msg$:
 
   1. Bob recomputes $n$ (by also performing the hash) and computes $[s] in E$.

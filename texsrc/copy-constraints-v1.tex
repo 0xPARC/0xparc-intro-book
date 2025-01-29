@@ -1,0 +1,211 @@
+% red oval etc. are correct
+% the thmbox didn't translate correctly
+
+\documentclass{article}
+
+\usepackage{amsfonts, amsmath, hyperref, xcolor}
+
+% \providecommand{\phantomsection}
+\newcommand{\redoval}[1]{\textcolor{red}{\boldsymbol{#1}}}
+\newcommand{\bluerect}[1]{\textcolor{blue}{\boldsymbol{#1}}}
+
+%\newcommand{\redoval}[1]{{#1}}
+
+\begin{document}
+
+\section{Copy constraints in PLONK}\label{copy-constraints}
+
+test $a \redoval{b}$
+
+\[a \redoval{b}  c_1 \]
+
+\[ \redoval{(a_1)} \]
+
+\[ \redoval{(a_{1})} = 
+\redoval{(a_{4})} .\]
+
+\[ \redoval{(a_{1})} = 
+\redoval{(a_{4})} = 
+\redoval{(c_{4})}
+\quad\text{and }\quad \bluerect{(b_{2})} = \bluerect{(c_{1})}.\]
+
+Now we elaborate on Step 3 which we deferred back in
+{[}copy-constraint-deferred{]}. As an example, the constraints might be:
+\[a_{1} = a_{4} = c_{4}\quad\text{and }\quad b_{2} = c_{1.}\] Before we
+show how to check this, we provide a solution to a ``simpler'' problem
+called ``permutation check''. Then we explain how to deal with the full
+copy check.
+
+\subsection{Easier case: permutation check}
+
+rectangle{[} fill: fill, inset: 1em, radius: 0.25em, stroke: black,
+
+{]}( strong(title) + `` `` + body )
+
+Well, actually, it would be necessary and sufficient for the identity
+\[\begin{array}{r}
+\left( T + P\left( \omega^{1} \right) \right)\left( T + P\left( \omega^{2} \right) \right)\ldots\left( T + P\left( \omega^{n} \right) \right) \\
+ = \left( T + Q\left( \omega^{1} \right) \right)\left( T + Q\left( \omega^{2} \right) \right)\ldots\left( T + Q\left( \omega^{n} \right) \right)
+\end{array}\] \phantomsection\label{permcheck-poly}{}
+
+to be true, in the sense that both sides are the same polynomial in a
+single formal variable \(T\). And for that, it is sufficient that a
+single random challenge \(T = \lambda\) passes
+\hyperref[permcheck-poly]{{[}permcheck-poly{]}}: If the two sides of
+\hyperref[permcheck-poly]{{[}permcheck-poly{]}} are not the same
+polynomial, then the two sides can have at most \(n - 1\) common values.
+So for a randomly chosen \(\lambda\) (chosen from a field with
+\(q \approx 2^{256}\) elements), the chances that \(T = \lambda\) passes
+\hyperref[permcheck-poly]{{[}permcheck-poly{]}} are extremely small.
+
+We can then get a proof of
+\hyperref[permcheck-poly]{{[}permcheck-poly{]}} using the technique of
+adding an \emph{accumulator polynomial}. The idea is this: Victor picks
+a random challenge \(\lambda \in {\mathbb{F}}_{q}\). Peggy then
+interpolates the polynomial
+\(F_{P} \in {\mathbb{F}}_{q}\lbrack T\rbrack\) such that
+\[\begin{aligned}
+F_{P}\left( \omega^{1} \right) & = \lambda + P\left( \omega^{1} \right) \\
+F_{P}\left( \omega^{2} \right) & = \left( \lambda + P\left( \omega^{1} \right) \right)\left( \lambda + P\left( \omega^{2} \right) \right) \\
+ & \vdots \\
+F_{P}\left( \omega^{n} \right) & = \left( \lambda + P\left( \omega^{1} \right) \right)\left( \lambda + P\left( \omega^{2} \right) \right)\cdots\left( \lambda + P\left( \omega^{n} \right) \right).
+\end{aligned}\] Then the accumulator
+\(F_{Q} \in {\mathbb{F}}_{q}\lbrack T\rbrack\) is defined analogously.
+
+So to prove \hyperref[permcheck-poly]{{[}permcheck-poly{]}}, the
+following algorithm works:
+
+rectangle{[} fill: fill, inset: 1em, radius: 0.25em, stroke: black,
+
+{]}( strong(title) + `` `` + body )
+
+\subsection{Copy check}
+
+Moving on to copy check, let us look at a concrete example where
+\(n = 4\). Suppose that our copy constraints were
+\[ \redoval{(a_{1})} = 
+\redoval{(a_{4})} = 
+\redoval{(c_{4})}
+\quad\text{and }\quad \bluerect{(b_{2})} = \bluerect{(c_{1})}.\]
+(We have colored and circled the variables that will move around for
+readability.) So, the copy constraint means we want the following
+equality of matrices: \[\begin{pmatrix}
+a_{1} & b_{1} & c_{1} \\
+a_{2} & b_{2} & c_{2} \\
+a_{3} & b_{3} & c_{3} \\
+a_{4} & b_{4} & c_{4}
+\end{pmatrix} = \begin{pmatrix}
+\redoval{(a_{4})} & b_{1} & \bluerect{(b_{2})} \\
+a_{2} & \bluerect{(c_{1})} & c_{2} \\
+a_{3} & b_{3} & c_{3} \\
+\redoval{(c_{4})} & b_{4} & \redoval{(a_{1})}
+\end{pmatrix}.\] \phantomsection\label{copy1}{}
+
+Again, our goal is to make this into a \emph{single} equation. There is
+a really clever way to do this by tagging each entry with
+\(+ \eta^{j}\omega^{k}\mu\) in reading order for \(j = 0,1,2\) and
+\(k = 1,\ldots,n\); here \(\eta \in {\mathbb{F}}_{q}\) is any number
+such that \(\eta^{2}\) does not happen to be a power of \(\omega\), so
+all the tags are distinct. Specifically, if
+\hyperref[copy1]{{[}copy1{]}} is true, then for any
+\(\mu \in {\mathbb{F}}_{q}\), we also have \[\begin{aligned}
+ & \begin{pmatrix}
+a_{1} + \omega^{1}\mu & b_{1} + \eta\omega^{1}\mu & c_{1} + \eta^{2}\omega^{1}\mu \\
+a_{2} + \omega^{2}\mu & b_{2} + \eta\omega^{2}\mu & c_{2} + \eta^{2}\omega^{2}\mu \\
+a_{3} + \omega^{3}\mu & b_{3} + \eta\omega^{3}\mu & c_{3} + \eta^{2}\omega^{3}\mu \\
+a_{4} + \omega^{4}\mu & b_{4} + \eta\omega^{4}\mu & c_{4} + \eta^{2}\omega^{4}\mu
+\end{pmatrix} \\
+ = & \begin{pmatrix}
+\redoval{(a_{4})} + \omega^{1}\mu & b_{1} + \eta\omega^{1}\mu & \bluerect{(b_{2})} + \eta^{2}\omega^{1}\mu \\
+a_{2} + \omega^{2}\mu & \bluerect{(c_{1})} + \eta\omega^{2}\mu & c_{2} + \eta^{2}\omega^{2}\mu \\
+a_{3} + \omega^{3}\mu & b_{3} + \eta\omega^{3}\mu & c_{3} + \eta^{2}\omega^{3}\mu \\
+\redoval{(c_{4})} + \omega^{4}\mu & b_{4} + \eta\omega^{4}\mu & \redoval{(a_{1})} + \eta^{2}\omega^{4}\mu
+\end{pmatrix}.
+\end{aligned}\] \phantomsection\label{copy2}{}
+
+Now how can the prover establish \hyperref[copy2]{{[}copy2{]}}
+succinctly? The answer is to run a permutation check on the \(3n\)
+entries of \hyperref[copy2]{{[}copy2{]}}! The prover will simply prove
+that the twelve matrix entries of the matrix on the left are a
+permutation of the twelve matrix entries of the matrix on the right.
+
+The reader should check that this is correct! If the prover starts with
+values \(a_{i}\), \(b_{i}\), and \(c_{i}\) that do not satisfy all the
+copy constraints, then a randomly selected \(\mu\) is very unlikely to
+satisfy this permutation check. The right-hand side will not be a
+permutation of the left-hand side, and the check will fail.
+
+To clean things up, shuffle the \(12\) terms on the right-hand side of
+\hyperref[copy2]{{[}copy2{]}} so that each variable is in the cell it
+started at. We want to prove \[\begin{array}{r}
+\begin{pmatrix}
+a_{1} + \omega^{1}\mu & b_{1} + \eta\omega^{1}\mu & c_{1} + \eta^{2}\omega^{1}\mu \\
+a_{2} + \omega^{2}\mu & b_{2} + \eta\omega^{2}\mu & c_{2} + \eta^{2}\omega^{2}\mu \\
+a_{3} + \omega^{3}\mu & b_{3} + \eta\omega^{3}\mu & c_{3} + \eta^{2}\omega^{3}\mu \\
+a_{4} + \omega^{4}\mu & b_{4} + \eta\omega^{4}\mu & c_{4} + \eta^{2}\omega^{4}\mu
+\end{pmatrix} \\
+\text{is a permutation of } \\
+\begin{pmatrix}
+a_{1} + \redoval{({\eta^{2}\omega^{4}\mu})} & b_{1} + \eta\omega^{1}\mu & c_{1} + \bluerect{({\eta\omega^{2}\mu})} \\
+a_{2} + \omega^{2}\mu & b_{2} + \bluerect{({\eta^{2}\omega^{1}\mu})} & c_{2} + \eta^{2}\omega^{2}\mu \\
+a_{3} + \omega^{3}\mu & b_{3} + \eta\omega^{3}\mu & c_{3} + \eta^{2}\omega^{3}\mu \\
+a_{4} + \redoval{({\omega^{1}\mu})} & b_{4} + \eta\omega^{4}\mu & c_{4} + \redoval{({\omega^{4}\mu})}
+\end{pmatrix}.
+\end{array}\] \phantomsection\label{copy3}{}
+
+The permutations needed are part of the problem statement, hence
+globally known. So in this example, both parties are going to
+interpolate cubic polynomials \(\sigma_{a},\sigma_{b},\sigma_{c}\) that
+encode the weird coefficients row-by-row: \[\begin{pmatrix}
+\sigma_{a}\left( \omega^{1} \right) = \redoval{({\eta^{2}\omega^{4}})} & \sigma_{b}\left( \omega^{1} \right) = \eta\omega^{1} & \sigma_{c}\left( \omega^{1} \right) = \bluerect{({\eta\omega^{2}})} \\
+\sigma_{a}\left( \omega^{2} \right) = \omega^{2} & \sigma_{b}\left( \omega^{2} \right) = \bluerect{({\eta^{2}\omega^{1}})} & \sigma_{c}\left( \omega^{2} \right) = \eta^{2}\omega^{2} \\
+\sigma_{a}\left( \omega^{3} \right) = \omega^{3} & \sigma_{b}\left( \omega^{3} \right) = \eta\omega^{3} & \sigma_{c}\left( \omega^{3} \right) = \eta^{2}\omega^{3} \\
+\sigma_{a}\left( \omega^{4} \right) = \redoval{(\omega^{1})} & \sigma_{b}\left( \omega^{4} \right) = \eta\omega^{4} & \sigma_{c}\left( \omega^{4} \right) = \redoval{(\omega^{4})}.
+\end{pmatrix}\] Then the prover can start defining accumulator
+polynomials, after re-introducing the random challenge \(\lambda\) from
+permutation check. We are going to need six in all, three for each side
+of \hyperref[copy3]{{[}copy3{]}}: We call them \(F_{a}\), \(F_{b}\),
+\(F_{c}\), \(F'_{a}\), \(F'_{b}\), \(F'_{c}\). The ones on the left-hand
+side are interpolated so that \[\begin{aligned}
+F_{a}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( a_{i} + \omega^{i}\mu + \lambda \right) \\
+F_{b}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( b_{i} + \eta\omega^{i}\mu + \lambda \right) \\
+F_{c}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( c_{i} + \eta^{2}\omega^{i}\mu + \lambda \right)
+\end{aligned}\] \phantomsection\label{copycheck-left}{}
+
+while the ones on the right have the extra permutation polynomials
+\[\begin{aligned}
+F'_{a}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( a_{i} + \sigma_{a}\left( \omega^{i} \right)\mu + \lambda \right) \\
+F'_{b}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( b_{i} + \sigma_{b}\left( \omega^{i} \right)\mu + \lambda \right) \\
+F'_{c}\left( \omega^{k} \right) & = \prod_{i \leq k}\left( c_{i} + \sigma_{c}\left( \omega^{i} \right)\mu + \lambda \right).
+\end{aligned}\] \phantomsection\label{copycheck-right}{}
+
+And then we can run essentially the algorithm from before. There are six
+initialization conditions \[\begin{aligned}
+F_{a}\left( \omega^{1} \right) & = A\left( \omega^{1} \right) + \omega^{1}\mu + \lambda \\
+F_{b}\left( \omega^{1} \right) & = B\left( \omega^{1} \right) + \eta\omega^{1}\mu + \lambda \\
+F_{c}\left( \omega^{1} \right) & = C\left( \omega^{1} \right) + \eta^{2}\omega^{1}\mu + \lambda \\
+F'_{a}\left( \omega^{1} \right) & = A\left( \omega^{1} \right) + \sigma_{a}\left( \omega^{1} \right)\mu + \lambda \\
+F'_{b}\left( \omega^{1} \right) & = B\left( \omega^{1} \right) + \sigma_{b}\left( \omega^{1} \right)\mu + \lambda \\
+F'_{c}\left( \omega^{1} \right) & = C\left( \omega^{1} \right) + \sigma_{c}\left( \omega^{1} \right)\mu + \lambda.
+\end{aligned}\] \phantomsection\label{copycheck-init}{}
+
+and six accumulation conditions \[\begin{aligned}
+F_{a}(\omega X) & = F_{a}(X) \cdot \left( A(\omega X) + X\mu + \lambda \right) \\
+F_{b}(\omega X) & = F_{b}(X) \cdot \left( B(\omega X) + \eta X\mu + \lambda \right) \\
+F_{c}(\omega X) & = F_{c}(X) \cdot \left( C(\omega X) + \eta^{2}X\mu + \lambda \right) \\
+F'_{a}(\omega X) & = F'_{a}(X) \cdot \left( A(\omega X) + \sigma_{a}(X)\mu + \lambda \right) \\
+F'_{b}(\omega X) & = F'_{b}(X) \cdot \left( B(\omega X) + \sigma_{b}(X)\mu + \lambda \right) \\
+F'_{c}(\omega X) & = F'_{c}(X) \cdot \left( C(\omega X) + \sigma_{c}(X)\mu + \lambda \right)
+\end{aligned}\] \phantomsection\label{copycheck-accum}{}
+
+before the final product condition
+\[F_{a}(1)F_{b}(1)F_{c}(1) = F'_{a}(1)F'_{b}(1)F'_{c}(1).\]
+\phantomsection\label{copycheck-final}{}
+
+To summarize, the copy check goes as follows:
+
+rectangle{[} fill: fill, inset: 1em, radius: 0.25em, stroke: black,
+
+{]}( strong(title) + `` `` + body )
+
+\end{document}

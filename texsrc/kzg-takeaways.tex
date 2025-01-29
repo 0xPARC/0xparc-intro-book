@@ -1,0 +1,23 @@
+\subsection{KZG takeaways}
+
+\begin{enumerate}
+\item
+  \emph{Elliptic curves} are very useful in cryptography. Roughly
+  speaking, they are sets of points (usually in \(\mathbb{F}_{p}^{2}\))
+  that satisfy some group law/``addition.'' The BN254 curve is a good
+  ``typical curve'' to keep in mind.
+\item
+  The \emph{discrete logarithm} assumption is a common ``hard problem
+  assumption'' used in cryptography with different groups. Specifically,
+  since elliptic curves are groups, the discrete logarithm assumption
+  over elliptic curves is very often used.
+\item
+  \emph{Commitment schemes} are ways for one party to commit values to
+  another. Elliptic curves enable \emph{Pedersen commitments}, a very
+  useful example of a commitment scheme.
+\item
+  Specifically, \emph{polynomial commitment schemes} are commitments of
+  polynomials that are small and easy to ``open'' (evaluate at different
+  points). KZG is one of the main polynomial commitment schemes being
+  used in cryptography, such as in PLONK (coming up).
+\end{enumerate}

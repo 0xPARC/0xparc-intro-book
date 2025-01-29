@@ -1,0 +1,16 @@
+\subsection{ORAM takeaways}
+
+\begin{enumerate}
+\item
+  \emph{Oblivious RAM} is a system to hide memory access patterns from a
+  server.
+\item
+  The server stores encrypted data blocks in a binary tree, and it does
+  not learn which blocks correspond to which memory items.
+\item
+  Every time the ORAM client accesses a block, it writes that block back
+  to the root.
+\item
+  A randomized eviction procedure moves blocks away from the root, so
+  individual nodes of the tree do not overflow.
+\end{enumerate}

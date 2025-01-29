@@ -1,0 +1,21 @@
+\subsection{2PC takeaways}
+
+\begin{enumerate}
+\item
+  A \emph{garbled circuit} allows Alice and Bob to jointly compute some
+  function over their respective secret inputs. We can think of this as
+  your prototypical \emph{2PC} (two-party computation).
+\item
+  The main ingredient of a garbled circuit is \emph{garbled gates},
+  which are gates whose functionality is hidden. This can be done by
+  Alice precomputing different outputs of the garbled circuit based on
+  all possible inputs of Bob, and then letting Bob pick one.
+\item
+  Bob ``picks an input'' with the technique of \emph{oblivious transfer
+  (OT)}. This can be built in various ways, including with commutative
+  encryption or public-key cryptography.
+\item
+  More generally, it is also possible for a group of people to compute
+  whatever secret function they want, which is the field of
+  \emph{multi-party computation (MPC)}.
+\end{enumerate}

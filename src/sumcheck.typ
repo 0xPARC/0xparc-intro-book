@@ -32,7 +32,7 @@ But suppose that the values of $f$ coincide with a polynomial
 $P in FF_q [X_1, ..., X_n]$
 of degree at most $d$ in each variable.
 
-#theorem("Sum-check")[
+#theorem["Sum-check":
   There's an interactive protocol that allows Peggy to convince Victor
   that the value $H$ above is the sum, which takes
 

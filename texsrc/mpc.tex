@@ -1,0 +1,263 @@
+\subsection{Garbled circuits}
+
+Imagine Alice and Bob each have some secret values \(a\) and \(b\), and
+would like to jointly compute some function \(f\) over their respective
+inputs. Furthermore, they would like to keep their secret values hidden
+from each other: if Alice and Bob follow the protocol honestly, they
+should both end up learning the correct value of \(f(a,b)\), but Alice
+should not learn anything about \(b\) (other than what could be learned
+by knowing both \(a\) and \(f(a,b)\)), and likewise for Bob.
+
+Yao's garbled circuits is one of the most well-known 2PC protocols. The
+protocol is quite clever, and optimized variants of the protocol are
+being implemented and used today.\footnote{https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble}
+
+\subsubsection{The problem}\label{the-problem}
+
+Here is our problem setting, slightly more formally:
+
+\begin{itemize}
+\item
+  Alice knows a secret bitstring \(a\) of length \(m\) bits.
+\item
+  Bob knows a secret bitstring \(b\) of length \(n\) bits.
+\item
+  \(f\) is a binary circuit, which takes in \(m + n\) bits, and runs
+  them through some \(k\) gates. The outputs of some of the gates are
+  the public outputs of the circuit. Without loss of generality, let us
+  also suppose that each gate in \(f\) accepts either \(1\) or \(2\)
+  input bits, and outputs a single output bit.
+\item
+  Alice and Bob would like to jointly compute \(f(a,b)\) without
+  revealing their secrets to each other.
+\end{itemize}
+
+\subsubsection{Outline of solution}
+
+Our solution will contain two key components:
+
+\begin{itemize}
+\item
+  Alice constructs a \emph{garbled circuit} that takes in the value
+  \(b\) (whatever it is) and spits out \(f(a,b)\). A \emph{garbled
+  circuit}, roughly speaking, is an ``encrypted'' circuit that takes
+  encrypted input and creates encrypted output.
+\item
+  An \emph{oblivious transfer} is a protocol where Alice has two
+  messages, \(m_{0}\) and \(m_{1}\). Bob can get exactly one of them,
+  \(m_{i}\), without letting Alice know what \(i\) is. In this context,
+  Alice ends up sending Bob a password for his input in a way that Bob
+  does not learn the passwords for any other inputs, and Alice does not
+  find out which password she sent to Bob.
+\end{itemize}
+
+In slightly more detail:
+
+\begin{enumerate}
+\item
+  Whatever the function \(f\) is, we will assume that it takes \(m + n\)
+  bits of input \(a_{1},\ldots,a_{m}\) and \(b_{1},\ldots,b_{n}\), and
+  that it is computed by some sort of circuit made of AND, OR and NOT
+  gates.
+\item
+  Alice's first task is to ``plug her own inputs into this circuit
+  \(f\).'' The result will be a new circuit (you might call it
+  \(f_{a}\)) that has just \(n\) input slots for Bob's \(n\) bits
+  \(b_{1},\ldots,b_{n}\).
+\item
+  Now, Alice is going to ``garble'' the circuit \(f_{a}\). Once it is
+  garbled, Bob will not be able to see how it works. He will only be
+  able to plug his own input \(( b_{1},\ldots,b_{n})\) into
+  the circuit.
+\item
+  To prevent Bob from plugging other inputs in as well, a garbled
+  circuit will require a ``password'' for each input Bob wants to plug
+  in -- a different password for every possible input. If Bob has the
+  password for \(( b_{1},\ldots,b_{n})\), he can learn
+  \(f_a( b_{1},\ldots,b_{n}) = f(a,b)\), but he will not
+  learn anything else about how the circuit works.
+\item
+  Now, Alice has all the passwords for all the possible inputs, but how
+  can she give Bob the password for
+  \(( b_{1},\ldots,b_{n})\)? Alice does not want to let Bob
+  have any other passwords -- and Bob is not willing to tell Alice which
+  password he is asking for. This is where we will use the ``oblivious
+  transfer.''
+\end{enumerate}
+
+We now flesh out this outline, starting with garbled circuits.
+
+\subsubsection{Garbled gates}
+
+Our garbled circuits are going to be built out of \emph{garbled gates}.
+A garbled gate is like a traditional gate (like AND, OR, NAND, NOR),
+except its functionality is hidden.
+
+What does that mean? Let us say the gate has two input bits, so there
+are four possible inputs to the gate: \((0,0),(0,1),(1,0),(1,1)\). For
+each of those four inputs \((x,y)\), there is a secret password
+\(P_{x,y}\). The gate \(G\) will only reveal its value \(G(x,y)\) if you
+give it the password \(P_{x,y}\).
+
+Here is a natural approach to make a garbled gate. Choose a
+\emph{symmetric-key}\footnote{Symmetric-key encryption is probably what
+  you think of when you think of plain-vanilla encryption: You use a
+  secret key \(K\) to encrypt a message \(m\), and then you (or someone
+  else) need the same secret key \(K\) to decrypt it.} encryption scheme
+\(\operatorname{Enc}\) and publish the following table:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\((0,0)\) & \(\operatorname{Enc}_{P_{0,0}}( G(0,0))\) \\
+\hline
+\((0,1)\) & \(\operatorname{Enc}_{P_{0,1}}( G(0,1))\) \\
+\hline
+\((1,0)\) & \(\operatorname{Enc}_{P_{1,0}}( G(1,0) )\) \\
+\hline
+\((1,1)\) & \(\operatorname{Enc}_{P_{1,1}}( G(1,1))\) \\
+\hline
+\end{tabular}
+\end{center}
+
+If you have the values \(x\) and \(y\), and you know the password
+\(P_{x,y}\), you just go to the \((x,y)\) row of the table, look up
+\[\operatorname{Enc}_{P_{x,y}} ( G(x,y) ),\] decrypt it, and
+learn \(G(x,y)\).
+
+But if you do not know the password \(P_{x,y}\), assuming
+\(\operatorname{Enc}\) is a suitably secure encryption scheme, you will
+not learn anything about the value \(G_{x,y}\) from its encryption.
+
+\subsubsection{Chaining garbled gates}
+
+The next step is to combine a bunch of garbled gates into a circuit. We
+will need to make two changes to the protocol.
+
+\begin{enumerate}
+\item
+  To chain garbled gates together, we need to modify the output of each
+  gate: In addition to outputting the bit \(z = G_{i}(x,y)\), the
+  \(i\)-th gate \(G_{i}\) will also output a password \(P_{z}\) that Bob
+  can use at the next step.
+
+  Now Bob has one bit coming in for the left-hand input \(x\), and it
+  came with some password \(P_{x}^{\text{left}}\) -- and then another
+  bit coming in for \(y\), with some password \(P_{y}^{\text{right}}\).
+  To get the combined password \(P_{x,y}\), Bob concatenates the two
+  passwords \(P_{x}^{\text{left}}\) and \(P_{y}^{\text{right}}\).
+\item
+  To keep the functionality of the circuit hidden, we do not want Bob to
+  learn anything about the structure of the individual gates -- even the
+  single bit he gets as output.
+
+  This is an easy fix: Instead of having the gate output both the bit
+  \(z\) and the password \(P_{z}\), we will have the gate just output
+  \(P_{z}\).
+  
+  \end{enumerate}
+
+  But now how does Bob know what values to feed into the next gate? The
+  left-hand column of the ``gate table'' needs to be indexed by the
+  passwords \(P_{x}^{\text{left}}\) and \(P_{y}^{\text{right}}\), not by
+  the bits \((x,y)\). But we do not want Bob to learn the other
+  passwords from the table!
+
+  Let us say this again. We want:
+
+  \begin{itemize}
+  \item
+    If Bob knows both passwords \(P_{x}^{\text{left}}\) and
+    \(P_{y}^{\text{right}}\), Bob can find the row of the table for the
+    input \((x,y)\).
+  \item
+    If Bob does not know the passwords, he cannot learn them by looking
+    at the table.
+  \end{itemize}
+
+  Of course, the solution is to use a hash function! So here is the new
+  version of our garbled gate. For simplicity, we will assume it is an
+  AND gate -- so the outputs will be (the passwords encoding) 0, 0, 0,
+  1.
+  
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+  \(\operatorname{hash}(P_{0}^{\text{left}},P_{0}^{\text{right}})\) &
+  \(\operatorname{Enc}_{P_{0}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \hline
+  \(\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}})\) &
+  \(\operatorname{Enc}_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \hline
+  \(\operatorname{hash}(P_{1}^{\text{left}},P_{0}^{\text{right}})\) &
+  \(\operatorname{Enc}_{P_{1}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \hline
+  \(\operatorname{hash}(P_{1}^{\text{left}},P_{1}^{\text{right}})\) &
+  \(\operatorname{Enc}_{P_{1}^{\text{left}},P_{1}^{\text{right}}}( P_{1}^{\text{out}} )\) \\
+  \hline
+  \end{tabular}
+\end{center}
+
+
+\subsubsection{How Bob uses one gate}
+
+Let us play through one round of Bob's gate-using protocol.
+
+\begin{enumerate}
+\item
+  Suppose Bob's input bits are 0 (on the left) and 1 (on the right). Bob
+  does not know he has 0 and 1 (but we do!). Bob knows his left password
+  is some value \(P_{0}^{\text{left}}\), and his right password is some
+  other value \(P_{1}^{\text{right}}\).
+\item
+  Bob takes the two passwords, concatenates them, and computes a hash.
+  Now Bob has
+  \[\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}}).\]
+\item
+  Bob finds the row of the table indexed by
+  \(\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}})\), and
+  he uses it to look up
+  \[\operatorname{Enc}_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}}).\]
+\item
+  Bob uses the concatenation of the two passwords
+  \(P_{0}^{\text{left}},P_{1}^{\text{right}}\) to decrypt
+  \(P_{0}^{\text{out}}.\)
+\item
+  Now Bob has the password for the bit 0 to feed into the next gate --
+  but he does not know his bit is 0.
+\end{enumerate}
+
+So Bob is exactly where he started: he knows the password for his bit,
+but he does not know his bit. So we can chain together as many of these
+garbled gates as we like to make a full garbled circuit.
+
+\subsubsection{How the circuit ends}
+
+At the end of the computation, Bob needs to learn the final result. How?
+
+Easy! The final output gates are different from the intermediate gates.
+Instead of outputting a password, they will just output the resulting
+bit in plain text.
+
+\subsubsection{How the circuit starts}
+
+This is trickier. At the beginning of the computation, Bob needs to
+learn the passwords for all of his input bits. Let us frame the problem
+for just a single bit.
+
+\begin{itemize}
+\item
+  Alice has two passwords, \(P_{0}\) and \(P_{1}\).
+\item
+  Bob has a bit \(b\), either \(0\) or \(1\).
+\item
+  Bob wants to learn one of the passwords, \(P_{b}\), from Alice.
+\item
+  Bob does not want Alice to learn the value of \(b\).
+\item
+  Alice does not want Bob to learn the other password.
+\end{itemize}
+
+This is where \emph{oblivious transfer} comes in, which we will see in
+(Section \ref{ot}).

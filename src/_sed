@@ -1,0 +1,1 @@
+sed -n "s/^\(.*\).typ$/pandoc \1.typ -o \1.tex/p" _filesonly

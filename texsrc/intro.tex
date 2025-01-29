@@ -1,0 +1,171 @@
+\subsection{What is programmable cryptography?}
+
+Cryptography is everywhere now and needs no introduction.
+\emph{Programmable cryptography} is a term coined by 0xPARC for a second
+generation of cryptographic primitives that has arisen in the last 15 or
+so years.
+
+To be concrete, let us consider two examples of what protocols designed
+by classical cryptography can do:
+
+\begin{itemize}
+\item
+  \emph{Digital signatures}. RSA and ElGamal are examples of digital
+  signature algorithms, where Alice can perform some protocol to prove
+  to Bob that she endorses a message. A more complicated example might
+  be a group signature scheme,\footnote{https://en.wikipedia.org/wiki/Group\_signature}
+  which allows one member of a group to sign a message on behalf of the
+  group.
+\item
+  \emph{Confidential computing}. For example, consider
+  Yao\textquotesingle s millionaire problem,\footnote{https://en.wikipedia.org/wiki/Yao\%27s\_Millionaires\%27\_problem}
+  where Alice and Bob want to know which of them makes more money
+  without learning anything more about each other's incomes. With
+  cryptography, Alice and Bob could use a two-party computation protocol
+  designed specifically for this purpose.
+\end{itemize}
+
+Classically, first-generation cryptography relied on coming up with a
+protocol for solving given problems or computing certain functions. The
+goal of the second-generation ``programmable cryptography'' can then be
+described as:
+
+\begin{quote}
+We want cryptography that can be ``programmed'' to work on
+\textbf{arbitrary} problems and functions, rather than designing
+protocols on a per-problem or per-function basis.
+\end{quote}
+
+To draw an analogy, it is like going from single-purpose hardware (like
+a digital alarm clock or thermostat) to a general-purpose device (like a
+smartphone) which can do any computation so long as someone writes code
+for it.
+
+\begin{remark}
+The quote on the title page
+("I have a message $M$ such that $\sha(M) = "0x91af3ac..."$")
+is a concrete example.
+The hash function $\sha$ is a particular set of arbitrary instructions,
+yet programmable cryptography promises that such a proof can be made
+using a general compiler rather than inventing an algorithm specific to SHA-256.
+\end{remark}
+
+\subsection{Ideas in programmable cryptography}
+
+Our work presents programmable cryptography through specific topics in
+several self-contained ``easy pieces,'' imitating Richard Feynman's
+wonderful approach to physics exposition. We quickly preview them here.
+
+\subsubsection{2PC: two-party computation}
+
+In a \emph{two-party computation (2PC)}, two people want to jointly
+compute some known function \[F ( x_{1},x_{2}),\] where the
+\(i\)-th person only knows the input \(x_{i}\), without either person
+learning the other person's input.
+
+For example, in Yao's millionaire problem, Alice and Bob want to know
+who has a higher income without revealing their own amounts. This is the
+case where \(F\) is the comparison function
+(\(F ( x_{1},x_{2} )\) is \(1\) if \(x_{1} > x_{2}\), \(2\) if
+\(x_{2} > x_{1}\), and \(0\) if the two inputs are equal), and \(x_{i}\)
+is the \(i\)-th person's income.
+
+Two-party computation makes a promise that we will be able to do this
+for \emph{any} function \(F\) as long as we can implement it in code. It
+generalizes to \emph{multi-party computation (MPC)}, which is one of the
+main classes of programmable cryptography.
+
+\subsubsection{SNARKs: proofs of general statements}
+
+A powerful way of thinking about a signature scheme is that it is a
+\textbf{proof}. Specifically, Alice's signature is a proof that ``I
+{[}the person who generated the signature{]} know Alice's private key.''
+Similarly, a group signature can be thought of as a succinct proof that
+``I know one of Alice, Bob, or Charlie's private keys.''
+
+In the spirit of programmable cryptography, a \emph{SNARK} generalizes
+this concept as a ``proof system'' protocol that produces efficient
+proofs of \textbf{arbitrary} statements of the form:
+
+``I know \(X\) such that \(F(X,Y) = Z\), where \(F,Y,Z\) are public,''
+once the statement is encoded as a system of equations. One such
+statement would be ``I know \(M\) such that
+\(\operatorname{sha}(M) = Y\).''
+
+SNARKs are an active area of research, and many different SNARKs are
+known. We will focus on a particular example, PLONK (Section \ref{plonk}).
+
+\subsubsection{FHE: fully homomorphic encryption}
+
+Imagine you have some private text that you want to translate into
+another language. While many services today will do this, even for free,
+we can also imagine that you care about security a lot and you really do
+not want the translating service to know anything about your text at
+all.
+
+In \emph{fully homomorphic encryption (FHE)}, one person encrypts some
+data \(x\), and then a second person can perform arbitrary operations on
+the encrypted data \(x\) without being able to read \(x\).
+
+With this technology, you have a solution to your problem! You simply
+encrypt your text \(\operatorname{Enc}(x)\) and send it to your FHE
+machine translation server. The server will faithfully translate it into
+another language and give you \(\operatorname{Enc}(y)\), where \(y\) is
+the translation of \(x\). You can then decrypt and obtain \(y\), knowing
+that the server cannot extract anything meaningful from
+\(\operatorname{Enc}(x)\) without your secret key.
+
+\subsubsection{ORAM: Oblivious RAM}
+
+You want to perform a private computation on a large database. The
+database is so large that you cannot store it yourself -- and you do not
+trust the server it is stored on.
+
+First off, you will encrypt the data, so the server cannot read it. But
+the server still has an attack: They can study your \emph{access
+patterns}. For example, they can see which records you access most
+frequently, or which records you access at the same time as other
+records. In many applications this is enough for the server to learn
+sensitive information.
+
+\emph{Oblivious RAM (ORAM)} protects against exactly this sort of
+attack. Oblivious RAM is an algorithm you use to ``scramble'' your
+memory access requests. When you feed your request into the ORAM
+algorithm, the ORAM algorithm sends some scrambled read and write
+requests to the server. Only one of the scrambled requests is the
+request you are interested in; the others keep the server from learning
+which request you care about.
+
+\subsection{Programmable cryptography in the world}
+
+In the past decade, there has been a surprisingly high amount of
+theoretical work but also a surprisingly low amount of implementation
+work on primitives in programmable cryptography. However, recent
+advances in areas like blockchain and other decentralized systems are
+rapidly driving demand for practical implementations of programmable
+cryptography. The gap that is being revealed right now, as theory meets
+reality, is exciting and enlightening.
+
+Many of the protocols we mention in this book can be implemented today,
+but only at a very high cost (for example, the cost of proving a
+computation in a SNARK can be millions of times the cost of performing
+the computation directly). As we study the theory of programmable
+cryptography, it is useful to keep in mind some practical questions. Can
+we reduce the theoretical overhead of programmable cryptography? How can
+we make programmable cryptography systems more performant for modern
+hardware and software systems? What other systems or applications can be
+built on top of this technology?
+
+It is easy to be carried away by the staggering possibilities, and to
+imagine a perfect ``post-cryptographic'' world where everyone has
+control over all their data and everyone's security preferences are
+completely fulfilled. It is also easy to be cynical and assume that
+these ideas will go nowhere. Reality is always somewhere in the middle;
+the Internet today offers free search and civilization-scale
+repositories of information to everyone, but is also used for plenty of
+frivolous or even antisocial activity.
+
+No matter what the future actually holds, one thing is clear - it is up
+to people who are capable, curious, and optimistic to guide the next
+stage of the evolution of cryptography-based systems. We hope that these
+``easy pieces'' will inspire you to read, imagine, and build.
