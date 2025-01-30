@@ -1,5 +1,4 @@
-
-\subsection{Introduction to SNARKs}
+\section{Introduction to SNARKs}
 
 Peggy has done some very difficult calculation. She wants to prove to
 Victor that she did it. Victor wants to check that Peggy did it, but he
@@ -15,7 +14,7 @@ is too lazy to redo the whole calculation himself.
   not have the energy to check it all line-by-line.
 \end{itemize}
 
-A \emph{SNARK} lets Peggy (the ``prover'') send Victor (the
+A \emph{SNARK}  lets Peggy (the ``prover'') send Victor (the
 ``verifier'') a short proof that she has indeed done the calculation
 correctly. The proof will be much shorter than the original calculation,
 and Victor's verification is much faster. (As a tradeoff, writing a
@@ -23,6 +22,7 @@ SNARK proof of a calculation is much slower than just doing the
 calculation.)
 
 The name stands for:
+
 \begin{itemize}
 \item
   \emph{Succinct}: the proof length is short (in fact, it is a constant
@@ -44,7 +44,7 @@ called ``zkSNARKs.'' This gives Peggy a guarantee that Victor will not
 learn anything about the intermediate steps in her calculation, aside
 from any particular steps Peggy chooses to reveal.
 
-\subsubsection{What can you do with a SNARK?}
+\subsection{What can you do with a SNARK?}
 
 One answer: You can prove that you have a solution to a system of
 equations. Sounds pretty boring, unless you are an algebra student.

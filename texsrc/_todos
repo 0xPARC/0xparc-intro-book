@@ -11,3 +11,6 @@
 - search for 2^254, approx, FF (without backslash)
 - search for \phantomsection and fix
 - search for \hyperref and fix
+- \text to \operatorname
+- \lbrack and \rbrack to [ and ]
+- make sure it's Equation \eqref not Equation \ref

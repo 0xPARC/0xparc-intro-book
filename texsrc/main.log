@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  29 JAN 2025 14:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  30 JAN 2025 14:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -303,24 +303,24 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -344,7 +344,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 27.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
@@ -394,68 +394,59 @@ e sec-ond party chooses $\OML/cmm/m/it/10 s[]$ \OT1/cmr/m/it/10 and com-putes $
 it/10 .
  []
 
-[25]) (./kzg-takeaways.tex [26]) (./zkintro.tex [27]) (./plonk.tex
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
+[25] [26]) (./kzg-takeaways.tex [27]) (./zkintro.tex [28]) (./plonk.tex
+Overfull \hbox (8.42612pt too wide) in paragraph at lines 16--17
+[][]\OT1/cmr/bx/n/10 Situation 4.1. []\OT1/cmr/m/it/10 Sup-pose we have a sys-t
+em of $\OML/cmm/m/it/10 m$ \OT1/cmr/m/it/10 equa-tions in $\OML/cmm/m/it/10 k$ 
+\OT1/cmr/m/it/10 vari-ables $\OML/cmm/m/it/10 x[]; [] ; x[]$\OT1/cmr/m/it/10 : 
 
  []
 
-[28]
-Underfull \hbox (badness 10000) in paragraph at lines 65--66
-
+[29] [30] [31] [32]) (./copy-constraints.tex [33]
+Overfull \hbox (9.5771pt too wide) in paragraph at lines 65--71
+[][]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^U \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 P\
+OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ![]\OT1/cmr/m/n/10 ))$\OT1/cmr/m/it/10 . De-fi
+ne $\OML/cmm/m/it/10 F[]$ \OT1/cmr/m/it/10 sim-i-larly. Peggy sends $[]\OT1/cmr
+/m/n/10 (\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 and $[]\OT1/cm
+r/m/n/10 (\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 )$\OT1/cmr/m/it/10 . 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--68
-
- []
-
-[29]
-Overfull \hbox (16.7475pt too wide) in paragraph at lines 103--113
-[]$\OT1/cmr/m/n/10 , then the poly-no-mial called $\OML/cmm/m/it/10 Z$ \OT1/cmr
-/m/n/10 is just $\OML/cmm/m/it/10 Z\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/
-m/n/10 ) = (\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 !\OT1/cmr/
-m/n/10 ) [] [] =
- []
-
-[30]) (./copy-constraints.tex
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
-
- []
-
-[31] [32] [33]
-Overfull \hbox (0.25067pt too wide) in paragraph at lines 161--166
+[34] [35]
+Overfull \hbox (0.25067pt too wide) in paragraph at lines 186--193
 \OT1/cmr/m/n/10 Then the prover can start defin-ing ac-cu-mu-la-tor poly-no-mi-
 als, af-ter re-introducing
  []
 
-[34]
-Overfull \hbox (42.42958pt too wide) in paragraph at lines 230--234
-[]\OT1/cmr/m/n/10 Peggy uses [root-check] to prove [][copycheck-accum][] holds 
-for $\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 2 []$\OT1/cmr/m/n/10 . 
+[36]
+Overfull \hbox (34.76703pt too wide) in paragraph at lines 269--273
+[]\OT1/cmr/m/it/10 Peggy uses Al-go-rithm []3.26[] to prove Equa-tion [] holds 
+for $\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 2 f\OML/cmm/m/it/10 !; ![]; [] ; ![]\O
+MS/cmsy/m/n/10 g$\OT1/cmr/m/it/10 . 
  []
 
-) (./fs.tex [35]) (./snark-takeaways.tex [36]) (./fhe0.tex [37]) (./lwe.tex
+) (./fs.tex [37]) (./snark-takeaways.tex [38]) (./fhe0.tex [39]) (./lwe.tex
+[40]
 Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
-[38] [39]) (./fhe2.tex [40] [41]) (./fhe3.tex [42]
+[41]) (./fhe2.tex [42] [43]) (./fhe3.tex [44]
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
-[43]
+[45]
 Underfull \hbox (badness 10000) in paragraph at lines 115--116
 
  []
 
-[44] [45]) (./fhe-takeaways.tex) (./oram.tex [46] [47]
+[46] [47]) (./fhe-takeaways.tex) (./oram.tex [48] [49]
 Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
-[48] [49] [50]
-<binaryoram16-evict.png, id=898, 722.7pt x 289.08pt>
+[50] [51] [52]
+<binaryoram16-evict.png, id=955, 722.7pt x 289.08pt>
 File: binaryoram16-evict.png Graphic file (type png)
 <use binaryoram16-evict.png>
 Package pdftex.def Info: binaryoram16-evict.png  used on input line 268.
@@ -465,39 +456,35 @@ Overfull \hbox (377.69823pt too wide) in paragraph at lines 268--275
  [][] 
  []
 
-
+[53] [54 <./binaryoram16-evict.png>]
 Overfull \hbox (1.52838pt too wide) in paragraph at lines 312--314
 \OT1/cmr/m/n/10 We present the al-go-rithm's pseudo-code in Al-go-rithms [alg]:
 access and [alg]:evict. 
  []
 
-[51] [52 <./binaryoram16-evict.png>]
+
 Overfull \hbox (26.2458pt too wide) in paragraph at lines 346--352
 []\OT1/cmr/m/n/10 If $[] = []$ then add $[]$ to the root bucket; else add $[]$
  []
 
-
+[55]
 Underfull \hbox (badness 10000) in paragraph at lines 397--398
 
  []
 
-[53] [54] [55]) (./oram-takeaways.tex) [56] (./main.aux)
+[56] [57]) (./oram-takeaways.tex [58]) [59] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 9755339CBF0D69A52F0F2209B59EC1C1;16425.
  ) 
 Here is how much of TeX's memory you used:
- 10425 strings out of 474116
- 158770 string characters out of 5743682
- 1951187 words of memory out of 5000000
- 32282 multiletter control sequences out of 15000+600000
+ 10471 strings out of 474116
+ 159352 string characters out of 5743682
+ 1948187 words of memory out of 5000000
+ 32295 multiletter control sequences out of 15000+600000
  571517 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,18n,79p,623b,656s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -523,10 +510,10 @@ f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/te
 xmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texm
 f-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (56 pages, 471898 bytes).
+Output written on main.pdf (59 pages, 486387 bytes).
 PDF statistics:
- 1118 PDF objects out of 1200 (max. 8388607)
- 1003 compressed objects within 11 object streams
- 310 named destinations out of 1000 (max. 500000)
+ 1186 PDF objects out of 1200 (max. 8388607)
+ 1068 compressed objects within 11 object streams
+ 343 named destinations out of 1000 (max. 500000)
  734 words of extra memory for PDF output out of 10000 (max. 10000000)
 

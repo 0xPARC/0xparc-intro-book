@@ -63,14 +63,14 @@
 #let theorem(body) = thmbox("Theorem", body) // fill: rgb("#ffeeee"), 
 #let lemma(body) = thmbox("Lemma", body) // fill: rgb("#ffeeee")
 #let proposition(body) = thmbox("Proposition", body) // fill: rgb("#ffeeee")
-#let claim(body) = thmbox("Claim", "", body) // fill: rgb("#ffeeee")
-#let definition(body) = thmbox("Definition", "", body) //  fill: rgb("#ddddff")
+#let claim(body) = thmbox("Claim", body) // fill: rgb("#ffeeee")
+#let definition(body) = thmbox("Definition", body) //  fill: rgb("#ddddff")
 #let example(body) = thmbox("Example", body) // fill: rgb("#ffffdd"),
 #let algorithm(body) = thmbox("Algorithm", body) // rgb("#ddffdd")
-#let remark(body) = thmbox("Remark", "", body) // fill: rgb("#eeeeee")
-#let situation(body) = thmbox("Situation", "", body) // fill: rgb("#eeeeee")
+#let remark(body) = thmbox("Remark", body) // fill: rgb("#eeeeee")
+#let situation(body) = thmbox("Situation", body) // fill: rgb("#eeeeee")
 
-#let problem(body) = thmbox("Problem", "", body) // fill: rgb("#ffffff")
+#let problem(body) = thmbox("Problem", body) // fill: rgb("#ffffff")
 #let exercise(body) = thmbox("Problem", body)
 
 #let todo(body) = thmbox("TODO", fill: rgb("#ddaa77")).with(numbering: none, body)

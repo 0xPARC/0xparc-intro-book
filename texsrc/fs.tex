@@ -29,9 +29,9 @@ interacting with Victor, Peggy simply runs this hash function to
 generate the challenge for each round.
 
 For example, consider the following (slightly simplified) version of
-{[}root-check{]}.
+Algorithm \ref{root-check}.
 
-strong(Algorithm):\\
+\begin{algorithm}
 Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both
@@ -48,10 +48,11 @@ Peggy and Victor.
 \item
   Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).
 \end{enumerate}
+\end{algorithm}
 
 Fiat-Shamir turns it into the following noninteractive protocol.
 
-strong(Algorithm):\\
+\begin{algorithm}
 Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both
@@ -71,6 +72,7 @@ Peggy and Victor.
   \(\lambda = \operatorname{hash}(\operatorname{Com}(F),\operatorname{Com}(H))\)
   and \(F(\lambda) = Z(\lambda)H(\lambda)\).
 \end{enumerate}
+\end{algorithm}
 
 We can apply the Fiat-Shamir heuristic to the full PLONK protocol. Now
 Peggy can write the whole proof herself (without waiting for Victor's
