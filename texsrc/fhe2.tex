@@ -1,6 +1,6 @@
 \subsection{Public-key cryptography from LWE}\label{lwe-crypto}
 
-In {[}lwe-small{]} we saw how even a small case of this problem
+In Section \ref{lwe-small} we saw how even a small case of this problem
 (\(q = 11\), \(n = 4\)) can be annoyingly tricky. In the real world, you
 should imagine that \(n\) and \(q\) are much bigger -- maybe \(n\) is in
 the range \(100 \leq n \leq 1000\), and \(q\) could be anywhere from
@@ -8,7 +8,7 @@ the range \(100 \leq n \leq 1000\), and \(q\) could be anywhere from
 
 As an example of how LWE can be used, let us see how to turn LWE into a
 public-key cryptosystem. We will use the same numbers from the ``blue
-set'' in {[}lwe-small{]}. In fact, that ``blue set'' will be exactly the
+set'' in Section \ref{lwe-small}. In fact, that ``blue set'' will be exactly the
 public key.
 
 \begin{center}
@@ -71,7 +71,7 @@ everybody, and they will not be able to determine the private key.
 \subsubsection{Encryption}\label{how-to-encrypt-mu}
 
 Suppose you have a message \(m \in \left\{ 0,5 \right\}\). (You will see
-in a moment why we insist that \(\mu\) is one of these two values.) The
+in a moment why we insist that \(m\) is one of these two values.) The
 ciphertext to encrypt \(m\) will be a pair
 \(\left( \mathbf{x}:y \right)\), where \(x\) is a vector, \(y\) is a
 scalar, and \(\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m\), where
@@ -84,15 +84,15 @@ access to the public key -- that list of pairs
 \(\mathbf{x} \cdot \mathbf{a}\). You could just take one of the vectors
 \(\mathbf{x}\) from the table, but that would not be very secure: If I
 see your ciphertext, I can find that \(\mathbf{x}\) in the table and use
-it to decrypt \(\mu\).
+it to decrypt \(m\).
 
 Instead, you are going to combine several rows of the table to get your
 vector \(\mathbf{x}\). Now you have to be careful: When you combine rows
 of the table, the errors will add up. We are guaranteed that each row of
 the table has \(\epsilon\) either \(0\) or \(1\). So if you add at most
 four rows, then the total \(\epsilon\) will be at most \(4\). Since
-\(\mu\) is either \(0\) or \(5\) (and we are working modulo \(q = 11\)),
-that is just enough to determine \(\mu\) uniquely.
+\(m\) is either \(0\) or \(5\) (and we are working modulo \(q = 11\)),
+that is just enough to determine \(m\) uniquely.
 
 So, here is the method. You choose at random four (or fewer) rows of the
 table, and add them up to get a pair \(\left( \mathbf{x}:y_{0} \right)\)
@@ -191,7 +191,7 @@ To generalize our choice of \(m\) in \(\{ 0,5\}\), we could encode a
 single bit by using either \(0\) or \(\lfloor\frac{q}{2}\rfloor\) to
 obtain maximum separation and thus tolerance to error. Alternatively, we
 could allow the message to be any multiple of some constant \(r\), where
-\(r\) is bigger than the error bound (right now that is \(m\)), which
+\(r\) is bigger than the error bound, which
 allows you to encode a message space of size \(q/r\) rather than just a
 single bit.
 

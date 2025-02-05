@@ -2,7 +2,7 @@
 
 \subsubsection{The main idea: approximate eigenvalues}
 
-Now we want to turn the public-key encryption from {[}lwe-crypto{]} into
+Now we want to turn the public-key encryption from Section \ref{lwe-crypto} into
 a leveled FHE scheme. In other words: We want to be able to encrypt bits
 (0s and 1s) and operate on them with AND and NOT gates.
 
@@ -11,7 +11,7 @@ want to encrypt are addition and multiplication. If \(x\) and \(y\) are
 bits, then NOT \(x\) is just \(1 - x\), and \(x\) AND \(y\) is just
 \(xy\). But it is easier to do algebra with \(+\) and \(\times\).
 
-Recall the setup from {[}lwe-crypto{]}: We are going pick some large
+Recall the setup from Section \ref{lwe-crypto}: We are going pick some large
 integer \(q\) (in practice \(q\) could be anywhere from a few thousand
 to \(2^{1000}\)), and do ``approximate linear algebra'' modulo \(q\). In
 other words, we will do linear algebra, where all our calculations are
@@ -29,7 +29,23 @@ square \(n\)-by-\(n\) matrix \(C\) such that
 decryption is easy: just compute the \(i\)-th entry of \(C\mathbf{v}\),
 and determine whether it is closer to \(0\) or to \(v_{i}\).
 
-strong(Remark):\\
+\begin{remark}
+With a bit of effort, it is possible to make this into a public-key
+cryptosystem too. Just like in Section \ref{lwe-crypto}, the main idea is to
+release a table of vectors \(\mathbf{x}\) such that
+\[\mathbf{x} \cdot \mathbf{v} \approx 0,\] and use that as a public key.
+Given \(\mu\) and the public key, you can find a matrix \(C_{0}\) such
+that \[C_{0}\mathbf{v} \approx 0\] then take
+\[C = C_{0} + \mu\mathrm{\text{Id}},\] where \(\mathrm{\text{Id}}\) is
+the identity matrix. This gives a \(C\) such that
+
+\[C\mathbf{v} \approx \mu\mathbf{v}.\]
+\end{remark}
+
+\begin{problem}
+How do we build such a \(C_{0}\)? (One possible direction is to build it
+row-by-row.)
+\end{problem}
 
 \subsubsection{Operations on encrypted data}
 
@@ -76,12 +92,14 @@ entries. In fact, we will be able to make it so that all entries of
 \(C\) are either \(0\) or \(1\).
 
 To make this work, we will assume our secret key \(\mathbf{v}\) has the
-special form \[\mathbf{v} = \left. \begin{aligned}
-( & a_{1},2a_{1},4a_{1},\ldots,2^{k}a_{1}, \\
- & a_{2},2a_{2},4a_{2},\ldots,2^{k}a_{2}, \\
- & \vdots \\
- & a_{r},2a_{r},4a_{r},\ldots,2^{k}a_{r})
-\end{aligned} \right.,\] \phantomsection\label{fhe-v-form}{}
+special form 
+\begin{eqnarray}
+label{the-v-form}
+\mathbf{v} & = & (a_{1},2a_{1},4a_{1},\ldots,2^{k}a_{1}, \nonumber \\
+& & a_{2},2a_{2},4a_{2},\ldots,2^{k}a_{2}, \nonumber \\
+& & \ldots , \nonumber \\
+& & a_{r},2a_{r},4a_{r},\ldots,2^{k}a_{r})
+\end{eqnarray}\phantomsection\label{fhe-v-form}{}
 
 where \(k = \lfloor\log_{2}q\rfloor\).
 
@@ -112,10 +130,15 @@ The solution is to use binary expansion: take
 this works -- it boils down to the fact that \((1,0,0,1)\) is the binary
 expansion of \(9\).
 
-strong(Problem):\\
+\begin{problem}
+How would you flatten a different vector, like
+\[\mathbf{x} = (9,3,1,4)?\] As a hint, remember we are working with
+numbers modulo 11: So if you come across a number that is bigger than 11
+in your calculation, it is safe to reduce it mod 11.
+\end{problem}
 
 In general, if you know that \(\mathbf{v}\) has the form in
-\hyperref[fhe-v-form]{{[}fhe-v-form{]}} and you are given some matrix
+Equation \eqref{fhe-v-form} and you are given some matrix
 \(C\) with coefficients in \({\mathbb{Z}}/q{\mathbb{Z}}\), then you can
 compute another matrix \(\text{Flatten}(C)\) such that:
 

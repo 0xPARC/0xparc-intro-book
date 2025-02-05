@@ -55,37 +55,37 @@
 \contentsline {subsection}{\numberline {5.2}A hard problem: learning with errors}{40}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1}A small example of an LWE problem}{41}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}General problem}{42}{subsubsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.3}Public-key cryptography from LWE}{42}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}Public-key cryptography from LWE}{43}{subsection.5.3}%
 \contentsline {subsubsection}{\numberline {5.3.1}Encryption}{43}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}An example}{43}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2}An example}{44}{subsubsection.5.3.2}%
 \contentsline {subsubsection}{\numberline {5.3.3}Decryption}{44}{subsubsection.5.3.3}%
-\contentsline {subsubsection}{\numberline {5.3.4}How does this work in general?}{44}{subsubsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.4}How does this work in general?}{45}{subsubsection.5.3.4}%
 \contentsline {subsection}{\numberline {5.4}Leveled FHE from LWE}{45}{subsection.5.4}%
 \contentsline {subsubsection}{\numberline {5.4.1}The main idea: approximate eigenvalues}{45}{subsubsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.2}Operations on encrypted data}{45}{subsubsection.5.4.2}%
-\contentsline {subsubsection}{\numberline {5.4.3}The ``Flatten'' operation}{46}{subsubsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {5.4.4}Error analysis}{47}{subsubsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.5}FHE takeaways}{48}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Oblivious RAM}{49}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Oblivious RAM: problem definitions}{49}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Naive solutions}{50}{subsection.6.2}%
-\contentsline {subsubsection}{\numberline {6.2.1}Naive solution 1}{50}{subsubsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.2}Naive solution 2}{50}{subsubsection.6.2.2}%
-\contentsline {subsubsection}{\numberline {6.2.3}Naive solution 3}{51}{subsubsection.6.2.3}%
-\contentsline {subsubsection}{\numberline {6.2.4}Important observation}{51}{subsubsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.3}Binary-tree ORAM: data structure}{51}{subsection.6.3}%
-\contentsline {subsubsection}{\numberline {6.3.1}Server data structure}{51}{subsubsection.6.3.1}%
-\contentsline {subsubsection}{\numberline {6.3.2}Main path invariant}{51}{subsubsection.6.3.2}%
-\contentsline {subsubsection}{\numberline {6.3.3}Imaginary position map}{52}{subsubsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.4}Binary-tree ORAM: operations}{52}{subsection.6.4}%
-\contentsline {subsubsection}{\numberline {6.4.1}Fetching a block}{52}{subsubsection.6.4.1}%
-\contentsline {subsubsection}{\numberline {6.4.2}Remapping a block}{52}{subsubsection.6.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.3}Eviction}{53}{subsubsection.6.4.3}%
-\contentsline {subsubsection}{\numberline {6.4.4}Algorithm pseudo-code}{55}{subsubsection.6.4.4}%
-\contentsline {subsection}{\numberline {6.5}Analysis}{56}{subsection.6.5}%
-\contentsline {subsubsection}{\numberline {6.5.1}Obliviousness}{56}{subsubsection.6.5.1}%
-\contentsline {subsubsection}{\numberline {6.5.2}Correctness}{56}{subsubsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.6}Binary-tree ORAM: recursion}{57}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Path ORAM}{58}{subsection.6.7}%
-\contentsline {subsubsection}{\numberline {6.7.1}Other applications of ORAM}{58}{subsubsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.8}ORAM takeaways}{58}{subsection.6.8}%
+\contentsline {subsubsection}{\numberline {5.4.2}Operations on encrypted data}{46}{subsubsection.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.4.3}The ``Flatten'' operation}{47}{subsubsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {5.4.4}Error analysis}{48}{subsubsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.5}FHE takeaways}{49}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Oblivious RAM}{50}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Oblivious RAM: problem definitions}{50}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Naive solutions}{51}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Naive solution 1}{51}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Naive solution 2}{51}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Naive solution 3}{52}{subsubsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.4}Important observation}{52}{subsubsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.3}Binary-tree ORAM: data structure}{52}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Server data structure}{52}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Main path invariant}{52}{subsubsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3}Imaginary position map}{53}{subsubsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.4}Binary-tree ORAM: operations}{53}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Fetching a block}{53}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}Remapping a block}{53}{subsubsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.3}Eviction}{54}{subsubsection.6.4.3}%
+\contentsline {subsubsection}{\numberline {6.4.4}Algorithm pseudo-code}{56}{subsubsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.5}Analysis}{57}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Obliviousness}{57}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}Correctness}{57}{subsubsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.6}Binary-tree ORAM: recursion}{58}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Path ORAM}{59}{subsection.6.7}%
+\contentsline {subsubsection}{\numberline {6.7.1}Other applications of ORAM}{59}{subsubsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.8}ORAM takeaways}{59}{subsection.6.8}%

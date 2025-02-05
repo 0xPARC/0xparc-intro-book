@@ -16,7 +16,62 @@ Here is a concrete example of an LWE problem and how one might attack it
 ``by hand.'' This exercise will make the inherent difficulty of the
 problem quite intuitive.
 
-strong(Problem):\\
+
+\begin{problem}
+We are working over \(\mathbb{F}_{11}\), and there is some secret vector
+\(a = \left( a_{1},\ldots,a_{4} \right)\). There are two sets of claims.
+Each claim ``\(\left( x_{1},\ldots,x_{4} \right):y\)'' purports the
+relationship
+
+\[y = a_{1}x_{1} + a_{2}x_{2} + a_{3}x_{3} + a_{4}x_{4} + \varepsilon,\mspace{6mu}\varepsilon \in \left\{ 0,1 \right\}.\]
+(The \(\varepsilon\) is different from equation to equation.)
+
+One of the sets of claims is ``genuine'' and comes from a consistent set
+of \(a_{i}\), while the other set is ``fake'' and has randomly generated
+\(y\) values. Tell them apart and find the correct secret vector
+\(\left( a_{1},\ldots,a_{4} \right)\).
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Blue Set & Red Set \\
+\hline\hline
+(1, 0, 1, 7) : 2 & (5, 4, 5, 2) : 2 \\
+\hline
+(5, 8, 4, 10) : 2 & (7, 7, 7, 8) : 5 \\
+\hline
+(7, 7, 8, 5) : 3 & (6, 8, 2, 2) : 0 \\
+\hline
+(5, 1, 10, 6) : 10 & (10, 4, 4, 3) : 1 \\
+\hline
+(8, 0, 2, 4) : 9 & (1, 10, 8, 6) : 6 \\
+\hline
+(9, 3, 0, 6) : 9 & (2, 7, 7, 4) : 4 \\
+\hline
+(0, 6, 1, 6) : 9 & (8, 6, 6, 9) : 1 \\
+\hline
+(0, 4, 9, 7) : 5 & (10, 6, 1, 6) : 9 \\
+\hline
+(10, 7, 4, 10) : 10 & (3, 1, 10, 9) : 7 \\
+\hline
+(5, 5, 10, 6) : 9 & (2, 4, 10, 3) : 7 \\
+\hline
+(10, 7, 3, 1) : 9 & (10, 4, 6, 4) : 7 \\
+\hline
+(0, 2, 5, 5) : 6 & (8, 5, 7, 2) : 5 \\
+\hline
+(9, 10, 2, 1) : 3 & (4, 7, 0, 0) : 8 \\
+\hline
+(3, 7, 2, 1) : 6 & (0, 3, 0, 0) : 0 \\
+\hline
+(2, 3, 4, 5) : 3 & (8, 3, 2, 7) : 5 \\
+\hline
+(2, 1, 6, 9) : 3 & (4, 6, 6, 3) : 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{problem}
 
 (\textbf{Solution sketch; can be skipped safely.}) One way to start
 would be to define an \emph{information vector}
@@ -81,10 +136,10 @@ We omit the rest of the solution, which makes for some fun tinkering.
 
 \subsubsection{General problem}
 
-The LWE problem (\hyperref[lwe]{{[}lwe{]}}), like the discrete log
+The LWE problem (Problem \ref{lwe}), like the discrete log
 assumption, is one of those ``hard problems that you can build
 cryptography on.'' The problem is to solve for constants
 \[a_{1},\ldots,a_{n} \in {\mathbb{Z}}/q{\mathbb{Z}},\] given a bunch of
 \textbf{approximate} equations of the form
-\[y = a_{1}x_{1} + \ldots + a_{n}x_{n} + \epsilon,\] where each
+\[y = a_{1}x_{1} + \cdots + a_{n}x_{n} + \epsilon,\] where each
 \(\epsilon\) is a ``small'' error (for simplicity, say in \(\{ 0,1\}\)).
