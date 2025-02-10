@@ -431,10 +431,14 @@ argue correctness, we must argue why no overflow will ever occur except
 with negligible probability --- as long as the bucket size \(Z\) is set
 appropriately.
 
-strong(Claim):\\
-\phantomsection\label{clm:bucketsize}{}
+\begin{claim}
+\label{clm:bucketsize}
+Bucket size and overflow probability: If the bucket size \(Z\) is
+super-logarithmic in \(N\), then over any polynomially many accesses, no
+bucket overflows except with negligible in \(N\) probability.
+\end{claim}
 
-strong(Proof):\\
+\begin{proof}
 The full proof uses results from queueing theory,\footnote{https://en.wikipedia.org/wiki/Queueing\_theory}
 in particular Burke\textquotesingle s theorem.\footnote{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
 We will give a heuristic argument that does not require any specialized
@@ -485,6 +489,7 @@ our informal argument above ignored possible dependence between buckets.
 It turns out that this gap can be filled using Burke's theorem. But at
 this point the reader should already be convinced that the result is at
 least quite plausible.
+\end{proof}
 
 \subsection{Binary-tree ORAM: recursion}\label{binary-tree-oram-recursion}
 
@@ -492,9 +497,9 @@ So far, we have cheated and pretended that the client can store a large
 position map. We now describe how to get rid of this position map. The
 idea is simple: Instead of storing the position map on the client side,
 we simply store it in a smaller ORAM denoted
-\(\mathsf{\text{posORAM}}_{1}\) on the server. The position map of
-\(\mathsf{\text{posORAM}}_{1}\) will then be stored in an even smaller
-ORAM denoted \(\mathsf{\text{posORAM}}_{2}\) on the server, and so on.
+\(\textsf{posORAM}_{1}\) on the server. The position map of
+\(\textsf{posORAM}_{1}\) will then be stored in an even smaller
+ORAM denoted \(\textsf{posORAM}_{2}\) on the server, and so on.
 As long as the block size is at least \(\Omega( \log N )\)
 bits, every time we recurse, the ORAM's size reduces by a constant
 factor; and thus \(O( \log N )\) levels of recursion would
@@ -502,18 +507,19 @@ suffice.
 
 We can thus conclude with the following theorem.
 
-strong(Theorem):\\
-Binary-tree ORAM\footnote{https://eprint.iacr.org/2011/407.pdf}: For any
+\begin{theorem}[Binary-tree ORAM\footnote{https://eprint.iacr.org/2011/407.pdf}]
+For any
 super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
 that achieves \(O( \alpha\log^{3}N )\) cost for each access:
 each logical request will translate to
 \(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
 client is required to store only \(O(1)\) number of blocks.
+\end{theorem}
 
 Note that in the total cost \(O( \alpha\log^{3}N )\), an
 \(\alpha\log N\) factor comes from the bucket size; another \(\log N\)
 factor comes from the total height of the tree; and the remaining
-\(\log N\) factors comes from the recursion.
+\(\log N\) factor comes from the recursion.
 
 \subsection{Path ORAM}\label{path-oram}
 
