@@ -15,3 +15,4 @@
 - \lbrack and \rbrack to [ and ]
 - make sure it's Equation \eqref not Equation \ref
 - check last numbered item (theorem, etc) of each section, to see that the numbers match
+- change \mathtt{\text{...}} to \texttt{...} (or at least search for \mathtt and \text)

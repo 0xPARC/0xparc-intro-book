@@ -76,13 +76,13 @@ is if all the ``trusted parties'' collude.
 Peggy has a polynomial \(P(X) \in \mathbb{F}_{p}\lbrack X\rbrack\). To
 commit to it:
 
-\begin{algorithm}[Creating a KZG commitment]
+\begin{algo}[Creating a KZG commitment]
 \leavevmode
 \begin{enumerate}
 \item
   Peggy computes and publishes \(\lbrack P(s) \rbrack\).
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 This computation is possible as \(\lbrack s^{i} \rbrack\) are
 globally known.  
@@ -91,7 +91,7 @@ Now consider an input \(z \in \mathbb{F}_{p}\); Victor wants to know the
 value of \(P(z)\). If Peggy wishes to convince Victor that \(P(z) = y\),
 then:
 
-\begin{algorithm}[Opening a KZG commitment]
+\begin{algo}[Opening a KZG commitment]
 \leavevmode
 \begin{enumerate}
 \item
@@ -110,7 +110,7 @@ then:
 \end{equation}
 and accepts if and only if Equation \eqref{kzg-verify} is true.
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 If Peggy is truthful, then Equation \eqref{kzg-verify} will certainly check out.
 
@@ -149,7 +149,7 @@ obtained from Lagrange interpolation\footnote{https://en.wikipedia.org/wiki/Lagr
 this out, suppose Peggy wishes to prove to Victor that
 \(P( z_{i} ) = y_{i}\) for \(1 \leq i \leq n\).
 
-\begin{algorithm}
+\begin{algo}
 [Opening a KZG commitment at \(n\) values]
 \leavevmode
 \begin{enumerate}
@@ -166,7 +166,7 @@ this out, suppose Peggy wishes to prove to Victor that
   Victor verifies 
 \[  \operatorname{pair}(\lbrack Q(s) \rbrack,\lbrack ( s - z_{1} )( s - z_{2} )\ldots( s - z_{n} ) \rbrack) = \operatorname{pair}(\lbrack P(s) \rbrack - \lbrack f(s) \rbrack,\lbrack 1\rbrack). \]
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 So one can even open the polynomial \(P\) at \(1000\) points with a
 single 256-bit proof. The verification runtime is a single pairing plus
@@ -208,7 +208,7 @@ to reveal any \(P_{i}(42)\), which is great!
 
 To be fully explicit, here is the algorithm:
 
-\begin{algorithm}[Root check]
+\begin{algo}[Root check]
 \label{root-check}
 Assume that \(F\) is a polynomial for which Peggy can
 establish the value of \(F\) at any point in \({\mathbb{F}}_{q}\). Peggy
@@ -244,4 +244,4 @@ wants to convince Victor that \(F\) vanishes on a given finite set
 \item
   Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).
 \end{enumerate}
-\end{algorithm}
+\end{algo}

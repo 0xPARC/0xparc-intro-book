@@ -3,6 +3,7 @@
 
 \usepackage{amsfonts, amsmath, amsthm, graphicx, hyperref, xcolor}
 
+\usepackage{algorithm,algorithmic}
 
 \newcommand{\redoval}[1]{\textcolor{red}{\boldsymbol{#1}}}
 \newcommand{\bluerect}[1]{\textcolor{blue}{\boldsymbol{#1}}}
@@ -11,18 +12,19 @@
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\ZZ}{\mathbb{Z}}
 
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{algorithm}[theorem]{Algorithm}
 \newtheorem{assumption}[theorem]{Assumption}
 \newtheorem{claim}[theorem]{Claim}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
 \newtheorem{problem}[theorem]{Problem}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{remark}[theorem]{Remark}
 \newtheorem{situation}[theorem]{Situation}
 
-% \numberwithin{theorem}{section}
+\theoremstyle{definition}
+\newtheorem{algo}[theorem]{Algorithm}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
 
 \begin{document}
 

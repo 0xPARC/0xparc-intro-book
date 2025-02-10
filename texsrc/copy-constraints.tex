@@ -54,7 +54,7 @@ F_{P}( \omega^{n} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} )
 So to prove Equation \ref{permcheck-poly}, the
 following algorithm works:
 
-\begin{algorithm}[Permutation check]
+\begin{algo}[Permutation check]
 Suppose Peggy has committed \(\operatorname{Com}(P)\)
 and \(\operatorname{Com}(Q)\).
 
@@ -84,7 +84,7 @@ and \(\operatorname{Com}(Q)\).
     \(F_{P}(X) - F_{Q}(X)\) vanishes at \(X = 1\).
   \end{itemize}
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 \subsubsection{Copy check}
 
@@ -241,7 +241,7 @@ F_{a}(1)F_{b}(1)F_{c}(1) = F'_{a}(1)F'_{b}(1)F'_{c}(1).
 
 To summarize, the copy check goes as follows:
 
-\begin{algorithm}[Copy check]
+\begin{algo}[Copy check]
 \leavevmode
 \begin{enumerate}
 \setcounter{enumi}{-1}
@@ -273,4 +273,4 @@ To summarize, the copy check goes as follows:
   Peggy uses Algorithm \ref{root-check} to prove
   Equation \eqref{copycheck-final} holds.
 \end{enumerate}
-\end{algorithm}
+\end{algo}

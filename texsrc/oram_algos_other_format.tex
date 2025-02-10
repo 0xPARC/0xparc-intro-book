@@ -1,0 +1,87 @@
+
+% alternative formatting for algorithm
+\iffalse
+\begin{algo}
+The procedure
+\(\texttt{Access}(\texttt{op},\texttt{addr},\texttt{data}^{*})\)
+where \(\texttt{op} = \texttt{read}\) or
+\(\texttt{op} = \texttt{write}\)
+
+\textbf{Assume:} Each block is of the form
+\(( \texttt{addr},\texttt{data},l )\) where
+\(l\) denotes the block's current designated path.
+
+\begin{enumerate}
+\item
+  Let \(l^{*}\) be a random value from \(1\) to \(N\). Assign
+  \(l \leftarrow\texttt{position}\left\lbrack \texttt{addr} \right\rbrack\),
+  \(\texttt{position}\left\lbrack \texttt{addr} \right\rbrack \leftarrow l^{*}\).
+\item
+  For each bucket from leaf \(l\) to root do:
+
+  \begin{enumerate}
+  \setcounter{enumii}{2}
+  \item
+    Scan \(\texttt{bucket}\), and if
+    \(( \texttt{addr},\texttt{data}_{0},\_ ) \in \texttt{bucket}\)
+    then let
+    \(\texttt{data}^{*} \leftarrow \texttt{data}_{0}\) and
+    remove this block from \(\texttt{bucket}\).
+  \end{enumerate}
+\item
+  End for
+\item
+  If \(\texttt{op} = \texttt{read}\) then add
+  \(( \texttt{addr},\texttt{data}^{*},l^{*} )\)
+  to the root bucket; else add
+  \(( \texttt{addr},\texttt{data},l^{*} )\) to
+  the root bucket.
+\item
+  Call the \(\texttt{evict}\) subroutine.
+\item
+  Return \(\texttt{data}^{*}\).
+\end{enumerate}
+\end{algo}
+
+\begin{algo}
+\phantomsection\label{alg:evict}
+strong(Algorithm):\\
+The procedure \(\texttt{evict}\)
+
+\begin{enumerate}
+\item
+  For each level \(d\) from the root to the level of leaves \(- 1\), do:
+
+  \begin{enumerate}
+  \setcounter{enumii}{1}
+  \item
+    \(\texttt{bucket}_{0}\),
+    \(\texttt{bucket}_{1} \leftarrow\) randomly choose \(2\)
+    distinct buckets in the level \(d\) (for the root level, pick one
+    bucket).
+  \item
+    For
+    \(\texttt{bucket} \in \{\texttt{bucket}_{0},\texttt{bucket}_{1}\}\)
+    do:
+
+    \begin{enumerate}
+    \setcounter{enumiii}{3}
+    \item
+      \(\mathsf{\text{block}} :=\) pop a real block from
+      \(\mathsf{\text{bucket}}\) if one exists; else
+      \(\mathsf{\text{block}} := (\bot,\bot,\bot)\).
+    \item
+      For each of the two children of \(\texttt{bucket}\) in a
+      fixed order: scan the child bucket reading and writing every
+      block. If \(\mathsf{\text{block}}\) is real and wants to go to the
+      child, write \(\mathsf{\text{block}}\) to an empty slot in the
+      child bucket.
+    \end{enumerate}
+  \item
+    End for
+  \end{enumerate}
+\item
+  End for
+\end{enumerate}
+\end{algo}
+\fi

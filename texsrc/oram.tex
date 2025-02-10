@@ -1,3 +1,7 @@
+\newcommand{\op}{{\texttt{op}}}
+\newcommand{\addr}{{\texttt{addr}}}
+\newcommand{\data}{{\texttt{data}}}
+
 To motivate Oblivious RAM, let us think of Signal's usage scenario.
 Signal is an encrypted messenger app with billions of users. They want
 to support a private contact discovery application. In contact
@@ -37,6 +41,8 @@ is the last bit of a secret key). By observing whether memory location
 \texttt{x} or \texttt{y} is accessed, one can infer which branch is
 taken.
 
+\begin{center}
+\begin{minipage}{22mm}
 \begin{verbatim}
 if (s) {
   mem[x]
@@ -44,17 +50,21 @@ if (s) {
   mem[y]
 }
 \end{verbatim}
+\end{minipage}
+\end{center}
 
 Therefore, we want to solve the following challenge:
 
-``How can we provably hide access patterns while preserving
-efficiency?''
+\begin{quote}
+{\it How can we provably hide access patterns while preserving efficiency?}
+\end{quote}
 
 The solution Signal eventually deployed is an algorithmic technique
 called Oblivious RAM (ORAM).
 
 \subsection{Oblivious RAM: problem
-definitions}\label{oblivious-ram-problem-definitions}
+definitions}
+\label{oblivious-ram-problem-definitions}
 
 Oblivious RAM (ORAM) is a powerful cryptographic protocol that
 \emph{provably} hides access patterns to sensitive data.
@@ -83,8 +93,8 @@ algorithm will support \(N\) blocks of logical memory.
 
 Formally, the user sends to the algorithm a sequence of \emph{logical}
 requests, where each logical request is of the form
-\(\left( \mathtt{\text{read}},\mathtt{\text{addr}} \right)\) or
-\(\left( \mathtt{\text{write}},\mathtt{\text{addr}},\mathtt{\text{data}} \right)\).
+\((\texttt{read},\texttt{addr})\) or
+\((\texttt{write}, \texttt{addr}, \texttt{data})\).
 
 After each user request, the ORAM algorithm interacts with the server to
 make a sequence of \emph{physical} memory accesses, where each physical
@@ -103,7 +113,20 @@ sequence of physical memory requests. For any two \emph{logical} request
 sequences, the ORAM's resulting \emph{physical} access sequences will be
 indistinguishable.
 
-strong(Remark):\\
+\begin{remark}
+In this security requirement, we require that the server learn nothing
+from observing only the list of physical addresses, and whether each
+physical access is a read or write. We do not say anything about the
+data that is written to physical memory.
+
+In practice, we need to use encryption to hide the contents of the
+blocks. If we read a block and then write it back, we should re-encrypt
+it with a different ciphertext, or else the server would recognize it as
+the same block.
+
+From now on we will simply assume secure encryption as given, and focus
+on hiding the access patterns.
+\end{remark}
 
 \subsection{Naive solutions}\label{naive-solutions}
 
@@ -160,7 +183,7 @@ Each node is called a \emph{bucket}, and each bucket is a finite array
 that can hold up to \(Z\) number of blocks --- for now, think of \(Z\)
 as being relatively small (maybe polylogarithmic in \(N\)); we will
 describe how to parametrize \(Z\) later. Some of the blocks stored by
-the server are \emph{real}, other blocks are \emph{dummy}. As will be
+the server are \emph{real}; other blocks are \emph{dummy}. As will be
 clear later, these dummy blocks are introduced for security: We do not
 want the server to learn which buckets hold real blocks.
 
@@ -179,7 +202,7 @@ For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
 somewhat large position map that records the designated path of every
 block. In general, such a position map would require roughly
-\(\Theta\left( N\log N \right)\) bits to store --- but later we can
+\(\Theta( N\log N )\) bits to store --- but later we can
 recursively outsource the storage of the position map to the server by
 placing position maps in progressively smaller ORAMs.
 
@@ -263,9 +286,9 @@ important considerations when performing such eviction:
   negligible in \(N\)).
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-{\includegraphics[keepaspectratio]{binaryoram16-evict.png}}
+\includegraphics[width=\textwidth]{binaryoram16-evict.png}
 \caption{The \texttt{Evict} algorithm. Upon every data access operation,
 two buckets are chosen at every level of the tree for eviction during
 which one data block will be evicted to one of its children. To ensure
@@ -309,110 +332,95 @@ show that this is indeed the case.
 
 \subsubsection{Algorithm pseudo-code}\label{algorithm-pseudo-code.}
 
-We present the algorithm's pseudo-code in Algorithms~{[}alg{]}:access
-and {[}alg{]}:evict.
+We present the algorithm's pseudo-code in Algorithms~\ref{alg:access}
+and \ref{alg:evict}.
 
-\phantomsection\label{alg:access}
-strong(Algorithm):\\
-The procedure
-\(\mathtt{\text{Access}}(\mathtt{\text{op}},\mathtt{\text{addr}},\mathtt{\text{data}}^{*})\)
-where \(\mathtt{\text{op}} = \mathtt{\text{read}}\) or
-\(\mathtt{\text{op}} = \mathtt{\text{write}}\)
+\begin{algo}{$\texttt{The procedure Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}
+\label{alg:access}
 
-\textbf{Assume:} Each block is of the form
-\(\left( \mathtt{\text{addr}},\mathtt{\text{data}},l \right)\) where
-\(l\) denotes the block's current designated path.
+\textbf{Assume:}
+Each block is of the form $(\addr, \data, l)$
+where $l$ denotes the block's current designated path.
 
-\begin{enumerate}
-\item
-  Let \(l^{*}\) be a random value from \(1\) to \(N\). Assign
-  \(l \leftarrow \mathtt{\text{position}}\left\lbrack \mathtt{\text{addr}} \right\rbrack\),
-  \(\mathtt{\text{position}}\left\lbrack \mathtt{\text{addr}} \right\rbrack \leftarrow l^{*}\).
-\item
-  For each bucket from leaf \(l\) to root do:
+%\begin{figure*}[t]
+\begin{algorithmic}[1]
+%\REQUIRE Logical address requested block $\addr$. The client's position map $\texttt{position}$.
+%\ENSURE $l^{*}$ as the new path identifier of the requested block. 
+%$\texttt{data}$ as the data fetched.
+\STATE Let $l^{*}$ be a random value from $1$ to $N$.
+%\texttt{UniformRandom}(\{0, 1\} ^ D)$.
+Assign $l \leftarrow \texttt{position}[\addr]$, $\texttt{position}[\addr] \leftarrow l^{*}$.
+\FOR{each $\textsf{bucket}$ from leaf $l$ to root}
+	\STATE Scan $\textsf{bucket}$, and if  
+$(\addr, \data_0, \_) \in \textsf{bucket}$ then 
+let $\textsf{data}^* \leftarrow \textsf{data}_0$ and 
+remove this block from \textsf{bucket}.
+%    \IF{$(\addr, \data_0, \_) \in \textsf{B}$}
+        %\STATE $\texttt{data} \leftarrow \texttt{data}_0$.
+%    \ENDIF
+%    \STATE Rewrite the bucket $l_0$.
+\ENDFOR
 
-  \begin{enumerate}
-  \setcounter{enumii}{2}
-  \item
-    Scan \(\mathtt{\text{bucket}}\), and if
-    \(\left( \mathtt{\text{addr}},\mathtt{\text{data}}_{0},\_ \right) \in \mathtt{\text{bucket}}\)
-    then let
-    \(\mathtt{\text{data}}^{*} \leftarrow \mathtt{\text{data}}_{0}\) and
-    remove this block from \(\mathtt{\text{bucket}}\).
-  \end{enumerate}
-\item
-  End for
-\item
-  If \(\mathtt{\text{op}} = \mathtt{\text{read}}\) then add
-  \(\left( \mathtt{\text{addr}},\mathtt{\text{data}}^{*},l^{*} \right)\)
-  to the root bucket; else add
-  \(\left( \mathtt{\text{addr}},\mathtt{\text{data}},l^{*} \right)\) to
-  the root bucket.
-\item
-  Call the \(\mathtt{\text{Evict}}\) subroutine.
-\item
-  Return \(\mathtt{\text{data}}^{*}\).
-\end{enumerate}
+\STATE if $\op = \texttt{read}$ then add $(\addr, \data^*, l^*)$ to the root bucket;
+else add $(\addr, \data, l^*)$ to the root bucket.
 
-\phantomsection\label{alg:evict}
-strong(Algorithm):\\
-The procedure \(\mathtt{\text{evict}}\)
+\STATE Call the $\texttt{Evict}$ subroutine.
 
-\begin{enumerate}
-\item
-  For each level \(d\) from the root to the level of leaves \(- 1\), do:
+\RETURN $\data^*$.
 
-  \begin{enumerate}
-  \setcounter{enumii}{1}
-  \item
-    \(\mathtt{\text{bucket}}_{0}\),
-    \(\mathtt{\text{bucket}}_{1} \leftarrow\) randomly choose \(2\)
-    distinct buckets in the level \(d\) (for the root level, pick one
-    bucket).
-  \item
-    For
-    \(\mathtt{\text{bucket}} \in \{\mathtt{\text{bucket}}_{0},\mathtt{\text{bucket}}_{1}\}\)
-    do:
+\end{algorithmic}
+\end{algo}
 
-    \begin{enumerate}
-    \setcounter{enumiii}{3}
-    \item
-      \(\mathsf{\text{block}} :=\) pop a real block from
-      \(\mathsf{\text{bucket}}\) if one exists; else
-      \(\mathsf{\text{block}} := (\bot,\bot,\bot)\).
-    \item
-      For each of the two children of \(\mathtt{\text{bucket}}\) in a
-      fixed order: scan the child bucket reading and writing every
-      block. If \(\mathsf{\text{block}}\) is real and wants to go to the
-      child, write \(\mathsf{\text{block}}\) to an empty slot in the
-      child bucket.
-    \end{enumerate}
-  \item
-    End for
-  \end{enumerate}
-\item
-  End for
-\end{enumerate}
+\begin{algo}{The procedure \texttt{Evict}}
+\label{alg:evict}
+\begin{algorithmic}[1]
+%\REQUIRE $\nu$ as the number of blocks to evict in each level.
 
-strong(Remark):\\
+\FOR{each level $d$ from root to the level of leaves $- 1$}
+\STATE $\textsf{bucket}_0$, $\textsf{bucket}_1 \leftarrow$ 
+randomly choose $2$ distinct buckets in the level $d$
+(for the root level, pick one bucket).
+\FOR{$\textsf{bucket}$ $\in$ $\{\textsf{bucket}_0, \textsf{bucket}_1\}$}
+\STATE 
+$\textsf{block} :=$ pop a real block from $\textsf{bucket}$
+if one exists; else $\textsf{block} := (\bot, \bot, \bot)$.
+%pop block $(\addr, \data, l)$ from $\textsf{bucket}$.
+\STATE {for each of the two children of $\textsf{bucket}$ in a fixed order}:
+scan the child bucket reading 
+and writing every block. 
+If $\textsf{block}$ is real and wants to go to  
+the child, write $\textsf{block}$  to an empty slot in the child bucket.
+%\ENDFOR
+\ENDFOR
+\ENDFOR
+\end{algorithmic}
+\end{algo}
+
+\begin{remark}
+Note that in a full-fledged implementation, 
+all blocks are typically encrypted to hide the contents of the block.
+Whenever reading and writing back a block, the block
+must be re-encrypted prior to being written back.
+If the encryption scheme is secure, the server should not be able
+to tell whether the block's content has changed 
+upon seeing the new ciphertext.
+\end{remark}
 
 \subsection{Analysis}\label{analysis}
 
 We will now discuss why the aforementioned binary-tree ORAM construction
 
-1) preserves obliviousness; and
+1) preserves obliviousness, and
 
 2) is correct (except with negligible probability).
 
 \subsubsection{Obliviousness}\label{obliviousness.}
 
 Obliviousness is easy to see.
-
 First, whenever a block is accessed, it is assigned to a new path and
 the choice of the new path is kept secret from the server. So whenever
 the block is accessed again, the server simply sees a random path being
 accessed.
-
 Second, the entire eviction process does not depend on the input
 requests at all.
 
@@ -440,7 +448,7 @@ knowledge.
 \item
   There are \(N\) leaf buckets, and \(N\) blocks are assigned to them at
   random. We leave it as an exercise to check that the probability that
-  more than \(\left( \log N \right)^{2}\) blocks are assigned to any one
+  more than \(( \log N )^{2}\) blocks are assigned to any one
   leaf is negligible than \(N\) (in other words: decays faster than
   \(N^{k}\), for every \(k\)).
 \item
@@ -469,7 +477,7 @@ any one bucket.
 
 Indeed, one can prove an exponential bound on the probability that any
 one bucket gets too full:
-\[\Pr\left\lbrack \mathrm{\text{number of items in queue}} > R \right\rbrack \leq \exp\left( \Omega( - R) \right).\]
+\[\Pr [\mathrm{\text{number of items in queue}} > R] \leq \exp( \Omega( - R) ).\]
 
 Unfortunately, this does not quite finish our analysis of the ORAM tree.
 The reason is that the buckets in the ORAM tree are not independent, and
@@ -487,9 +495,9 @@ we simply store it in a smaller ORAM denoted
 \(\mathsf{\text{posORAM}}_{1}\) on the server. The position map of
 \(\mathsf{\text{posORAM}}_{1}\) will then be stored in an even smaller
 ORAM denoted \(\mathsf{\text{posORAM}}_{2}\) on the server, and so on.
-As long as the block size is at least \(\Omega\left( \log N \right)\)
+As long as the block size is at least \(\Omega( \log N )\)
 bits, every time we recurse, the ORAM's size reduces by a constant
-factor; and thus \(O\left( \log N \right)\) levels of recursion would
+factor; and thus \(O( \log N )\) levels of recursion would
 suffice.
 
 We can thus conclude with the following theorem.
@@ -497,12 +505,12 @@ We can thus conclude with the following theorem.
 strong(Theorem):\\
 Binary-tree ORAM\footnote{https://eprint.iacr.org/2011/407.pdf}: For any
 super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
-that achieves \(O\left( \alpha\log^{3}N \right)\) cost for each access:
+that achieves \(O( \alpha\log^{3}N )\) cost for each access:
 each logical request will translate to
-\(O\left( \alpha\log^{3}N \right)\) physical accesses; and moreover, the
+\(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
 client is required to store only \(O(1)\) number of blocks.
 
-Note that in the total cost \(O\left( \alpha\log^{3}N \right)\), an
+Note that in the total cost \(O( \alpha\log^{3}N )\), an
 \(\alpha\log N\) factor comes from the bucket size; another \(\log N\)
 factor comes from the total height of the tree; and the remaining
 \(\log N\) factors comes from the recursion.
@@ -525,7 +533,7 @@ rearrange the blocks on the path in the most aggressive manner possible:
 We want to move the blocks as close to the leaf level as possible, but
 \emph{without violating the path invariant}. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM. The
-cost of each access is \(O\left( \alpha\log^{2}N \right)\) for an
+cost of each access is \(O( \alpha\log^{2}N )\) for an
 arbitarily small superconstant function \(\alpha\).
 
 \subsubsection{Other applications of

@@ -196,7 +196,7 @@ transform'' (NTT) even though it is exactly the same as the usual FFT.)
 
 Then:
 
-\begin{algorithm}[Commitment step of PLONK]
+\begin{algo}[Commitment step of PLONK]
 \leavevmode
 \begin{enumerate}
 \item
@@ -206,7 +206,7 @@ Then:
   Peggy sends \(\operatorname{Com}(A)\), \(\operatorname{Com}(B)\),
   \(\operatorname{Com}(C)\) to Victor.
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 To reiterate, each commitment is a single value -- a 256-bit elliptic
 curve point -- that can later be ``opened'' at any value
@@ -234,7 +234,7 @@ However, Peggy has committed \(A\), \(B\), \(C\) already, while all the
 \(Q_{\ast}\) polynomials are globally known. So this is a direct
 application of Algorithm \ref{root-check}:
 
-\begin{algorithm}[Gate check]
+\begin{algo}[Gate check]
 \leavevmode
 \begin{enumerate}
 \item
@@ -247,7 +247,7 @@ Equation \eqref{plonk-gate} holds for \(X = \omega^{i}\)
 (that is, the left-hand side is indeed divisible by
 \(Z(X) := X^{n} - 1\)).
 \end{enumerate}
-\end{algorithm}
+\end{algo}
 
 \subsubsection{Step 3: proving the copy
 constraints}\label{copy-constraint-deferred}
