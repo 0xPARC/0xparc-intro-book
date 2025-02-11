@@ -1,8 +1,6 @@
 - urls in footnotes, make correctly clickable
 - chapter headers, title and authors, and new pages
 
-- search for 2^254, approx, FF (without backslash)
-- make sure it's Equation \eqref not Equation \ref
 
 
 DONE - \lbrack and \rbrack to [ and ]
@@ -18,6 +16,8 @@ DONE - fix all theorems etc, everything in a box:
     DONE - search for "strong"
     DONE - go through book for theorems etc.
 DONE - fix numbering of theorems etc
+DONE - make sure it's Equation \eqref not Equation \ref
+DONE - search for 2^254, approx, FF (without backslash)
 
 
 
