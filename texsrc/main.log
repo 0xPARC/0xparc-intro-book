@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 13:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 13:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -247,8 +247,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [3]
 (./intro.tex [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-
-super-ts1.enc}] [5]) (./mpc.tex [6] [7] [8] [9]) (./ot.tex [10] [11] [12])
-(./2pc-takeaways.tex) (./ec.tex [13] [14] [15] [16]
+super-ts1.enc}] [5] [6]) [7] (./mpc.tex [8] [9] [10] [11]) (./ot.tex [12]
+[13]) (./2pc-takeaways.tex) [14] (./ec.tex [15] [16] [17]
 Overfull \hbox (4.03908pt too wide) in paragraph at lines 170--173
 []\OT1/cmr/m/n/10 Given a point $\OML/cmm/m/it/10 P \OT1/cmr/m/n/10 = (\OML/cmm
 /m/it/10 x[]; y[]\OT1/cmr/m/n/10 )$, its neg-a-tive is just $\OMS/cmsy/m/n/10 ^
@@ -256,15 +256,15 @@ Overfull \hbox (4.03908pt too wide) in paragraph at lines 170--173
 ^^@\OML/cmm/m/it/10 y[]\OT1/cmr/m/n/10 )$. 
  []
 
-[17] [18] [19] [20] [21]) (./pair.tex [22] [23]) (./kzg.tex [24] [25] [26])
-(./kzg-takeaways.tex [27]) (./zkintro.tex [28]) (./plonk.tex
+[18] [19] [20] [21] [22]) (./pair.tex [23] [24]) (./kzg.tex [25] [26] [27])
+(./kzg-takeaways.tex [28]) [29] (./zkintro.tex [30]) (./plonk.tex
 Overfull \hbox (8.42612pt too wide) in paragraph at lines 16--17
 []\OT1/cmr/bx/n/10 Situation 4.1. []\OT1/cmr/m/it/10 Sup-pose we have a sys-tem
  of $\OML/cmm/m/it/10 m$ \OT1/cmr/m/it/10 equa-tions in $\OML/cmm/m/it/10 k$ \O
 T1/cmr/m/it/10 vari-ables $\OML/cmm/m/it/10 x[]; [] ; x[]$\OT1/cmr/m/it/10 : 
  []
 
-[29] [30] [31] [32]) (./copy-constraints.tex [33]
+[31] [32] [33] [34]) (./copy-constraints.tex [35]
 Overfull \hbox (6.56363pt too wide) in paragraph at lines 65--71
 [][]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^U \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 P\
 OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ![]\OT1/cmr/m/n/10 ))$. De-fine $\OML/cmm/m/it
@@ -272,35 +272,36 @@ OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ![]\OT1/cmr/m/n/10 ))$. De-fine $\OML/cmm/m/it
 cmr/m/n/10 )$ and $[](\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 )$. 
  []
 
-[34] [35]
+[36] [37]
 Overfull \hbox (0.25067pt too wide) in paragraph at lines 186--193
 \OT1/cmr/m/n/10 Then the prover can start defin-ing ac-cu-mu-la-tor poly-no-mi-
 als, af-ter re-introducing
  []
 
-[36]
+[38]
 Overfull \hbox (34.513pt too wide) in paragraph at lines 269--273
 []\OT1/cmr/m/n/10 Peggy uses Al-go-rithm 3.26[] to prove Equa-tion [] holds for
  $\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 2 f\OML/cmm/m/it/10 !; ![]; [] ; ![]\OMS/
 cmsy/m/n/10 g$\OT1/cmr/m/n/10 . 
  []
 
-) (./fs.tex [37]) (./snark-takeaways.tex [38]) (./fhe0.tex [39]) (./lwe.tex
-[40] [41]) (./fhe2.tex [42] [43] [44]) (./fhe3.tex [45] [46] [47] [48])
-(./fhe-takeaways.tex) (./oram.tex [49] [50] [51] [52] [53]
-<binaryoram16-evict.png, id=193, 722.7pt x 289.08pt>
+) (./fs.tex [39]) (./snark-takeaways.tex [40]) [41] (./fhe0.tex [42])
+(./lwe.tex [43] [44]) (./fhe2.tex [45] [46] [47]) (./fhe3.tex [48] [49]
+[50] [51]) (./fhe-takeaways.tex) [52] (./oram.tex [53] [54] [55] [56] [57]
+<binaryoram16-evict.png, id=206, 722.7pt x 289.08pt>
 File: binaryoram16-evict.png Graphic file (type png)
 <use binaryoram16-evict.png>
 Package pdftex.def Info: binaryoram16-evict.png  used on input line 291.
 (pdftex.def)             Requested size: 345.0pt x 137.99812pt.
- [54] [55 <./binaryoram16-evict.png>]
+
+[58 <./binaryoram16-evict.png>]
 Overfull \hbox (24.49446pt too wide) in paragraph at lines 364--366
 [] []\OT1/cmr/m/n/10 if $[] = []$ then add $([]\OML/cmm/m/it/10 ; [][]; l[]\OT1
 /cmr/m/n/10 )$ to the root bucket; else add $([]\OML/cmm/m/it/10 ; []; l[]\OT1/
 cmr/m/n/10 )$
  []
 
-[56] [57] [58]) (./oram-takeaways.tex) [59] (./main.aux)
+[59] [60] [61]) (./oram-takeaways.tex) [62] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -309,11 +310,11 @@ L3 programming layer <2024-02-20>
 Here is how much of TeX's memory you used:
  3391 strings out of 474116
  51005 string characters out of 5743682
- 1946187 words of memory out of 5000000
+ 1948187 words of memory out of 5000000
  25647 multiletter control sequences out of 15000+600000
  569883 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,18n,65p,615b,491s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,18n,65p,615b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -337,10 +338,10 @@ dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/tex
 mf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf
 -dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (59 pages, 477896 bytes).
+Output written on main.pdf (62 pages, 479812 bytes).
 PDF statistics:
- 315 PDF objects out of 1000 (max. 8388607)
- 203 compressed objects within 3 object streams
+ 325 PDF objects out of 1000 (max. 8388607)
+ 210 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
