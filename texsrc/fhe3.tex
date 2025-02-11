@@ -36,7 +36,7 @@ release a table of vectors \(\mathbf{x}\) such that
 \[\mathbf{x} \cdot \mathbf{v} \approx 0,\] and use that as a public key.
 Given \(\mu\) and the public key, you can find a matrix \(C_{0}\) such
 that \[C_{0}\mathbf{v} \approx 0\] then take
-\[C = C_{0} + \mu\mathrm{\text{Id}},\] where \(\mathrm{\text{Id}}\) is
+\[C = C_{0} + \mu\mathrm{Id},\] where \(\mathrm{Id}\) is
 the identity matrix. This gives a \(C\) such that
 
 \[C\mathbf{v} \approx \mu\mathbf{v}.\]
@@ -64,8 +64,8 @@ we will not really use this.
 Negation of a bit (NOT) is equally simple. If
 \(\mu \in \left\{ 0,1 \right\}\) is a bit, then its negation is simply
 \(1 - \mu\). And if \(C\) is a ciphertext for \(\mu\), then
-\(\mathrm{\text{Id}} - C\) is a ciphertext for \(1 - \mu\), since
-\[\left( \mathrm{\text{Id}} - C \right)\mathbf{v} = \mathbf{v} - C\mathbf{v} \approx (1 - \mu)\mathbf{v}.\]
+\(\mathrm{Id} - C\) is a ciphertext for \(1 - \mu\), since
+\[\left( \mathrm{Id} - C \right)\mathbf{v} = \mathbf{v} - C\mathbf{v} \approx (1 - \mu)\mathbf{v}.\]
 
 Multiplication is also a good operation on bits -- it is just AND. To
 multiply two bits, you just multiply (matrix multiplication) the
@@ -112,7 +112,7 @@ secret key has the form
 
 Now suppose we give you the vector \[\mathbf{x} = (9,0,0,0).\] We ask
 you for another vector
-\[\text{ Flatten}\left( \mathbf{x} \right) = \mathbf{x}',\] where
+\[\operatorname{Flatten}\left( \mathbf{x} \right) = \mathbf{x}',\] where
 \(\mathbf{x}'\) has to have the following two properties:
 
 \begin{itemize}
@@ -140,25 +140,25 @@ in your calculation, it is safe to reduce it mod 11.
 In general, if you know that \(\mathbf{v}\) has the form in
 Equation \eqref{fhe-v-form} and you are given some matrix
 \(C\) with coefficients in \({\mathbb{Z}}/q{\mathbb{Z}}\), then you can
-compute another matrix \(\text{Flatten}(C)\) such that:
+compute another matrix \(\operatorname{Flatten}(C)\) such that:
 
 \begin{itemize}
 \item
-  \(\text{Flatten}(C)\mathbf{v} = C\mathbf{v}\), and
+  \(\operatorname{Flatten}(C)\mathbf{v} = C\mathbf{v}\), and
 \item
-  All the entries of \(\text{Flatten}(C)\) are either 0 or 1.
+  All the entries of \(\operatorname{Flatten}(C)\) are either 0 or 1.
 \end{itemize}
 
-The \(\text{Flatten}\) process is essentially the same binary-expansion
+The \(\operatorname{Flatten}\) process is essentially the same binary-expansion
 process we used above to turn \(\mathbf{x}\) into \(\mathbf{x}'\),
 applied to each \(k + 1\) entries of each row of the matrix \(C\).
 
-So now, using this \(\text{Flatten}\) operation, we can insist that all
+So now, using this \(\operatorname{Flatten}\) operation, we can insist that all
 of our ciphertexts \(C\) are matrices with coefficients in
 \(\left\{ 0,1 \right\}\). For example, to multiply two messages
 \(\mu_{1}\) and \(\mu_{2}\), we first multiply the corresponding
 ciphertexts, then flatten the resulting product:
-\[\text{ Flatten}\left( C_{1}C_{2} \right).\]
+\[\operatorname{Flatten}\left( C_{1}C_{2} \right).\]
 
 Of course, revealing that the secret key \(\mathbf{v}\) has this special
 form will degrade security. This cryptosystem is as secure as an LWE

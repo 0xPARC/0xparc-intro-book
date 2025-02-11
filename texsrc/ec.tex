@@ -355,13 +355,13 @@ So now suppose Alice wants to set up a signature scheme.
 \end{algo}
 
 Now suppose Alice wants to prove to Bob that she approves the message
-\(\mathsf{\text{msg}}\), given her published public key
+\(\textsf{msg}\), given her published public key
 \([ d]\).
 
 \begin{algo}[EdDSA signature generation]
 \leavevmode
 Suppose Alice wants to sign a message
-\(\mathsf{\text{msg}}\).
+\(\textsf{msg}\).
 
 \begin{enumerate}
 \item
@@ -369,8 +369,8 @@ Suppose Alice wants to sign a message
   secret) and publishes \([ r] \in E\).
 \item
   Alice generates a number \(n \in {\mathbb{F}}_{q}\) by hashing
-  \(\mathsf{\text{msg}}\) with all public information, say
-  \[n := \operatorname{hash}([ r],\mathsf{\text{msg}},[ d]).\]
+  \(\textsf{msg}\) with all public information, say
+  \[n := \operatorname{hash}([ r],\textsf{msg},[ d]).\]
 \item
   Alice publishes the integer \[s := (r + dn)\operatorname{mod}q.\]
 \end{enumerate}
@@ -382,7 +382,7 @@ In other words, the signature is the ordered pair
 \begin{algo}[EdDSA signature verification]
 \leavevmode
 For Bob to verify a signature
-\(( [ r],s )\) for \(\mathsf{\text{msg}}\):
+\(( [ r],s )\) for \(\textsf{msg}\):
 
 \begin{enumerate}
 \item
@@ -404,7 +404,7 @@ The number \(r\) is called a \emph{blinding factor} because its use
 prevents Bob from stealing Alice's secret key \(d\) from the published
 \(s\). It is therefore imperative that \(r\) is not known to Bob nor
 reused between signatures, and so on. One way to do this would be to
-pick \(r = \operatorname{hash}(d,\mathsf{\text{msg}})\); this has the
+pick \(r = \operatorname{hash}(d,\textsf{msg})\); this has the
 bonus that it is deterministic as a function of the message and signer.
 
 In Section \ref{kzg} we will use ideas quite similar to this to build the KZG

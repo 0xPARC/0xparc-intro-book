@@ -8,7 +8,6 @@
     - go through book for theorems etc.
 - fix numbering of theorems etc
 - search for 2^254, approx, FF (without backslash)
-- search for \hyperref and fix
 - \text to \operatorname
 - make sure it's Equation \eqref not Equation \ref
 - check last numbered item (theorem, etc) of each section, to see that the numbers match
@@ -18,6 +17,7 @@
 
 DONE - \lbrack and \rbrack to [ and ]
 DONE - search for \phantomsection and fix
+DONE - search for \hyperref and fix
 
 
 main.tex:\input{intro}

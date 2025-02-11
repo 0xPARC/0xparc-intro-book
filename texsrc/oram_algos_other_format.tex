@@ -67,14 +67,14 @@ The procedure \(\texttt{evict}\)
     \begin{enumerate}
     \setcounter{enumiii}{3}
     \item
-      \(\mathsf{\text{block}} :=\) pop a real block from
-      \(\mathsf{\text{bucket}}\) if one exists; else
-      \(\mathsf{\text{block}} := (\bot,\bot,\bot)\).
+      \(\textsf{block} :=\) pop a real block from
+      \(\textsf{bucket}\) if one exists; else
+      \(\textsf{block} := (\bot,\bot,\bot)\).
     \item
       For each of the two children of \(\texttt{bucket}\) in a
       fixed order: scan the child bucket reading and writing every
-      block. If \(\mathsf{\text{block}}\) is real and wants to go to the
-      child, write \(\mathsf{\text{block}}\) to an empty slot in the
+      block. If \(\textsf{block}\) is real and wants to go to the
+      child, write \(\textsf{block}\) to an empty slot in the
       child bucket.
     \end{enumerate}
   \item
