@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 13:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 13:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -193,20 +193,20 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -230,25 +230,28 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-(./main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 2.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+LaTeX Font Info:    Trying to load font information for U+msa on input line 34.
+
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 34.
+
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2])
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./main
+.toc [2]
+[3])
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [3]
-(./intro.tex [4{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-
-super-ts1.enc}] [5] [6]) [7] (./mpc.tex [8] [9] [10] [11]) (./ot.tex [12]
-[13]) (./2pc-takeaways.tex) [14] (./ec.tex [15] [16] [17]
+ [4] (./intro.tex [5{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-supe
+r/cm-super-ts1.enc}] [6] [7]) [8] (./mpc.tex [9] [10] [11] [12]) (./ot.tex
+[13] [14]) (./2pc-takeaways.tex) [15] (./ec.tex [16] [17] [18]
 Overfull \hbox (4.03908pt too wide) in paragraph at lines 170--173
 []\OT1/cmr/m/n/10 Given a point $\OML/cmm/m/it/10 P \OT1/cmr/m/n/10 = (\OML/cmm
 /m/it/10 x[]; y[]\OT1/cmr/m/n/10 )$, its neg-a-tive is just $\OMS/cmsy/m/n/10 ^
@@ -256,15 +259,15 @@ Overfull \hbox (4.03908pt too wide) in paragraph at lines 170--173
 ^^@\OML/cmm/m/it/10 y[]\OT1/cmr/m/n/10 )$. 
  []
 
-[18] [19] [20] [21] [22]) (./pair.tex [23] [24]) (./kzg.tex [25] [26] [27])
-(./kzg-takeaways.tex [28]) [29] (./zkintro.tex [30]) (./plonk.tex
+[19] [20] [21] [22] [23]) (./pair.tex [24] [25]) (./kzg.tex [26] [27] [28])
+(./kzg-takeaways.tex [29]) [30] (./zkintro.tex [31]) (./plonk.tex
 Overfull \hbox (8.42612pt too wide) in paragraph at lines 16--17
 []\OT1/cmr/bx/n/10 Situation 4.1. []\OT1/cmr/m/it/10 Sup-pose we have a sys-tem
  of $\OML/cmm/m/it/10 m$ \OT1/cmr/m/it/10 equa-tions in $\OML/cmm/m/it/10 k$ \O
 T1/cmr/m/it/10 vari-ables $\OML/cmm/m/it/10 x[]; [] ; x[]$\OT1/cmr/m/it/10 : 
  []
 
-[31] [32] [33] [34]) (./copy-constraints.tex [35]
+[32] [33] [34] [35]) (./copy-constraints.tex [36]
 Overfull \hbox (6.56363pt too wide) in paragraph at lines 65--71
 [][]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^U \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 P\
 OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ![]\OT1/cmr/m/n/10 ))$. De-fine $\OML/cmm/m/it
@@ -272,47 +275,47 @@ OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ![]\OT1/cmr/m/n/10 ))$. De-fine $\OML/cmm/m/it
 cmr/m/n/10 )$ and $[](\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 )$. 
  []
 
-[36] [37]
+[37] [38]
 Overfull \hbox (0.25067pt too wide) in paragraph at lines 186--193
 \OT1/cmr/m/n/10 Then the prover can start defin-ing ac-cu-mu-la-tor poly-no-mi-
 als, af-ter re-introducing
  []
 
-[38]
+[39]
 Overfull \hbox (34.513pt too wide) in paragraph at lines 269--273
 []\OT1/cmr/m/n/10 Peggy uses Al-go-rithm 3.26[] to prove Equa-tion [] holds for
  $\OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 2 f\OML/cmm/m/it/10 !; ![]; [] ; ![]\OMS/
 cmsy/m/n/10 g$\OT1/cmr/m/n/10 . 
  []
 
-) (./fs.tex [39]) (./snark-takeaways.tex [40]) [41] (./fhe0.tex [42])
-(./lwe.tex [43] [44]) (./fhe2.tex [45] [46] [47]) (./fhe3.tex [48] [49]
-[50] [51]) (./fhe-takeaways.tex) [52] (./oram.tex [53] [54] [55] [56] [57]
-<binaryoram16-evict.png, id=206, 722.7pt x 289.08pt>
+) (./fs.tex [40]) (./snark-takeaways.tex [41]) [42] (./fhe0.tex [43])
+(./lwe.tex [44] [45]) (./fhe2.tex [46] [47] [48]) (./fhe3.tex [49] [50]
+[51] [52]) (./fhe-takeaways.tex) [53] (./oram.tex [54] [55] [56] [57] [58]
+<binaryoram16-evict.png, id=211, 722.7pt x 289.08pt>
 File: binaryoram16-evict.png Graphic file (type png)
 <use binaryoram16-evict.png>
 Package pdftex.def Info: binaryoram16-evict.png  used on input line 291.
 (pdftex.def)             Requested size: 345.0pt x 137.99812pt.
 
-[58 <./binaryoram16-evict.png>]
+[59 <./binaryoram16-evict.png>]
 Overfull \hbox (24.49446pt too wide) in paragraph at lines 364--366
 [] []\OT1/cmr/m/n/10 if $[] = []$ then add $([]\OML/cmm/m/it/10 ; [][]; l[]\OT1
 /cmr/m/n/10 )$ to the root bucket; else add $([]\OML/cmm/m/it/10 ; []; l[]\OT1/
 cmr/m/n/10 )$
  []
 
-[59] [60] [61]) (./oram-takeaways.tex) [62] (./main.aux)
+[60] [61] [62]) (./oram-takeaways.tex) [63] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3391 strings out of 474116
- 51005 string characters out of 5743682
+ 3399 strings out of 474116
+ 51102 string characters out of 5743682
  1948187 words of memory out of 5000000
- 25647 multiletter control sequences out of 15000+600000
- 569883 words of font info for 80 fonts, out of 8000000 for 9000
+ 25653 multiletter control sequences out of 15000+600000
+ 571429 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,18n,65p,615b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -325,23 +328,25 @@ local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
 cal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
 l/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loca
 l/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/tex
-live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texliv
-e/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2
-024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2024/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/tex
-mf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf
--dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (62 pages, 479812 bytes).
+texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
+xlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
+ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
+/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/20
+24/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2024/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-d
+ist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on main.pdf (63 pages, 505022 bytes).
 PDF statistics:
- 325 PDF objects out of 1000 (max. 8388607)
- 210 compressed objects within 3 object streams
+ 338 PDF objects out of 1000 (max. 8388607)
+ 218 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
