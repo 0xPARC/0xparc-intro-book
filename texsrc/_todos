@@ -1,23 +1,25 @@
 - urls in footnotes, make correctly clickable
 - sections -> subsections
 - chapter headers, title and authors
-- check for {[}...{]}  (this is an incorrect ref)
+
 - check for \left( \right), they make extra space and get rid of them
 - fix all theorems etc, everything in a box:
     - search for "strong"
     - go through book for theorems etc.
 - fix numbering of theorems etc
 - search for 2^254, approx, FF (without backslash)
-- \text to \operatorname
 - make sure it's Equation \eqref not Equation \ref
 - check last numbered item (theorem, etc) of each section, to see that the numbers match
-- change \mathtt{\text{...}} to \texttt{...} (or at least search for \mathtt and \text)
-- \mathsf{\text{...}}, same
 
 
 DONE - \lbrack and \rbrack to [ and ]
 DONE - search for \phantomsection and fix
 DONE - search for \hyperref and fix
+DONE - \text to \operatorname
+DONE - change \mathtt{\text{...}} to \texttt{...} (or at least search for \mathtt and \text)
+DONE - \mathsf{\text{...}}, same
+DONE - check for {[}...{]}  (this is an incorrect ref)
+
 
 
 main.tex:\input{intro}

@@ -20,9 +20,9 @@ small ``error'' \(\epsilon\), which will typically be much, much smaller
 than \(q\).
 
 As before, our \emph{secret key} will be a vector of length \(n\):
-\[\mathbf{v} = \left( v_{1},\ldots,v_{n} \right) \in ({\mathbb{Z}}/q{\mathbb{Z}})^{n}.\]
+\[\mathbf{v} = ( v_{1},\ldots,v_{n} ) \in ({\mathbb{Z}}/q{\mathbb{Z}})^{n}.\]
 Suppose we want to encode a message \(\mu\) that is just a single bit,
-let us say \(\mu \in \left\{ 0,1 \right\}\). Our ciphertext will be a
+let us say \(\mu \in \{ 0,1 \}\). Our ciphertext will be a
 square \(n\)-by-\(n\) matrix \(C\) such that
 \[C\mathbf{v} \approx \mu\mathbf{v}.\] Now if we assume that
 \(\mathbf{v}\) has at least one ``big'' entry (say \(v_{i}\)), then
@@ -56,21 +56,21 @@ multiplication (aka AND).
 Addition is simple: just add the matrices. If
 \(C_{1}\mathbf{v} \approx \mu_{1}\mathbf{v}\) and
 \(C_{2}\mathbf{v} \approx \mu_{2}\mathbf{v}\), then
-\[\left( C_{1} + C_{2} \right)\mathbf{v} = C_{1}\mathbf{v} + C_{2}\mathbf{v} \approx \mu_{1}\mathbf{v} + \mu_{2}\mathbf{v} = \left( \mu_{1} + \mu_{2} \right)\mathbf{v}.\]
+\[( C_{1} + C_{2} )\mathbf{v} = C_{1}\mathbf{v} + C_{2}\mathbf{v} \approx \mu_{1}\mathbf{v} + \mu_{2}\mathbf{v} = ( \mu_{1} + \mu_{2} )\mathbf{v}.\]
 Of course, addition on bits is not a great operation, because if you add
 \(1 + 1\), you get \(2\), and \(2\) is not a legitimate bit anymore. So
 we will not really use this.
 
 Negation of a bit (NOT) is equally simple. If
-\(\mu \in \left\{ 0,1 \right\}\) is a bit, then its negation is simply
+\(\mu \in \{ 0,1 \}\) is a bit, then its negation is simply
 \(1 - \mu\). And if \(C\) is a ciphertext for \(\mu\), then
 \(\mathrm{Id} - C\) is a ciphertext for \(1 - \mu\), since
-\[\left( \mathrm{Id} - C \right)\mathbf{v} = \mathbf{v} - C\mathbf{v} \approx (1 - \mu)\mathbf{v}.\]
+\[( \mathrm{Id} - C )\mathbf{v} = \mathbf{v} - C\mathbf{v} \approx (1 - \mu)\mathbf{v}.\]
 
 Multiplication is also a good operation on bits -- it is just AND. To
 multiply two bits, you just multiply (matrix multiplication) the
 ciphertexts:
-\[C_{1}C_{2}\mathbf{v} \approx C_{1}\left( \mu_{2}\mathbf{v} \right) = \mu_{2}C_{1}\mathbf{v} \approx \mu_{2}\mu_{1}\mathbf{v} = \mu_{1}\mu_{2}\mathbf{v}.\]
+\[C_{1}C_{2}\mathbf{v} \approx C_{1}( \mu_{2}\mathbf{v} ) = \mu_{2}C_{1}\mathbf{v} \approx \mu_{2}\mu_{1}\mathbf{v} = \mu_{1}\mu_{2}\mathbf{v}.\]
 
 At this point you might be concerned about this symbol \(\approx\) and
 what happens to the size of the error. That is an important issue, and
@@ -106,13 +106,13 @@ where \(k = \lfloor\log_{2}q\rfloor\).
 To see how this helps us, try the following puzzle. Assume \(q = 11\)
 (so all our vectors have entries modulo 11), and \(r = 1\), so our
 secret key has the form
-\[\mathbf{v} = \left( a_{1},2a_{1},4a_{1},8a_{1} \right).\] You know
+\[\mathbf{v} = ( a_{1},2a_{1},4a_{1},8a_{1} ).\] You know
 \(\mathbf{v}\) has this form, but you do not know the specific value of
 \(a_{1}\).
 
 Now suppose we give you the vector \[\mathbf{x} = (9,0,0,0).\] We ask
 you for another vector
-\[\operatorname{Flatten}\left( \mathbf{x} \right) = \mathbf{x}',\] where
+\[\operatorname{Flatten}( \mathbf{x} ) = \mathbf{x}',\] where
 \(\mathbf{x}'\) has to have the following two properties:
 
 \begin{itemize}
@@ -155,10 +155,10 @@ applied to each \(k + 1\) entries of each row of the matrix \(C\).
 
 So now, using this \(\operatorname{Flatten}\) operation, we can insist that all
 of our ciphertexts \(C\) are matrices with coefficients in
-\(\left\{ 0,1 \right\}\). For example, to multiply two messages
+\(\{ 0,1 \}\). For example, to multiply two messages
 \(\mu_{1}\) and \(\mu_{2}\), we first multiply the corresponding
 ciphertexts, then flatten the resulting product:
-\[\operatorname{Flatten}\left( C_{1}C_{2} \right).\]
+\[\operatorname{Flatten}( C_{1}C_{2} ).\]
 
 Of course, revealing that the secret key \(\mathbf{v}\) has this special
 form will degrade security. This cryptosystem is as secure as an LWE
@@ -174,15 +174,15 @@ where \(\mathbf{\varepsilon}_{1}\) is some vector with all its entries
 bounded by some \(B\). (And similarly for \(C_{2}\) and \(\mu_{2}\).)
 
 When we add two ciphertexts, the errors add:
-\[\left( C_{1} + C_{2} \right)\mathbf{v} = \left( \mu_{1} + \mu_{2} \right)\mathbf{v} + \left( \mathbf{\varepsilon}_{1} + \mathbf{\varepsilon}_{2} \right).\]
+\[( C_{1} + C_{2} )\mathbf{v} = ( \mu_{1} + \mu_{2} )\mathbf{v} + ( \mathbf{\varepsilon}_{1} + \mathbf{\varepsilon}_{2} ).\]
 So the error on the sum will be bounded by \(2B\).
 
 Negation is similar to addition -- in fact, the error will not change at
 all.
 
 Multiplication is more complicated, and this is why we insisted that all
-ciphertexts have entries in \(\left\{ 0,1 \right\}\). We compute
-\[C_{1}C_{2}\mathbf{v} = C_{1}\left( \mu_{2}\mathbf{v} + \mathbf{\varepsilon}_{2} \right) = \mu_{1}\mu_{2}\mathbf{v} + \left( \mu_{2}\mathbf{\varepsilon}_{1} + C_{1}\mathbf{\varepsilon}_{2} \right).\]
+ciphertexts have entries in \(\{ 0,1 \}\). We compute
+\[C_{1}C_{2}\mathbf{v} = C_{1}( \mu_{2}\mathbf{v} + \mathbf{\varepsilon}_{2} ) = \mu_{1}\mu_{2}\mathbf{v} + ( \mu_{2}\mathbf{\varepsilon}_{1} + C_{1}\mathbf{\varepsilon}_{2} ).\]
 
 Now since \(\mu_{2}\) is either \(0\) or \(1\), we know that
 \(\mu_{2}\mathbf{\varepsilon}_{1}\) is a vector with all entries bounded

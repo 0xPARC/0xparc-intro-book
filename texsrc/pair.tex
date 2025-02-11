@@ -67,20 +67,20 @@ that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
 Suppose Peggy wants to convince Victor that \(y = x^{3} + 2\), where
 Peggy has sent Victor elliptic curve points \([ x]\) and
 \([ y]\). To do this, Peggy additionally sends to Victor
-\(\left[ x^{2} \right]\) and
-\(\left[ x^{3} \right]\).
+\([ x^{2} ]\) and
+\([ x^{3} ]\).
 
-Given \([ x]\), \(\left[ x^{2} \right]\),
-\(\left[ x^{3} \right]\), and \([ y]\), Victor
+Given \([ x]\), \([ x^{2} ]\),
+\([ x^{3} ]\), and \([ y]\), Victor
 verifies that:
 
 \begin{itemize}
 \item
-  \(\operatorname{pair}(\left[ x^{2} \right],[ 1]) = \operatorname{pair}([ x],[ x])\)
+  \(\operatorname{pair}([ x^{2} ],[ 1]) = \operatorname{pair}([ x],[ x])\)
 \item
-  \(\operatorname{pair}(\left[ x^{3} \right],[ 1]) = \operatorname{pair}(\left[ x^{2} \right],[ x])\)
+  \(\operatorname{pair}([ x^{3} ],[ 1]) = \operatorname{pair}([ x^{2} ],[ x])\)
 \item
-  \([ y] = \left[ x^{3} \right] + 2[ 1]\).
+  \([ y] = [ x^{3} ] + 2[ 1]\).
 \end{itemize}
 
 The process of verifying this sort of identity is quite general: The
