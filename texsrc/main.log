@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  11 FEB 2025 12:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -437,7 +437,7 @@ S/cmsy/m/n/10 g$\OT1/cmr/m/n/10 .
 ) (./fs.tex [37]) (./snark-takeaways.tex [38]) (./fhe0.tex [39]) (./lwe.tex
 [40] [41]) (./fhe2.tex [42] [43] [44]) (./fhe3.tex [45] [46] [47] [48])
 (./fhe-takeaways.tex) (./oram.tex [49] [50] [51] [52] [53]
-<binaryoram16-evict.png, id=968, 722.7pt x 289.08pt>
+<binaryoram16-evict.png, id=967, 722.7pt x 289.08pt>
 File: binaryoram16-evict.png Graphic file (type png)
 <use binaryoram16-evict.png>
 Package pdftex.def Info: binaryoram16-evict.png  used on input line 291.
@@ -464,13 +464,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 9755339CBF0D69A52F0F2209B59EC1C1;16425.
  ) 
 Here is how much of TeX's memory you used:
- 10818 strings out of 474116
- 164703 string characters out of 5743682
+ 10817 strings out of 474116
+ 164693 string characters out of 5743682
  1948187 words of memory out of 5000000
  32623 multiletter control sequences out of 15000+600000
  570483 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,18n,79p,623b,749s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,18n,79p,623b,748s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -494,10 +494,10 @@ dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/tex
 mf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf
 -dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (59 pages, 501901 bytes).
+Output written on main.pdf (59 pages, 501273 bytes).
 PDF statistics:
- 1205 PDF objects out of 1440 (max. 8388607)
- 1085 compressed objects within 11 object streams
- 349 named destinations out of 1000 (max. 500000)
+ 1203 PDF objects out of 1440 (max. 8388607)
+ 1083 compressed objects within 11 object streams
+ 348 named destinations out of 1000 (max. 500000)
  734 words of extra memory for PDF output out of 10000 (max. 10000000)
 
