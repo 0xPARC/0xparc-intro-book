@@ -7,9 +7,7 @@
     - search for "strong"
     - go through book for theorems etc.
 - fix numbering of theorems etc
-- find Caroline's notion doc
 - search for 2^254, approx, FF (without backslash)
-- search for \phantomsection and fix
 - search for \hyperref and fix
 - \text to \operatorname
 - make sure it's Equation \eqref not Equation \ref
@@ -19,6 +17,7 @@
 
 
 DONE - \lbrack and \rbrack to [ and ]
+DONE - search for \phantomsection and fix
 
 
 main.tex:\input{intro}

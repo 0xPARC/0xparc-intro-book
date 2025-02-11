@@ -1,91 +1,91 @@
-\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}What is programmable cryptography?}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Ideas in programmable cryptography}{4}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}2PC: two-party computation}{5}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}SNARKs: proofs of general statements}{5}{subsubsection.1.2.2}%
-\contentsline {subsubsection}{\numberline {1.2.3}FHE: fully homomorphic encryption}{5}{subsubsection.1.2.3}%
-\contentsline {subsubsection}{\numberline {1.2.4}ORAM: Oblivious RAM}{6}{subsubsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.3}Programmable cryptography in the world}{6}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Two-Party Computation}{7}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Garbled circuits}{7}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}The problem}{7}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Outline of solution}{7}{subsubsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.3}Garbled gates}{8}{subsubsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.4}Chaining garbled gates}{9}{subsubsection.2.1.4}%
-\contentsline {subsubsection}{\numberline {2.1.5}How Bob uses one gate}{10}{subsubsection.2.1.5}%
-\contentsline {subsubsection}{\numberline {2.1.6}How the circuit ends}{10}{subsubsection.2.1.6}%
-\contentsline {subsubsection}{\numberline {2.1.7}How the circuit starts}{10}{subsubsection.2.1.7}%
-\contentsline {subsection}{\numberline {2.2}Oblivious transfer}{11}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Commutative encryption}{11}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}OT using commutative encryption}{11}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}OT in one step}{12}{subsubsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.3}2PC takeaways}{13}{subsection.2.3}%
-\contentsline {section}{\numberline {3}SNARKs Prelude: Elliptic Curves and Polynomial Commitments}{14}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Elliptic curves}{14}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Discrete logarithm}{18}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Curves other than BN254}{19}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Example application: EdDSA signature scheme}{20}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Example application: Pedersen commitments}{21}{subsubsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.3}Bilinear pairings on elliptic curves}{22}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Verifying more complicated claims}{23}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}So which curves are pairing-friendly?}{23}{subsubsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.4}KZG commitments}{24}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}The setup}{24}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}The KZG commitment scheme}{25}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}Multi-openings}{26}{subsubsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {3.4.4}Root check}{26}{subsubsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.5}KZG takeaways}{28}{subsection.3.5}%
-\contentsline {section}{\numberline {4}SNARKs}{28}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Introduction to SNARKs}{28}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}What can you do with a SNARK?}{29}{subsubsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.2}PLONK, a zkSNARK protocol}{29}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Arithmetization}{29}{subsubsection.4.2.1}%
-\contentsline {subsubsection}{\numberline {4.2.2}An instance of PLONK}{31}{subsubsection.4.2.2}%
-\contentsline {subsubsection}{\numberline {4.2.3}Step 1: the commitment}{32}{subsubsection.4.2.3}%
-\contentsline {subsubsection}{\numberline {4.2.4}Step 2: gate check}{33}{subsubsection.4.2.4}%
-\contentsline {subsubsection}{\numberline {4.2.5}Step 3: proving the copy constraints}{33}{subsubsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {4.2.6}Step 4: public and private witnesses}{33}{subsubsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.3}Copy constraints in PLONK}{34}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Easier case: permutation check}{34}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Copy check}{35}{subsubsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.4}Making it non-interactive: Fiat-Shamir}{38}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}SNARK takeaways}{38}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Fully Homomorphic Encryption}{39}{section.5}%
-\contentsline {subsection}{\numberline {5.1}FHE and leveled FHE}{39}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}A hard problem: learning with errors}{40}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}A small example of an LWE problem}{41}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2}General problem}{42}{subsubsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.3}Public-key cryptography from LWE}{43}{subsection.5.3}%
-\contentsline {subsubsection}{\numberline {5.3.1}Encryption}{43}{subsubsection.5.3.1}%
-\contentsline {subsubsection}{\numberline {5.3.2}An example}{44}{subsubsection.5.3.2}%
-\contentsline {subsubsection}{\numberline {5.3.3}Decryption}{44}{subsubsection.5.3.3}%
-\contentsline {subsubsection}{\numberline {5.3.4}How does this work in general?}{45}{subsubsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.4}Leveled FHE from LWE}{45}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}The main idea: approximate eigenvalues}{45}{subsubsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.2}Operations on encrypted data}{46}{subsubsection.5.4.2}%
-\contentsline {subsubsection}{\numberline {5.4.3}The ``Flatten'' operation}{47}{subsubsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {5.4.4}Error analysis}{48}{subsubsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.5}FHE takeaways}{49}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Oblivious RAM}{50}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Oblivious RAM: problem definitions}{50}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Naive solutions}{51}{subsection.6.2}%
-\contentsline {subsubsection}{\numberline {6.2.1}Naive solution 1}{51}{subsubsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.2}Naive solution 2}{52}{subsubsection.6.2.2}%
-\contentsline {subsubsection}{\numberline {6.2.3}Naive solution 3}{52}{subsubsection.6.2.3}%
-\contentsline {subsubsection}{\numberline {6.2.4}Important observation}{52}{subsubsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.3}Binary-tree ORAM: data structure}{52}{subsection.6.3}%
-\contentsline {subsubsection}{\numberline {6.3.1}Server data structure}{52}{subsubsection.6.3.1}%
-\contentsline {subsubsection}{\numberline {6.3.2}Main path invariant}{53}{subsubsection.6.3.2}%
-\contentsline {subsubsection}{\numberline {6.3.3}Imaginary position map}{53}{subsubsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.4}Binary-tree ORAM: operations}{53}{subsection.6.4}%
-\contentsline {subsubsection}{\numberline {6.4.1}Fetching a block}{53}{subsubsection.6.4.1}%
-\contentsline {subsubsection}{\numberline {6.4.2}Remapping a block}{53}{subsubsection.6.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.3}Eviction}{54}{subsubsection.6.4.3}%
-\contentsline {subsubsection}{\numberline {6.4.4}Algorithm pseudo-code}{55}{subsubsection.6.4.4}%
-\contentsline {subsection}{\numberline {6.5}Analysis}{56}{subsection.6.5}%
-\contentsline {subsubsection}{\numberline {6.5.1}Obliviousness}{56}{subsubsection.6.5.1}%
-\contentsline {subsubsection}{\numberline {6.5.2}Correctness}{56}{subsubsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.6}Binary-tree ORAM: recursion}{58}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Path ORAM}{58}{subsection.6.7}%
-\contentsline {subsubsection}{\numberline {6.7.1}Other applications of ORAM}{58}{subsubsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.8}ORAM takeaways}{59}{subsection.6.8}%
+\contentsline {section}{\numberline {1}Introduction}{4}{}%
+\contentsline {subsection}{\numberline {1.1}What is programmable cryptography?}{4}{}%
+\contentsline {subsection}{\numberline {1.2}Ideas in programmable cryptography}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}2PC: two-party computation}{5}{}%
+\contentsline {subsubsection}{\numberline {1.2.2}SNARKs: proofs of general statements}{5}{}%
+\contentsline {subsubsection}{\numberline {1.2.3}FHE: fully homomorphic encryption}{5}{}%
+\contentsline {subsubsection}{\numberline {1.2.4}ORAM: Oblivious RAM}{6}{}%
+\contentsline {subsection}{\numberline {1.3}Programmable cryptography in the world}{6}{}%
+\contentsline {section}{\numberline {2}Two-Party Computation}{7}{}%
+\contentsline {subsection}{\numberline {2.1}Garbled circuits}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}The problem}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Outline of solution}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.3}Garbled gates}{8}{}%
+\contentsline {subsubsection}{\numberline {2.1.4}Chaining garbled gates}{9}{}%
+\contentsline {subsubsection}{\numberline {2.1.5}How Bob uses one gate}{10}{}%
+\contentsline {subsubsection}{\numberline {2.1.6}How the circuit ends}{10}{}%
+\contentsline {subsubsection}{\numberline {2.1.7}How the circuit starts}{10}{}%
+\contentsline {subsection}{\numberline {2.2}Oblivious transfer}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Commutative encryption}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}OT using commutative encryption}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3}OT in one step}{12}{}%
+\contentsline {subsection}{\numberline {2.3}2PC takeaways}{13}{}%
+\contentsline {section}{\numberline {3}SNARKs Prelude: Elliptic Curves and Polynomial Commitments}{14}{}%
+\contentsline {subsection}{\numberline {3.1}Elliptic curves}{14}{}%
+\contentsline {subsection}{\numberline {3.2}Discrete logarithm}{18}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Curves other than BN254}{19}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Example application: EdDSA signature scheme}{20}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}Example application: Pedersen commitments}{21}{}%
+\contentsline {subsection}{\numberline {3.3}Bilinear pairings on elliptic curves}{22}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Verifying more complicated claims}{23}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}So which curves are pairing-friendly?}{23}{}%
+\contentsline {subsection}{\numberline {3.4}KZG commitments}{24}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}The setup}{24}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}The KZG commitment scheme}{25}{}%
+\contentsline {subsubsection}{\numberline {3.4.3}Multi-openings}{26}{}%
+\contentsline {subsubsection}{\numberline {3.4.4}Root check}{26}{}%
+\contentsline {subsection}{\numberline {3.5}KZG takeaways}{28}{}%
+\contentsline {section}{\numberline {4}SNARKs}{28}{}%
+\contentsline {subsection}{\numberline {4.1}Introduction to SNARKs}{28}{}%
+\contentsline {subsubsection}{\numberline {4.1.1}What can you do with a SNARK?}{29}{}%
+\contentsline {subsection}{\numberline {4.2}PLONK, a zkSNARK protocol}{29}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Arithmetization}{29}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}An instance of PLONK}{31}{}%
+\contentsline {subsubsection}{\numberline {4.2.3}Step 1: the commitment}{32}{}%
+\contentsline {subsubsection}{\numberline {4.2.4}Step 2: gate check}{33}{}%
+\contentsline {subsubsection}{\numberline {4.2.5}Step 3: proving the copy constraints}{33}{}%
+\contentsline {subsubsection}{\numberline {4.2.6}Step 4: public and private witnesses}{33}{}%
+\contentsline {subsection}{\numberline {4.3}Copy constraints in PLONK}{34}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Easier case: permutation check}{34}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Copy check}{35}{}%
+\contentsline {subsection}{\numberline {4.4}Making it non-interactive: Fiat-Shamir}{38}{}%
+\contentsline {subsection}{\numberline {4.5}SNARK takeaways}{38}{}%
+\contentsline {section}{\numberline {5}Fully Homomorphic Encryption}{39}{}%
+\contentsline {subsection}{\numberline {5.1}FHE and leveled FHE}{39}{}%
+\contentsline {subsection}{\numberline {5.2}A hard problem: learning with errors}{40}{}%
+\contentsline {subsubsection}{\numberline {5.2.1}A small example of an LWE problem}{41}{}%
+\contentsline {subsubsection}{\numberline {5.2.2}General problem}{42}{}%
+\contentsline {subsection}{\numberline {5.3}Public-key cryptography from LWE}{43}{}%
+\contentsline {subsubsection}{\numberline {5.3.1}Encryption}{43}{}%
+\contentsline {subsubsection}{\numberline {5.3.2}An example}{44}{}%
+\contentsline {subsubsection}{\numberline {5.3.3}Decryption}{44}{}%
+\contentsline {subsubsection}{\numberline {5.3.4}How does this work in general?}{45}{}%
+\contentsline {subsection}{\numberline {5.4}Leveled FHE from LWE}{45}{}%
+\contentsline {subsubsection}{\numberline {5.4.1}The main idea: approximate eigenvalues}{45}{}%
+\contentsline {subsubsection}{\numberline {5.4.2}Operations on encrypted data}{46}{}%
+\contentsline {subsubsection}{\numberline {5.4.3}The ``Flatten'' operation}{47}{}%
+\contentsline {subsubsection}{\numberline {5.4.4}Error analysis}{48}{}%
+\contentsline {subsection}{\numberline {5.5}FHE takeaways}{49}{}%
+\contentsline {section}{\numberline {6}Oblivious RAM}{50}{}%
+\contentsline {subsection}{\numberline {6.1}Oblivious RAM: problem definitions}{50}{}%
+\contentsline {subsection}{\numberline {6.2}Naive solutions}{51}{}%
+\contentsline {subsubsection}{\numberline {6.2.1}Naive solution 1}{51}{}%
+\contentsline {subsubsection}{\numberline {6.2.2}Naive solution 2}{52}{}%
+\contentsline {subsubsection}{\numberline {6.2.3}Naive solution 3}{52}{}%
+\contentsline {subsubsection}{\numberline {6.2.4}Important observation}{52}{}%
+\contentsline {subsection}{\numberline {6.3}Binary-tree ORAM: data structure}{52}{}%
+\contentsline {subsubsection}{\numberline {6.3.1}Server data structure}{52}{}%
+\contentsline {subsubsection}{\numberline {6.3.2}Main path invariant}{53}{}%
+\contentsline {subsubsection}{\numberline {6.3.3}Imaginary position map}{53}{}%
+\contentsline {subsection}{\numberline {6.4}Binary-tree ORAM: operations}{53}{}%
+\contentsline {subsubsection}{\numberline {6.4.1}Fetching a block}{53}{}%
+\contentsline {subsubsection}{\numberline {6.4.2}Remapping a block}{53}{}%
+\contentsline {subsubsection}{\numberline {6.4.3}Eviction}{54}{}%
+\contentsline {subsubsection}{\numberline {6.4.4}Algorithm pseudo-code}{55}{}%
+\contentsline {subsection}{\numberline {6.5}Analysis}{56}{}%
+\contentsline {subsubsection}{\numberline {6.5.1}Obliviousness}{56}{}%
+\contentsline {subsubsection}{\numberline {6.5.2}Correctness}{56}{}%
+\contentsline {subsection}{\numberline {6.6}Binary-tree ORAM: recursion}{58}{}%
+\contentsline {subsection}{\numberline {6.7}Path ORAM}{58}{}%
+\contentsline {subsubsection}{\numberline {6.7.1}Other applications of ORAM}{58}{}%
+\contentsline {subsection}{\numberline {6.8}ORAM takeaways}{59}{}%
