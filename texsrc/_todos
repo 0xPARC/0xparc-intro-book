@@ -17,3 +17,25 @@
 - check last numbered item (theorem, etc) of each section, to see that the numbers match
 - change \mathtt{\text{...}} to \texttt{...} (or at least search for \mathtt and \text)
 - \mathsf{\text{...}}, same
+
+
+main.tex:\input{intro}
+main.tex:\input{mpc}
+main.tex:\input{ot}
+main.tex:\input{2pc-takeaways}
+main.tex:\input{ec}
+main.tex:\input{pair}
+main.tex:\input{kzg}
+main.tex:\input{kzg-takeaways}
+main.tex:\input{zkintro}
+main.tex:\input{plonk}
+main.tex:\input{copy-constraints}
+main.tex:\input{fs}
+main.tex:\input{snark-takeaways}
+main.tex:\input{fhe0}
+main.tex:\input{lwe}
+main.tex:\input{fhe2}
+main.tex:\input{fhe3}
+main.tex:\input{fhe-takeaways}
+main.tex:\input{oram}
+main.tex:\input{oram-takeaways}

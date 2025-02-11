@@ -1,0 +1,129 @@
+\section{A hard problem: learning with errors}\label{lwe}
+
+As we have seen ({[}ec{]}), a lot of cryptography relies on hard math
+problems. RSA is based on the difficulty of integer factorization;
+elliptic curve cryptography depends on the discrete log assumption.
+
+Our protocol for leveled FHE relies on a different hard problem: the
+learning with errors problem (LWE). The problem is to solve systems of
+linear equations, except that the equations are only approximately true
+-- they permit a small ``error'' -- and instead of solving for rational
+or real numbers, you are solving for integers modulo \(q\).
+
+\subsection{A small example of an LWE problem}\label{lwe-small}
+
+Here is a concrete example of an LWE problem and how one might attack it
+``by hand.'' This exercise will make the inherent difficulty of the
+problem quite intuitive.
+
+strong(Problem):\\
+We are working over \(\mathbb{F}_{11}\), and there is some secret vector
+\(a = \left( a_{1},\ldots,a_{4} \right)\). There are two sets of claims.
+Each claim ``\(\left( x_{1},\ldots,x_{4} \right):y\)'' purports the
+relationship
+
+\[y = a_{1}x_{1} + a_{2}x_{2} + a_{3}x_{3} + a_{4}x_{4} + \varepsilon,\mspace{6mu}\varepsilon \in \left\{ 0,1 \right\}.\]
+(The \(\varepsilon\) is different from equation to equation.)
+
+One of the sets of claims is ``genuine'' and comes from a consistent set
+of \(a_{i}\), while the other set is ``fake'' and has randomly generated
+\(y\) values. Tell them apart and find the correct secret vector
+\(\left( a_{1},\ldots,a_{4} \right)\).
+
+
+\begin{center}
+\begin{tabular}{|c|c|}
+Blue Set & Red Set \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+(1, 0, 1, 7) : 2 & (5, 4, 5, 2) : 2 \\
+(5, 8, 4, 10) : 2 & (7, 7, 7, 8) : 5 \\
+(7, 7, 8, 5) : 3 & (6, 8, 2, 2) : 0 \\
+(5, 1, 10, 6) : 10 & (10, 4, 4, 3) : 1 \\
+(8, 0, 2, 4) : 9 & (1, 10, 8, 6) : 6 \\
+(9, 3, 0, 6) : 9 & (2, 7, 7, 4) : 4 \\
+(0, 6, 1, 6) : 9 & (8, 6, 6, 9) : 1 \\
+(0, 4, 9, 7) : 5 & (10, 6, 1, 6) : 9 \\
+(10, 7, 4, 10) : 10 & (3, 1, 10, 9) : 7 \\
+(5, 5, 10, 6) : 9 & (2, 4, 10, 3) : 7 \\
+(10, 7, 3, 1) : 9 & (10, 4, 6, 4) : 7 \\
+(0, 2, 5, 5) : 6 & (8, 5, 7, 2) : 5 \\
+(9, 10, 2, 1) : 3 & (4, 7, 0, 0) : 8 \\
+(3, 7, 2, 1) : 6 & (0, 3, 0, 0) : 0 \\
+(2, 3, 4, 5) : 3 & (8, 3, 2, 7) : 5 \\
+(2, 1, 6, 9) : 3 & (4, 6, 6, 3) : 1 \\
+\end{tabular}
+\end{center}
+
+(\textbf{Solution sketch; can be skipped safely.}) One way to start
+would be to define an \emph{information vector}
+\[\left( x_{1},x_{2},x_{3},x_{4}|y|S \right),\] where
+\(S \subset {\mathbb{F}}_{11}\), to mean the statement
+\[\sum a_{i}x_{i} = y + s,\text{ where }s \in S.\] In particular, a
+purported approximation \(\left( x_{1},x_{2},x_{3},x_{4} \right):y\) in
+the LWE protocol corresponds to the information vector
+\[\left( x_{1},x_{2},x_{3},x_{4}|y|\left\{ 0, - 1 \right\} \right).\]
+The benefit of this notation is that we can take linear combinations of
+them. Specifically, if \(\left( X_{1}\left| y_{1} \right|S_{1} \right)\)
+and \(\left( X_{2}\left| y_{2} \right|S_{2} \right)\) are information
+vectors (where \(X_{i}\) are vectors), then
+
+\[\left( \alpha X_{1} + \beta X_{2}\left| \alpha y_{1} + \beta y_{2} \right|\alpha S_{1} + \beta S_{2} \right),\]
+
+where \(\alpha S = \left\{ \alpha s|s \in S \right\}\) and
+\(S + T = \left\{ s + t|s \in S,t \in T \right\}\).
+
+We can observe the following:
+
+\begin{enumerate}
+\item
+  If we obtain two vectors \(\left( X|y|S_{1} \right)\) and
+  \(\left( X|y|S_{2} \right)\), then we have the information (assuming
+  the vectors are accurate) \(\left( X|y|S_{1} \cap S_{2} \right)\). So
+  if we are lucky enough, say, to have
+  \(\left| S_{1} \cap S_{2} \right| = 1\), then we have found an exact
+  equation with no error.
+\item
+  As we linearly combine vectors, their ``error part'' \(S\) gets bigger
+  exponentially. So we can only add vectors very few times, ideally just
+  one or two times, before they start being unusable.
+\end{enumerate}
+
+With these heuristics, we can start by looking at the Red Set, and make
+vectors with many \(0\)'s in the same places.
+
+\begin{enumerate}
+\item
+  Our eyes are drawn to the juicy-looking
+  \(\left( 0,3,0,0|0|\left\{ 0, - 1 \right\} \right),\) which
+  immediately gives \(a_{2} \in \left\{ 0,7 \right\}\).
+\item
+  \(\left( 4,7,0,0|8|\left\{ 0, - 1 \right\} \right)\) gives
+  \(4a_{1} + 7a_{2} \in \left\{ 7,8 \right\}.\) Also, since
+  \(7a_{2} \in \left\{ 0,5 \right\},\)
+  \[4a_{1} \in \left\{ 7,8 \right\} - \left\{ 0,5 \right\} = \left\{ 7,8,2,3 \right\},\]
+  and \(a_{1} \in \left\{ 10,2,6,9 \right\}.\)
+\item
+  Adding
+  \[\left( 10,4,4,3|1|\left\{ 0, - 1 \right\} \right) + \left( 7,7,7,8|5|\left\{ 0, - 1 \right\} \right)\]
+  gives \(\left( 6,0,0,0|6|\left\{ 0, - 1, - 2 \right\} \right),\) which
+  is nice because it has 3 zeroes! This gives
+  \(a_{1} \in \left\{ 1,8,10 \right\}.\) Combining with (2), we conclude
+  that \(a_{1} = 10.\)
+\item
+  \ldots{}
+\end{enumerate}
+
+We omit the rest of the solution, which makes for some fun tinkering.
+
+\subsection{General problem}
+
+The LWE problem (\hyperref[lwe]{{[}lwe{]}}), like the discrete log
+assumption, is one of those ``hard problems that you can build
+cryptography on.'' The problem is to solve for constants
+\[a_{1},\ldots,a_{n} \in {\mathbb{Z}}/q{\mathbb{Z}},\] given a bunch of
+\textbf{approximate} equations of the form
+\[y = a_{1}x_{1} + \ldots + a_{n}x_{n} + \epsilon,\] where each
+\(\epsilon\) is a ``small'' error (for simplicity, say in \(\{ 0,1\}\)).
