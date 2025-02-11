@@ -1,10 +1,9 @@
 - urls in footnotes, make correctly clickable
 - sections -> subsections
-- chapter headers, title and authors
+- chapter headers, title and authors, and new pages
 
-- check for \left( \right), they make extra space and get rid of them
 - fix all theorems etc, everything in a box:
-    - search for "strong"
+    DONE - search for "strong"
     - go through book for theorems etc.
 - fix numbering of theorems etc
 - search for 2^254, approx, FF (without backslash)
@@ -19,6 +18,7 @@ DONE - \text to \operatorname
 DONE - change \mathtt{\text{...}} to \texttt{...} (or at least search for \mathtt and \text)
 DONE - \mathsf{\text{...}}, same
 DONE - check for {[}...{]}  (this is an incorrect ref)
+DONE - check for \left( \right), they make extra space and get rid of them
 
 
 
