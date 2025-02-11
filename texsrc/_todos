@@ -1,8 +1,5 @@
-- urls in footnotes, make correctly clickable
-- chapter headers, title and authors, and new pages
-
-
-
+DONE - urls in footnotes, make correctly clickable
+DONE - chapter headers, title and authors, and new pages
 DONE - \lbrack and \rbrack to [ and ]
 DONE - search for \phantomsection and fix
 DONE - search for \hyperref and fix
