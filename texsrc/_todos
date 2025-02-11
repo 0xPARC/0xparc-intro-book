@@ -1,14 +1,8 @@
 - urls in footnotes, make correctly clickable
-- sections -> subsections
 - chapter headers, title and authors, and new pages
 
-- fix all theorems etc, everything in a box:
-    DONE - search for "strong"
-    - go through book for theorems etc.
-- fix numbering of theorems etc
 - search for 2^254, approx, FF (without backslash)
 - make sure it's Equation \eqref not Equation \ref
-- check last numbered item (theorem, etc) of each section, to see that the numbers match
 
 
 DONE - \lbrack and \rbrack to [ and ]
@@ -19,6 +13,11 @@ DONE - change \mathtt{\text{...}} to \texttt{...} (or at least search for \matht
 DONE - \mathsf{\text{...}}, same
 DONE - check for {[}...{]}  (this is an incorrect ref)
 DONE - check for \left( \right), they make extra space and get rid of them
+DONE - sections -> subsections
+DONE - fix all theorems etc, everything in a box:
+    DONE - search for "strong"
+    DONE - go through book for theorems etc.
+DONE - fix numbering of theorems etc
 
 
 
