@@ -4,10 +4,10 @@ Before we are ready for KZG, there is one more piece of elliptic curve
 math that we need.
 
 Recall that the map
-\(\lbrack \bullet \rbrack:{\mathbb{F}}_{q} \rightarrow E\) is linear,
+\([ \bullet ]:{\mathbb{F}}_{q} \rightarrow E\) is linear,
 meaning that
-\(\lbrack a + b\rbrack = \lbrack a\rbrack + \lbrack b\rbrack\), and
-\(\lbrack na\rbrack = n\lbrack a\rbrack\). But as written we cannot do
+\([ a + b] = [ a] + [ b]\), and
+\([ na] = n[ a]\). But as written we cannot do
 ``armored multiplication'':
 
 \begin{claim}
@@ -18,8 +18,8 @@ On the other hand, it \textbf{does} turn out that we know a way to
 \textbf{verify} a claimed answer on certain curves. That is:
 
 \begin{proposition}
-On the curve BN254, given three points \(\lbrack a\rbrack\),
-\(\lbrack b\rbrack\), and \(\lbrack c\rbrack\) on the curve, one can
+On the curve BN254, given three points \([ a]\),
+\([ b]\), and \([ c]\) on the curve, one can
 verify whether \(ab = c\).
 \end{proposition}
 
@@ -42,9 +42,9 @@ once for the curve \(E\); and then anyone in the world can use the
 published curve for their protocol.
 
 Going a little more generally, the four-number equation
-\[\operatorname{pair}(\lbrack m\rbrack,\lbrack n\rbrack) = \operatorname{pair}(\lbrack m'\rbrack,\lbrack n'\rbrack)\]
+\[\operatorname{pair}([ m],[ n]) = \operatorname{pair}([ m'],[ n'])\]
 will be true whenever \(mn = m'n'\), because both sides will equal
-\(mn\operatorname{pair}(\lbrack 1\rbrack,\lbrack 1\rbrack)\). So this
+\(mn\operatorname{pair}([ 1],[ 1])\). So this
 gives us a way to \textbf{verify} two-by-two multiplication.
 
 \begin{remark}
@@ -65,22 +65,22 @@ that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
 
 \begin{example}
 Suppose Peggy wants to convince Victor that \(y = x^{3} + 2\), where
-Peggy has sent Victor elliptic curve points \(\lbrack x\rbrack\) and
-\(\lbrack y\rbrack\). To do this, Peggy additionally sends to Victor
-\(\left\lbrack x^{2} \right\rbrack\) and
-\(\left\lbrack x^{3} \right\rbrack\).
+Peggy has sent Victor elliptic curve points \([ x]\) and
+\([ y]\). To do this, Peggy additionally sends to Victor
+\(\left[ x^{2} \right]\) and
+\(\left[ x^{3} \right]\).
 
-Given \(\lbrack x\rbrack\), \(\left\lbrack x^{2} \right\rbrack\),
-\(\left\lbrack x^{3} \right\rbrack\), and \(\lbrack y\rbrack\), Victor
+Given \([ x]\), \(\left[ x^{2} \right]\),
+\(\left[ x^{3} \right]\), and \([ y]\), Victor
 verifies that:
 
 \begin{itemize}
 \item
-  \(\operatorname{pair}(\left\lbrack x^{2} \right\rbrack,\lbrack 1\rbrack) = \operatorname{pair}(\lbrack x\rbrack,\lbrack x\rbrack)\)
+  \(\operatorname{pair}(\left[ x^{2} \right],[ 1]) = \operatorname{pair}([ x],[ x])\)
 \item
-  \(\operatorname{pair}(\left\lbrack x^{3} \right\rbrack,\lbrack 1\rbrack) = \operatorname{pair}(\left\lbrack x^{2} \right\rbrack,\lbrack x\rbrack)\)
+  \(\operatorname{pair}(\left[ x^{3} \right],[ 1]) = \operatorname{pair}(\left[ x^{2} \right],[ x])\)
 \item
-  \(\lbrack y\rbrack = \left\lbrack x^{3} \right\rbrack + 2\lbrack 1\rbrack\).
+  \([ y] = \left[ x^{3} \right] + 2[ 1]\).
 \end{itemize}
 
 The process of verifying this sort of identity is quite general: The
@@ -110,7 +110,7 @@ other words, a nonzero element of the finite field of order \(p^{k}\)
 (where \(k\) is the embedding degree we just defined). In fact, this
 element will always be a \(q\)-th root of unity in
 \({\mathbb{F}}_{p^{k}}\), and it will satisfy
-\(\operatorname{pair}(\lbrack m\rbrack,\lbrack n\rbrack) = \zeta^{mn}\),
+\(\operatorname{pair}([ m],[ n]) = \zeta^{mn}\),
 where \(\zeta\) is some fixed \(q\)-th root of unity. The construction
 of the pairing is based on the Weil pairing\footnote{https://en.wikipedia.org/wiki/Weil\_pairing}
 in algebraic geometry. How to compute these pairings is well beyond the

@@ -331,11 +331,11 @@ For $n \in \ZZ$ (equivalently $n \in \FF_q$) we define
 \end{definition}
 
 The hardness of the discrete logarithm means that, given
-\(\lbrack n\rbrack\), we cannot get \(n\). You can almost think of the
+\([ n]\), we cannot get \(n\). You can almost think of the
 notation as an ``armor'' on the integer \(n\): It conceals the integer,
 but still allows us to perform (armored) addition:
-\[\lbrack a + b\rbrack = \lbrack a\rbrack + \lbrack b\rbrack.\] In other
-words, \(n \mapsto \lbrack n\rbrack\) viewed as a map
+\[[ a + b] = [ a] + [ b].\] In other
+words, \(n \mapsto [ n]\) viewed as a map
 \({\mathbb{F}}_{q} \rightarrow E\) is \({\mathbb{F}}_{q}\)-linear.
 
 So now suppose Alice wants to set up a signature scheme.
@@ -348,7 +348,7 @@ So now suppose Alice wants to set up a signature scheme.
   \emph{secret key} (a piece of information that she needs to keep
   private for the security of the protocol).
 \item
-  Alice publishes \(\lbrack d\rbrack \in E\) as her \emph{public key} (a
+  Alice publishes \([ d] \in E\) as her \emph{public key} (a
   piece of information which, even when obtained by adversaries, does
   not challenge the security of the protocol).
 \end{enumerate}
@@ -356,7 +356,7 @@ So now suppose Alice wants to set up a signature scheme.
 
 Now suppose Alice wants to prove to Bob that she approves the message
 \(\mathsf{\text{msg}}\), given her published public key
-\(\lbrack d\rbrack\).
+\([ d]\).
 
 \begin{algo}[EdDSA signature generation]
 \leavevmode
@@ -366,37 +366,37 @@ Suppose Alice wants to sign a message
 \begin{enumerate}
 \item
   Alice picks a random scalar \(r \in {\mathbb{F}}_{q}\) (keeping this
-  secret) and publishes \(\lbrack r\rbrack \in E\).
+  secret) and publishes \([ r] \in E\).
 \item
   Alice generates a number \(n \in {\mathbb{F}}_{q}\) by hashing
   \(\mathsf{\text{msg}}\) with all public information, say
-  \[n := \operatorname{hash}(\lbrack r\rbrack,\mathsf{\text{msg}},\lbrack d\rbrack).\]
+  \[n := \operatorname{hash}([ r],\mathsf{\text{msg}},[ d]).\]
 \item
   Alice publishes the integer \[s := (r + dn)\operatorname{mod}q.\]
 \end{enumerate}
 
 In other words, the signature is the ordered pair
-\(( \lbrack r\rbrack,s )\).
+\(( [ r],s )\).
 \end{algo}
 
 \begin{algo}[EdDSA signature verification]
 \leavevmode
 For Bob to verify a signature
-\(( \lbrack r\rbrack,s )\) for \(\mathsf{\text{msg}}\):
+\(( [ r],s )\) for \(\mathsf{\text{msg}}\):
 
 \begin{enumerate}
 \item
   Bob recomputes \(n\) (by also performing the hash) and computes
-  \(\lbrack s\rbrack \in E\).
+  \([ s] \in E\).
 \item
   Bob verifies that
-  \(\lbrack r\rbrack + n \cdot \lbrack d\rbrack = \lbrack s\rbrack\).
+  \([ r] + n \cdot [ d] = [ s]\).
 \end{enumerate}
 \end{algo}
 
 An adversary cannot forge the signature even if they know \(r\) and
 \(n\). Indeed, such an adversary can compute what the point
-\(\lbrack s\rbrack = \lbrack r\rbrack + n\lbrack d\rbrack\) should be,
+\([ s] = [ r] + n[ d]\) should be,
 but without knowledge of \(d\) they cannot get the integer \(s\), due to
 Assumption \ref{ddh}.
 

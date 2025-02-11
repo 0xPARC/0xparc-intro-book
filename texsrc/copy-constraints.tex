@@ -11,7 +11,7 @@ copy check.
 \subsubsection{Easier case: permutation check}
 
 \begin{problem}
-Suppose we have polynomials \(P,Q \in {\mathbb{F}}_{q}\lbrack X\rbrack\)
+Suppose we have polynomials \(P,Q \in {\mathbb{F}}_{q}[ X]\)
 which encode two vectors of values \[\begin{aligned}
 \overset{\rightarrow}{p} & = \langle P\left( \omega^{1} \right),P\left( \omega^{2} \right),\ldots,P\left( \omega^{n} \right)\rangle \\
 \overset{\rightarrow}{q} & = \langle Q\left( \omega^{1} \right),Q\left( \omega^{2} \right),\ldots,Q\left( \omega^{n} \right)\rangle.
@@ -42,14 +42,14 @@ Equation \ref{permcheck-poly} using the technique of
 adding an \emph{accumulator polynomial}. The idea is this: Victor picks
 a random challenge \(\lambda \in {\mathbb{F}}_{q}\). Peggy then
 interpolates the polynomial
-\(F_{P} \in {\mathbb{F}}_{q}\lbrack T\rbrack\) such that
+\(F_{P} \in {\mathbb{F}}_{q}[ T]\) such that
 \[\begin{aligned}
 F_{P}( \omega^{1} ) & = \lambda + P( \omega^{1} ) \\
 F_{P}( \omega^{2} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) ) \\
  & \vdots \\
 F_{P}( \omega^{n} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) )\cdots( \lambda + P( \omega^{n} ) ).
 \end{aligned}\] Then the accumulator
-\(F_{Q} \in {\mathbb{F}}_{q}\lbrack T\rbrack\) is defined analogously.
+\(F_{Q} \in {\mathbb{F}}_{q}[ T]\) is defined analogously.
 
 So to prove Equation \ref{permcheck-poly}, the
 following algorithm works:
@@ -62,8 +62,8 @@ and \(\operatorname{Com}(Q)\).
 \item
   Victor sends a random challenge \(\lambda \in {\mathbb{F}}_{q}\).
 \item
-  Peggy interpolates polynomials \(F_{P}\lbrack T\rbrack\) and
-  \(F_{Q}\lbrack T\rbrack\) such that
+  Peggy interpolates polynomials \(F_{P}[ T]\) and
+  \(F_{Q}[ T]\) such that
   \(F_{P}( \omega^{k} ) = \prod_{i \leq k}( \lambda + P( \omega^{i} ) )\).
   Define \(F_{Q}\) similarly. Peggy sends \(\operatorname{Com}(F_{P})\)
   and \(\operatorname{Com}(F_{Q})\).
@@ -252,7 +252,7 @@ To summarize, the copy check goes as follows:
   variables \(a_{i}\), \(b_{i}\), and \(c_{i}\).
 \item
   Both parties compute the degree \(n - 1\) polynomials
-  \(\sigma_{a},\sigma_{b},\sigma_{c} \in {\mathbb{F}}_{q}\lbrack X\rbrack\)
+  \(\sigma_{a},\sigma_{b},\sigma_{c} \in {\mathbb{F}}_{q}[ X]\)
   described above, based on the copy constraints in the problem
   statement.
 \item

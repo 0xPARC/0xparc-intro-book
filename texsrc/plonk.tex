@@ -177,7 +177,7 @@ means that we can fix \(\omega \in {\mathbb{F}}_{q}\) to be a primitive
 \(n\)-th root of unity.
 
 Then, by polynomial interpolation, Peggy chooses polynomials \(A(X)\),
-\(B(X)\), and \(C(X)\) in \({\mathbb{F}}_{q}\lbrack X\rbrack\) such that
+\(B(X)\), and \(C(X)\) in \({\mathbb{F}}_{q}[ X]\) such that
 \begin{equation}
 \label{plonk-setup}
 A\left( \omega^{i} \right) = a_{i},B\left( \omega^{i} \right) = b_{i},C\left( \omega^{i} \right) = c_{i}\text{  for all  }i = 1,2,\ldots,n.
@@ -215,7 +215,7 @@ curve point -- that can later be ``opened'' at any value
 \subsubsection{Step 2: gate check}
 
 Both Peggy and Victor know the PLONK instance, so they can interpolate a
-polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}\lbrack X\rbrack\) of degree
+polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}[ X]\) of degree
 \(n - 1\) such that
 \[Q_{L}\left( \omega^{i} \right) = q_{L,i}\quad\text{ for  }i = 1,\ldots,n.\]
 The analogous polynomials \(Q_{R}\), \(Q_{O}\), \(Q_{M}\), \(Q_{C}\) are
