@@ -1,3 +1,8 @@
 easy.pdf
 bigbook.pdf
 .DS_Store
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
