@@ -1,4 +1,4 @@
-\subsection{Garbled circuits}
+\section{Garbled circuits}
 
 Imagine Alice and Bob each have some secret values \(a\) and \(b\), and
 would like to jointly compute some function \(f\) over their respective
@@ -12,7 +12,7 @@ Yao's garbled circuits is one of the most well-known 2PC protocols. The
 protocol is quite clever, and optimized variants of the protocol are
 being implemented and used today.\footnote{https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble}
 
-\subsubsection{The problem}\label{the-problem}
+\subsection{The problem}\label{the-problem}
 
 Here is our problem setting, slightly more formally:
 
@@ -32,7 +32,7 @@ Here is our problem setting, slightly more formally:
   revealing their secrets to each other.
 \end{itemize}
 
-\subsubsection{Outline of solution}
+\subsection{Outline of solution}
 
 Our solution will contain two key components:
 
@@ -87,7 +87,7 @@ In slightly more detail:
 
 We now flesh out this outline, starting with garbled circuits.
 
-\subsubsection{Garbled gates}
+\subsection{Garbled gates}
 
 Our garbled circuits are going to be built out of \emph{garbled gates}.
 A garbled gate is like a traditional gate (like AND, OR, NAND, NOR),
@@ -129,7 +129,7 @@ But if you do not know the password \(P_{x,y}\), assuming
 \(\operatorname{Enc}\) is a suitably secure encryption scheme, you will
 not learn anything about the value \(G_{x,y}\) from its encryption.
 
-\subsubsection{Chaining garbled gates}
+\subsection{Chaining garbled gates}
 
 The next step is to combine a bunch of garbled gates into a circuit. We
 will need to make two changes to the protocol.
@@ -200,7 +200,7 @@ will need to make two changes to the protocol.
 \end{center}
 
 
-\subsubsection{How Bob uses one gate}
+\subsection{How Bob uses one gate}
 
 Let us play through one round of Bob's gate-using protocol.
 
@@ -232,7 +232,7 @@ So Bob is exactly where he started: he knows the password for his bit,
 but he does not know his bit. So we can chain together as many of these
 garbled gates as we like to make a full garbled circuit.
 
-\subsubsection{How the circuit ends}
+\subsection{How the circuit ends}
 
 At the end of the computation, Bob needs to learn the final result. How?
 
@@ -240,7 +240,7 @@ Easy! The final output gates are different from the intermediate gates.
 Instead of outputting a password, they will just output the resulting
 bit in plain text.
 
-\subsubsection{How the circuit starts}
+\subsection{How the circuit starts}
 
 This is trickier. At the beginning of the computation, Bob needs to
 learn the passwords for all of his input bits. Let us frame the problem

@@ -1,4 +1,4 @@
-\subsection{A hard problem: learning with errors}\label{lwe}
+\section{A hard problem: learning with errors}\label{lwe}
 
 As we have seen (Section \ref{ec}), a lot of cryptography relies on hard math
 problems. RSA is based on the difficulty of integer factorization;
@@ -10,7 +10,7 @@ linear equations, except that the equations are only approximately true
 -- they permit a small ``error'' -- and instead of solving for rational
 or real numbers, you are solving for integers modulo \(q\).
 
-\subsubsection{A small example of an LWE problem}\label{lwe-small}
+\subsection{A small example of an LWE problem}\label{lwe-small}
 
 Here is a concrete example of an LWE problem and how one might attack it
 ``by hand.'' This exercise will make the inherent difficulty of the
@@ -134,7 +134,7 @@ vectors with many \(0\)'s in the same places.
 
 We omit the rest of the solution, which makes for some fun tinkering.
 
-\subsubsection{General problem}
+\subsection{General problem}
 
 The LWE problem (Problem \ref{lwe}), like the discrete log
 assumption, is one of those ``hard problems that you can build

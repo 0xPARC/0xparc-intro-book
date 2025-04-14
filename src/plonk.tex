@@ -1,7 +1,7 @@
-\subsection{PLONK, a zkSNARK protocol}
+\section{PLONK, a zkSNARK protocol}
 \label{plonk}
 
-\subsubsection{Arithmetization}
+\subsection{Arithmetization}
 \label{arith-intro}
 
 The promise of programmable cryptography is that we should be able to
@@ -85,7 +85,7 @@ of constraints, maybe involving some additional variables.
 
 We will not get into any more details of arithmetization here.
 
-\subsubsection{An instance of PLONK}
+\subsection{An instance of PLONK}
 
 PLONK is going to prove solutions to systems of quadratic equations of a
 very particular form:
@@ -170,7 +170,7 @@ proceeds by having:
 
 Let us now explain how each step works.
 
-\subsubsection{Step 1: the commitment}
+\subsection{Step 1: the commitment}
 
 In PLONK, we will assume that \(q \equiv 1 (\operatorname{mod}n)\), which
 means that we can fix \(\omega \in {\mathbb{F}}_{q}\) to be a primitive
@@ -212,7 +212,7 @@ To reiterate, each commitment is a single value -- a 256-bit elliptic
 curve point -- that can later be ``opened'' at any value
 \(x \in {\mathbb{F}}_{q}\).
 
-\subsubsection{Step 2: gate check}
+\subsection{Step 2: gate check}
 
 Both Peggy and Victor know the PLONK instance, so they can interpolate a
 polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}[ X]\) of degree
@@ -249,14 +249,14 @@ Equation \eqref{plonk-gate} holds for \(X = \omega^{i}\)
 \end{enumerate}
 \end{algo}
 
-\subsubsection{Step 3: proving the copy
+\subsection{Step 3: proving the copy
 constraints}\label{copy-constraint-deferred}
 
 The copy constraints are the trickiest step. There are a few moving
 parts to this idea, so we skip it for now and dedicate
 Section \ref{copy-constraints} to it.
 
-\subsubsection{Step 4: public and private witnesses}
+\subsection{Step 4: public and private witnesses}
 
 The last thing to be done is to reveal the value of public witnesses, so
 the prover can convince the verifier that those values are correct. This

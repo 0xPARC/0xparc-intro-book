@@ -1,6 +1,6 @@
-\subsection{Leveled FHE from LWE}\label{fhe}
+\section{Leveled FHE from LWE}\label{fhe}
 
-\subsubsection{The main idea: approximate eigenvalues}
+\subsection{The main idea: approximate eigenvalues}
 
 Now we want to turn the public-key encryption from Section \ref{lwe-crypto} into
 a leveled FHE scheme. In other words: We want to be able to encrypt bits
@@ -47,7 +47,7 @@ How do we build such a \(C_{0}\)? (One possible direction is to build it
 row-by-row.)
 \end{problem}
 
-\subsubsection{Operations on encrypted data}
+\subsection{Operations on encrypted data}
 
 To make homomorphic encryption work, we need to explain how to operate
 on \(\mu\). We will describe three operations: addition, NOT, and
@@ -83,7 +83,7 @@ calculations on your encrypted bits, without ever learning what those
 bits are. At the end of the calculation, you can send the resulting
 ciphertexts back to be decrypted.
 
-\subsubsection{The ``Flatten''
+\subsection{The ``Flatten''
 operation}\label{a-constraint-on-the-secret-key-mathbfv-and-the-flatten-operation}
 
 In order to make the error estimates work out, we are going to need to
@@ -165,7 +165,7 @@ form will degrade security. This cryptosystem is as secure as an LWE
 problem on vectors of length \(r\), not \(n\). So we need to make \(n\)
 bigger, say \(n \approx r\log q\), to get the same level of security.
 
-\subsubsection{Error analysis}\label{error-analysis}
+\subsection{Error analysis}\label{error-analysis}
 
 Now let us compute more carefully what happens to the error when we add,
 negate, and multiply bits. Suppose

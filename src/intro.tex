@@ -1,4 +1,4 @@
-\subsection{What is programmable cryptography?}
+\section{What is programmable cryptography?}
 
 Cryptography is everywhere now and needs no introduction.
 \emph{Programmable cryptography} is a term coined by 0xPARC for a second
@@ -50,13 +50,13 @@ yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA-256.
 \end{remark}
 
-\subsection{Ideas in programmable cryptography}
+\section{Ideas in programmable cryptography}
 
 Our work presents programmable cryptography through specific topics in
 several self-contained ``easy pieces,'' imitating Richard Feynman's
 wonderful approach to physics exposition. We quickly preview them here.
 
-\subsubsection{2PC: two-party computation}
+\subsection{2PC: two-party computation}
 
 In a \emph{two-party computation (2PC)}, two people want to jointly
 compute some known function \[F ( x_{1},x_{2}),\] where the
@@ -75,7 +75,7 @@ for \emph{any} function \(F\) as long as we can implement it in code. It
 generalizes to \emph{multi-party computation (MPC)}, which is one of the
 main classes of programmable cryptography.
 
-\subsubsection{SNARKs: proofs of general statements}
+\subsection{SNARKs: proofs of general statements}
 
 A powerful way of thinking about a signature scheme is that it is a
 \textbf{proof}. Specifically, Alice's signature is a proof that ``I
@@ -95,7 +95,7 @@ statement would be ``I know \(M\) such that
 SNARKs are an active area of research, and many different SNARKs are
 known. We will focus on a particular example, PLONK (Section \ref{plonk}).
 
-\subsubsection{FHE: fully homomorphic encryption}
+\subsection{FHE: fully homomorphic encryption}
 
 Imagine you have some private text that you want to translate into
 another language. While many services today will do this, even for free,
@@ -115,7 +115,7 @@ the translation of \(x\). You can then decrypt and obtain \(y\), knowing
 that the server cannot extract anything meaningful from
 \(\operatorname{Enc}(x)\) without your secret key.
 
-\subsubsection{ORAM: Oblivious RAM}
+\subsection{ORAM: Oblivious RAM}
 
 You want to perform a private computation on a large database. The
 database is so large that you cannot store it yourself -- and you do not
@@ -136,7 +136,7 @@ requests to the server. Only one of the scrambled requests is the
 request you are interested in; the others keep the server from learning
 which request you care about.
 
-\subsection{Programmable cryptography in the world}
+\section{Programmable cryptography in the world}
 
 In the past decade, there has been a surprisingly high amount of
 theoretical work but also a surprisingly low amount of implementation

@@ -1,4 +1,4 @@
-\subsection{KZG commitments}\label{kzg}
+\section{KZG commitments}\label{kzg}
 
 The goal of a \emph{polynomial commitment scheme} is to have the
 following API:
@@ -32,7 +32,7 @@ efficient because both the commitment and proof lengths are a single
 point on \(E\), encodable in 256 bits, no matter how many coefficients
 the polynomial has.
 
-\subsubsection{The setup}
+\subsection{The setup}
 
 Remember the notation \([ n] := n \cdot g \in E\) defined in
 Definition \ref{armor}. To set up the KZG commitment scheme, a trusted party needs
@@ -71,7 +71,7 @@ $s_i$ chosen by the parties... so the only way they can break secrecy
 is if all the ``trusted parties'' collude.
 \end{remark}
 
-\subsubsection{The KZG commitment scheme}
+\subsection{The KZG commitment scheme}
 
 Peggy has a polynomial \(P(X) \in \mathbb{F}_{p}[X]\). To
 commit to it:
@@ -121,7 +121,7 @@ element
 Since \(s\) is a secret nobody knows, there is not any known way to do
 this.
 
-\subsubsection{Multi-openings}\label{multi-openings}
+\subsection{Multi-openings}\label{multi-openings}
 
 To reveal \(P\) at a single value \(z\), we did polynomial division to
 divide \(P(X)\) by \(X - z\). But there is no reason we have to restrict
@@ -172,7 +172,7 @@ So one can even open the polynomial \(P\) at \(1000\) points with a
 single 256-bit proof. The verification runtime is a single pairing plus
 however long it takes to compute the Lagrange interpolation \(f\).
 
-\subsubsection{Root check}
+\subsection{Root check}
 
 To make PLONK work, we are going to need a small variant of the
 multi-opening protocol for KZG commitments

@@ -1,4 +1,4 @@
-\subsection{Oblivious transfer}\label{ot}
+\section{Oblivious transfer}\label{ot}
 
 Alice has \(n\) messages \(x_{1},\ldots,x_{n}\). We will assume the
 messages are essentially unrelated to each other (since we could always
@@ -14,7 +14,7 @@ to achieve this.
 has \(x_{1}\) and \(x_{2}\), and she wants to send one of those two to
 Bob. But ``1-of-\(n\) OT'' is not any harder, so we will do 1-of-\(n\).)
 
-\subsubsection{Commutative encryption}
+\subsection{Commutative encryption}
 
 Let us imagine that Alice and Bob have access to some encryption scheme
 that is \emph{commutative}:
@@ -51,7 +51,7 @@ curve).
   Bob takes a \(b\)-th root, recovering \(g\).
 \end{enumerate}
 
-\subsubsection{OT using commutative encryption}
+\subsection{OT using commutative encryption}
 
 Our first oblivious transfer protocol is built on the commutative
 encryption we just described.
@@ -81,7 +81,7 @@ Bob.
 
 And Bob decrypts the message to learn \(x_{i}\).
 
-\subsubsection{OT in one step}
+\subsection{OT in one step}
 
 The protocol above required one and a half rounds of communication: In
 total, Alice sent two messages to Bob (Step 1 and 3), and Bob sent one

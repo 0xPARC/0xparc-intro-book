@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{scrreprt}
 
 
 \usepackage{amsfonts, amsmath, amsthm, graphicx, xcolor}
@@ -13,7 +13,7 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{assumption}[theorem]{Assumption}
 \newtheorem{claim}[theorem]{Claim}
 \newtheorem{problem}[theorem]{Problem}
@@ -38,13 +38,13 @@
 \tableofcontents
 
 \newpage
-\section{Introduction}
+\chapter{Introduction}
 \emph{Brian Gu and Yan X Zhang}
 \vspace{1in}
 \input{intro}
 
 \newpage
-\section{Two-Party Computation}
+\chapter{Two-Party Computation}
 \emph{Brian Gu and Brian Lawrence}
 \vspace{1in}
 \input{mpc}
@@ -52,7 +52,7 @@
 \input{2pc-takeaways}
 
 \newpage
-\section{SNARKs Prelude: Elliptic Curves and Polynomial Commitments}
+\chapter{SNARKs Prelude: Elliptic Curves and Polynomial Commitments}
 \emph{Evan Chen}
 \vspace{1in}
 \input{ec}
@@ -61,7 +61,7 @@
 \input{kzg-takeaways}
 
 \newpage
-\section{SNARKs}
+\chapter{SNARKs}
 \emph{Evan Chen}
 \vspace{1in}
 \input{zkintro}
@@ -71,7 +71,7 @@
 \input{snark-takeaways}
 
 \newpage
-\section{Fully Homomorphic Encryption}
+\chapter{Fully Homomorphic Encryption}
 \emph{Brian Lawrence and Yan X Zhang}
 \vspace{1in}
 \input{fhe0}
@@ -81,7 +81,7 @@
 \input{fhe-takeaways}
 
 \newpage
-\section{Oblivious RAM}
+\chapter{Oblivious RAM}
 \emph{Elaine Shi}
 \vspace{1in}
 \input{oram}

@@ -31,7 +31,7 @@ The roadmap goes roughly as follows:
   Section \ref{kzg}.
 \end{itemize}
 
-\subsection{Elliptic curves}\label{ec}
+\section{Elliptic curves}\label{ec}
 
 Every modern cryptosystem rests on a hard problem -- a computationally
 infeasible challenge whose difficulty makes the protocol secure. The
@@ -227,7 +227,7 @@ This is why the baby Jubjub prime $q$ gets a special name,
 while the prime $p$ is unnamed and does not get any screen-time later.
 \end{remark}
 
-\subsection{Discrete logarithm}\label{discretelog}
+\section{Discrete logarithm}\label{discretelog}
 
 For our systems to be useful, rather than relying on factoring, we will
 rely on the so-called \emph{discrete logarithm assumption}.
@@ -275,7 +275,7 @@ Because we think of \(n\) as up to \(q \approx 2^{254}\)-ish in size, we
 consider \(O( \log n )\) operations like this to be quite
 tolerable.
 
-\subsubsection{Curves other than BN254}
+\subsection{Curves other than BN254}
 
 We comment briefly on how the previous definitions adapt to other
 curves, although readers could get away with always assuming \(E\) is
@@ -312,7 +312,7 @@ BN254 is also engineered to have a property called
 \emph{pairing-friendliness}, which is defined in Section \ref{pairing-friendly} when
 we need it later. (In contrast, Curve25519 does not have this property.)
 
-\subsubsection{Example application: EdDSA signature scheme}\label{eddsa}
+\subsection{Example application: EdDSA signature scheme}\label{eddsa}
 
 We will show how Assumption \ref{ddh} can be used to construct a
 signature scheme that replaces RSA. This scheme is called
@@ -410,7 +410,7 @@ bonus that it is deterministic as a function of the message and signer.
 In Section \ref{kzg} we will use ideas quite similar to this to build the KZG
 commitment scheme.
 
-\subsubsection{Example application: Pedersen commitments}
+\subsection{Example application: Pedersen commitments}
 \label{pedersen}
 
 A \emph{commitment scheme} is a protocol where Alice wants to commit

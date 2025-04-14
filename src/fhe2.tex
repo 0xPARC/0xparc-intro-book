@@ -1,4 +1,4 @@
-\subsection{Public-key cryptography from LWE}\label{lwe-crypto}
+\section{Public-key cryptography from LWE}\label{lwe-crypto}
 
 In Section \ref{lwe-small} we saw how even a small case of this problem
 (\(q = 11\), \(n = 4\)) can be annoyingly tricky. In the real world, you
@@ -68,7 +68,7 @@ Private Key \\
 Since the LWE problem is hard, we can release the public key to
 everybody, and they will not be able to determine the private key.
 
-\subsubsection{Encryption}\label{how-to-encrypt-mu}
+\subsection{Encryption}\label{how-to-encrypt-mu}
 
 Suppose you have a message \(m \in \{ 0,5 \}\). (You will see
 in a moment why we insist that \(m\) is one of these two values.) The
@@ -100,7 +100,7 @@ with \(\mathbf{x} \cdot \mathbf{a} \approx y_{0}\). Then you take
 \(y = y_{0} - m\) (mod \(q = 11\) of course), and send the message
 \(( \mathbf{x}:y )\).
 
-\subsubsection{An example}\label{an-example}
+\subsection{An example}\label{an-example}
 
 Let us say you randomly choose the four rows:
 
@@ -149,7 +149,7 @@ Finally, let us say your message is \(m = 5\). So you set
 \end{tabular}
 \end{center}
 
-\subsubsection{Decryption}\label{decryption}
+\subsection{Decryption}\label{decryption}
 
 Decryption is easy! The decryptor knows
 \[\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m\] where
@@ -165,7 +165,7 @@ more. (In fact, it is one of \(4,5,6,7,8\).) On the other hand, since
 \(m\) is 0 or 5, \(1 + m\) had better be 1 or 6, so the only possibility
 is that \(m = 5\) (so \(1 + m = 6\)).
 
-\subsubsection{How does this work in
+\subsection{How does this work in
 general?}\label{how-does-this-work-in-general}
 
 In practice, \(n\) and \(q\) are often much larger. Maybe \(n\) is in
