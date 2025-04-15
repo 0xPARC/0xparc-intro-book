@@ -30,6 +30,22 @@
 \title{Programmable Cryptography: \\ Four Easy Pieces}
 \author{Edited by Evan Chen, Brian Lawrence, Yan X Zhang}
 
+\addtokomafont{chapterprefix}{\raggedleft}
+\RedeclareSectionCommand[beforeskip=0.5em]{chapter}
+\renewcommand*{\chapterformat}{\mbox{%
+  \scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
+  \scalebox{2.718}{\color{purple}\textsuperscript{\S}\thechapter}\enskip}}
+
+\renewcommand*{\sectionformat}%
+{\color{purple}\S\thesection\enskip}
+\renewcommand*{\subsectionformat}%
+{\color{purple}\S\thesubsection\enskip}
+\renewcommand*{\subsubsectionformat}%
+{\color{purple}\S\thesubsubsection\enskip}
+\KOMAoptions{numbers=noenddot}
+
+\newcommand{\credits}[1]{\noindent\emph{#1}\vspace{2em}}
+
 \begin{document}
 
 \maketitle
@@ -40,22 +56,19 @@
 
 \newpage
 \chapter{Introduction}
-\emph{Brian Gu and Yan X Zhang}
-\vspace{1in}
+\credits{Brian Gu and Yan X Zhang}
 \input{intro}
 
 \newpage
 \chapter{Two-Party Computation}
-\emph{Brian Gu and Brian Lawrence}
-\vspace{1in}
+\credits{Brian Gu and Brian Lawrence}
 \input{mpc}
 \input{ot}
 \input{2pc-takeaways}
 
 \newpage
 \chapter{SNARKs Prelude: Elliptic Curves and Polynomial Commitments}
-\emph{Evan Chen}
-\vspace{1in}
+\credits{Evan Chen}
 \input{ec}
 \input{pair}
 \input{kzg}
@@ -63,8 +76,7 @@
 
 \newpage
 \chapter{SNARKs}
-\emph{Evan Chen}
-\vspace{1in}
+\credits{Evan Chen}
 \input{zkintro}
 \input{plonk}
 \input{copy-constraints}
@@ -73,8 +85,7 @@
 
 \newpage
 \chapter{Fully Homomorphic Encryption}
-\emph{Brian Lawrence and Yan X Zhang}
-\vspace{1in}
+\credits{Brian Lawrence and Yan X Zhang}
 \input{fhe0}
 \input{lwe}
 \input{fhe2}
@@ -83,8 +94,7 @@
 
 \newpage
 \chapter{Oblivious RAM}
-\emph{Elaine Shi}
-\vspace{1in}
+\credits{Elaine Shi}
 \input{oram}
 \input{oram-takeaways}
 
