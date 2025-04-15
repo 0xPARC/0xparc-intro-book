@@ -21,10 +21,10 @@ The roadmap goes roughly as follows:
   that will be used in these notes.
 \item
   In Section \ref{discretelog} we describe the
-  \emph{discrete logarithm assumption} (Assumption \ref{ddh}),
+  \emph{discrete logarithm assumption} (Assumption \ref{tcb:ddh}),
   which we need to make to provide security to our protocols. As an
   example, in Section \ref{eddsa} we describe how
-  Assumption \ref{ddh} can be used to construct a signature scheme,
+  Assumption \ref{tcb:ddh} can be used to construct a signature scheme,
   namely EdDSA.\footnote{https://en.wikipedia.org/wiki/EdDSA}
 \item
   The EdDSA idea will later grow up to be the KZG commitment scheme in
@@ -63,7 +63,7 @@ The BN254 specification fixes a specific\footnote{If you must know, the
  q & := & & 36x^{4} + 36x^{3} + 18x^{2} + 6x + 1 \\
  & = & & 218882428718392752222464057452572750885 \\
  & & & 48364400416034343698204186575808495617.
- \end{aligned}\]} 
+ \end{aligned}\]}
 large prime \(p \approx 2^{254}\) (and a second large
 prime \(q \approx 2^{254}\) that we define later) which has been
 specifically engineered to have certain properties (Jonathan Wang has a
@@ -71,7 +71,7 @@ blog post\footnote{https://hackmd.io/@jpw/bn254} about the properties of
 this curve). The name BN stands for Barreto-Naehrig, two mathematicians
 who proposed a family of such curves in 2006.\footnote{https://link.springer.com/content/pdf/10.1007/11693383\_22.pdf}
 
-\begin{definition}
+\begin{definition}{BN254 curve}{}
 The \emph{BN254 curve} is the elliptic curve
 \begin{equation}
 \label{bn254eqn}
@@ -89,15 +89,15 @@ point \(O = (0,\infty)\) called the ``point at infinity'' added in
 
 The constants \(p\) and \(q\) are contrived so that the following holds:
 
-\begin{theorem}
-BN254 has prime order: Let \(E\) be the BN254 curve. The number of
-points in \(E( {\mathbb{F}}_{p} )\), including the point at
-infinity \(O\), is a prime \(q \approx 2^{254}\).
+\begin{theorem}{BN254 has prime order}{}
+  Let \(E\) be the BN254 curve. The number of
+  points in \(E( {\mathbb{F}}_{p} )\), including the point at
+  infinity \(O\), is a prime \(q \approx 2^{254}\).
 \end{theorem}
 
-\begin{definition}
+\begin{definition}{Baby Jubjub prime}{}
 This prime $q \approx 2^{254}$ is affectionately called the \emph{Baby Jubjub prime}
-(a reference to 
+(a reference to
 \emph{The Hunting of the Snark}\footnote{https://en.wikipedia.org/wiki/The\_Hunting\_of\_the\_Snark}).
 It will usually be denoted by $q$ in these notes.
 \end{definition}
@@ -198,10 +198,10 @@ In summary, we have endowed the set of points
 abelian group, which happens to have exactly \(q\) elements. However, an
 abelian group with prime order is necessarily cyclic. In other words:
 
-\begin{theorem}
-The group BN254 is isomorphic to \({\mathbb{Z}}/q{\mathbb{Z}}\): Let
-\(E\) be the BN254 curve. We have the isomorphism of abelian groups
-\[E( {\mathbb{F}}_{p} ) \cong {\mathbb{Z}}/q{\mathbb{Z}}.\]
+\begin{theorem}{The group BN254 is isomorphic to \({\mathbb{Z}}/q{\mathbb{Z}}\)}{}
+  Let \(E\) be the BN254 curve.
+  We have the isomorphism of abelian groups
+  \[E( {\mathbb{F}}_{p} ) \cong {\mathbb{Z}}/q{\mathbb{Z}}.\]
 \end{theorem}
 
 In these notes, this isomorphism will basically be a standing
@@ -217,7 +217,7 @@ Consequently --- and this is important --- \textbf{one should think of
 primitives} (despite the fact that the coordinates of our points are in
 \({\mathbb{F}}_{p}\)).
 
-\begin{remark}
+\begin{remark}{}{}
 Whenever we talk about protocols, and there are any sorts of
 ``numbers'' or ``scalar'' in the protocol,
 these scalars are always going to be elements of $\FF_q$.
@@ -232,9 +232,8 @@ while the prime $p$ is unnamed and does not get any screen-time later.
 For our systems to be useful, rather than relying on factoring, we will
 rely on the so-called \emph{discrete logarithm assumption}.
 
-\begin{assumption}
-\label{ddh}
-Discrete logarithm assumption: Let \(E\) be the BN254 curve (or another
+\begin{assumption}{Discrete logarithm assumption}{ddh}
+Let \(E\) be the BN254 curve (or another
 standardized curve). Given arbitrary nonzero \(g,g' \in E\), the
 \emph{discrete logarithm problem} asks you to find an integer \(n\) such
 that \(n \cdot g = g'\).
@@ -250,7 +249,7 @@ order \(q\), so we will talk about \(n \in {\mathbb{N}}\) and
 \(n \in {\mathbb{F}}_{q}\) interchangeably. In other words, \(n\) will
 generally be thought of as being up to about \(2^{254}\) in size.
 
-\begin{remark}[The name ``discrete log'']
+\begin{remark}{The name ``discrete log''}{}
 This problem is called ``discrete log'' because if one uses multiplicative notation
 for the group operation, it looks like solving $g^n = g'$ instead.
 We will never use this multiplicative notation in these notes.
@@ -301,7 +300,7 @@ There are other curves used in practice for which
 \(E( {\mathbb{F}}_{p} )\) is not a prime, but rather a small
 multiple of a prime. The popular Curve25519\footnote{https://en.wikipedia.org/wiki/Curve25519}
 is such a curve that is also believed to satisfy
-Assumption \ref{ddh}. Curve25519 is defined as
+Assumption \ref{tcb:ddh}. Curve25519 is defined as
 \[Y^{2} = X^{3} + 486662X^{2} + X\] over \({\mathbb{F}}_{p}\) for the
 prime \(p := 2^{255} - 19\). Its order is \(8\) times a large prime
 \[q' := 2^{252} + 27742317777372353535851937790883648493.\] In that case,
@@ -314,7 +313,7 @@ we need it later. (In contrast, Curve25519 does not have this property.)
 
 \subsection{Example application: EdDSA signature scheme}\label{eddsa}
 
-We will show how Assumption \ref{ddh} can be used to construct a
+We will show how Assumption \ref{tcb:ddh} can be used to construct a
 signature scheme that replaces RSA. This scheme is called
 EdDSA,\footnote{https://en.wikipedia.org/wiki/EdDSA} and it is used
 quite frequently (e.g., in OpenSSH and GnuPG). One advantage it has over
@@ -322,8 +321,7 @@ RSA is that its key size is much smaller: both the public and private
 key are 256 bits. (In contrast, RSA needs 2048-4096 bit keys for
 comparable security.)
 
-\begin{definition}
-\label{armor}
+\begin{definition}{}{armor}
 Let $E$ be an elliptic curve and let $g \in E$
 be a fixed point on it of prime order $q \approx 2^{254}$.
 For $n \in \ZZ$ (equivalently $n \in \FF_q$) we define
@@ -340,8 +338,7 @@ words, \(n \mapsto [ n]\) viewed as a map
 
 So now suppose Alice wants to set up a signature scheme.
 
-\begin{algo}[EdDSA public and secret key]
-\leavevmode
+\begin{algo}{EdDSA public and secret key}{}
 \begin{enumerate}
 \item
   Alice picks a random integer \(d \in {\mathbb{F}}_{q}\) as her
@@ -358,10 +355,8 @@ Now suppose Alice wants to prove to Bob that she approves the message
 \(\textsf{msg}\), given her published public key
 \([ d]\).
 
-\begin{algo}[EdDSA signature generation]
-\leavevmode
-Suppose Alice wants to sign a message
-\(\textsf{msg}\).
+\begin{algo}{EdDSA signature generation}{}
+Suppose Alice wants to sign a message \(\textsf{msg}\).
 
 \begin{enumerate}
 \item
@@ -379,8 +374,7 @@ In other words, the signature is the ordered pair
 \(( [ r],s )\).
 \end{algo}
 
-\begin{algo}[EdDSA signature verification]
-\leavevmode
+\begin{algo}{EdDSA signature verification}{}
 For Bob to verify a signature
 \(( [ r],s )\) for \(\textsf{msg}\):
 
@@ -398,7 +392,7 @@ An adversary cannot forge the signature even if they know \(r\) and
 \(n\). Indeed, such an adversary can compute what the point
 \([ s] = [ r] + n[ d]\) should be,
 but without knowledge of \(d\) they cannot get the integer \(s\), due to
-Assumption \ref{ddh}.
+Assumption \ref{tcb:ddh}.
 
 The number \(r\) is called a \emph{blinding factor} because its use
 prevents Bob from stealing Alice's secret key \(d\) from the published
@@ -424,7 +418,7 @@ be a commitment scheme for polynomials, but we can already use elliptic
 curves to commit \textbf{numbers} with something called a Pedersen
 commitment, which we will now describe.
 
-A multivariable generalization of Assumption \ref{ddh} is that if
+A multivariable generalization of Assumption \ref{tcb:ddh} is that if
 \(g_{1},\ldots,g_{n} \in E\) are a bunch of randomly chosen points of
 \(E\) with order \(q\), then it is computationally infeasible to find
 \(( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in {\mathbb{F}}_{q}^{n}\)
@@ -432,15 +426,14 @@ such that
 \[a_{1}g_{1} + \cdots + a_{n}g_{n} = b_{1}g_{1} + \cdots + b_{n}g_{n}.\]
 (Remember that \(q \approx 2^{256}\) is very large.)
 
-\begin{definition}
-\label{comp_basis}
+\begin{definition}{Computational basis}{comp}
 In these notes, if there is a globally known elliptic curve $E$
 and points $g_1, \ldots, g_n$ have order $q$ and no known nontrivial
 linear dependencies between them,
 we will say they are a \emph{computational basis over $\FF_q$}.
 \end{definition}
 
-\begin{remark}
+\begin{remark}{}{}
 This may horrify pure mathematicians because we are pretending the map
 \[ \FF_q^n \rightarrow \FF_q \text{ by } (a_1, \ldots, a_n) \mapsto \sum_1^n a_i g_i \]
 is injective,
@@ -450,14 +443,13 @@ This can feel weird because our instincts from linear algebra in pure math
 are wrong now. This map, while not injective in theory,
 ends up being injective \emph{in practice} (because we cannot find collisions).
 And this is a critical standing assumption for this entire framework!
-
 \end{remark}
 
 This injectivity gives us a sort of hash function on vectors (with
 ``linearly independent'' now being phrased as ``we cannot find a
 collision''). To spell this out:
 
-\begin{definition}
+\begin{definition}{Pedersen comittment}{}
 Let $g_1, \ldots, g_n \in E$ be a computational basis over $\FF_q$.
 Given a vector
 \[ \vec{a} = \langle a_1, \ldots, a_n \rangle \in \FF_q^n \] of scalars,

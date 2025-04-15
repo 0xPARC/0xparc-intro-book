@@ -35,7 +35,7 @@ the polynomial has.
 \subsection{The setup}
 
 Remember the notation \([ n] := n \cdot g \in E\) defined in
-Definition \ref{armor}. To set up the KZG commitment scheme, a trusted party needs
+Definition \ref{tcb:armor}. To set up the KZG commitment scheme, a trusted party needs
 to pick a secret scalar \(s \in \mathbb{F}_{q}\) and publish
 \[[ s^{0} ],[ s^{1} ],\ldots,[ s^{M} ]\]
 for some large \(M\), the maximum degree of a polynomial the scheme
@@ -49,7 +49,7 @@ The setup only needs to be done by a trusted party once for the curve
 \(E\). Then anyone in the world can use the resulting sequence for KZG
 commitments.
 
-\begin{remark}
+\begin{remark}{}{}
 The trusted party has to delete $s$ after the calculation.
 If anybody knows the value of $s$, the protocol will be insecure.
 The trusted party will only publish $[s^0] = [1], [s^1], \ldots, [s^M]$.
@@ -62,11 +62,11 @@ this is a case of the discrete logarithm problem.
 You can make the protocol somewhat more secure by involving
 several different trusted parties.
 The first party chooses a random $[s_1]$,
-computes $[s_1^0], \ldots, [s_1^M]$, 
+computes $[s_1^0], \ldots, [s_1^M]$,
 and then discards $s_1$.
 The second party chooses $s_2$ and computes $[(s_1 s_2)^0], \ldots, [(s_1 s_2)^M]$.
 And so forth.
-In the end, the value of $s$ with be the product of the secrets 
+In the end, the value of $s$ with be the product of the secrets
 $s_i$ chosen by the parties... so the only way they can break secrecy
 is if all the ``trusted parties'' collude.
 \end{remark}
@@ -76,8 +76,7 @@ is if all the ``trusted parties'' collude.
 Peggy has a polynomial \(P(X) \in \mathbb{F}_{p}[X]\). To
 commit to it:
 
-\begin{algo}[Creating a KZG commitment]
-\leavevmode
+\begin{algo}{Creating a KZG commitment}{}
 \begin{enumerate}
 \item
   Peggy computes and publishes \([ P(s) ]\).
@@ -85,14 +84,13 @@ commit to it:
 \end{algo}
 
 This computation is possible as \([ s^{i} ]\) are
-globally known.  
+globally known.
 
 Now consider an input \(z \in \mathbb{F}_{p}\); Victor wants to know the
 value of \(P(z)\). If Peggy wishes to convince Victor that \(P(z) = y\),
 then:
 
-\begin{algo}[Opening a KZG commitment]
-\leavevmode
+\begin{algo}{Opening a KZG commitment}{}
 \begin{enumerate}
 \item
   Peggy does polynomial division to compute
@@ -105,7 +103,7 @@ then:
 \item
   Victor verifies by checking
 \begin{equation}
-\label{kzg-verify}  
+\label{kzg-verify}
 \operatorname{pair}([ Q(s) ],[ s] - [ z]) = \operatorname{pair}([ P(s) ] - [ y],[ 1])
 \end{equation}
 and accepts if and only if Equation \eqref{kzg-verify} is true.
@@ -149,9 +147,7 @@ obtained from Lagrange interpolation\footnote{https://en.wikipedia.org/wiki/Lagr
 this out, suppose Peggy wishes to prove to Victor that
 \(P( z_{i} ) = y_{i}\) for \(1 \leq i \leq n\).
 
-\begin{algo}
-[Opening a KZG commitment at \(n\) values]
-\leavevmode
+\begin{algo}{Opening a KZG commitment at \(n\) values}{}
 \begin{enumerate}
 \item
   By Lagrange interpolation, both parties agree on a polynomial \(f(X)\)
@@ -163,7 +159,7 @@ this out, suppose Peggy wishes to prove to Victor that
   Peggy sends the single element \([ Q(s) ]\) as
   her proof.
 \item
-  Victor verifies 
+  Victor verifies
 \[  \operatorname{pair}([ Q(s) ],[ ( s - z_{1} )( s - z_{2} )\ldots( s - z_{n} ) ]) = \operatorname{pair}([ P(s) ] - [ f(s) ],[ 1]). \]
 \end{enumerate}
 \end{algo}
@@ -179,8 +175,8 @@ multi-opening protocol for KZG commitments
 (Section \ref{multi-openings}), which we call
 \emph{root check} (not a standard name). Here is the problem statement:
 
-\begin{problem}
-Suppose one had two polynomials $P_1$ and $P_2$, 
+\begin{problem}{}{}
+Suppose one had two polynomials $P_1$ and $P_2$,
 and Peggy has given commitments
 $\operatorname{Com}(P_1)$ and $\operatorname{Com}(P_2)$.
 Peggy would like to prove to Victor that, say,
@@ -208,8 +204,7 @@ to reveal any \(P_{i}(42)\), which is great!
 
 To be fully explicit, here is the algorithm:
 
-\begin{algo}[Root check]
-\label{root-check}
+\begin{algo}{Root check}{root-check}
 Assume that \(F\) is a polynomial for which Peggy can
 establish the value of \(F\) at any point in \({\mathbb{F}}_{q}\). Peggy
 wants to convince Victor that \(F\) vanishes on a given finite set

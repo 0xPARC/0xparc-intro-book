@@ -113,7 +113,7 @@ sequence of physical memory requests. For any two \emph{logical} request
 sequences, the ORAM's resulting \emph{physical} access sequences will be
 indistinguishable.
 
-\begin{remark}
+\begin{remark}{}{}
 In this security requirement, we require that the server learn nothing
 from observing only the list of physical addresses, and whether each
 physical access is a read or write. We do not say anything about the
@@ -332,11 +332,10 @@ show that this is indeed the case.
 
 \subsection{Algorithm pseudo-code}\label{algorithm-pseudo-code.}
 
-We present the algorithm's pseudo-code in Algorithms~\ref{alg:access}
-and \ref{alg:evict}.
+We present the algorithm's pseudo-code in Algorithms~\ref{tcb:access}
+and \ref{tcb:evict}.
 
-\begin{algo}{$\texttt{The procedure Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}
-\label{alg:access}
+\begin{algo}{$\texttt{The procedure Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}{access}
 
 \textbf{Assume:}
 Each block is of the form $(\addr, \data, l)$
@@ -371,8 +370,7 @@ else add $(\addr, \data, l^*)$ to the root bucket.
 \end{algorithmic}
 \end{algo}
 
-\begin{algo}{The procedure \texttt{Evict}}
-\label{alg:evict}
+\begin{algo}{The procedure \texttt{Evict}}{evict}
 \begin{algorithmic}[1]
 %\REQUIRE $\nu$ as the number of blocks to evict in each level.
 
@@ -396,7 +394,7 @@ the child, write $\textsf{block}$  to an empty slot in the child bucket.
 \end{algorithmic}
 \end{algo}
 
-\begin{remark}
+\begin{remark}{}{}
 Note that in a full-fledged implementation,
 all blocks are typically encrypted to hide the contents of the block.
 Whenever reading and writing back a block, the block
@@ -431,8 +429,7 @@ argue correctness, we must argue why no overflow will ever occur except
 with negligible probability --- as long as the bucket size \(Z\) is set
 appropriately.
 
-\begin{claim}
-\label{clm:bucketsize}
+\begin{claim}{}{bucketsize}
 Bucket size and overflow probability: If the bucket size \(Z\) is
 super-logarithmic in \(N\), then over any polynomially many accesses, no
 bucket overflows except with negligible in \(N\) probability.
@@ -506,14 +503,14 @@ factor; and thus \(O( \log N )\) levels of recursion would
 suffice.
 
 We can thus conclude with the following theorem.
+\footnote{https://eprint.iacr.org/2011/407.pdf}
 
-\begin{theorem}[Binary-tree ORAM\footnote{https://eprint.iacr.org/2011/407.pdf}]
-For any
-super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
-that achieves \(O( \alpha\log^{3}N )\) cost for each access:
-each logical request will translate to
-\(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
-client is required to store only \(O(1)\) number of blocks.
+\begin{theorem}{Binary-tree ORAM}{}
+  For any super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
+  that achieves \(O( \alpha\log^{3}N )\) cost for each access:
+  each logical request will translate to
+  \(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
+  client is required to store only \(O(1)\) number of blocks.
 \end{theorem}
 
 Note that in the total cost \(O( \alpha\log^{3}N )\), an

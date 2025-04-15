@@ -13,19 +13,85 @@
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\ZZ}{\mathbb{Z}}
 
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{assumption}[theorem]{Assumption}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem{problem}[theorem]{Problem}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{situation}[theorem]{Situation}
+\usepackage{tcolorbox}
+\usepackage{varwidth}
+\tcbuselibrary{skins}
+\tcbuselibrary{theorems}
+\tcbuselibrary{breakable}
 
-\theoremstyle{definition}
-\newtheorem{algo}[theorem]{Algorithm}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{remark}[theorem]{Remark}
+\tcbset{
+  theorem base/.style = {
+    fonttitle = \bfseries\sffamily
+  }
+}
+
+% Theorems
+\NewTcbTheorem[number within=chapter]{theorem}{Theorem}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{proposition}{Proposition}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{claim}{Claim}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{assumption}{Assumption}{
+  theorem base,
+  colback = red!5,
+  colframe = red!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{definition}{Definition}{
+  theorem base,
+  colback = red!5,
+  colframe = red!35!black,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{problem}{Problem}{
+  theorem base,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{situation}{Problem}{
+  theorem base,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{example}{Example}{
+  theorem base,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{algo}{Algorithm}{
+  theorem base,
+  enhanced,
+  frame empty,
+  interior empty,
+  colframe = blue,
+  coltitle = blue,
+  colbacktitle = {blue!15!white},
+  borderline = {0.5mm}{0mm}{blue,dashed},
+  attach boxed title to top center = {yshift = -3mm},
+  boxed title style = {boxrule = 0.4pt},
+  varwidth boxed title,
+  top = {5mm},
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{remark}{Remark}{
+  theorem base,
+  enhanced,
+  breakable,
+  boxrule = 0pt,
+  frame hidden,
+  borderline west = {4pt}{0pt}{black},
+  coltitle = black,
+  colback = gray!10!white,
+  colbacktitle = gray!10!white,
+  toptitle = 2mm,
+  sharp corners,
+}{tcb}
 
 \title{Programmable Cryptography: \\ Four Easy Pieces}
 \author{Edited by Evan Chen, Brian Lawrence, Yan X Zhang}
@@ -42,6 +108,7 @@
 {\color{purple}\S\thesubsection\enskip}
 \renewcommand*{\subsubsectionformat}%
 {\color{purple}\S\thesubsubsection\enskip}
+\addtokomafont{paragraph}{\color{orange!35!black}\P\ }
 \KOMAoptions{numbers=noenddot}
 
 \newcommand{\credits}[1]{\noindent\emph{#1}\vspace{2em}}
@@ -54,19 +121,16 @@
 
 \tableofcontents
 
-\newpage
 \chapter{Introduction}
 \credits{Brian Gu and Yan X Zhang}
 \input{intro}
 
-\newpage
 \chapter{Two-Party Computation}
 \credits{Brian Gu and Brian Lawrence}
 \input{mpc}
 \input{ot}
 \input{2pc-takeaways}
 
-\newpage
 \chapter{SNARKs Prelude: Elliptic Curves and Polynomial Commitments}
 \credits{Evan Chen}
 \input{ec}
@@ -74,7 +138,6 @@
 \input{kzg}
 \input{kzg-takeaways}
 
-\newpage
 \chapter{SNARKs}
 \credits{Evan Chen}
 \input{zkintro}
@@ -83,7 +146,6 @@
 \input{fs}
 \input{snark-takeaways}
 
-\newpage
 \chapter{Fully Homomorphic Encryption}
 \credits{Brian Lawrence and Yan X Zhang}
 \input{fhe0}
@@ -92,7 +154,6 @@
 \input{fhe3}
 \input{fhe-takeaways}
 
-\newpage
 \chapter{Oblivious RAM}
 \credits{Elaine Shi}
 \input{oram}

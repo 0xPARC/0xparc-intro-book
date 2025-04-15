@@ -29,9 +29,9 @@ interacting with Victor, Peggy simply runs this hash function to
 generate the challenge for each round.
 
 For example, consider the following (slightly simplified) version of
-Algorithm \ref{root-check}.
+Algorithm \ref{tcb:root-check}.
 
-\begin{algo}
+\begin{algo}{}{}
 Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both
@@ -52,7 +52,7 @@ Peggy and Victor.
 
 Fiat-Shamir turns it into the following noninteractive protocol.
 
-\begin{algo}
+\begin{algo}{}{}
 Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both

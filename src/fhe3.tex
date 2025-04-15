@@ -29,7 +29,7 @@ square \(n\)-by-\(n\) matrix \(C\) such that
 decryption is easy: just compute the \(i\)-th entry of \(C\mathbf{v}\),
 and determine whether it is closer to \(0\) or to \(v_{i}\).
 
-\begin{remark}
+\begin{remark}{}{}
 With a bit of effort, it is possible to make this into a public-key
 cryptosystem too. Just like in Section \ref{lwe-crypto}, the main idea is to
 release a table of vectors \(\mathbf{x}\) such that
@@ -42,7 +42,7 @@ the identity matrix. This gives a \(C\) such that
 \[C\mathbf{v} \approx \mu\mathbf{v}.\]
 \end{remark}
 
-\begin{problem}
+\begin{problem}{}{}
 How do we build such a \(C_{0}\)? (One possible direction is to build it
 row-by-row.)
 \end{problem}
@@ -92,7 +92,7 @@ entries. In fact, we will be able to make it so that all entries of
 \(C\) are either \(0\) or \(1\).
 
 To make this work, we will assume our secret key \(\mathbf{v}\) has the
-special form 
+special form
 \begin{eqnarray}
 \mathbf{v} & = & (a_{1},2a_{1},4a_{1},\ldots,2^{k}a_{1}, \nonumber \\
 & & a_{2},2a_{2},4a_{2},\ldots,2^{k}a_{2}, \nonumber \\
@@ -130,7 +130,7 @@ The solution is to use binary expansion: take
 this works -- it boils down to the fact that \((1,0,0,1)\) is the binary
 expansion of \(9\).
 
-\begin{problem}
+\begin{problem}{}{}
 How would you flatten a different vector, like
 \[\mathbf{x} = (9,3,1,4)?\] As a hint, remember we are working with
 numbers modulo 11: So if you come across a number that is bigger than 11

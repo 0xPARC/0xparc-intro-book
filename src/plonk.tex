@@ -12,7 +12,7 @@ the choice that is used is: \textbf{systems of quadratic equations over
 ability to prove that we have solutions to a system of quadratic
 equations.
 
-\begin{situation}
+\begin{situation}{}{}
 Suppose we have a system of \(m\) equations in \(k\) variables
 \(x_{1},\ldots,x_{k}\): \[\begin{aligned}
 Q_1( x_{1},\ldots,x_{k} ) & = 0 \\
@@ -39,7 +39,7 @@ familiar with this concept, the upshot is that Quad-SAT being
 NP-complete means it can serve as a reasonable arithmetization that can
 express most reasonable (NP) problems.
 
-\begin{remark}[Example of Quad-SAT encoding 3-SAT]
+\begin{remark}{Example of Quad-SAT encoding 3-SAT}{np-complete}
 \label{np-complete}
 We assume knowledge of 3-SAT and it
 being NP-complete. The following example instance illustrates how to
@@ -48,7 +48,7 @@ x_{i}^{2} & = x_{i}\quad\forall 1 \leq i \leq 1000 \\
 y_{1} & = ( 1 - x_{42} ) \cdot x_{17}, & \quad & 0 = y_{1} \cdot x_{53} \\
 y_{2} & = ( 1 - x_{19} ) \cdot ( 1 - x_{52} ) & \quad & 0 = y_{2} \cdot ( 1 - x_{75} ) \\
 y_{3} & = x_{25} \cdot x_{64}, & \quad & 0 = y_{3} \cdot x_{81} \\
- & \vdots 
+ & \vdots
 \end{aligned}\] (imagine many more such pairs of equations). The
 \(x_i\)'s are variables which are seen to either be \(0\) or \(1\).
 And then each pair of equations with \(y_{i}\) corresponds to a clause
@@ -74,7 +74,7 @@ that \(\operatorname{sha}(M) = \ 0xa91af3ac...\)'' is to translate the
 claim into a system of quadratic equations. This process is called
 ``arithmetization.''
 
-One approach (suggested by Remark \ref{np-complete}) is
+One approach (suggested by Remark \ref{tcb:np-complete}) is
 to represent each bit involved in the calculation by a variable
 \(x_{i}\) (which would then be constrained to be either 0 or 1 by an
 equation \(x_{i}^{2} = x_{i}\)). In this setup, the value \(0xa91af3ac\)
@@ -90,7 +90,7 @@ We will not get into any more details of arithmetization here.
 PLONK is going to prove solutions to systems of quadratic equations of a
 very particular form:
 
-\begin{definition}
+\begin{definition}{PLONK instance}{}
 An instance of PLONK consists of two pieces, the \emph{gate constraints}
 and the \emph{copy constraints}.
 
@@ -107,7 +107,7 @@ The \emph{copy constraints} are a bunch of assertions that some of the
 ``\(a_{1} = c_{7}\)'', ``\(b_{17} = b_{42}\)'', and so on.
 \end{definition}
 
-\begin{remark}[``From Quad-SAT to PLONK'']
+\begin{remark}{``From Quad-SAT to PLONK''}{}
 PLONK might look less general than Quad-SAT,
 but it turns out you can convert any Quad-SAT problem to PLONK.
 
@@ -184,7 +184,7 @@ A( \omega^{i} ) = a_{i},B( \omega^{i} ) = b_{i},C( \omega^{i} ) = c_{i}\text{  f
 \end{equation}
 
 We specifically choose \(\omega^{i}\) because that way, if we use
-Algorithm \ref{root-check} on the set
+Algorithm \ref{tcb:root-check} on the set
 \( \{ \omega,\omega^{2},\ldots,\omega^{n} \} \), then the
 polynomial called \(Z\) is just
 \[Z(X) = (X - \omega)\cdots( X - \omega^{n} ) = X^{n} - 1,\]
@@ -196,8 +196,7 @@ transform'' (NTT) even though it is exactly the same as the usual FFT.)
 
 Then:
 
-\begin{algo}[Commitment step of PLONK]
-\leavevmode
+\begin{algo}{Commitment step of PLONK}{}
 \begin{enumerate}
 \item
   Peggy interpolates \(A\), \(B\), \(C\) as in
@@ -222,7 +221,7 @@ The analogous polynomials \(Q_{R}\), \(Q_{O}\), \(Q_{M}\), \(Q_{C}\) are
 defined in the same way.
 
 Now, what do the gate constraints amount to? Peggy is trying to convince
-Victor that the equation 
+Victor that the equation
 \begin{equation}
 \label{plonk-gate}
 Q_{L}(x)A(x) + Q_{R}(x)B(x) + Q_{O}(x)C(x) + Q_{M}(x)A(x)B(x) + Q_{C}(x) = 0
@@ -232,17 +231,16 @@ is true for the \(n\) numbers
 
 However, Peggy has committed \(A\), \(B\), \(C\) already, while all the
 \(Q_{\ast}\) polynomials are globally known. So this is a direct
-application of Algorithm \ref{root-check}:
+application of Algorithm \ref{tcb:root-check}:
 
-\begin{algo}[Gate check]
-\leavevmode
+\begin{algo}{Gate check}{}
 \begin{enumerate}
 \item
 Both parties interpolate five polynomials
 \(Q_{\ast} \in {\mathbb{F}}_{q}[X]\) from the \(5n\)
  coefficients \(q_{\ast}\) (globally known from the PLONK instance).
 \item
-Peggy uses Algorithm \ref{root-check} to convince Victor that
+Peggy uses Algorithm \ref{tcb:root-check} to convince Victor that
 Equation \eqref{plonk-gate} holds for \(X = \omega^{i}\)
 (that is, the left-hand side is indeed divisible by
 \(Z(X) := X^{n} - 1\)).
@@ -260,7 +258,7 @@ Section \ref{copy-constraints} to it.
 
 The last thing to be done is to reveal the value of public witnesses, so
 the prover can convince the verifier that those values are correct. This
-is simply an application of Algorithm \ref{root-check}. Let us say the public
+is simply an application of Algorithm \ref{tcb:root-check}. Let us say the public
 witnesses are the values \(a_{i}\), for all \(i\) in some set \(S\). (If
 some of the \(b\)`s and \(c\)`s are also public, we will just do the
 same thing for them.) The prover can interpolate another polynomial,
@@ -271,6 +269,6 @@ and \(A^{\text{public}}( \omega^{i} ) = 0\) if
 \(A^{\text{public}}\), since all the values \(a_{i}\) are publicly
 known!
 
-Now the prover runs Algorithm \ref{root-check} to prove that
+Now the prover runs Algorithm \ref{tcb:root-check} to prove that
 \(A - A^{\text{public}}\) vanishes on \(S\). (And similarly for \(B\)
 and \(C\), if needed.) And we are done.

@@ -10,7 +10,7 @@ copy check.
 
 \subsection{Easier case: permutation check}
 
-\begin{problem}
+\begin{problem}{}{}
 Suppose we have polynomials \(P,Q \in {\mathbb{F}}_{q}[ X]\)
 which encode two vectors of values \[\begin{aligned}
 \overset{\rightarrow}{p} & = \langle P( \omega^{1} ),P( \omega^{2} ),\ldots,P( \omega^{n} )\rangle \\
@@ -54,7 +54,7 @@ F_{P}( \omega^{n} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} )
 So to prove Equation \eqref{permcheck-poly}, the
 following algorithm works:
 
-\begin{algo}[Permutation check]
+\begin{algo}{Permutation check}{}
 Suppose Peggy has committed \(\operatorname{Com}(P)\)
 and \(\operatorname{Com}(Q)\).
 
@@ -68,7 +68,7 @@ and \(\operatorname{Com}(Q)\).
   Define \(F_{Q}\) similarly. Peggy sends \(\operatorname{Com}(F_{P})\)
   and \(\operatorname{Com}(F_{Q})\).
 \item
-  Peggy uses Algorithm \ref{root-check} to prove all of the following statements:
+  Peggy uses Algorithm \ref{tcb:root-check} to prove all of the following statements:
 
   \begin{itemize}
   \item
@@ -90,13 +90,13 @@ and \(\operatorname{Com}(Q)\).
 
 Moving on to copy check, let us look at a concrete example where
 \(n = 4\). Suppose that our copy constraints were
-\[ \redoval{(a_{1})} = 
-\redoval{(a_{4})} = 
+\[ \redoval{(a_{1})} =
+\redoval{(a_{4})} =
 \redoval{(c_{4})}
 \quad\text{and }\quad \bluerect{(b_{2})} = \bluerect{(c_{1})}.\]
 (We have colored the variables that will move around for
 readability.) So, the copy constraint means we want the following
-equality of matrices: 
+equality of matrices:
 \begin{equation}
 \label{copy1}
 \begin{pmatrix}
@@ -119,7 +119,7 @@ a really clever way to do this by tagging each entry with
 such that \(\eta^{2}\) does not happen to be a power of \(\omega\), so
 all the tags are distinct. Specifically, if
 Equation \eqref{copy1} is true, then for any
-\(\mu \in {\mathbb{F}}_{q}\), we also have 
+\(\mu \in {\mathbb{F}}_{q}\), we also have
 \begin{equation}
 \label{copy2}
 \begin{aligned}
@@ -152,7 +152,7 @@ permutation of the left-hand side, and the check will fail.
 
 To clean things up, shuffle the \(12\) terms on the right-hand side of
 Equation \eqref{copy2} so that each variable is in the cell it
-started at. We want to prove 
+started at. We want to prove
 \begin{equation}
 \label{copy3}
 \begin{array}{c}
@@ -175,7 +175,7 @@ a_{4} + \redoval{({\omega^{1}\mu})} & b_{4} + \eta\omega^{4}\mu & c_{4} + \redov
 The permutations needed are part of the problem statement, hence
 globally known. So in this example, both parties are going to
 interpolate cubic polynomials \(\sigma_{a},\sigma_{b},\sigma_{c}\) that
-encode the weird coefficients row-by-row: 
+encode the weird coefficients row-by-row:
 \[
 \begin{pmatrix}
 \sigma_{a}( \omega^{1} ) = \redoval{({\eta^{2}\omega^{4}})} & \sigma_{b}( \omega^{1} ) = \eta\omega^{1} & \sigma_{c}( \omega^{1} ) = \bluerect{({\eta\omega^{2}})} \\
@@ -183,7 +183,7 @@ encode the weird coefficients row-by-row:
 \sigma_{a}( \omega^{3} ) = \omega^{3} & \sigma_{b}( \omega^{3} ) = \eta\omega^{3} & \sigma_{c}( \omega^{3} ) = \eta^{2}\omega^{3} \\
 \sigma_{a}( \omega^{4} ) = \redoval{(\omega^{1})} & \sigma_{b}( \omega^{4} ) = \eta\omega^{4} & \sigma_{c}( \omega^{4} ) = \redoval{(\omega^{4})}
 \end{pmatrix}.
-\] 
+\]
 Then the prover can start defining accumulator
 polynomials, after re-introducing the random challenge \(\lambda\) from
 permutation check. We are going to need six in all, three for each side
@@ -209,7 +209,7 @@ F'_{c}( \omega^{k} ) & = \prod_{i \leq k}( c_{i} + \sigma_{c}( \omega^{i} )\mu +
 \end{equation}
 
 And then we can run essentially the algorithm from before. There are six
-initialization conditions 
+initialization conditions
 \begin{equation}
 \label{copycheck-init}
 \begin{aligned}
@@ -221,7 +221,7 @@ F'_{b}( \omega^{1} ) & = B( \omega^{1} ) + \sigma_{b}( \omega^{1} )\mu + \lambda
 F'_{c}( \omega^{1} ) & = C( \omega^{1} ) + \sigma_{c}( \omega^{1} )\mu + \lambda.
 \end{aligned}
 \end{equation}
-and six accumulation conditions 
+and six accumulation conditions
 \begin{equation}
 \label{copycheck-accum}
 \begin{aligned}
@@ -241,7 +241,7 @@ F_{a}(1)F_{b}(1)F_{c}(1) = F'_{a}(1)F'_{b}(1)F'_{c}(1).
 
 To summarize, the copy check goes as follows:
 
-\begin{algo}[Copy check]
+\begin{algo}{Copy check}{}
 \leavevmode
 \begin{enumerate}
 \setcounter{enumi}{-1}
@@ -263,14 +263,14 @@ To summarize, the copy check goes as follows:
   \(F'_{c}\) defined in Equation \eqref{copycheck-left}
   and Equation \eqref{copycheck-right}.
 \item
-  Peggy uses Algorithm \ref{root-check} to prove
+  Peggy uses Algorithm \ref{tcb:root-check} to prove
   Equation \eqref{copycheck-init} holds.
 \item
-  Peggy uses Algorithm \ref{root-check} to prove
+  Peggy uses Algorithm \ref{tcb:root-check} to prove
   Equation \eqref{copycheck-accum} holds for
   \(X \in \{ \omega,\omega^{2},\ldots,\omega^{n - 1} \}\).
 \item
-  Peggy uses Algorithm \ref{root-check} to prove
+  Peggy uses Algorithm \ref{tcb:root-check} to prove
   Equation \eqref{copycheck-final} holds.
 \end{enumerate}
 \end{algo}

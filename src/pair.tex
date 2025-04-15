@@ -10,14 +10,14 @@ meaning that
 \([ na] = n[ a]\). But as written we cannot do
 ``armored multiplication'':
 
-\begin{claim}
+\begin{claim}{}{}
 As far as we know, given $[a]$ and $[b]$, one cannot compute $[a b]$.
 \end{claim}
 
 On the other hand, it \textbf{does} turn out that we know a way to
 \textbf{verify} a claimed answer on certain curves. That is:
 
-\begin{proposition}
+\begin{proposition}{}{}
 On the curve BN254, given three points \([ a]\),
 \([ b]\), and \([ c]\) on the curve, one can
 verify whether \(ab = c\).
@@ -47,12 +47,12 @@ will be true whenever \(mn = m'n'\), because both sides will equal
 \(mn\operatorname{pair}([ 1],[ 1])\). So this
 gives us a way to \textbf{verify} two-by-two multiplication.
 
-\begin{remark}
+\begin{remark}{}{}
 The last sentence is worth bearing in mind: In all the protocols we will see,
 the pairing is only used by the verifier Victor, never by the prover Peggy.
 \end{remark}
 
-\begin{remark}
+\begin{remark}{}{}
 On the other hand, we currently do not seem to know a good
 way to do \emph{multilinear} pairings.
 For example, we do not know a good trilinear map
@@ -63,7 +63,7 @@ that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
 
 \subsection{Verifying more complicated claims}\label{pair-verify}
 
-\begin{example}
+\begin{example}{}{}
 Suppose Peggy wants to convince Victor that \(y = x^{3} + 2\), where
 Peggy has sent Victor elliptic curve points \([ x]\) and
 \([ y]\). To do this, Peggy additionally sends to Victor
@@ -88,12 +88,11 @@ prover sends intermediate values as needed so that the verifier can
 verify the claim using only pairings and linearity.
 \end{example}
 
-\subsection{So which curves are
-pairing-friendly?}\label{pairing-friendly}
+\subsection{So which curves are pairing-friendly?}\label{pairing-friendly}
 
 If we chose \(E\) to be BN254, the following property holds:
 
-\begin{proposition}
+\begin{proposition}{}{}
 For \((p,q)\) as in BN254, the smallest integer \(k\) such that \(q\)
 divides \(p^{k} - 1\) is \(k = 12\).
 \end{proposition}
