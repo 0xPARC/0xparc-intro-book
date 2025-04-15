@@ -11,13 +11,13 @@ copy check.
 \subsection{Easier case: permutation check}
 
 \begin{problem}{}{}
-Suppose we have polynomials \(P,Q \in {\mathbb{F}}_{q}[ X]\)
+Suppose we have polynomials $P,Q \in {\mathbb{F}}_{q}[ X]$
 which encode two vectors of values \[\begin{aligned}
 \overset{\rightarrow}{p} & = \langle P( \omega^{1} ),P( \omega^{2} ),\ldots,P( \omega^{n} )\rangle \\
 \overset{\rightarrow}{q} & = \langle Q( \omega^{1} ),Q( \omega^{2} ),\ldots,Q( \omega^{n} )\rangle.
 \end{aligned}\] Is there a way that one can quickly verify
-\(\overset{\rightarrow}{p}\) and \(\overset{\rightarrow}{q}\) are the
-same up to permutation of the \(n\) entries?
+$\overset{\rightarrow}{p}$ and $\overset{\rightarrow}{q}$ are the
+same up to permutation of the $n$ entries?
 \end{problem}
 
 
@@ -28,28 +28,28 @@ Well, actually, it would be necessary and sufficient for the identity
  = ( T + Q( \omega^{1} ) )( T + Q( \omega^{2} ) )\cdots( T + Q( \omega^{n} ) )
 \end{eqnarray}
 to be true, in the sense that both sides are the same polynomial in a
-single formal variable \(T\). And for that, it is sufficient that a
-single random challenge \(T = \lambda\) passes
+single formal variable $T$. And for that, it is sufficient that a
+single random challenge $T = \lambda$ passes
 Equation \eqref{permcheck-poly}: If the two sides of
 Equation \eqref{permcheck-poly} are not the same
-polynomial, then the two sides can have at most \(n - 1\) common values.
-So for a randomly chosen \(\lambda\) (chosen from a field with
-\(q \approx 2^{256}\) elements), the chances that \(T = \lambda\) passes
+polynomial, then the two sides can have at most $n - 1$ common values.
+So for a randomly chosen $\lambda$ (chosen from a field with
+$q \approx 2^{256}$ elements), the chances that $T = \lambda$ passes
 Equation \eqref{permcheck-poly} are extremely small.
 
 We can then get a proof of
 Equation \eqref{permcheck-poly} using the technique of
 adding an \emph{accumulator polynomial}. The idea is this: Victor picks
-a random challenge \(\lambda \in {\mathbb{F}}_{q}\). Peggy then
+a random challenge $\lambda \in {\mathbb{F}}_{q}$. Peggy then
 interpolates the polynomial
-\(F_{P} \in {\mathbb{F}}_{q}[ T]\) such that
+$F_{P} \in {\mathbb{F}}_{q}[ T]$ such that
 \[\begin{aligned}
 F_{P}( \omega^{1} ) & = \lambda + P( \omega^{1} ) \\
 F_{P}( \omega^{2} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) ) \\
  & \vdots \\
 F_{P}( \omega^{n} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) )\cdots( \lambda + P( \omega^{n} ) ).
 \end{aligned}\] Then the accumulator
-\(F_{Q} \in {\mathbb{F}}_{q}[ T]\) is defined analogously.
+$F_{Q} \in {\mathbb{F}}_{q}[ T]$ is defined analogously.
 
 So to prove Equation \eqref{permcheck-poly}, the
 following algorithm works:
@@ -60,12 +60,12 @@ and \(\operatorname{Com}(Q)\).
 
 \begin{enumerate}
 \item
-  Victor sends a random challenge \(\lambda \in {\mathbb{F}}_{q}\).
+  Victor sends a random challenge $\lambda \in {\mathbb{F}}_{q}$.
 \item
-  Peggy interpolates polynomials \(F_{P}[ T]\) and
-  \(F_{Q}[ T]\) such that
+  Peggy interpolates polynomials $F_{P}[ T]$ and
+  $F_{Q}[ T]$ such that
   \(F_{P}( \omega^{k} ) = \prod_{i \leq k}( \lambda + P( \omega^{i} ) )\).
-  Define \(F_{Q}\) similarly. Peggy sends \(\operatorname{Com}(F_{P})\)
+  Define $F_{Q}$ similarly. Peggy sends \(\operatorname{Com}(F_{P})\)
   and \(\operatorname{Com}(F_{Q})\).
 \item
   Peggy uses Algorithm \ref{tcb:root-check} to prove all of the following statements:
@@ -73,15 +73,15 @@ and \(\operatorname{Com}(Q)\).
   \begin{itemize}
   \item
     \(F_{P}(X) - ( \lambda + P(X) )\) vanishes at
-    \(X = \omega\);
+    $X = \omega$;
   \item
     \(F_{P}(\omega X) - ( \lambda + P(\omega X) )F_{P}(X)\)
-    vanishes at \(X \in \{ \omega,\ldots,\omega^{n - 1} \}\);
+    vanishes at $X \in \{ \omega,\ldots,\omega^{n - 1} \}$;
   \item
-    The previous two statements also hold with \(F_{P}\) replaced by
-    \(F_{Q}\);
+    The previous two statements also hold with $F_{P}$ replaced by
+    $F_{Q}$;
   \item
-    \(F_{P}(X) - F_{Q}(X)\) vanishes at \(X = 1\).
+    \(F_{P}(X) - F_{Q}(X)\) vanishes at $X = 1$.
   \end{itemize}
 \end{enumerate}
 \end{algo}
@@ -89,7 +89,7 @@ and \(\operatorname{Com}(Q)\).
 \subsection{Copy check}
 
 Moving on to copy check, let us look at a concrete example where
-\(n = 4\). Suppose that our copy constraints were
+$n = 4$. Suppose that our copy constraints were
 \[ \redoval{(a_{1})} =
 \redoval{(a_{4})} =
 \redoval{(c_{4})}
@@ -114,12 +114,12 @@ a_{3} & b_{3} & c_{3} \\
 
 Again, our goal is to make this into a \emph{single} equation. There is
 a really clever way to do this by tagging each entry with
-\(+ \eta^{j}\omega^{k}\mu\) in reading order for \(j = 0,1,2\) and
-\(k = 1,\ldots,n\); here \(\eta \in {\mathbb{F}}_{q}\) is any number
-such that \(\eta^{2}\) does not happen to be a power of \(\omega\), so
+$+ \eta^{j}\omega^{k}\mu$ in reading order for $j = 0,1,2$ and
+$k = 1,\ldots,n$; here $\eta \in {\mathbb{F}}_{q}$ is any number
+such that $\eta^{2}$ does not happen to be a power of $\omega$, so
 all the tags are distinct. Specifically, if
 Equation \eqref{copy1} is true, then for any
-\(\mu \in {\mathbb{F}}_{q}\), we also have
+$\mu \in {\mathbb{F}}_{q}$, we also have
 \begin{equation}
 \label{copy2}
 \begin{aligned}
@@ -139,18 +139,18 @@ a_{3} + \omega^{3}\mu & b_{3} + \eta\omega^{3}\mu & c_{3} + \eta^{2}\omega^{3}\m
 \end{equation}
 
 Now how can the prover establish Equation \eqref{copy2}
-succinctly? The answer is to run a permutation check on the \(3n\)
+succinctly? The answer is to run a permutation check on the $3n$
 entries of Equation \eqref{copy2}! The prover will simply prove
 that the twelve matrix entries of the matrix on the left are a
 permutation of the twelve matrix entries of the matrix on the right.
 
 The reader should check that this is correct! If the prover starts with
-values \(a_{i}\), \(b_{i}\), and \(c_{i}\) that do not satisfy all the
-copy constraints, then a randomly selected \(\mu\) is very unlikely to
+values $a_{i}$, $b_{i}$, and $c_{i}$ that do not satisfy all the
+copy constraints, then a randomly selected $\mu$ is very unlikely to
 satisfy this permutation check. The right-hand side will not be a
 permutation of the left-hand side, and the check will fail.
 
-To clean things up, shuffle the \(12\) terms on the right-hand side of
+To clean things up, shuffle the $12$ terms on the right-hand side of
 Equation \eqref{copy2} so that each variable is in the cell it
 started at. We want to prove
 \begin{equation}
@@ -174,7 +174,7 @@ a_{4} + \redoval{({\omega^{1}\mu})} & b_{4} + \eta\omega^{4}\mu & c_{4} + \redov
 
 The permutations needed are part of the problem statement, hence
 globally known. So in this example, both parties are going to
-interpolate cubic polynomials \(\sigma_{a},\sigma_{b},\sigma_{c}\) that
+interpolate cubic polynomials $\sigma_{a},\sigma_{b},\sigma_{c}$ that
 encode the weird coefficients row-by-row:
 \[
 \begin{pmatrix}
@@ -185,10 +185,10 @@ encode the weird coefficients row-by-row:
 \end{pmatrix}.
 \]
 Then the prover can start defining accumulator
-polynomials, after re-introducing the random challenge \(\lambda\) from
+polynomials, after re-introducing the random challenge $\lambda$ from
 permutation check. We are going to need six in all, three for each side
-of Equation \eqref{copy3}: We call them \(F_{a}\), \(F_{b}\),
-\(F_{c}\), \(F'_{a}\), \(F'_{b}\), \(F'_{c}\). The ones on the left-hand
+of Equation \eqref{copy3}: We call them $F_{a}$, $F_{b}$,
+$F_{c}$, $F'_{a}$, $F'_{b}$, $F'_{c}$. The ones on the left-hand
 side are interpolated so that
 \begin{equation}
 \label{copycheck-left}
@@ -249,18 +249,18 @@ To summarize, the copy check goes as follows:
   Peggy has already sent the three commitments
   \(\operatorname{Com}(A),\operatorname{Com}(B),\operatorname{Com}(C)\)
   to Victor; these commitments bind her to the values of all the
-  variables \(a_{i}\), \(b_{i}\), and \(c_{i}\).
+  variables $a_{i}$, $b_{i}$, and $c_{i}$.
 \item
-  Both parties compute the degree \(n - 1\) polynomials
-  \(\sigma_{a},\sigma_{b},\sigma_{c} \in {\mathbb{F}}_{q}[ X]\)
+  Both parties compute the degree $n - 1$ polynomials
+  $\sigma_{a},\sigma_{b},\sigma_{c} \in {\mathbb{F}}_{q}[ X]$
   described above, based on the copy constraints in the problem
   statement.
 \item
-  Victor chooses random challenges \(\mu,\lambda \in {\mathbb{F}}_{q}\)
+  Victor chooses random challenges $\mu,\lambda \in {\mathbb{F}}_{q}$
   and sends them to Peggy.
 \item
-  Peggy interpolates the six accumulator polynomials \(F_{a}\), \ldots,
-  \(F'_{c}\) defined in Equation \eqref{copycheck-left}
+  Peggy interpolates the six accumulator polynomials $F_{a}$, \ldots,
+  $F'_{c}$ defined in Equation \eqref{copycheck-left}
   and Equation \eqref{copycheck-right}.
 \item
   Peggy uses Algorithm \ref{tcb:root-check} to prove
@@ -268,7 +268,7 @@ To summarize, the copy check goes as follows:
 \item
   Peggy uses Algorithm \ref{tcb:root-check} to prove
   Equation \eqref{copycheck-accum} holds for
-  \(X \in \{ \omega,\omega^{2},\ldots,\omega^{n - 1} \}\).
+  $X \in \{ \omega,\omega^{2},\ldots,\omega^{n - 1} \}$.
 \item
   Peggy uses Algorithm \ref{tcb:root-check} to prove
   Equation \eqref{copycheck-final} holds.

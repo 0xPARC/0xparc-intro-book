@@ -17,7 +17,7 @@ The roadmap goes roughly as follows:
 \begin{itemize}
 \item
   In Section \ref{ec} we will define \emph{elliptic curves} and
-  describe one standard elliptic curve \(E\), the \emph{BN254 curve},
+  describe one standard elliptic curve $E$, the \emph{BN254 curve},
   that will be used in these notes.
 \item
   In Section \ref{discretelog} we describe the
@@ -37,7 +37,7 @@ Every modern cryptosystem rests on a hard problem -- a computationally
 infeasible challenge whose difficulty makes the protocol secure. The
 best-known example is RSA,\footnote{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)}
 which is secure because it is hard to factor a composite number (like
-\(6887\)) into prime factors (\(6887 = 71 \cdot 97\)).
+$6887$) into prime factors ($6887 = 71 \cdot 97$).
 
 Our SNARK protocol will be based on a different hard problem: the
 ``discrete logarithm problem''
@@ -64,8 +64,8 @@ The BN254 specification fixes a specific\footnote{If you must know, the
  & = & & 218882428718392752222464057452572750885 \\
  & & & 48364400416034343698204186575808495617.
  \end{aligned}\]}
-large prime \(p \approx 2^{254}\) (and a second large
-prime \(q \approx 2^{254}\) that we define later) which has been
+large prime $p \approx 2^{254}$ (and a second large
+prime $q \approx 2^{254}$ that we define later) which has been
 specifically engineered to have certain properties (Jonathan Wang has a
 blog post\footnote{https://hackmd.io/@jpw/bn254} about the properties of
 this curve). The name BN stands for Barreto-Naehrig, two mathematicians
@@ -87,12 +87,12 @@ actually, that is a white lie: Conventionally, there is one additional
 point \(O = (0,\infty)\) called the ``point at infinity'' added in
 (whose purpose we describe in the next section).
 
-The constants \(p\) and \(q\) are contrived so that the following holds:
+The constants $p$ and $q$ are contrived so that the following holds:
 
 \begin{theorem}{BN254 has prime order}{}
-  Let \(E\) be the BN254 curve. The number of
+  Let $E$ be the BN254 curve. The number of
   points in \(E( {\mathbb{F}}_{p} )\), including the point at
-  infinity \(O\), is a prime \(q \approx 2^{254}\).
+  infinity $O$, is a prime $q \approx 2^{254}$.
 \end{theorem}
 
 \begin{definition}{Baby Jubjub prime}{}
@@ -101,7 +101,7 @@ This prime $q \approx 2^{254}$ is affectionately called the \emph{Baby Jubjub pr
 \emph{The Hunting of the Snark}\footnote{https://en.wikipedia.org/wiki/The\_Hunting\_of\_the\_Snark}).
 It will usually be denoted by $q$ in these notes.
 \end{definition}
-So, at this point, we have a bag of \(q\) points denoted
+So, at this point, we have a bag of $q$ points denoted
 \(E( {\mathbb{F}}_{p} )\). However, right now it only has the
 structure of a set.
 
@@ -109,7 +109,7 @@ The beauty of elliptic curves is that it is possible to define an
 \textbf{addition} operation on the curve; this is called the group law
 on the elliptic curve.\footnote{https://en.wikipedia.org/wiki/Elliptic\_curve\#The\_group\_law}
 This addition will make \(E( {\mathbb{F}}_{p} )\) into an
-abelian group whose identity element is the point at infinity \(O\).
+abelian group whose identity element is the point at infinity $O$.
 This addition can be formalized as a \emph{group law}.
 
 This group law involves some heavy algebra. It is not important to
@@ -120,47 +120,47 @@ reader.
 
 \begin{quote}
 
-So, let us get started. The equation of \(E\) is cubic -- the
-highest-degree terms have degree \(3\). This means that (in general) if
-you take a line \(y = mx + b\) and intersect it with \(E\), the line
-will meet \(E\) in exactly three points. The basic idea behind the group
-law is: If \(P,Q,R\) are the three intersection points of a line (any
-line) with the curve \(E\), then the group-law addition of the three
+So, let us get started. The equation of $E$ is cubic -- the
+highest-degree terms have degree $3$. This means that (in general) if
+you take a line $y = mx + b$ and intersect it with $E$, the line
+will meet $E$ in exactly three points. The basic idea behind the group
+law is: If $P,Q,R$ are the three intersection points of a line (any
+line) with the curve $E$, then the group-law addition of the three
 points is \[P + Q + R = O.\]
 
 (You might be wondering how we can do geometry when the coordinates
-\(x\) and \(y\) are in a finite field. It turns out that all the
+$x$ and $y$ are in a finite field. It turns out that all the
 geometric operations we are describing -- like finding the intersection
 of a curve with a line -- can be translated into algebra, and then you
 just do the algebra in your finite field. We will come back to this.)
 
 Why three points? Algebraically, if you take the equations
-\(Y^{2} = X^{3} + 3\) and \(Y = mX + b\) and try to solve them, you get
-\[(mX + b)^{2} = X^{3} + 3,\] which is a degree-3 polynomial in \(X\),
+$Y^{2} = X^{3} + 3$ and $Y = mX + b$ and try to solve them, you get
+\[(mX + b)^{2} = X^{3} + 3,\] which is a degree-3 polynomial in $X$,
 so it has (at most) three roots. In fact if it has two roots, it is
 guaranteed to have a third (because you can factor out the first two
 roots, and then you are left with a linear factor).
 
-Now given two points \(P\) and \(Q\), how do we find their sum
-\(P + Q\)? We can draw the line through the two points. That line --
-like any line -- will intersect \(E\) in three points: \(P\), \(Q\), and
-a third point \(R\). Now since \(P + Q + R = 0\), we know that
+Now given two points $P$ and $Q$, how do we find their sum
+$P + Q$? We can draw the line through the two points. That line --
+like any line -- will intersect $E$ in three points: $P$, $Q$, and
+a third point $R$. Now since $P + Q + R = 0$, we know that
 \[- R = P + Q.\]
 
-So now the question is just: how to find \(- R\)? Well, it turns out
+So now the question is just: how to find $- R$? Well, it turns out
 that if \(R = ( x_{R},y_{R} )\), then
 \[- R = ( x_{R}, - y_{R} ).\] Why is this? If you take the
-vertical line \(X = x_{R}\), and try to intersect it with the curve, it
+vertical line $X = x_{R}$, and try to intersect it with the curve, it
 looks like there are only two intersection points. After all, we are
-solving \[Y^{2} = x_{R}^{3} + 3,\] and since \(x_{R}\) is fixed now,
-this equation is quadratic. The two roots are \(Y = \pm y_{R}\).
+solving \[Y^{2} = x_{R}^{3} + 3,\] and since $x_{R}$ is fixed now,
+this equation is quadratic. The two roots are $Y = \pm y_{R}$.
 
 There are only two intersection points, but we say that the third
-intersection point is ``the point at infinity'' \(O\). (The reason for
+intersection point is ``the point at infinity'' $O$. (The reason for
 this lies in projective geometry, but we will not get into it.) So the
 group law here tells us
 \[( x_{R},y_{R} ) + ( x_{R}, - y_{R} ) + O = O.\]
-And since \(O\) is the identity, we get
+And since $O$ is the identity, we get
 \[- R = ( x_{R}, - y_{R} ).\]
 
 So:
@@ -170,8 +170,8 @@ So:
   Given a point \(P = ( x_{P},y_{P} )\), its negative is just
   \(- P = ( x_{P}, - y_{P} )\).
 \item
-  To add two points \(P\) and \(Q\), compute the line through the two
-  points, let \(R\) be the third intersection of that line with \(E\),
+  To add two points $P$ and $Q$, compute the line through the two
+  points, let $R$ be the third intersection of that line with $E$,
   and set \[P + Q = - R.\]
 \end{itemize}
 
@@ -181,41 +181,41 @@ here goes.
 
 If \(P = ( x_{P},y_{P} )\) and
 \(Q = ( x_{Q},y_{Q} )\), then the line between the two points
-is \(Y = mX + b\), where \[m = \frac{y_{Q} - y_{P}}{x_{Q} - x_{P}}\] and
+is $Y = mX + b$, where \[m = \frac{y_{Q} - y_{P}}{x_{Q} - x_{P}}\] and
 \[b = y_{P} - mx_{P}.\]
 
 The third intersection is \(R = ( x_{R},y_{R} )\), where
 \[x_{R} = m^{2} - x_{P} - x_{Q}\] and \[y_{R} = mx_{R} + b.\]
 
 There are separate formulas to deal with various special cases (if
-\(P = Q\), you need to compute the tangent line to \(E\) at \(P\), for
+$P = Q$, you need to compute the tangent line to $E$ at $P$, for
 example), but we will not get into it.
 
 \end{quote}
 
 In summary, we have endowed the set of points
 \(E( {\mathbb{F}}_{p} )\) with the additional structure of an
-abelian group, which happens to have exactly \(q\) elements. However, an
+abelian group, which happens to have exactly $q$ elements. However, an
 abelian group with prime order is necessarily cyclic. In other words:
 
-\begin{theorem}{The group BN254 is isomorphic to \({\mathbb{Z}}/q{\mathbb{Z}}\)}{}
-  Let \(E\) be the BN254 curve.
+\begin{theorem}{The group BN254 is isomorphic to ${\mathbb{Z}}/q{\mathbb{Z}}$}{}
+  Let $E$ be the BN254 curve.
   We have the isomorphism of abelian groups
   \[E( {\mathbb{F}}_{p} ) \cong {\mathbb{Z}}/q{\mathbb{Z}}.\]
 \end{theorem}
 
 In these notes, this isomorphism will basically be a standing
 assumption. Moving forward, we will abuse notation slightly and just
-write \(E\) instead of \(E( {\mathbb{F}}_{p} )\). In fancy
-language, \(E\) will be a one-dimensional vector space over
-\({\mathbb{F}}_{q}\). In less fancy language, we will be working with
-points on \(E\) as black boxes. We will be able to add them, subtract
-them, and multiply them by arbitrary scalars from \({\mathbb{F}}_{q}\).
+write $E$ instead of \(E( {\mathbb{F}}_{p} )\). In fancy
+language, $E$ will be a one-dimensional vector space over
+${\mathbb{F}}_{q}$. In less fancy language, we will be working with
+points on $E$ as black boxes. We will be able to add them, subtract
+them, and multiply them by arbitrary scalars from ${\mathbb{F}}_{q}$.
 
 Consequently --- and this is important --- \textbf{one should think of
-\({\mathbb{F}}_{q}\) as the base field for all our cryptographic
+${\mathbb{F}}_{q}$ as the base field for all our cryptographic
 primitives} (despite the fact that the coordinates of our points are in
-\({\mathbb{F}}_{p}\)).
+${\mathbb{F}}_{p}$).
 
 \begin{remark}{}{}
 Whenever we talk about protocols, and there are any sorts of
@@ -233,21 +233,21 @@ For our systems to be useful, rather than relying on factoring, we will
 rely on the so-called \emph{discrete logarithm assumption}.
 
 \begin{assumption}{Discrete logarithm assumption}{ddh}
-Let \(E\) be the BN254 curve (or another
-standardized curve). Given arbitrary nonzero \(g,g' \in E\), the
-\emph{discrete logarithm problem} asks you to find an integer \(n\) such
-that \(n \cdot g = g'\).
+Let $E$ be the BN254 curve (or another
+standardized curve). Given arbitrary nonzero $g,g' \in E$, the
+\emph{discrete logarithm problem} asks you to find an integer $n$ such
+that $n \cdot g = g'$.
 
 Experience suggests that the discrete logarithm problem is hard: In
 general, we do not know a fast algorithm to solve it. The \emph{discrete
 logarithm assumption} says that no such algorithm exists.
 \end{assumption}
 
-In other words, if one only sees \(g \in E\) and \(n \cdot g \in E\),
-one cannot find \(n\). For cryptography, we generally assume \(g\) has
-order \(q\), so we will talk about \(n \in {\mathbb{N}}\) and
-\(n \in {\mathbb{F}}_{q}\) interchangeably. In other words, \(n\) will
-generally be thought of as being up to about \(2^{254}\) in size.
+In other words, if one only sees $g \in E$ and $n \cdot g \in E$,
+one cannot find $n$. For cryptography, we generally assume $g$ has
+order $q$, so we will talk about $n \in {\mathbb{N}}$ and
+$n \in {\mathbb{F}}_{q}$ interchangeably. In other words, $n$ will
+generally be thought of as being up to about $2^{254}$ in size.
 
 \begin{remark}{The name ``discrete log''}{}
 This problem is called ``discrete log'' because if one uses multiplicative notation
@@ -255,11 +255,11 @@ for the group operation, it looks like solving $g^n = g'$ instead.
 We will never use this multiplicative notation in these notes.
 \end{remark}
 
-On the other hand, given \(g \in E\), one can compute \(n \cdot g\) in
+On the other hand, given $g \in E$, one can compute $n \cdot g$ in
 just \(O( \log n )\) operations, by repeated
 squaring.\footnote{https://en.wikipedia.org/wiki/Exponentiation\_by\_squaring}
-For example, to compute \(400g\), one only needs to do \(10\) additions,
-rather than \(400\): One starts with \[\begin{aligned}
+For example, to compute $400g$, one only needs to do $10$ additions,
+rather than $400$: One starts with \[\begin{aligned}
 2g & = g + g \\
 4g & = 2g + 2g \\
 8g & = 4g + 4g \\
@@ -270,19 +270,19 @@ rather than \(400\): One starts with \[\begin{aligned}
 256g & = 128g + 128g
 \end{aligned}\] and then computes \[400g = 256g + 128g + 16g.\]
 
-Because we think of \(n\) as up to \(q \approx 2^{254}\)-ish in size, we
+Because we think of $n$ as up to $q \approx 2^{254}$-ish in size, we
 consider \(O( \log n )\) operations like this to be quite
 tolerable.
 
 \subsection{Curves other than BN254}
 
 We comment briefly on how the previous definitions adapt to other
-curves, although readers could get away with always assuming \(E\) is
+curves, although readers could get away with always assuming $E$ is
 BN254 if they prefer.
 
-In general, we could have chosen for \(E\) any equation of the form
-\(Y^{2} = X^{3} + aX + b\) and chosen any prime \(p \geq 5\) such that a
-nondegeneracy constraint \(4a^{3} + 27b^{2} \not \equiv 0\operatorname{mod}p\)
+In general, we could have chosen for $E$ any equation of the form
+$Y^{2} = X^{3} + aX + b$ and chosen any prime $p \geq 5$ such that a
+nondegeneracy constraint $4a^{3} + 27b^{2} \not \equiv 0\operatorname{mod}p$
 holds. In such a situation, \(E( {\mathbb{F}}_{p} )\) will
 indeed be an abelian group once the identity element \(O = (0,\infty)\)
 is added in.
@@ -290,7 +290,7 @@ is added in.
 How large is \(E( {\mathbb{F}}_{p} )\)? There is a theorem
 called Hasse\textquotesingle s theorem\footnote{https://en.wikipedia.org/wiki/Hasse\textquotesingle s\_theorem\_on\_elliptic\_curves}
 that states the number of points in \(E( {\mathbb{F}}_{p} )\)
-is between \(p + 1 - 2\sqrt{p}\) and \(p + 1 + 2\sqrt{p}\). But there is
+is between $p + 1 - 2\sqrt{p}$ and $p + 1 + 2\sqrt{p}$. But there is
 no promise that \(E( {\mathbb{F}}_{p} )\) will be
 \emph{prime}; consequently, it may not be a cyclic group either. So
 among many other considerations, the choice of constants in BN254 is
@@ -301,11 +301,11 @@ There are other curves used in practice for which
 multiple of a prime. The popular Curve25519\footnote{https://en.wikipedia.org/wiki/Curve25519}
 is such a curve that is also believed to satisfy
 Assumption \ref{tcb:ddh}. Curve25519 is defined as
-\[Y^{2} = X^{3} + 486662X^{2} + X\] over \({\mathbb{F}}_{p}\) for the
-prime \(p := 2^{255} - 19\). Its order is \(8\) times a large prime
+\[Y^{2} = X^{3} + 486662X^{2} + X\] over ${\mathbb{F}}_{p}$ for the
+prime $p := 2^{255} - 19$. Its order is $8$ times a large prime
 \[q' := 2^{252} + 27742317777372353535851937790883648493.\] In that case,
-to generate a random point on Curve25519 with order \(q'\), one will
-usually take a random point on the curve and multiply it by \(8\).
+to generate a random point on Curve25519 with order $q'$, one will
+usually take a random point on the curve and multiply it by $8$.
 
 BN254 is also engineered to have a property called
 \emph{pairing-friendliness}, which is defined in Section \ref{pairing-friendly} when
@@ -329,42 +329,42 @@ For $n \in \ZZ$ (equivalently $n \in \FF_q$) we define
 \end{definition}
 
 The hardness of the discrete logarithm means that, given
-\([ n]\), we cannot get \(n\). You can almost think of the
-notation as an ``armor'' on the integer \(n\): It conceals the integer,
+$[ n]$, we cannot get $n$. You can almost think of the
+notation as an ``armor'' on the integer $n$: It conceals the integer,
 but still allows us to perform (armored) addition:
 \[[ a + b] = [ a] + [ b].\] In other
-words, \(n \mapsto [ n]\) viewed as a map
-\({\mathbb{F}}_{q} \rightarrow E\) is \({\mathbb{F}}_{q}\)-linear.
+words, $n \mapsto [ n]$ viewed as a map
+${\mathbb{F}}_{q} \rightarrow E$ is ${\mathbb{F}}_{q}$-linear.
 
 So now suppose Alice wants to set up a signature scheme.
 
 \begin{algo}{EdDSA public and secret key}{}
 \begin{enumerate}
 \item
-  Alice picks a random integer \(d \in {\mathbb{F}}_{q}\) as her
+  Alice picks a random integer $d \in {\mathbb{F}}_{q}$ as her
   \emph{secret key} (a piece of information that she needs to keep
   private for the security of the protocol).
 \item
-  Alice publishes \([ d] \in E\) as her \emph{public key} (a
+  Alice publishes $[ d] \in E$ as her \emph{public key} (a
   piece of information which, even when obtained by adversaries, does
   not challenge the security of the protocol).
 \end{enumerate}
 \end{algo}
 
 Now suppose Alice wants to prove to Bob that she approves the message
-\(\textsf{msg}\), given her published public key
-\([ d]\).
+$\textsf{msg}$, given her published public key
+$[ d]$.
 
 \begin{algo}{EdDSA signature generation}{}
-Suppose Alice wants to sign a message \(\textsf{msg}\).
+Suppose Alice wants to sign a message $\textsf{msg}$.
 
 \begin{enumerate}
 \item
-  Alice picks a random scalar \(r \in {\mathbb{F}}_{q}\) (keeping this
-  secret) and publishes \([ r] \in E\).
+  Alice picks a random scalar $r \in {\mathbb{F}}_{q}$ (keeping this
+  secret) and publishes $[ r] \in E$.
 \item
-  Alice generates a number \(n \in {\mathbb{F}}_{q}\) by hashing
-  \(\textsf{msg}\) with all public information, say
+  Alice generates a number $n \in {\mathbb{F}}_{q}$ by hashing
+  $\textsf{msg}$ with all public information, say
   \[n := \operatorname{hash}([ r],\textsf{msg},[ d]).\]
 \item
   Alice publishes the integer \[s := (r + dn)\operatorname{mod}q.\]
@@ -376,27 +376,27 @@ In other words, the signature is the ordered pair
 
 \begin{algo}{EdDSA signature verification}{}
 For Bob to verify a signature
-\(( [ r],s )\) for \(\textsf{msg}\):
+\(( [ r],s )\) for $\textsf{msg}$:
 
 \begin{enumerate}
 \item
-  Bob recomputes \(n\) (by also performing the hash) and computes
-  \([ s] \in E\).
+  Bob recomputes $n$ (by also performing the hash) and computes
+  $[ s] \in E$.
 \item
   Bob verifies that
-  \([ r] + n \cdot [ d] = [ s]\).
+  $[ r] + n \cdot [ d] = [ s]$.
 \end{enumerate}
 \end{algo}
 
-An adversary cannot forge the signature even if they know \(r\) and
-\(n\). Indeed, such an adversary can compute what the point
-\([ s] = [ r] + n[ d]\) should be,
-but without knowledge of \(d\) they cannot get the integer \(s\), due to
+An adversary cannot forge the signature even if they know $r$ and
+$n$. Indeed, such an adversary can compute what the point
+$[ s] = [ r] + n[ d]$ should be,
+but without knowledge of $d$ they cannot get the integer $s$, due to
 Assumption \ref{tcb:ddh}.
 
-The number \(r\) is called a \emph{blinding factor} because its use
-prevents Bob from stealing Alice's secret key \(d\) from the published
-\(s\). It is therefore imperative that \(r\) is not known to Bob nor
+The number $r$ is called a \emph{blinding factor} because its use
+prevents Bob from stealing Alice's secret key $d$ from the published
+$s$. It is therefore imperative that $r$ is not known to Bob nor
 reused between signatures, and so on. One way to do this would be to
 pick \(r = \operatorname{hash}(d,\textsf{msg})\); this has the
 bonus that it is deterministic as a function of the message and signer.
@@ -408,23 +408,23 @@ commitment scheme.
 \label{pedersen}
 
 A \emph{commitment scheme} is a protocol where Alice wants to commit
-some value \(x\) to Bob that is later revealed. Typically Alice gives
+some value $x$ to Bob that is later revealed. Typically Alice gives
 Bob some ``commitment'' \(\operatorname{Com}(x)\) and later reveals
-\(x\). What we want is that this protocol is both \emph{binding} (Alice
-cannot change her mind about \(x\) depending on Bob's later actions) and
-\emph{hiding} (Bob does not get any information about \(x\) from
+$x$. What we want is that this protocol is both \emph{binding} (Alice
+cannot change her mind about $x$ depending on Bob's later actions) and
+\emph{hiding} (Bob does not get any information about $x$ from
 \(\operatorname{Com}(x)\)). The KZG scheme we are building towards will
 be a commitment scheme for polynomials, but we can already use elliptic
 curves to commit \textbf{numbers} with something called a Pedersen
 commitment, which we will now describe.
 
 A multivariable generalization of Assumption \ref{tcb:ddh} is that if
-\(g_{1},\ldots,g_{n} \in E\) are a bunch of randomly chosen points of
-\(E\) with order \(q\), then it is computationally infeasible to find
+$g_{1},\ldots,g_{n} \in E$ are a bunch of randomly chosen points of
+$E$ with order $q$, then it is computationally infeasible to find
 \(( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in {\mathbb{F}}_{q}^{n}\)
 such that
 \[a_{1}g_{1} + \cdots + a_{n}g_{n} = b_{1}g_{1} + \cdots + b_{n}g_{n}.\]
-(Remember that \(q \approx 2^{256}\) is very large.)
+(Remember that $q \approx 2^{256}$ is very large.)
 
 \begin{definition}{Computational basis}{comp}
 In these notes, if there is a globally known elliptic curve $E$
@@ -459,8 +459,8 @@ is called the \emph{Pedersen commitment} to our vector $\vec{a}$.
 \end{definition}
 
 The Pedersen commitment is thus a sort of hash function: Given the group
-element above, one cannot recover any of the \(a_{i}\); but given the
-entire vector \(\overset{\rightarrow}{a}\) one can compute the Pedersen
+element above, one cannot recover any of the $a_{i}$; but given the
+entire vector $\overset{\rightarrow}{a}$ one can compute the Pedersen
 commitment easily.
 
 We will not use Pedersen commitments in this book, but they will be

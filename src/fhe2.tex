@@ -1,10 +1,10 @@
 \section{Public-key cryptography from LWE}\label{lwe-crypto}
 
 In Section \ref{lwe-small} we saw how even a small case of this problem
-(\(q = 11\), \(n = 4\)) can be annoyingly tricky. In the real world, you
-should imagine that \(n\) and \(q\) are much bigger -- maybe \(n\) is in
-the range \(100 \leq n \leq 1000\), and \(q\) could be anywhere from
-\(n^{2}\) to \(2^{\sqrt{n}}\), say.
+($q = 11$, $n = 4$) can be annoyingly tricky. In the real world, you
+should imagine that $n$ and $q$ are much bigger -- maybe $n$ is in
+the range $100 \leq n \leq 1000$, and $q$ could be anywhere from
+$n^{2}$ to $2^{\sqrt{n}}$, say.
 
 As an example of how LWE can be used, let us see how to turn LWE into a
 public-key cryptosystem. We will use the same numbers from the ``blue
@@ -52,7 +52,7 @@ Public Key \\
 \end{tabular}
 \end{center}
 
-The private key is simply the vector \(a\).
+The private key is simply the vector $a$.
 
 \begin{center}
 \begin{tabular}{|c|}
@@ -60,7 +60,7 @@ The private key is simply the vector \(a\).
 Private Key \\
 \hline
 \hline
-\(\mathbf{a}\) = (10, 8, 10, 10) \\
+$\mathbf{a}$ = (10, 8, 10, 10) \\
 \hline
 \end{tabular}
 \end{center}
@@ -70,34 +70,34 @@ everybody, and they will not be able to determine the private key.
 
 \subsection{Encryption}\label{how-to-encrypt-mu}
 
-Suppose you have a message \(m \in \{ 0,5 \}\). (You will see
-in a moment why we insist that \(m\) is one of these two values.) The
-ciphertext to encrypt \(m\) will be a pair
-\(( \mathbf{x}:y )\), where \(x\) is a vector, \(y\) is a
-scalar, and \(\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m\), where
-\(\epsilon\) is ``small''.
+Suppose you have a message $m \in \{ 0,5 \}$. (You will see
+in a moment why we insist that $m$ is one of these two values.) The
+ciphertext to encrypt $m$ will be a pair
+\(( \mathbf{x}:y )\), where $x$ is a vector, $y$ is a
+scalar, and $\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m$, where
+$\epsilon$ is ``small''.
 
 How to do the encryption? If you are trying to encrypt, you only have
 access to the public key -- that list of pairs
 \(( \mathbf{x}:y )\) above. You want to make up your own
-\(\mathbf{x}\), for which you know approximately the value
-\(\mathbf{x} \cdot \mathbf{a}\). You could just take one of the vectors
-\(\mathbf{x}\) from the table, but that would not be very secure: If I
-see your ciphertext, I can find that \(\mathbf{x}\) in the table and use
-it to decrypt \(m\).
+$\mathbf{x}$, for which you know approximately the value
+$\mathbf{x} \cdot \mathbf{a}$. You could just take one of the vectors
+$\mathbf{x}$ from the table, but that would not be very secure: If I
+see your ciphertext, I can find that $\mathbf{x}$ in the table and use
+it to decrypt $m$.
 
 Instead, you are going to combine several rows of the table to get your
-vector \(\mathbf{x}\). Now you have to be careful: When you combine rows
+vector $\mathbf{x}$. Now you have to be careful: When you combine rows
 of the table, the errors will add up. We are guaranteed that each row of
-the table has \(\epsilon\) either \(0\) or \(1\). So if you add at most
-four rows, then the total \(\epsilon\) will be at most \(4\). Since
-\(m\) is either \(0\) or \(5\) (and we are working modulo \(q = 11\)),
-that is just enough to determine \(m\) uniquely.
+the table has $\epsilon$ either $0$ or $1$. So if you add at most
+four rows, then the total $\epsilon$ will be at most $4$. Since
+$m$ is either $0$ or $5$ (and we are working modulo $q = 11$),
+that is just enough to determine $m$ uniquely.
 
 So, here is the method. You choose at random four (or fewer) rows of the
 table, and add them up to get a pair \(( \mathbf{x}:y_{0} )\)
-with \(\mathbf{x} \cdot \mathbf{a} \approx y_{0}\). Then you take
-\(y = y_{0} - m\) (mod \(q = 11\) of course), and send the message
+with $\mathbf{x} \cdot \mathbf{a} \approx y_{0}$. Then you take
+$y = y_{0} - m$ (mod $q = 11$ of course), and send the message
 \(( \mathbf{x}:y )\).
 
 \subsection{An example}\label{an-example}
@@ -126,23 +126,23 @@ Now you add them up to get the following.
 \begin{center}
 \begin{tabular}{|c|}
 \hline
-\(\mathbf{x}:y_{0}\) \\
+$\mathbf{x}:y_{0}$ \\
 \hline \hline
 (7, 5, 1, 6) : 6 \\
 \hline
 \end{tabular}
 \end{center}
 
-(For reference, the actual value is \(4\), so our accumulated error is
-\(2\).)
+(For reference, the actual value is $4$, so our accumulated error is
+$2$.)
 
-Finally, let us say your message is \(m = 5\). So you set
-\(y = y_{0} - m = 6 - 5 = 1\), and send the ciphertext:
+Finally, let us say your message is $m = 5$. So you set
+$y = y_{0} - m = 6 - 5 = 1$, and send the ciphertext:
 
 \begin{center}
 \begin{tabular}{|c|}
 \hline
-\(\mathbf{x}:y\) \\
+$\mathbf{x}:y$ \\
 \hline \hline
 (7, 5, 1, 6) : 1 \\
 \hline
@@ -153,50 +153,50 @@ Finally, let us say your message is \(m = 5\). So you set
 
 Decryption is easy! The decryptor knows
 \[\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m\] where
-\(0 \leq \epsilon \leq 4\).
+$0 \leq \epsilon \leq 4$.
 
-Plugging in \(\mathbf{x}\) and \(\mathbf{a}\), the decryptor computes
-\[\mathbf{x} \cdot \mathbf{a} = 4.\] Plugging in \(y = 1\), we see that
+Plugging in $\mathbf{x}$ and $\mathbf{a}$, the decryptor computes
+\[\mathbf{x} \cdot \mathbf{a} = 4.\] Plugging in $y = 1$, we see that
 \[4 + \epsilon = 1 + m.\]
 
-Now it is a simple ``rounding'' problem. We know that \(\epsilon\) is
-small and positive, so \(1 + m\) is either \(4\) or \ldots{} a little
-more. (In fact, it is one of \(4,5,6,7,8\).) On the other hand, since
-\(m\) is 0 or 5, \(1 + m\) had better be 1 or 6, so the only possibility
-is that \(m = 5\) (so \(1 + m = 6\)).
+Now it is a simple ``rounding'' problem. We know that $\epsilon$ is
+small and positive, so $1 + m$ is either $4$ or \ldots{} a little
+more. (In fact, it is one of $4,5,6,7,8$.) On the other hand, since
+$m$ is 0 or 5, $1 + m$ had better be 1 or 6, so the only possibility
+is that $m = 5$ (so $1 + m = 6$).
 
 \subsection{How does this work in
 general?}\label{how-does-this-work-in-general}
 
-In practice, \(n\) and \(q\) are often much larger. Maybe \(n\) is in
-the hundreds, and \(q\) could be anywhere from ``a little bigger than
-\(n\)'' to ``almost exponentially large in \(n\),'' say
-\(q = 2^{\sqrt{n}}\). In fact, to do FHE, we are going to want to take
-\(q\) pretty big, so you should imagine that \(q \approx 2^{\sqrt{n}}\).
+In practice, $n$ and $q$ are often much larger. Maybe $n$ is in
+the hundreds, and $q$ could be anywhere from ``a little bigger than
+$n$'' to ``almost exponentially large in $n$,'' say
+$q = 2^{\sqrt{n}}$. In fact, to do FHE, we are going to want to take
+$q$ pretty big, so you should imagine that $q \approx 2^{\sqrt{n}}$.
 
-For security, instead of adding \(4\) rows of the public key, we want to
+For security, instead of adding $4$ rows of the public key, we want to
 add at least \(\log( q^{n} ) = n\log q\) rows. To be safe,
-maybe a little bigger, say \(N = 2n\log q\) (of course, for this to
-work, the public key has to have at least \(N\) rows). The encryption
+maybe a little bigger, say $N = 2n\log q$ (of course, for this to
+work, the public key has to have at least $N$ rows). The encryption
 algorithm will be ``select some subset of the rows at random, and add
 them up''.
 
-Combining \(N\) rows will have the effect of multiplying the error by
-\(N\), so if the initial \(\epsilon\) was bounded by \(1\), then the
-error in the ciphertext will be at most \(N\). But remember that \(q\)
-is exponentially large compared to \(N\) and \(n\) anyway, so a mere
-factor of \(N\) should not scare us!
+Combining $N$ rows will have the effect of multiplying the error by
+$N$, so if the initial $\epsilon$ was bounded by $1$, then the
+error in the ciphertext will be at most $N$. But remember that $q$
+is exponentially large compared to $N$ and $n$ anyway, so a mere
+factor of $N$ should not scare us!
 
-To generalize our choice of \(m\) in \(\{ 0,5\}\), we could encode a
-single bit by using either \(0\) or \(\lfloor\frac{q}{2}\rfloor\) to
+To generalize our choice of $m$ in $\{ 0,5\}$, we could encode a
+single bit by using either $0$ or $\lfloor\frac{q}{2}\rfloor$ to
 obtain maximum separation and thus tolerance to error. Alternatively, we
-could allow the message to be any multiple of some constant \(r\), where
-\(r\) is bigger than the error bound, which
-allows you to encode a message space of size \(q/r\) rather than just a
+could allow the message to be any multiple of some constant $r$, where
+$r$ is bigger than the error bound, which
+allows you to encode a message space of size $q/r$ rather than just a
 single bit.
 
 When we do FHE, we are going to apply many operations to a ciphertext,
 and each is going to cause the error to grow. We are going to have to
 put some effort into keeping the error under control, and the size of
-\(q/r\) will determine how many operations we can do before the error
+$q/r$ will determine how many operations we can do before the error
 grows too big.

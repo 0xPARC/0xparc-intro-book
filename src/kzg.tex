@@ -11,42 +11,42 @@ following API:
   Peggy sends a short ``commitment'' to the polynomial (like a hash).
 \item
   This commitment should have the additional property that Peggy should
-  be able to ``open'' the commitment at any \(z \in \mathbb{F}_{q}\).
+  be able to ``open'' the commitment at any $z \in \mathbb{F}_{q}$.
   Specifically:
 
   \begin{itemize}
   \item
-    Victor has an input \(z \in \mathbb{F}_{q}\) and wants to know
+    Victor has an input $z \in \mathbb{F}_{q}$ and wants to know
     \(P(z)\).
   \item
-    Peggy knows \(P\) so she can compute \(P(z)\); she sends the
+    Peggy knows $P$ so she can compute \(P(z)\); she sends the
     resulting number \(y = P(z)\) to Victor.
   \item
-    Peggy can then send a short ``proof'' convincing Victor that \(y\)
-    is the correct value, without having to reveal \(P\).
+    Peggy can then send a short ``proof'' convincing Victor that $y$
+    is the correct value, without having to reveal $P$.
   \end{itemize}
 \end{itemize}
 
 The \emph{Kate-Zaverucha-Goldberg (KZG)} commitment scheme is amazingly
 efficient because both the commitment and proof lengths are a single
-point on \(E\), encodable in 256 bits, no matter how many coefficients
+point on $E$, encodable in 256 bits, no matter how many coefficients
 the polynomial has.
 
 \subsection{The setup}
 
-Remember the notation \([ n] := n \cdot g \in E\) defined in
+Remember the notation $[ n] := n \cdot g \in E$ defined in
 Definition \ref{tcb:armor}. To set up the KZG commitment scheme, a trusted party needs
-to pick a secret scalar \(s \in \mathbb{F}_{q}\) and publish
+to pick a secret scalar $s \in \mathbb{F}_{q}$ and publish
 \[[ s^{0} ],[ s^{1} ],\ldots,[ s^{M} ]\]
-for some large \(M\), the maximum degree of a polynomial the scheme
+for some large $M$, the maximum degree of a polynomial the scheme
 needs to support. This means anyone can evaluate
-\([ P(s) ]\) for any given polynomial \(P\) of
-degree up to \(M\). For example,
+\([ P(s) ]\) for any given polynomial $P$ of
+degree up to $M$. For example,
 \[[ s^{2} + 8s + 6 ] = [ s^{2} ] + 8[ s] + 6[ 1].\]
-Meanwhile, the secret scalar \(s\) is never revealed to anyone.
+Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
 The setup only needs to be done by a trusted party once for the curve
-\(E\). Then anyone in the world can use the resulting sequence for KZG
+$E$. Then anyone in the world can use the resulting sequence for KZG
 commitments.
 
 \begin{remark}{}{}
@@ -83,10 +83,10 @@ commit to it:
 \end{enumerate}
 \end{algo}
 
-This computation is possible as \([ s^{i} ]\) are
+This computation is possible as $[ s^{i} ]$ are
 globally known.
 
-Now consider an input \(z \in \mathbb{F}_{p}\); Victor wants to know the
+Now consider an input $z \in \mathbb{F}_{p}$; Victor wants to know the
 value of \(P(z)\). If Peggy wishes to convince Victor that \(P(z) = y\),
 then:
 
@@ -99,7 +99,7 @@ then:
 \item
   Peggy computes and sends Victor \([ Q(s) ]\),
   which again she can compute from the globally known
-  \([ s^{i} ]\).
+  $[ s^{i} ]$.
 \item
   Victor verifies by checking
 \begin{equation}
@@ -116,22 +116,22 @@ If \(y \neq P(z)\), then Peggy cannot do the polynomial long division
 described above. So to cheat Victor, she needs to otherwise find an
 element
 \[\frac{1}{s - x}( [ P(s) ] - [ y] ) \in E.\]
-Since \(s\) is a secret nobody knows, there is not any known way to do
+Since $s$ is a secret nobody knows, there is not any known way to do
 this.
 
 \subsection{Multi-openings}\label{multi-openings}
 
-To reveal \(P\) at a single value \(z\), we did polynomial division to
-divide \(P(X)\) by \(X - z\). But there is no reason we have to restrict
+To reveal $P$ at a single value $z$, we did polynomial division to
+divide \(P(X)\) by $X - z$. But there is no reason we have to restrict
 ourselves to linear polynomials; this would work equally well with
 higher-degree polynomials, while still using only a single 256-bit curve
 point for the proof.
 
 For example, suppose Peggy wanted to prove that \(P(1) = 100\),
 \(P(2) = 400\), \ldots, \(P(9) = 8100\). (We chose these numbers so that
-\(P(X) = 100X^{2}\) for \(X = 1,\ldots,9\).)
+\(P(X) = 100X^{2}\) for $X = 1,\ldots,9$.)
 
-Evaluating a polynomial at \(1,2,\ldots,9\) is essentially the same as
+Evaluating a polynomial at $1,2,\ldots,9$ is essentially the same as
 dividing by \((X - 1)(X - 2)\cdots(X - 9)\) and taking the remainder. In
 other words, if Peggy does a polynomial long division, she will find
 that
@@ -141,13 +141,13 @@ the verification equation is that \[\begin{aligned}
   \operatorname{pair}( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \operatorname{pair}( [ P(s) ] - 100[ s^{2} ],[ 1] ).
 \end{aligned}\]
 
-The full generality just replaces the \(100X^{2}\) with the polynomial
+The full generality just replaces the $100X^{2}$ with the polynomial
 obtained from Lagrange interpolation\footnote{https://en.wikipedia.org/wiki/Lagrange\_polynomial}
-(there is a unique such polynomial \(f\) of degree \(n - 1\)). To spell
+(there is a unique such polynomial $f$ of degree $n - 1$). To spell
 this out, suppose Peggy wishes to prove to Victor that
-\(P( z_{i} ) = y_{i}\) for \(1 \leq i \leq n\).
+\(P( z_{i} ) = y_{i}\) for $1 \leq i \leq n$.
 
-\begin{algo}{Opening a KZG commitment at \(n\) values}{}
+\begin{algo}{Opening a KZG commitment at $n$ values}{}
 \begin{enumerate}
 \item
   By Lagrange interpolation, both parties agree on a polynomial \(f(X)\)
@@ -164,9 +164,9 @@ this out, suppose Peggy wishes to prove to Victor that
 \end{enumerate}
 \end{algo}
 
-So one can even open the polynomial \(P\) at \(1000\) points with a
+So one can even open the polynomial $P$ at $1000$ points with a
 single 256-bit proof. The verification runtime is a single pairing plus
-however long it takes to compute the Lagrange interpolation \(f\).
+however long it takes to compute the Lagrange interpolation $f$.
 
 \subsection{Root check}
 
@@ -183,46 +183,46 @@ Peggy would like to prove to Victor that, say,
 the equation $P_1(z) = P_2(z)$ holds for all $z$ in some large finite set $S$.
 \end{problem}
 
-Peggy just needs to show that \(P_{1} - P_{2}\) is divisible by
+Peggy just needs to show that $P_{1} - P_{2}$ is divisible by
 \(Z(X) := \prod_{z \in S}(X - z)\). This can be done by committing the
 quotient \[H(X) := \frac{P_{1}(X) - P_{2}(X)}{Z(X)}.\] Victor then gives
-a random challenge \(\lambda \in \mathbb{F}_{q}\), and then Peggy opens
+a random challenge $\lambda \in \mathbb{F}_{q}$, and then Peggy opens
 \(\operatorname{Com}( P_{1} )\),
 \(\operatorname{Com}( P_{2} )\), and \(\operatorname{Com}(H)\) at
-\(\lambda\).
+$\lambda$.
 
 But we can actually do this more generally with \emph{any} polynomial
-expression \(F\) in place of \(P_{1} - P_{2}\), as long as Peggy has a
-way to prove the values of \(F\) are correct. As an artificial example,
+expression $F$ in place of $P_{1} - P_{2}$, as long as Peggy has a
+way to prove the values of $F$ are correct. As an artificial example,
 if Peggy has sent Victor \(\operatorname{Com}( P_{1} )\) through
 \(\operatorname{Com}( P_{6} )\), and wants to show that
 \[P_{1}(42) + P_{2}(42)P_{3}(42)^{4} + P_{4}(42)P_{5}(42)P_{6}(42) = 1337,\]
 she could define
 \[F(X) := P_{1}(X) + P_{2}(X)P_{3}(X)^{4} + P_{4}(X)P_{5}(X)P_{6}(X) - 1337\]
-and run the same protocol with this \(F\). This means she does not have
+and run the same protocol with this $F$. This means she does not have
 to reveal any \(P_{i}(42)\), which is great!
 
 To be fully explicit, here is the algorithm:
 
 \begin{algo}{Root check}{root-check}
-Assume that \(F\) is a polynomial for which Peggy can
-establish the value of \(F\) at any point in \({\mathbb{F}}_{q}\). Peggy
-wants to convince Victor that \(F\) vanishes on a given finite set
-\(S \subseteq {\mathbb{F}}_{q}\).
+Assume that $F$ is a polynomial for which Peggy can
+establish the value of $F$ at any point in ${\mathbb{F}}_{q}$. Peggy
+wants to convince Victor that $F$ vanishes on a given finite set
+$S \subseteq {\mathbb{F}}_{q}$.
 
 \begin{enumerate}
 \item
   If she has not already done so, Peggy sends to Victor a commitment
-  \(\operatorname{Com}(F)\) to \(F\).\footnote{In fact, it is enough for
-    Peggy to have some way to prove to Victor the values of \(F\).
+  \(\operatorname{Com}(F)\) to $F$.\footnote{In fact, it is enough for
+    Peggy to have some way to prove to Victor the values of $F$.
 
-    So for example, if \(F\) is a product of two polynomials
-    \(F = F_{1}F_{2}\), and Peggy has already sent commitments to
-    \(F_{1}\) and \(F_{2}\), then there is no need for Peggy to commit
-    to \(F\).
+    So for example, if $F$ is a product of two polynomials
+    $F = F_{1}F_{2}$, and Peggy has already sent commitments to
+    $F_{1}$ and $F_{2}$, then there is no need for Peggy to commit
+    to $F$.
 
     Instead, in Step 5 below, Peggy opens \(\operatorname{Com}(F_{1})\)
-    and \(\operatorname{Com}(F_{2})\) at \(\lambda\), and that proves to
+    and \(\operatorname{Com}(F_{2})\) at $\lambda$, and that proves to
     Victor the value of \(F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)\).}
 \item
   Both parties compute the polynomial
@@ -233,9 +233,9 @@ wants to convince Victor that \(F\) vanishes on a given finite set
 \item
   Peggy sends \(\operatorname{Com}(H)\).
 \item
-  Victor picks a random challenge \(\lambda \in {\mathbb{F}}_{q}\) and
-  asks Peggy to open \(\operatorname{Com}(H)\) at \(\lambda\), as well
-  as the value of \(F\) at \(\lambda\).
+  Victor picks a random challenge $\lambda \in {\mathbb{F}}_{q}$ and
+  asks Peggy to open \(\operatorname{Com}(H)\) at $\lambda$, as well
+  as the value of $F$ at $\lambda$.
 \item
   Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).
 \end{enumerate}

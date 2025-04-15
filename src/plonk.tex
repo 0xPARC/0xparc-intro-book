@@ -8,31 +8,31 @@ The promise of programmable cryptography is that we should be able to
 perform proofs for arbitrary functions. That means we need a
 ``programming language'' that we will write our function in. For PLONK,
 the choice that is used is: \textbf{systems of quadratic equations over
-\({\mathbb{F}}_{q}\)}. In other words, PLONK is going to give us the
+${\mathbb{F}}_{q}$}. In other words, PLONK is going to give us the
 ability to prove that we have solutions to a system of quadratic
 equations.
 
 \begin{situation}{}{}
-Suppose we have a system of \(m\) equations in \(k\) variables
-\(x_{1},\ldots,x_{k}\): \[\begin{aligned}
+Suppose we have a system of $m$ equations in $k$ variables
+$x_{1},\ldots,x_{k}$: \[\begin{aligned}
 Q_1( x_{1},\ldots,x_{k} ) & = 0 \\
  \vdots \\
 Q_{m}( x_{1},\ldots,x_{k} ) & = 0.
-\end{aligned}\] Of these \(k\) variables, the first \(\ell\) variables
-\(x_{1},\ldots,x_{\ell}\) have publicly known, fixed values; the
-remaining \(k - \ell\) are unknown.
+\end{aligned}\] Of these $k$ variables, the first $\ell$ variables
+$x_{1},\ldots,x_{\ell}$ have publicly known, fixed values; the
+remaining $k - \ell$ are unknown.
 
 PLONK will let Peggy prove to Victor the following claim: I know
-\(k - \ell\) values \(x_{\ell + 1},\ldots,x_{k}\) such that (when you
-combine them with the \(\ell\) public fixed values
-\(x_{1},\ldots,x_{\ell}\)) the \(k\) values \(x_{1},\ldots,x_{k}\)
-satisfy all \(m\) quadratic equations.
+$k - \ell$ values $x_{\ell + 1},\ldots,x_{k}$ such that (when you
+combine them with the $\ell$ public fixed values
+$x_{1},\ldots,x_{\ell}$) the $k$ values $x_{1},\ldots,x_{k}$
+satisfy all $m$ quadratic equations.
 \end{situation}
 
 This leads to the natural question of how a function like SHA-256 can be
 encoded into a system of quadratic equations. This process of encoding a
 problem into algebra is called \emph{arithmetization}. It turns out that
-quadratic equations over \({\mathbb{F}}_{q}\), viewed as an NP problem
+quadratic equations over ${\mathbb{F}}_{q}$, viewed as an NP problem
 called Quad-SAT, is \emph{NP-complete}; in other words, any NP problem
 can be rewritten as a system of quadratic equations. If you are not
 familiar with this concept, the upshot is that Quad-SAT being
@@ -50,8 +50,8 @@ y_{2} & = ( 1 - x_{19} ) \cdot ( 1 - x_{52} ) & \quad & 0 = y_{2} \cdot ( 1 - x_
 y_{3} & = x_{25} \cdot x_{64}, & \quad & 0 = y_{3} \cdot x_{81} \\
  & \vdots
 \end{aligned}\] (imagine many more such pairs of equations). The
-\(x_i\)'s are variables which are seen to either be \(0\) or \(1\).
-And then each pair of equations with \(y_{i}\) corresponds to a clause
+$x_i$'s are variables which are seen to either be $0$ or $1$.
+And then each pair of equations with $y_{i}$ corresponds to a clause
 of 3-SAT.
 \end{remark}
 
@@ -63,24 +63,24 @@ to engineers and end users.
 But it turns out that Quad-SAT is actually reasonably codeable. This is
 the goal of projects like Circom\footnote{https://docs.circom.io/},
 which gives a high-level language that compiles a function like SHA-256
-into a system of equations over \({\mathbb{F}}_{q}\) that can be used in
+into a system of equations over ${\mathbb{F}}_{q}$ that can be used in
 practice. Systems like this are called \emph{arithmetic circuits}, and
 Circom is appropriately short for ``circuit compiler''. If you are
 curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footnote{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
-So, the first step in proving a claim like ``I have a message \(M\) such
+So, the first step in proving a claim like ``I have a message $M$ such
 that \(\operatorname{sha}(M) = \ 0xa91af3ac...\)'' is to translate the
 claim into a system of quadratic equations. This process is called
 ``arithmetization.''
 
 One approach (suggested by Remark \ref{tcb:np-complete}) is
 to represent each bit involved in the calculation by a variable
-\(x_{i}\) (which would then be constrained to be either 0 or 1 by an
-equation \(x_{i}^{2} = x_{i}\)). In this setup, the value \(0xa91af3ac\)
-would be represented by 32 public bits \(x_{1},\ldots,x_{32}\); the
-unknown message \(M\) would be represented by some private variables;
-and the calculation of \(\operatorname{sha}\) would introduce a series
+$x_{i}$ (which would then be constrained to be either 0 or 1 by an
+equation $x_{i}^{2} = x_{i}$). In this setup, the value $0xa91af3ac$
+would be represented by 32 public bits $x_{1},\ldots,x_{32}$; the
+unknown message $M$ would be represented by some private variables;
+and the calculation of $\operatorname{sha}$ would introduce a series
 of constraints, maybe involving some additional variables.
 
 We will not get into any more details of arithmetization here.
@@ -94,17 +94,17 @@ very particular form:
 An instance of PLONK consists of two pieces, the \emph{gate constraints}
 and the \emph{copy constraints}.
 
-The \emph{gate constraints} are a system of \(n\) equations,
+The \emph{gate constraints} are a system of $n$ equations,
 \[q_{L,i}a_{i} + q_{R,i}b_{i} + q_{O,i}c_{i} + q_{M,i}a_{i}b_{i} + q_{C,i} = 0\]
-for \(i = 1,\ldots,n\), in the \(3n\) variables \(a_{i}\), \(b_{i}\),
-\(c_{i}\). while the \(q_{\ast ,i}\) are coefficients in
-\({\mathbb{F}}_{q}\), which are globally known. The confusing choice of
+for $i = 1,\ldots,n$, in the $3n$ variables $a_{i}$, $b_{i}$,
+$c_{i}$. while the $q_{\ast ,i}$ are coefficients in
+${\mathbb{F}}_{q}$, which are globally known. The confusing choice of
 subscripts stands for ``Left'', ``Right'', ``Output'',
 ``Multiplication'', and ``Constant'', respectively.
 
 The \emph{copy constraints} are a bunch of assertions that some of the
-\(3n\) variables should be equal to each other, e.g.,
-``\(a_{1} = c_{7}\)'', ``\(b_{17} = b_{42}\)'', and so on.
+$3n$ variables should be equal to each other, e.g.,
+``$a_{1} = c_{7}$'', ``$b_{17} = b_{42}$'', and so on.
 \end{definition}
 
 \begin{remark}{``From Quad-SAT to PLONK''}{}
@@ -113,22 +113,22 @@ but it turns out you can convert any Quad-SAT problem to PLONK.
 
 First off, note that if we set
 \[( q_{L,i},q_{R,i},q_{O,i},q_{M,i},q_{C,i} ) = (1,1, - 1,0,0),\]
-we get an ``addition'' gate \(a_{i} + b_{i} = c_{i},\) while if we set
+we get an ``addition'' gate $a_{i} + b_{i} = c_{i},$ while if we set
 \[( q_{L,i},q_{R,i},q_{O,i},q_{M,i},q_{C,i} ) = (0,0, - 1,1,0),\]
-we get a ``multiplication'' gate \(a_{i}b_{i} = c_{i}.\) Finally, if
-\(\kappa\) is any constant, then
+we get a ``multiplication'' gate $a_{i}b_{i} = c_{i}.$ Finally, if
+$\kappa$ is any constant, then
 \[( q_{L,i},q_{R,i},q_{O,i},q_{M,i},q_{C,i} ) = (1,0,0,0, - \kappa),\]
-gives the constraint \(a_{i} = \kappa.\)
+gives the constraint $a_{i} = \kappa.$
 
 Now imagine we want to encode some quadratic equation like
-\(y = x^{2} + 2\) in PLONK. We will break this down into two steps:
+$y = x^{2} + 2$ in PLONK. We will break this down into two steps:
 \[\begin{aligned}
 x \cdot x & = ( x^{2} )\text{ (multiplication)} \\
 t & = 2\text{ (constant)} \\
 ( x^{2} ) + t & = y\text{ (addition)}.
 \end{aligned}\]
 
-We will assign the variables \(a_{i},b_{i},c_{i}\) for these two gates
+We will assign the variables $a_{i},b_{i},c_{i}$ for these two gates
 by looking at the equations: \[\begin{aligned}
 ( a_{1},b_{1},c_{1} ) & = ( x,x,x^{2} ) \\
 ( a_{2},b_{2},c_{2} ) & = (t = 2,0,0) \\
@@ -142,23 +142,23 @@ c_{1} & = a_{3} \\
 a_{2} & = b_{3.}
 \end{aligned}\]
 
-If the variables \(a_{i},b_{i},c_{i}\) satisfy the gate and copy
-constraints, then \(x = a_{1}\) and \(y = c_{3}\) are forced to satisfy
-the original equation \(y = x^{2} + 2\).
+If the variables $a_{i},b_{i},c_{i}$ satisfy the gate and copy
+constraints, then $x = a_{1}$ and $y = c_{3}$ are forced to satisfy
+the original equation $y = x^{2} + 2$.
 \end{remark}
 
 Back to PLONK. Our protocol needs to do the following: Peggy and Victor
 have a PLONK instance given to them. Peggy has a solution to the system
-of equations, i.e., an assignment of values to each \(a_{i}\),
-\(b_{i}\), \(c_{i}\) such that all the gate constraints and all the copy
+of equations, i.e., an assignment of values to each $a_{i}$,
+$b_{i}$, $c_{i}$ such that all the gate constraints and all the copy
 constraints are satisfied. Peggy wants to prove this to Victor
 succinctly and without revealing the solution itself. The protocol then
 proceeds by having:
 
 \begin{enumerate}
 \item
-  Peggy sends a polynomial commitment corresponding to \(a_{i}\),
-  \(b_{i}\), and \(c_{i}\) (the details of what polynomial are described
+  Peggy sends a polynomial commitment corresponding to $a_{i}$,
+  $b_{i}$, and $c_{i}$ (the details of what polynomial are described
   below).
 \item
   Peggy proves to Victor that the commitment from Step 1 satisfies the
@@ -173,23 +173,23 @@ Let us now explain how each step works.
 \subsection{Step 1: the commitment}
 
 In PLONK, we will assume that \(q \equiv 1 (\operatorname{mod}n)\), which
-means that we can fix \(\omega \in {\mathbb{F}}_{q}\) to be a primitive
-\(n\)-th root of unity.
+means that we can fix $\omega \in {\mathbb{F}}_{q}$ to be a primitive
+$n$-th root of unity.
 
 Then, by polynomial interpolation, Peggy chooses polynomials \(A(X)\),
-\(B(X)\), and \(C(X)\) in \({\mathbb{F}}_{q}[ X]\) such that
+\(B(X)\), and \(C(X)\) in ${\mathbb{F}}_{q}[ X]$ such that
 \begin{equation}
 \label{plonk-setup}
 A( \omega^{i} ) = a_{i},B( \omega^{i} ) = b_{i},C( \omega^{i} ) = c_{i}\text{  for all  }i = 1,2,\ldots,n.
 \end{equation}
 
-We specifically choose \(\omega^{i}\) because that way, if we use
+We specifically choose $\omega^{i}$ because that way, if we use
 Algorithm \ref{tcb:root-check} on the set
-\( \{ \omega,\omega^{2},\ldots,\omega^{n} \} \), then the
-polynomial called \(Z\) is just
+$ \{ \omega,\omega^{2},\ldots,\omega^{n} \} $, then the
+polynomial called $Z$ is just
 \[Z(X) = (X - \omega)\cdots( X - \omega^{n} ) = X^{n} - 1,\]
-which is really nice. In fact, often \(n\) is chosen to be a power of
-\(2\) so that \(A\), \(B\), and \(C\) are very easy to compute, using a
+which is really nice. In fact, often $n$ is chosen to be a power of
+$2$ so that $A$, $B$, and $C$ are very easy to compute, using a
 fast Fourier transform. (Note: When you are working in a finite field,
 the fast Fourier transform is sometimes called the ``number theoretic
 transform'' (NTT) even though it is exactly the same as the usual FFT.)
@@ -199,7 +199,7 @@ Then:
 \begin{algo}{Commitment step of PLONK}{}
 \begin{enumerate}
 \item
-  Peggy interpolates \(A\), \(B\), \(C\) as in
+  Peggy interpolates $A$, $B$, $C$ as in
   Equation \eqref{plonk-setup}.
 \item
   Peggy sends \(\operatorname{Com}(A)\), \(\operatorname{Com}(B)\),
@@ -209,15 +209,15 @@ Then:
 
 To reiterate, each commitment is a single value -- a 256-bit elliptic
 curve point -- that can later be ``opened'' at any value
-\(x \in {\mathbb{F}}_{q}\).
+$x \in {\mathbb{F}}_{q}$.
 
 \subsection{Step 2: gate check}
 
 Both Peggy and Victor know the PLONK instance, so they can interpolate a
 polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}[ X]\) of degree
-\(n - 1\) such that
+$n - 1$ such that
 \[Q_{L}( \omega^{i} ) = q_{L,i}\quad\text{ for  }i = 1,\ldots,n.\]
-The analogous polynomials \(Q_{R}\), \(Q_{O}\), \(Q_{M}\), \(Q_{C}\) are
+The analogous polynomials $Q_{R}$, $Q_{O}$, $Q_{M}$, $Q_{C}$ are
 defined in the same way.
 
 Now, what do the gate constraints amount to? Peggy is trying to convince
@@ -226,22 +226,22 @@ Victor that the equation
 \label{plonk-gate}
 Q_{L}(x)A(x) + Q_{R}(x)B(x) + Q_{O}(x)C(x) + Q_{M}(x)A(x)B(x) + Q_{C}(x) = 0
 \end{equation}
-is true for the \(n\) numbers
-\(x = \omega,\omega^{2},\ldots,\omega^{n}\).
+is true for the $n$ numbers
+$x = \omega,\omega^{2},\ldots,\omega^{n}$.
 
-However, Peggy has committed \(A\), \(B\), \(C\) already, while all the
-\(Q_{\ast}\) polynomials are globally known. So this is a direct
+However, Peggy has committed $A$, $B$, $C$ already, while all the
+$Q_{\ast}$ polynomials are globally known. So this is a direct
 application of Algorithm \ref{tcb:root-check}:
 
 \begin{algo}{Gate check}{}
 \begin{enumerate}
 \item
 Both parties interpolate five polynomials
-\(Q_{\ast} \in {\mathbb{F}}_{q}[X]\) from the \(5n\)
- coefficients \(q_{\ast}\) (globally known from the PLONK instance).
+$Q_{\ast} \in {\mathbb{F}}_{q}[X]$ from the $5n$
+ coefficients $q_{\ast}$ (globally known from the PLONK instance).
 \item
 Peggy uses Algorithm \ref{tcb:root-check} to convince Victor that
-Equation \eqref{plonk-gate} holds for \(X = \omega^{i}\)
+Equation \eqref{plonk-gate} holds for $X = \omega^{i}$
 (that is, the left-hand side is indeed divisible by
 \(Z(X) := X^{n} - 1\)).
 \end{enumerate}
@@ -259,16 +259,16 @@ Section \ref{copy-constraints} to it.
 The last thing to be done is to reveal the value of public witnesses, so
 the prover can convince the verifier that those values are correct. This
 is simply an application of Algorithm \ref{tcb:root-check}. Let us say the public
-witnesses are the values \(a_{i}\), for all \(i\) in some set \(S\). (If
-some of the \(b\)`s and \(c\)`s are also public, we will just do the
+witnesses are the values $a_{i}$, for all $i$ in some set $S$. (If
+some of the $b$`s and $c$`s are also public, we will just do the
 same thing for them.) The prover can interpolate another polynomial,
-\(A^{\text{public}}\), such that
-\(A^{\text{public}}( \omega^{i} ) = a_{i}\) if \(i \in S\),
+$A^{\text{public}}$, such that
+\(A^{\text{public}}( \omega^{i} ) = a_{i}\) if $i \in S$,
 and \(A^{\text{public}}( \omega^{i} ) = 0\) if
-\(i \notin S\). Actually, both the prover and the verifier can compute
-\(A^{\text{public}}\), since all the values \(a_{i}\) are publicly
+$i \notin S$. Actually, both the prover and the verifier can compute
+$A^{\text{public}}$, since all the values $a_{i}$ are publicly
 known!
 
 Now the prover runs Algorithm \ref{tcb:root-check} to prove that
-\(A - A^{\text{public}}\) vanishes on \(S\). (And similarly for \(B\)
-and \(C\), if needed.) And we are done.
+$A - A^{\text{public}}$ vanishes on $S$. (And similarly for $B$
+and $C$, if needed.) And we are done.

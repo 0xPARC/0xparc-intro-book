@@ -89,7 +89,7 @@ each (after interaction with the server).
 We will call \emph{physical} memory the memory that the server manages,
 and \emph{logical} memory the memory the user wants to access. Memory,
 both physical and logical, will be made up of ``blocks''; our ORAM
-algorithm will support \(N\) blocks of logical memory.
+algorithm will support $N$ blocks of logical memory.
 
 Formally, the user sends to the algorithm a sequence of \emph{logical}
 requests, where each logical request is of the form
@@ -142,7 +142,7 @@ Another trivial solution is for the client to store all blocks, and thus
 the client need not access the server to answer any memory request. But
 this defeats the numerous advantages of cloud outsourcing in the first
 place. \emph{Henceforth, we require that client store only a small
-amount of blocks} (maybe constant or polylogarithmic in \(N\)).
+amount of blocks} (maybe constant or polylogarithmic in $N$).
 
 \subsection{Naive solution 3}\label{naive-solution-3.}
 
@@ -176,13 +176,13 @@ which is the scheme that Signal has deployed.
 
 \subsection{Server data structure}\label{server-data-structure.}
 
-The server stores a binary tree with \(N\) leaves. (If necessary,
-replace \(N\) with the next larger power of \(2\).)
+The server stores a binary tree with $N$ leaves. (If necessary,
+replace $N$ with the next larger power of $2$.)
 
 Each node is called a \emph{bucket}, and each bucket is a finite array
-that can hold up to \(Z\) number of blocks --- for now, think of \(Z\)
-as being relatively small (maybe polylogarithmic in \(N\)); we will
-describe how to parametrize \(Z\) later. Some of the blocks stored by
+that can hold up to $Z$ number of blocks --- for now, think of $Z$
+as being relatively small (maybe polylogarithmic in $N$); we will
+describe how to parametrize $Z$ later. Some of the blocks stored by
 the server are \emph{real}; other blocks are \emph{dummy}. As will be
 clear later, these dummy blocks are introduced for security: We do not
 want the server to learn which buckets hold real blocks.
@@ -245,7 +245,7 @@ further, it does not leak any information about the new path.
 
 Now this is great. Our idea thus is to write this block back to the root
 bucket. However, there is also an obvious problem. The root bucket has a
-capacity of \(Z\), and if we keep writing blocks back to the root, soon
+capacity of $Z$, and if we keep writing blocks back to the root, soon
 enough the root bucket will overflow! Therefore, we now introduce a new
 procedure called \emph{eviction} to cope with this problem.
 
@@ -253,7 +253,7 @@ procedure called \emph{eviction} to cope with this problem.
 
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
-except with negligible in \(N\) failure probability. Note that if an
+except with negligible in $N$ failure probability. Note that if an
 overflow does happen, the block that leads to the overflow can get lost
 since there is no space to hold it on the server, and this can affect
 the correctness of our ORAM scheme. However, we will guarantee that such
@@ -283,7 +283,7 @@ important considerations when performing such eviction:
   issue is how we can design an eviction algorithm that achieves the
   best of both worlds: With a small number of eviction operations, we
   want to keep the probability of overflow very small (technically:
-  negligible in \(N\)).
+  negligible in $N$).
 \end{itemize}
 
 \begin{figure}[t]
@@ -295,7 +295,7 @@ which one data block will be evicted to one of its children. To ensure
 security, a dummy eviction is performed for the child that does not
 receive a block; further, if the bucket chosen for eviction is empty,
 dummy evictions are performed on both child buckets. In this figure,
-\(R\) denotes a real eviction and \(D\) denotes a dummy eviction.}
+$R$ denotes a real eviction and $D$ denotes a dummy eviction.}
 \end{figure}
 
 We describe a simple candidate eviction scheme, and we will give an
@@ -304,7 +304,7 @@ informal analysis of the scheme later:
 \begin{itemize}
 \item
   \emph{[An eviction algorithm]} Upon every data access, we choose
-  at random \(2\) buckets in every level of the tree for eviction (for
+  at random $2$ buckets in every level of the tree for eviction (for
   the root level, pick one bucket). If a bucket is chosen for eviction,
   we will pop an arbitrary block (if one exists) from the bucket, and
   write the block to one of its children.
@@ -426,13 +426,13 @@ requests at all.
 
 Correctness is somewhat trickier to argue. As mentioned earlier, to
 argue correctness, we must argue why no overflow will ever occur except
-with negligible probability --- as long as the bucket size \(Z\) is set
+with negligible probability --- as long as the bucket size $Z$ is set
 appropriately.
 
 \begin{claim}{}{bucketsize}
-Bucket size and overflow probability: If the bucket size \(Z\) is
-super-logarithmic in \(N\), then over any polynomially many accesses, no
-bucket overflows except with negligible in \(N\) probability.
+Bucket size and overflow probability: If the bucket size $Z$ is
+super-logarithmic in $N$, then over any polynomially many accesses, no
+bucket overflows except with negligible in $N$ probability.
 \end{claim}
 
 \begin{proof}
@@ -443,19 +443,19 @@ knowledge.
 
 \begin{itemize}
 \item
-  The root bucket (level \(0\) of the ORAM tree) receives exactly \(1\)
+  The root bucket (level $0$ of the ORAM tree) receives exactly $1$
   incoming block with every access, and it is evicted on every access,
   so the root bucket always ends up empty.
 \item
-  There are \(N\) leaf buckets, and \(N\) blocks are assigned to them at
+  There are $N$ leaf buckets, and $N$ blocks are assigned to them at
   random. We leave it as an exercise to check that the probability that
   more than \(( \log N )^{2}\) blocks are assigned to any one
-  leaf is negligible than \(N\) (in other words: decays faster than
-  \(N^{k}\), for every \(k\)).
+  leaf is negligible than $N$ (in other words: decays faster than
+  $N^{k}$, for every $k$).
 \item
-  Now consider a bucket, neither root nor leaf, at level \(i \geq 1\) of
-  the ORAM tree. A block will enqueue on one out of every \(2^{i}\)
-  accesses, and with probability \(\frac{1}{2^{i - 1}}\), the bucket is
+  Now consider a bucket, neither root nor leaf, at level $i \geq 1$ of
+  the ORAM tree. A block will enqueue on one out of every $2^{i}$
+  accesses, and with probability $\frac{1}{2^{i - 1}}$, the bucket is
   chosen for eviction.
 \end{itemize}
 
@@ -466,9 +466,9 @@ probability. This situation is well-known in queueing theory as the
 
 \begin{itemize}
 \item
-  Every time step, with probability \(p\), an item enqueues;
+  Every time step, with probability $p$, an item enqueues;
 \item
-  Every time step, with probability \(2p\), an item dequeues if the
+  Every time step, with probability $2p$, an item dequeues if the
   queue is non-empty.
 \end{itemize}
 
@@ -494,9 +494,9 @@ So far, we have cheated and pretended that the client can store a large
 position map. We now describe how to get rid of this position map. The
 idea is simple: Instead of storing the position map on the client side,
 we simply store it in a smaller ORAM denoted
-\(\textsf{posORAM}_{1}\) on the server. The position map of
-\(\textsf{posORAM}_{1}\) will then be stored in an even smaller
-ORAM denoted \(\textsf{posORAM}_{2}\) on the server, and so on.
+$\textsf{posORAM}_{1}$ on the server. The position map of
+$\textsf{posORAM}_{1}$ will then be stored in an even smaller
+ORAM denoted $\textsf{posORAM}_{2}$ on the server, and so on.
 As long as the block size is at least \(\Omega( \log N )\)
 bits, every time we recurse, the ORAM's size reduces by a constant
 factor; and thus \(O( \log N )\) levels of recursion would
@@ -514,9 +514,9 @@ We can thus conclude with the following theorem.
 \end{theorem}
 
 Note that in the total cost \(O( \alpha\log^{3}N )\), an
-\(\alpha\log N\) factor comes from the bucket size; another \(\log N\)
+$\alpha\log N$ factor comes from the bucket size; another $\log N$
 factor comes from the total height of the tree; and the remaining
-\(\log N\) factor comes from the recursion.
+$\log N$ factor comes from the recursion.
 
 \section{Path ORAM}\label{path-oram}
 
@@ -537,7 +537,7 @@ We want to move the blocks as close to the leaf level as possible, but
 \emph{without violating the path invariant}. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM. The
 cost of each access is \(O( \alpha\log^{2}N )\) for an
-arbitrarily small superconstant function \(\alpha\).
+arbitrarily small superconstant function $\alpha$.
 
 \subsection{Other applications of
 ORAM}\label{other-applications-of-oram}

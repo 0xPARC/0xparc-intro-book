@@ -60,18 +60,18 @@ wonderful approach to physics exposition. We quickly preview them here.
 
 In a \emph{two-party computation (2PC)}, two people want to jointly
 compute some known function \[F ( x_{1},x_{2}),\] where the
-\(i\)-th person only knows the input \(x_{i}\), without either person
+$i$-th person only knows the input $x_{i}$, without either person
 learning the other person's input.
 
 For example, in Yao's millionaire problem, Alice and Bob want to know
 who has a higher income without revealing their own amounts. This is the
-case where \(F\) is the comparison function
-(\(F ( x_{1},x_{2} )\) is \(1\) if \(x_{1} > x_{2}\), \(2\) if
-\(x_{2} > x_{1}\), and \(0\) if the two inputs are equal), and \(x_{i}\)
-is the \(i\)-th person's income.
+case where $F$ is the comparison function
+(\(F ( x_{1},x_{2} )\) is $1$ if $x_{1} > x_{2}$, $2$ if
+$x_{2} > x_{1}$, and $0$ if the two inputs are equal), and $x_{i}$
+is the $i$-th person's income.
 
 Two-party computation makes a promise that we will be able to do this
-for \emph{any} function \(F\) as long as we can implement it in code. It
+for \emph{any} function $F$ as long as we can implement it in code. It
 generalizes to \emph{multi-party computation (MPC)}, which is one of the
 main classes of programmable cryptography.
 
@@ -87,9 +87,9 @@ In the spirit of programmable cryptography, a \emph{SNARK} generalizes
 this concept as a ``proof system'' protocol that produces efficient
 proofs of \textbf{arbitrary} statements of the form:
 
-``I know \(X\) such that \(F(X,Y) = Z\), where \(F,Y,Z\) are public,''
+``I know $X$ such that \(F(X,Y) = Z\), where $F,Y,Z$ are public,''
 once the statement is encoded as a system of equations. One such
-statement would be ``I know \(M\) such that
+statement would be ``I know $M$ such that
 \(\operatorname{sha}(M) = Y\).''
 
 SNARKs are an active area of research, and many different SNARKs are
@@ -104,14 +104,14 @@ not want the translating service to know anything about your text at
 all.
 
 In \emph{fully homomorphic encryption (FHE)}, one person encrypts some
-data \(x\), and then a second person can perform arbitrary operations on
-the encrypted data \(x\) without being able to read \(x\).
+data $x$, and then a second person can perform arbitrary operations on
+the encrypted data $x$ without being able to read $x$.
 
 With this technology, you have a solution to your problem! You simply
 encrypt your text \(\operatorname{Enc}(x)\) and send it to your FHE
 machine translation server. The server will faithfully translate it into
-another language and give you \(\operatorname{Enc}(y)\), where \(y\) is
-the translation of \(x\). You can then decrypt and obtain \(y\), knowing
+another language and give you \(\operatorname{Enc}(y)\), where $y$ is
+the translation of $x$. You can then decrypt and obtain $y$, knowing
 that the server cannot extract anything meaningful from
 \(\operatorname{Enc}(x)\) without your secret key.
 

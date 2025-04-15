@@ -32,7 +32,7 @@ For example, consider the following (slightly simplified) version of
 Algorithm \ref{tcb:root-check}.
 
 \begin{algo}{}{}
-Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
+Peggy wants to prove to Victor that two polynomials $F$ and $H$
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both
 Peggy and Victor.
@@ -41,10 +41,10 @@ Peggy and Victor.
 \item
   Peggy sends \(\operatorname{Com}(F)\) and \(\operatorname{Com}(H)\).
 \item
-  Victor picks a random challenge \(\lambda \in {\mathbb{F}}_{q}\)
+  Victor picks a random challenge $\lambda \in {\mathbb{F}}_{q}$
 \item
   Peggy opens both \(\operatorname{Com}(F)\) and
-  \(\operatorname{Com}(H)\) at \(\lambda\).
+  \(\operatorname{Com}(H)\) at $\lambda$.
 \item
   Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).
 \end{enumerate}
@@ -53,7 +53,7 @@ Peggy and Victor.
 Fiat-Shamir turns it into the following noninteractive protocol.
 
 \begin{algo}{}{}
-Peggy wants to prove to Victor that two polynomials \(F\) and \(H\)
+Peggy wants to prove to Victor that two polynomials $F$ and $H$
 (known only to Peggy) satisfy \(F(X) = Z(X)H(X)\), where
 \(Z(X) = \prod_{z \in S}(X - z)\) is a fixed polynomial known to both
 Peggy and Victor.
@@ -62,11 +62,11 @@ Peggy and Victor.
 \item
   Peggy sends \(\operatorname{Com}(F)\) and \(\operatorname{Com}(H)\).
 \item
-  Peggy computes \(\lambda \in {\mathbb{F}}_{q}\) by
+  Peggy computes $\lambda \in {\mathbb{F}}_{q}$ by
   \(\lambda = \operatorname{hash}(\operatorname{Com}(F),\operatorname{Com}(H))\).
 \item
   Peggy opens both \(\operatorname{Com}(F)\) and
-  \(\operatorname{Com}(H)\) at \(\lambda\).
+  \(\operatorname{Com}(H)\) at $\lambda$.
 \item
   Victor verifies that
   \(\lambda = \operatorname{hash}(\operatorname{Com}(F),\operatorname{Com}(H))\)
