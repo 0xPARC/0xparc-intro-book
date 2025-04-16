@@ -156,7 +156,7 @@ provides security if every block is accessed only once. However, if the
 client needs to access each block multiple times, then the access
 patterns will leak statistical information such as frequency (how often
 the same block is accessed) and co-occurrence (how likely two blocks are
-accessed together). As mentioned earlier, one can leverage\footnote{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
+accessed together). As mentioned earlier, one can leverage\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
 such statistical information to infer sensitive secrets.
 
 \subsection{Important observation}\label{important-observation.}
@@ -171,7 +171,7 @@ mind when we describe our ORAM scheme later.
 \section{Binary-tree ORAM: data structure}\label{data-structure}
 
 We will learn about tree-based ORAMs. Then, we will mention an
-improvement called Path ORAM,\footnote{https://eprint.iacr.org/2013/280.pdf}
+improvement called Path ORAM,\footurl{https://eprint.iacr.org/2013/280.pdf}
 which is the scheme that Signal has deployed.
 
 \subsection{Server data structure}\label{server-data-structure.}
@@ -436,8 +436,8 @@ bucket overflows except with negligible in $N$ probability.
 \end{claim}
 
 \begin{proof}
-The full proof uses results from queueing theory,\footnote{https://en.wikipedia.org/wiki/Queueing\_theory}
-in particular Burke's theorem.\footnote{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
+The full proof uses results from queueing theory,\footurl{https://en.wikipedia.org/wiki/Queueing\_theory}
+in particular Burke's theorem.\footurl{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
 We will give a heuristic argument that does not require any specialized
 knowledge.
 
@@ -503,7 +503,7 @@ factor; and thus \(O( \log N )\) levels of recursion would
 suffice.
 
 We can thus conclude with the following theorem.
-\footnote{https://eprint.iacr.org/2011/407.pdf}
+\footurl{https://eprint.iacr.org/2011/407.pdf}
 
 \begin{theorem}{Binary-tree ORAM}{}
   For any super-constant function \(\alpha( \cdot )\), there is an ORAM scheme

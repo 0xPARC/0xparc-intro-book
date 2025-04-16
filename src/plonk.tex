@@ -60,13 +60,13 @@ factors might not matter in complexity theory, but they do matter a lot
 to engineers and end users.
 
 But it turns out that Quad-SAT is actually reasonably codeable. This is
-the goal of projects like Circom\footnote{https://docs.circom.io/},
+the goal of projects like Circom\footurl{https://docs.circom.io/},
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over ${\mathbb{F}}_{q}$ that can be used in
 practice. Systems like this are called \emph{arithmetic circuits}, and
 Circom is appropriately short for ``circuit compiler''. If you are
 curious, you can see how SHA-256 is implemented in Circom on
-GitHub.\footnote{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
+GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
 So, the first step in proving a claim like ``I have a message $M$ such
 that \(\operatorname{sha}(M) = \ 0xa91af3ac...\)'' is to translate the
