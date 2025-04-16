@@ -10,24 +10,23 @@ perform proofs for arbitrary functions. That means we need a
 the choice that is used is: \textbf{systems of quadratic equations over
 ${\mathbb{F}}_{q}$}. In other words, PLONK is going to give us the
 ability to prove that we have solutions to a system of quadratic
-equations.
+equations. We state this formally as follows.
 
-\begin{situation}{}{}
-Suppose we have a system of $m$ equations in $k$ variables
-$x_{1},\ldots,x_{k}$: \[\begin{aligned}
-Q_1( x_{1},\ldots,x_{k} ) & = 0 \\
- \vdots \\
-Q_{m}( x_{1},\ldots,x_{k} ) & = 0.
-\end{aligned}\] Of these $k$ variables, the first $\ell$ variables
-$x_{1},\ldots,x_{\ell}$ have publicly known, fixed values; the
-remaining $k - \ell$ are unknown.
+\begin{proposition}{}{}
+  Suppose we have a system of $m$ equations in $k$ variables $x_{1},\ldots,x_{k}$:
+  \begin{align*}
+    Q_1( x_{1},\ldots,x_{k} ) & = 0 \\
+    &\vdots \\
+    Q_{m}( x_{1},\ldots,x_{k} ) & = 0.
+  \end{align*}
+  Of these $k$ variables, the first $\ell$ variables $x_{1}$, \dots, $x_{\ell}$
+  have publicly known, fixed values; the remaining $k - \ell$ are unknown.
 
-PLONK will let Peggy prove to Victor the following claim: I know
-$k - \ell$ values $x_{\ell + 1},\ldots,x_{k}$ such that (when you
-combine them with the $\ell$ public fixed values
-$x_{1},\ldots,x_{\ell}$) the $k$ values $x_{1},\ldots,x_{k}$
-satisfy all $m$ quadratic equations.
-\end{situation}
+  Then PLONK will let Peggy prove to Victor the following claim:
+  I know $k - \ell$ values $x_{\ell + 1},\ldots,x_{k}$ such that
+  (when you combine them with the $\ell$ public fixed values $x_{1},\ldots,x_{\ell}$)
+  the $k$ values $x_{1},\ldots,x_{k}$ satisfy all $m$ quadratic equations.
+\end{proposition}
 
 This leads to the natural question of how a function like SHA-256 can be
 encoded into a system of quadratic equations. This process of encoding a
