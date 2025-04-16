@@ -69,9 +69,9 @@
   theorem base,
   enhanced,
   frame empty,
-  interior empty,
   colframe = blue,
   coltitle = blue,
+  colback = blue!3!white,
   colbacktitle = {blue!15!white},
   borderline = {0.5mm}{0mm}{blue,dashed},
   attach boxed title to top center = {yshift = -3mm},
@@ -91,8 +91,43 @@
   colback = gray!10!white,
   colbacktitle = gray!10!white,
   toptitle = 2mm,
-  sharp corners,
+  % sharp corners,
 }{tcb}
+
+\tcbset{
+  takeaways/.style={
+    enhanced,
+    colback=yellow!5!white,
+    colframe=yellow!50!black,
+    coltitle=black,
+    fonttitle=\sffamily\slshape,
+    boxed title style={
+      colframe=yellow!50!black,
+      colback=yellow!20,
+      sharp corners,
+      boxrule=1.8pt,
+      top=2pt,
+      bottom=2pt,
+      left=4pt,
+      right=4pt
+    },
+    title={Takeaways},
+    attach boxed title to top left={
+      yshift=-4mm,
+      xshift=5mm
+    },
+    before skip=0pt,
+    after skip=0pt,
+    sharp corners,
+    boxrule=1.2pt,
+    width=\textwidth,
+    left=8pt,
+    right=8pt,
+    top=14pt,
+    bottom=10pt,
+  }
+}
+
 
 \title{Programmable Cryptography: \\ Four Easy Pieces}
 \author{Edited by Evan Chen, Brian Lawrence, Yan X Zhang}
