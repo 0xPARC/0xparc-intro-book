@@ -1,0 +1,198 @@
+\documentclass{scrreprt}
+\usepackage{amsfonts, amsmath, amsthm, graphicx, xcolor}
+\usepackage[colorlinks]{hyperref}
+
+\usepackage{algorithm,algorithmic}
+
+\newcommand{\footurl}[1]{\footnote{\url{#1}}}
+
+\newcommand{\redoval}[1]{\textcolor{red}{\boldsymbol{#1}}}
+\newcommand{\bluerect}[1]{\textcolor{blue}{\boldsymbol{#1}}}
+
+\newcommand{\sha}{\operatorname{sha}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\usepackage{tcolorbox}
+\usepackage{varwidth}
+\tcbuselibrary{skins}
+\tcbuselibrary{theorems}
+\tcbuselibrary{breakable}
+
+\tcbset{
+  theorem base/.style = {
+    fonttitle = \bfseries\sffamily
+  }
+}
+
+% Theorems
+\NewTcbTheorem[number within=chapter]{theorem}{Theorem}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{proposition}{Proposition}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{claim}{Claim}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{assumption}{Assumption}{
+  theorem base,
+  colback = red!5,
+  colframe = red!35!black,
+}{tcb}
+\NewTcbTheorem[use counter from = theorem]{definition}{Definition}{
+  theorem base,
+  colback = red!5,
+  colframe = red!35!black,
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{problem}{Problem}{
+  theorem base,
+  colback = orange!5,
+  colframe = orange!35!black
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{example}{Example}{
+  theorem base,
+  colback = blue!5,
+  colframe = blue!35!black
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{algo}{Algorithm}{
+  theorem base,
+  enhanced,
+  frame empty,
+  colframe = blue,
+  coltitle = blue,
+  colback = blue!3!white,
+  colbacktitle = {blue!15!white},
+  borderline = {0.5mm}{0mm}{blue,dashed},
+  attach boxed title to top center = {yshift = -3mm},
+  boxed title style = {boxrule = 0.4pt},
+  varwidth boxed title,
+  top = {5mm},
+}{tcb}
+
+\NewTcbTheorem[use counter from = theorem]{remark}{Remark}{
+  theorem base,
+  enhanced,
+  breakable,
+  boxrule = 0pt,
+  frame hidden,
+  borderline west = {4pt}{0pt}{black},
+  coltitle = black,
+  colback = gray!10!white,
+  colbacktitle = gray!10!white,
+  toptitle = 2mm,
+  % sharp corners,
+}{tcb}
+
+\tcbset{
+  takeaways/.style={
+    enhanced,
+    colback=yellow!5!white,
+    colframe=yellow!50!black,
+    coltitle=black,
+    fonttitle=\sffamily\slshape,
+    boxed title style={
+      colframe=yellow!50!black,
+      colback=yellow!20,
+      sharp corners,
+      boxrule=1.8pt,
+      top=2pt,
+      bottom=2pt,
+      left=4pt,
+      right=4pt
+    },
+    title={Takeaways},
+    attach boxed title to top left={
+      yshift=-4mm,
+      xshift=5mm
+    },
+    before skip=0pt,
+    after skip=0pt,
+    sharp corners,
+    boxrule=1.2pt,
+    width=\textwidth,
+    left=8pt,
+    right=8pt,
+    top=14pt,
+    bottom=10pt,
+  }
+}
+
+
+\title{Programmable Cryptography: \\ Four Easy Pieces}
+\author{Edited by Evan Chen, Brian Lawrence, Yan X Zhang}
+
+\addtokomafont{chapterprefix}{\raggedleft}
+\RedeclareSectionCommand[beforeskip=0.5em]{chapter}
+\renewcommand*{\chapterformat}{\mbox{%
+  \scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
+  \scalebox{2.718}{\color{purple}\textsuperscript{\S}\thechapter}\enskip}}
+
+\renewcommand*{\sectionformat}%
+{\color{purple}\S\thesection\enskip}
+\renewcommand*{\subsectionformat}%
+{\color{purple}\S\thesubsection\enskip}
+\renewcommand*{\subsubsectionformat}%
+{\color{purple}\S\thesubsubsection\enskip}
+\addtokomafont{paragraph}{\color{orange!35!black}\P\ }
+\KOMAoptions{numbers=noenddot}
+
+\newcommand{\credits}[1]{\noindent\emph{#1}\vspace{2em}}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\chapter{Introduction}
+\credits{Brian Gu and Yan X Zhang}
+\input{src/intro}
+
+\chapter{Two-Party Computation}
+\credits{Brian Gu and Brian Lawrence}
+\input{src/mpc}
+\input{src/ot}
+\input{src/2pc-takeaways}
+
+\chapter{SNARKs Prelude: Elliptic Curves and Polynomial Commitments}
+\credits{Evan Chen}
+\input{src/ec}
+\input{src/pair}
+\input{src/kzg}
+\input{src/kzg-takeaways}
+
+\chapter{SNARKs}
+\credits{Evan Chen}
+\input{src/zkintro}
+\input{src/plonk}
+\input{src/copy-constraints}
+\input{src/fs}
+\input{src/snark-takeaways}
+
+\chapter{Fully Homomorphic Encryption}
+\credits{Brian Lawrence and Yan X Zhang}
+\input{src/fhe0}
+\input{src/lwe}
+\input{src/fhe2}
+\input{src/fhe3}
+\input{src/fhe-takeaways}
+
+\chapter{Oblivious RAM}
+\credits{Elaine Shi}
+\input{src/oram}
+\input{src/oram-takeaways}
+
+\end{document}

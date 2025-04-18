@@ -1,15 +1,15 @@
-\subsection{FHE and leveled FHE}\label{fhe-intro}
+\section{FHE and leveled FHE}\label{fhe-intro}
 
-Alice has a secret \(x\), and Bob has a function \(f\). They want to
+Alice has a secret $x$, and Bob has a function $f$. They want to
 compute \(f(x)\). Actually, Alice wants Bob to compute \(f(x)\) -- but
-she does not want to tell him \(x\). What Alice wants is a \emph{fully
+she does not want to tell him $x$. What Alice wants is a \emph{fully
 homomorphic encryption (FHE)} protocol, meaning:
 
 \begin{enumerate}
 \item
-  Alice encrypts \(x\) and sends Bob \(\operatorname{Enc}(x)\).
+  Alice encrypts $x$ and sends Bob \(\operatorname{Enc}(x)\).
 \item
-  Bob then ``applies \(f\) to the ciphertext'' and obtains
+  Bob then ``applies $f$ to the ciphertext'' and obtains
   \(\operatorname{Enc}\left( f(x) \right)\), sending it to Alice.
 \item
   Alice decrypts \(\operatorname{Enc}\left( f(x) \right)\) to learn
@@ -44,8 +44,8 @@ right now.)
 
 Now imagine that the main operation you want to perform is addition
 (optionally, say, modulo 11). Well, every time you add two encrypted
-numbers (\(1.999832 + 2.999701 = 4.999533\)), the errors add as well.
-After too many operations, the error will exceed \(0.5\), and the
+numbers ($1.999832 + 2.999701 = 4.999533$), the errors add as well.
+After too many operations, the error will exceed $0.5$, and the
 rounding procedure will not give the right answer anymore. But as long
 as you are careful not to go over the error limit, you can add
 ciphertexts with confidence.
@@ -58,6 +58,6 @@ perform arbitrary calculations within the FHE encryption.
 Our protocol uses a cryptosystem built from a problem called ``learning
 with errors.'' ``Learning with errors'' is kind of a strange name; it
 would make more sense to call it ``approximate linear algebra modulo
-\(q\).'' Anyway, we will start with the learning-with-errors problem
+$q$.'' Anyway, we will start with the learning-with-errors problem
 (Section \ref{lwe}) and how to build cryptography on top of it
 (Section \ref{lwe-crypto}) before we get back to leveled FHE.

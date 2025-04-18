@@ -1,4 +1,4 @@
-\subsection{What is programmable cryptography?}
+\section{What is programmable cryptography?}
 
 Cryptography is everywhere now and needs no introduction.
 \emph{Programmable cryptography} is a term coined by 0xPARC for a second
@@ -13,12 +13,12 @@ by classical cryptography can do:
   \emph{Digital signatures}. RSA and ElGamal are examples of digital
   signature algorithms, where Alice can perform some protocol to prove
   to Bob that she endorses a message. A more complicated example might
-  be a group signature scheme,\footnote{https://en.wikipedia.org/wiki/Group\_signature}
+  be a group signature scheme,\footurl{https://en.wikipedia.org/wiki/Group\_signature}
   which allows one member of a group to sign a message on behalf of the
   group.
 \item
   \emph{Confidential computing}. For example, consider
-  Yao's millionaire problem,\footnote{https://en.wikipedia.org/wiki/Yao\%27s\_Millionaires\%27\_problem}
+  Yao's millionaire problem,\footurl{https://en.wikipedia.org/wiki/Yao\%27s\_Millionaires\%27\_problem}
   where Alice and Bob want to know which of them makes more money
   without learning anything more about each other's incomes. With
   cryptography, Alice and Bob could use a two-party computation protocol
@@ -41,7 +41,7 @@ a digital alarm clock or thermostat) to a general-purpose device (like a
 smartphone) which can do any computation so long as someone writes code
 for it.
 
-\begin{remark}
+\begin{remark}{}{}
 The quote on the title page
 ("I have a message $M$ such that $\sha(M) = "0x91af3ac..."$")
 is a concrete example.
@@ -50,32 +50,32 @@ yet programmable cryptography promises that such a proof can be made
 using a general compiler rather than inventing an algorithm specific to SHA-256.
 \end{remark}
 
-\subsection{Ideas in programmable cryptography}
+\section{Ideas in programmable cryptography}
 
 Our work presents programmable cryptography through specific topics in
 several self-contained ``easy pieces,'' imitating Richard Feynman's
 wonderful approach to physics exposition. We quickly preview them here.
 
-\subsubsection{2PC: two-party computation}
+\subsection{2PC: two-party computation}
 
 In a \emph{two-party computation (2PC)}, two people want to jointly
 compute some known function \[F ( x_{1},x_{2}),\] where the
-\(i\)-th person only knows the input \(x_{i}\), without either person
+$i$-th person only knows the input $x_{i}$, without either person
 learning the other person's input.
 
 For example, in Yao's millionaire problem, Alice and Bob want to know
 who has a higher income without revealing their own amounts. This is the
-case where \(F\) is the comparison function
-(\(F ( x_{1},x_{2} )\) is \(1\) if \(x_{1} > x_{2}\), \(2\) if
-\(x_{2} > x_{1}\), and \(0\) if the two inputs are equal), and \(x_{i}\)
-is the \(i\)-th person's income.
+case where $F$ is the comparison function
+(\(F ( x_{1},x_{2} )\) is $1$ if $x_{1} > x_{2}$, $2$ if
+$x_{2} > x_{1}$, and $0$ if the two inputs are equal), and $x_{i}$
+is the $i$-th person's income.
 
 Two-party computation makes a promise that we will be able to do this
-for \emph{any} function \(F\) as long as we can implement it in code. It
+for \emph{any} function $F$ as long as we can implement it in code. It
 generalizes to \emph{multi-party computation (MPC)}, which is one of the
 main classes of programmable cryptography.
 
-\subsubsection{SNARKs: proofs of general statements}
+\subsection{SNARKs: proofs of general statements}
 
 A powerful way of thinking about a signature scheme is that it is a
 \textbf{proof}. Specifically, Alice's signature is a proof that ``I
@@ -87,15 +87,15 @@ In the spirit of programmable cryptography, a \emph{SNARK} generalizes
 this concept as a ``proof system'' protocol that produces efficient
 proofs of \textbf{arbitrary} statements of the form:
 
-``I know \(X\) such that \(F(X,Y) = Z\), where \(F,Y,Z\) are public,''
+``I know $X$ such that \(F(X,Y) = Z\), where $F,Y,Z$ are public,''
 once the statement is encoded as a system of equations. One such
-statement would be ``I know \(M\) such that
+statement would be ``I know $M$ such that
 \(\operatorname{sha}(M) = Y\).''
 
 SNARKs are an active area of research, and many different SNARKs are
 known. We will focus on a particular example, PLONK (Section \ref{plonk}).
 
-\subsubsection{FHE: fully homomorphic encryption}
+\subsection{FHE: fully homomorphic encryption}
 
 Imagine you have some private text that you want to translate into
 another language. While many services today will do this, even for free,
@@ -104,18 +104,18 @@ not want the translating service to know anything about your text at
 all.
 
 In \emph{fully homomorphic encryption (FHE)}, one person encrypts some
-data \(x\), and then a second person can perform arbitrary operations on
-the encrypted data \(x\) without being able to read \(x\).
+data $x$, and then a second person can perform arbitrary operations on
+the encrypted data $x$ without being able to read $x$.
 
 With this technology, you have a solution to your problem! You simply
 encrypt your text \(\operatorname{Enc}(x)\) and send it to your FHE
 machine translation server. The server will faithfully translate it into
-another language and give you \(\operatorname{Enc}(y)\), where \(y\) is
-the translation of \(x\). You can then decrypt and obtain \(y\), knowing
+another language and give you \(\operatorname{Enc}(y)\), where $y$ is
+the translation of $x$. You can then decrypt and obtain $y$, knowing
 that the server cannot extract anything meaningful from
 \(\operatorname{Enc}(x)\) without your secret key.
 
-\subsubsection{ORAM: Oblivious RAM}
+\subsection{ORAM: Oblivious RAM}
 
 You want to perform a private computation on a large database. The
 database is so large that you cannot store it yourself -- and you do not
@@ -136,7 +136,7 @@ requests to the server. Only one of the scrambled requests is the
 request you are interested in; the others keep the server from learning
 which request you care about.
 
-\subsection{Programmable cryptography in the world}
+\section{Programmable cryptography in the world}
 
 In the past decade, there has been a surprisingly high amount of
 theoretical work but also a surprisingly low amount of implementation

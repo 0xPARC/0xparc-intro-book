@@ -1,4 +1,4 @@
-\subsection{A hard problem: learning with errors}\label{lwe}
+\section{A hard problem: learning with errors}\label{lwe}
 
 As we have seen (Section \ref{ec}), a lot of cryptography relies on hard math
 problems. RSA is based on the difficulty of integer factorization;
@@ -8,27 +8,27 @@ Our protocol for leveled FHE relies on a different hard problem: the
 learning with errors problem (LWE). The problem is to solve systems of
 linear equations, except that the equations are only approximately true
 -- they permit a small ``error'' -- and instead of solving for rational
-or real numbers, you are solving for integers modulo \(q\).
+or real numbers, you are solving for integers modulo $q$.
 
-\subsubsection{A small example of an LWE problem}\label{lwe-small}
+\subsection{A small example of an LWE problem}\label{lwe-small}
 
 Here is a concrete example of an LWE problem and how one might attack it
 ``by hand.'' This exercise will make the inherent difficulty of the
 problem quite intuitive.
 
 
-\begin{problem}
-We are working over \(\mathbb{F}_{11}\), and there is some secret vector
+\begin{problem}{}{}
+We are working over $\mathbb{F}_{11}$, and there is some secret vector
 \(a = ( a_{1},\ldots,a_{4} )\). There are two sets of claims.
 Each claim ``\(( x_{1},\ldots,x_{4} ):y\)'' purports the
 relationship
 
 \[y = a_{1}x_{1} + a_{2}x_{2} + a_{3}x_{3} + a_{4}x_{4} + \varepsilon,\mspace{6mu}\varepsilon \in \{ 0,1 \}.\]
-(The \(\varepsilon\) is different from equation to equation.)
+(The $\varepsilon$ is different from equation to equation.)
 
 One of the sets of claims is ``genuine'' and comes from a consistent set
-of \(a_{i}\), while the other set is ``fake'' and has randomly generated
-\(y\) values. Tell them apart and find the correct secret vector
+of $a_{i}$, while the other set is ``fake'' and has randomly generated
+$y$ values. Tell them apart and find the correct secret vector
 \(( a_{1},\ldots,a_{4} )\).
 
 \begin{center}
@@ -76,7 +76,7 @@ Blue Set & Red Set \\
 (\textbf{Solution sketch; can be skipped safely.}) One way to start
 would be to define an \emph{information vector}
 \[( x_{1},x_{2},x_{3},x_{4}|y|S ),\] where
-\(S \subset {\mathbb{F}}_{11}\), to mean the statement
+$S \subset {\mathbb{F}}_{11}$, to mean the statement
 \[\sum a_{i}x_{i} = y + s,\text{ where }s \in S.\] In particular, a
 purported approximation \(( x_{1},x_{2},x_{3},x_{4} ):y\) in
 the LWE protocol corresponds to the information vector
@@ -84,12 +84,12 @@ the LWE protocol corresponds to the information vector
 The benefit of this notation is that we can take linear combinations of
 them. Specifically, if \(( X_{1}| y_{1} |S_{1} )\)
 and \(( X_{2}| y_{2} |S_{2} )\) are information
-vectors (where \(X_{i}\) are vectors), then
+vectors (where $X_{i}$ are vectors), then
 
 \[( \alpha X_{1} + \beta X_{2}| \alpha y_{1} + \beta y_{2} |\alpha S_{1} + \beta S_{2} ),\]
 
-where \(\alpha S = \{ \alpha s|s \in S \}\) and
-\(S + T = \{ s + t|s \in S,t \in T \}\).
+where $\alpha S = \{ \alpha s|s \in S \}$ and
+$S + T = \{ s + t|s \in S,t \in T \}$.
 
 We can observe the following:
 
@@ -99,42 +99,42 @@ We can observe the following:
   \(( X|y|S_{2} )\), then we have the information (assuming
   the vectors are accurate) \(( X|y|S_{1} \cap S_{2} )\). So
   if we are lucky enough, say, to have
-  \(| S_{1} \cap S_{2} | = 1\), then we have found an exact
+  $| S_{1} \cap S_{2} | = 1$, then we have found an exact
   equation with no error.
 \item
-  As we linearly combine vectors, their ``error part'' \(S\) gets bigger
+  As we linearly combine vectors, their ``error part'' $S$ gets bigger
   exponentially. So we can only add vectors very few times, ideally just
   one or two times, before they start being unusable.
 \end{enumerate}
 
 With these heuristics, we can start by looking at the Red Set, and make
-vectors with many \(0\)'s in the same places.
+vectors with many $0$'s in the same places.
 
 \begin{enumerate}
 \item
   Our eyes are drawn to the juicy-looking
   \(( 0,3,0,0|0|\{ 0, - 1 \} ),\) which
-  immediately gives \(a_{2} \in \{ 0,7 \}\).
+  immediately gives $a_{2} \in \{ 0,7 \}$.
 \item
   \(( 4,7,0,0|8|\{ 0, - 1 \} )\) gives
-  \(4a_{1} + 7a_{2} \in \{ 7,8 \}.\) Also, since
-  \(7a_{2} \in \{ 0,5 \},\)
+  $4a_{1} + 7a_{2} \in \{ 7,8 \}.$ Also, since
+  $7a_{2} \in \{ 0,5 \},$
   \[4a_{1} \in \{ 7,8 \} - \{ 0,5 \} = \{ 7,8,2,3 \},\]
-  and \(a_{1} \in \{ 10,2,6,9 \}.\)
+  and $a_{1} \in \{ 10,2,6,9 \}.$
 \item
   Adding
   \[( 10,4,4,3|1|\{ 0, - 1 \} ) + ( 7,7,7,8|5|\{ 0, - 1 \} )\]
   gives \(( 6,0,0,0|6|\{ 0, - 1, - 2 \} ),\) which
   is nice because it has 3 zeroes! This gives
-  \(a_{1} \in \{ 1,8,10 \}.\) Combining with (2), we conclude
-  that \(a_{1} = 10.\)
+  $a_{1} \in \{ 1,8,10 \}.$ Combining with (2), we conclude
+  that $a_{1} = 10.$
 \item
   \ldots{}
 \end{enumerate}
 
 We omit the rest of the solution, which makes for some fun tinkering.
 
-\subsubsection{General problem}
+\subsection{General problem}
 
 The LWE problem (Problem \ref{lwe}), like the discrete log
 assumption, is one of those ``hard problems that you can build
@@ -142,4 +142,4 @@ cryptography on.'' The problem is to solve for constants
 \[a_{1},\ldots,a_{n} \in {\mathbb{Z}}/q{\mathbb{Z}},\] given a bunch of
 \textbf{approximate} equations of the form
 \[y = a_{1}x_{1} + \cdots + a_{n}x_{n} + \epsilon,\] where each
-\(\epsilon\) is a ``small'' error (for simplicity, say in \(\{ 0,1\}\)).
+$\epsilon$ is a ``small'' error (for simplicity, say in $\{ 0,1\}$).

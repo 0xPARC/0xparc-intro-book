@@ -1,5 +1,5 @@
-\subsection{SNARK takeaways}
-
+\section{SNARK takeaways}
+\begin{tcolorbox}[takeaways]
 \begin{enumerate}
 \item
   A \emph{SNARK} can be used to succinctly prove that a piece of
@@ -10,7 +10,7 @@
   The \emph{arithmetization} of the circuit is a way of converting
   circuits to arithmetic. Specifically for PLONK (but also other SNARKs,
   e.g., Groth16), our arithmetization is systems of quadratic equations
-  over \({\mathbb{F}}_{q}\), meaning that what PLONK does under the hood
+  over ${\mathbb{F}}_{q}$, meaning that what PLONK does under the hood
   is prove that a system of these equations are satisfied.
 \item
   The work under the hood of PLONK comes down to polynomial commitments
@@ -21,3 +21,4 @@
   Generally speaking, the ``meat'' of zkSNARKs are mostly about
   S(uccinctness) of the AR(guments).
 \end{enumerate}
+\end{tcolorbox}

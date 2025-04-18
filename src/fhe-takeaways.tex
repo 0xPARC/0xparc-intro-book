@@ -1,14 +1,14 @@
-\subsection{FHE takeaways}
-
+\section{FHE takeaways}
+\begin{tcolorbox}[takeaways]
 \begin{enumerate}
 \item
   A \emph{fully homomorphic encryption} protocol allows Bob to compute
   some function \(f(x)\) for Alice in a way that Bob does not get to
-  know \(x\) or \(f(x)\).
+  know $x$ or \(f(x)\).
 \item
   The hard problem backing known FHE protocols is the \emph{learning
   with errors (LWE)} problem, which comes down to deciding if a system
-  of ``approximate equations'' over \({\mathbb{F}}_{q}\) is consistent.
+  of ``approximate equations'' over ${\mathbb{F}}_{q}$ is consistent.
 \item
   The main idea of this approach to FHEs is to use ``approximate
   eigenvalues'' as the encrypted computation and an ``approximate
@@ -21,3 +21,4 @@
   with the \emph{flatten} operation. This creates a \emph{leveled FHE}
   protocol.
 \end{enumerate}
+\end{tcolorbox}

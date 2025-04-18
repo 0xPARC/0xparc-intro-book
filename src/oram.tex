@@ -56,13 +56,13 @@ if (s) {
 Therefore, we want to solve the following challenge:
 
 \begin{quote}
-{\it How can we provably hide access patterns while preserving efficiency?}
+{\itshape How can we provably hide access patterns while preserving efficiency?}
 \end{quote}
 
 The solution Signal eventually deployed is an algorithmic technique
 called Oblivious RAM (ORAM).
 
-\subsection{Oblivious RAM: problem
+\section{Oblivious RAM: problem
 definitions}
 \label{oblivious-ram-problem-definitions}
 
@@ -89,7 +89,7 @@ each (after interaction with the server).
 We will call \emph{physical} memory the memory that the server manages,
 and \emph{logical} memory the memory the user wants to access. Memory,
 both physical and logical, will be made up of ``blocks''; our ORAM
-algorithm will support \(N\) blocks of logical memory.
+algorithm will support $N$ blocks of logical memory.
 
 Formally, the user sends to the algorithm a sequence of \emph{logical}
 requests, where each logical request is of the form
@@ -113,7 +113,7 @@ sequence of physical memory requests. For any two \emph{logical} request
 sequences, the ORAM's resulting \emph{physical} access sequences will be
 indistinguishable.
 
-\begin{remark}
+\begin{remark}{}{}
 In this security requirement, we require that the server learn nothing
 from observing only the list of physical addresses, and whether each
 physical access is a read or write. We do not say anything about the
@@ -128,23 +128,23 @@ From now on we will simply assume secure encryption as given, and focus
 on hiding the access patterns.
 \end{remark}
 
-\subsection{Naive solutions}\label{naive-solutions}
+\section{Naive solutions}\label{naive-solutions}
 
-\subsubsection{Naive solution 1}\label{naive-solution-1.}
+\subsection{Naive solution 1}\label{naive-solution-1.}
 
 One trivial solution is for the client to read all blocks from the
 server upon every logical request. Obviously this scheme leaks nothing
 but would be prohibitively expensive.
 
-\subsubsection{Naive solution 2}\label{naive-solution-2.}
+\subsection{Naive solution 2}\label{naive-solution-2.}
 
 Another trivial solution is for the client to store all blocks, and thus
 the client need not access the server to answer any memory request. But
 this defeats the numerous advantages of cloud outsourcing in the first
 place. \emph{Henceforth, we require that client store only a small
-amount of blocks} (maybe constant or polylogarithmic in \(N\)).
+amount of blocks} (maybe constant or polylogarithmic in $N$).
 
-\subsubsection{Naive solution 3}\label{naive-solution-3.}
+\subsection{Naive solution 3}\label{naive-solution-3.}
 
 Another naive idea is to randomly permute all memory blocks through a
 secret permutation known only to the client. Whenever the client wishes
@@ -156,10 +156,10 @@ provides security if every block is accessed only once. However, if the
 client needs to access each block multiple times, then the access
 patterns will leak statistical information such as frequency (how often
 the same block is accessed) and co-occurrence (how likely two blocks are
-accessed together). As mentioned earlier, one can leverage\footnote{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
+accessed together). As mentioned earlier, one can leverage\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
 such statistical information to infer sensitive secrets.
 
-\subsubsection{Important observation}\label{important-observation.}
+\subsection{Important observation}\label{important-observation.}
 
 The above naive solution 3 gives us the following useful insight:
 Informally, if we want a ``non-trivial'' ORAM scheme, it appears that we
@@ -168,26 +168,26 @@ next access to the same block goes back to the same location, we can
 thus leak statistical information. It helps to keep this observation in
 mind when we describe our ORAM scheme later.
 
-\subsection{Binary-tree ORAM: data structure}\label{data-structure}
+\section{Binary-tree ORAM: data structure}\label{data-structure}
 
 We will learn about tree-based ORAMs. Then, we will mention an
-improvement called Path ORAM,\footnote{https://eprint.iacr.org/2013/280.pdf}
+improvement called Path ORAM,\footurl{https://eprint.iacr.org/2013/280.pdf}
 which is the scheme that Signal has deployed.
 
-\subsubsection{Server data structure}\label{server-data-structure.}
+\subsection{Server data structure}\label{server-data-structure.}
 
-The server stores a binary tree with \(N\) leaves. (If necessary,
-replace \(N\) with the next larger power of \(2\).)
+The server stores a binary tree with $N$ leaves. (If necessary,
+replace $N$ with the next larger power of $2$.)
 
 Each node is called a \emph{bucket}, and each bucket is a finite array
-that can hold up to \(Z\) number of blocks --- for now, think of \(Z\)
-as being relatively small (maybe polylogarithmic in \(N\)); we will
-describe how to parametrize \(Z\) later. Some of the blocks stored by
+that can hold up to $Z$ number of blocks --- for now, think of $Z$
+as being relatively small (maybe polylogarithmic in $N$); we will
+describe how to parametrize $Z$ later. Some of the blocks stored by
 the server are \emph{real}; other blocks are \emph{dummy}. As will be
 clear later, these dummy blocks are introduced for security: We do not
 want the server to learn which buckets hold real blocks.
 
-\subsubsection{Main path invariant}\label{main-path-invariant.}
+\subsection{Main path invariant}\label{main-path-invariant.}
 
 The most important invariant is that at any point of time, each block is
 mapped to a random path in the tree (also referred to as the block's
@@ -196,7 +196,7 @@ leaf node --- and thus a path can be specified by the corresponding leaf
 node's identifier. When a block is mapped to a path, it means that the
 block can legitimately reside anywhere along the path.
 
-\subsubsection{Imaginary position map}\label{imaginary-position-map.}
+\subsection{Imaginary position map}\label{imaginary-position-map.}
 
 For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
@@ -206,11 +206,11 @@ block. In general, such a position map would require roughly
 recursively outsource the storage of the position map to the server by
 placing position maps in progressively smaller ORAMs.
 
-\subsection{Binary-tree ORAM: operations}\label{operations}
+\section{Binary-tree ORAM: operations}\label{operations}
 
 We now describe how to access blocks in our ORAM scheme.
 
-\subsubsection{Fetching a block}\label{fetching-a-block.}
+\subsection{Fetching a block}\label{fetching-a-block.}
 
 Given how our data structures are set up, accessing a block is very
 easy: the client simply looks up its local position map, finds out on
@@ -218,7 +218,7 @@ which path the block is residing, and then reads each and every block on
 the path. As long as the main invariant is respected, the client is
 guaranteed to find the desired block.
 
-\subsubsection{Remapping a block}\label{remapping-a-block.}
+\subsection{Remapping a block}\label{remapping-a-block.}
 
 Recall that earlier, we have gained the informal insight that whenever a
 block is accessed, it should relocate. Here, whenever we access a block,
@@ -245,15 +245,15 @@ further, it does not leak any information about the new path.
 
 Now this is great. Our idea thus is to write this block back to the root
 bucket. However, there is also an obvious problem. The root bucket has a
-capacity of \(Z\), and if we keep writing blocks back to the root, soon
+capacity of $Z$, and if we keep writing blocks back to the root, soon
 enough the root bucket will overflow! Therefore, we now introduce a new
 procedure called \emph{eviction} to cope with this problem.
 
-\subsubsection{Eviction}\label{eviction.}
+\subsection{Eviction}\label{eviction.}
 
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
-except with negligible in \(N\) failure probability. Note that if an
+except with negligible in $N$ failure probability. Note that if an
 overflow does happen, the block that leads to the overflow can get lost
 since there is no space to hold it on the server, and this can affect
 the correctness of our ORAM scheme. However, we will guarantee that such
@@ -283,19 +283,19 @@ important considerations when performing such eviction:
   issue is how we can design an eviction algorithm that achieves the
   best of both worlds: With a small number of eviction operations, we
   want to keep the probability of overflow very small (technically:
-  negligible in \(N\)).
+  negligible in $N$).
 \end{itemize}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{binaryoram16-evict.png}
+\includegraphics[width=\textwidth]{figures/binaryoram16-evict}
 \caption{The \texttt{Evict} algorithm. Upon every data access operation,
 two buckets are chosen at every level of the tree for eviction during
 which one data block will be evicted to one of its children. To ensure
 security, a dummy eviction is performed for the child that does not
 receive a block; further, if the bucket chosen for eviction is empty,
 dummy evictions are performed on both child buckets. In this figure,
-\(R\) denotes a real eviction and \(D\) denotes a dummy eviction.}
+$R$ denotes a real eviction and $D$ denotes a dummy eviction.}
 \end{figure}
 
 We describe a simple candidate eviction scheme, and we will give an
@@ -304,7 +304,7 @@ informal analysis of the scheme later:
 \begin{itemize}
 \item
   \emph{[An eviction algorithm]} Upon every data access, we choose
-  at random \(2\) buckets in every level of the tree for eviction (for
+  at random $2$ buckets in every level of the tree for eviction (for
   the root level, pick one bucket). If a bucket is chosen for eviction,
   we will pop an arbitrary block (if one exists) from the bucket, and
   write the block to one of its children.
@@ -330,13 +330,12 @@ So far, we have not argued why any bucket that receives a block always
 has space for this block --- we will give an informal analysis later to
 show that this is indeed the case.
 
-\subsubsection{Algorithm pseudo-code}\label{algorithm-pseudo-code.}
+\subsection{Algorithm pseudo-code}\label{algorithm-pseudo-code.}
 
-We present the algorithm's pseudo-code in Algorithms~\ref{alg:access}
-and \ref{alg:evict}.
+We present the algorithm's pseudo-code in Algorithms~\ref{tcb:access}
+and \ref{tcb:evict}.
 
-\begin{algo}{$\texttt{The procedure Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}
-\label{alg:access}
+\begin{algo}{$\texttt{The procedure Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}{access}
 
 \textbf{Assume:}
 Each block is of the form $(\addr, \data, l)$
@@ -345,15 +344,15 @@ where $l$ denotes the block's current designated path.
 %\begin{figure*}[t]
 \begin{algorithmic}[1]
 %\REQUIRE Logical address requested block $\addr$. The client's position map $\texttt{position}$.
-%\ENSURE $l^{*}$ as the new path identifier of the requested block. 
+%\ENSURE $l^{*}$ as the new path identifier of the requested block.
 %$\texttt{data}$ as the data fetched.
 \STATE Let $l^{*}$ be a random value from $1$ to $N$.
 %\texttt{UniformRandom}(\{0, 1\} ^ D)$.
 Assign $l \leftarrow \texttt{position}[\addr]$, $\texttt{position}[\addr] \leftarrow l^{*}$.
 \FOR{each $\textsf{bucket}$ from leaf $l$ to root}
-	\STATE Scan $\textsf{bucket}$, and if  
-$(\addr, \data_0, \_) \in \textsf{bucket}$ then 
-let $\textsf{data}^* \leftarrow \textsf{data}_0$ and 
+	\STATE Scan $\textsf{bucket}$, and if
+$(\addr, \data_0, \_) \in \textsf{bucket}$ then
+let $\textsf{data}^* \leftarrow \textsf{data}_0$ and
 remove this block from \textsf{bucket}.
 %    \IF{$(\addr, \data_0, \_) \in \textsf{B}$}
         %\STATE $\texttt{data} \leftarrow \texttt{data}_0$.
@@ -371,24 +370,23 @@ else add $(\addr, \data, l^*)$ to the root bucket.
 \end{algorithmic}
 \end{algo}
 
-\begin{algo}{The procedure \texttt{Evict}}
-\label{alg:evict}
+\begin{algo}{The procedure \texttt{Evict}}{evict}
 \begin{algorithmic}[1]
 %\REQUIRE $\nu$ as the number of blocks to evict in each level.
 
 \FOR{each level $d$ from root to the level of leaves $- 1$}
-\STATE $\textsf{bucket}_0$, $\textsf{bucket}_1 \leftarrow$ 
+\STATE $\textsf{bucket}_0$, $\textsf{bucket}_1 \leftarrow$
 randomly choose $2$ distinct buckets in the level $d$
 (for the root level, pick one bucket).
 \FOR{$\textsf{bucket}$ $\in$ $\{\textsf{bucket}_0, \textsf{bucket}_1\}$}
-\STATE 
+\STATE
 $\textsf{block} :=$ pop a real block from $\textsf{bucket}$
 if one exists; else $\textsf{block} := (\bot, \bot, \bot)$.
 %pop block $(\addr, \data, l)$ from $\textsf{bucket}$.
 \STATE {for each of the two children of $\textsf{bucket}$ in a fixed order}:
-scan the child bucket reading 
-and writing every block. 
-If $\textsf{block}$ is real and wants to go to  
+scan the child bucket reading
+and writing every block.
+If $\textsf{block}$ is real and wants to go to
 the child, write $\textsf{block}$  to an empty slot in the child bucket.
 %\ENDFOR
 \ENDFOR
@@ -396,17 +394,17 @@ the child, write $\textsf{block}$  to an empty slot in the child bucket.
 \end{algorithmic}
 \end{algo}
 
-\begin{remark}
-Note that in a full-fledged implementation, 
+\begin{remark}{}{}
+Note that in a full-fledged implementation,
 all blocks are typically encrypted to hide the contents of the block.
 Whenever reading and writing back a block, the block
 must be re-encrypted prior to being written back.
 If the encryption scheme is secure, the server should not be able
-to tell whether the block's content has changed 
+to tell whether the block's content has changed
 upon seeing the new ciphertext.
 \end{remark}
 
-\subsection{Analysis}\label{analysis}
+\section{Analysis}\label{analysis}
 
 We will now discuss why the aforementioned binary-tree ORAM construction
 
@@ -414,7 +412,7 @@ We will now discuss why the aforementioned binary-tree ORAM construction
 
 2) is correct (except with negligible probability).
 
-\subsubsection{Obliviousness}\label{obliviousness.}
+\subsection{Obliviousness}\label{obliviousness.}
 
 Obliviousness is easy to see.
 First, whenever a block is accessed, it is assigned to a new path and
@@ -424,41 +422,40 @@ accessed.
 Second, the entire eviction process does not depend on the input
 requests at all.
 
-\subsubsection{Correctness}\label{correctness.}
+\subsection{Correctness}\label{correctness.}
 
 Correctness is somewhat trickier to argue. As mentioned earlier, to
 argue correctness, we must argue why no overflow will ever occur except
-with negligible probability --- as long as the bucket size \(Z\) is set
+with negligible probability --- as long as the bucket size $Z$ is set
 appropriately.
 
-\begin{claim}
-\label{clm:bucketsize}
-Bucket size and overflow probability: If the bucket size \(Z\) is
-super-logarithmic in \(N\), then over any polynomially many accesses, no
-bucket overflows except with negligible in \(N\) probability.
+\begin{claim}{}{bucketsize}
+Bucket size and overflow probability: If the bucket size $Z$ is
+super-logarithmic in $N$, then over any polynomially many accesses, no
+bucket overflows except with negligible in $N$ probability.
 \end{claim}
 
 \begin{proof}
-The full proof uses results from queueing theory,\footnote{https://en.wikipedia.org/wiki/Queueing\_theory}
-in particular Burke's theorem.\footnote{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
+The full proof uses results from queueing theory,\footurl{https://en.wikipedia.org/wiki/Queueing\_theory}
+in particular Burke's theorem.\footurl{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
 We will give a heuristic argument that does not require any specialized
 knowledge.
 
 \begin{itemize}
 \item
-  The root bucket (level \(0\) of the ORAM tree) receives exactly \(1\)
+  The root bucket (level $0$ of the ORAM tree) receives exactly $1$
   incoming block with every access, and it is evicted on every access,
   so the root bucket always ends up empty.
 \item
-  There are \(N\) leaf buckets, and \(N\) blocks are assigned to them at
+  There are $N$ leaf buckets, and $N$ blocks are assigned to them at
   random. We leave it as an exercise to check that the probability that
   more than \(( \log N )^{2}\) blocks are assigned to any one
-  leaf is negligible than \(N\) (in other words: decays faster than
-  \(N^{k}\), for every \(k\)).
+  leaf is negligible than $N$ (in other words: decays faster than
+  $N^{k}$, for every $k$).
 \item
-  Now consider a bucket, neither root nor leaf, at level \(i \geq 1\) of
-  the ORAM tree. A block will enqueue on one out of every \(2^{i}\)
-  accesses, and with probability \(\frac{1}{2^{i - 1}}\), the bucket is
+  Now consider a bucket, neither root nor leaf, at level $i \geq 1$ of
+  the ORAM tree. A block will enqueue on one out of every $2^{i}$
+  accesses, and with probability $\frac{1}{2^{i - 1}}$, the bucket is
   chosen for eviction.
 \end{itemize}
 
@@ -469,9 +466,9 @@ probability. This situation is well-known in queueing theory as the
 
 \begin{itemize}
 \item
-  Every time step, with probability \(p\), an item enqueues;
+  Every time step, with probability $p$, an item enqueues;
 \item
-  Every time step, with probability \(2p\), an item dequeues if the
+  Every time step, with probability $2p$, an item dequeues if the
   queue is non-empty.
 \end{itemize}
 
@@ -491,37 +488,37 @@ this point the reader should already be convinced that the result is at
 least quite plausible.
 \end{proof}
 
-\subsection{Binary-tree ORAM: recursion}\label{binary-tree-oram-recursion}
+\section{Binary-tree ORAM: recursion}\label{binary-tree-oram-recursion}
 
 So far, we have cheated and pretended that the client can store a large
 position map. We now describe how to get rid of this position map. The
 idea is simple: Instead of storing the position map on the client side,
 we simply store it in a smaller ORAM denoted
-\(\textsf{posORAM}_{1}\) on the server. The position map of
-\(\textsf{posORAM}_{1}\) will then be stored in an even smaller
-ORAM denoted \(\textsf{posORAM}_{2}\) on the server, and so on.
+$\textsf{posORAM}_{1}$ on the server. The position map of
+$\textsf{posORAM}_{1}$ will then be stored in an even smaller
+ORAM denoted $\textsf{posORAM}_{2}$ on the server, and so on.
 As long as the block size is at least \(\Omega( \log N )\)
 bits, every time we recurse, the ORAM's size reduces by a constant
 factor; and thus \(O( \log N )\) levels of recursion would
 suffice.
 
 We can thus conclude with the following theorem.
+\footurl{https://eprint.iacr.org/2011/407.pdf}
 
-\begin{theorem}[Binary-tree ORAM\footnote{https://eprint.iacr.org/2011/407.pdf}]
-For any
-super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
-that achieves \(O( \alpha\log^{3}N )\) cost for each access:
-each logical request will translate to
-\(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
-client is required to store only \(O(1)\) number of blocks.
+\begin{theorem}{Binary-tree ORAM}{}
+  For any super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
+  that achieves \(O( \alpha\log^{3}N )\) cost for each access:
+  each logical request will translate to
+  \(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
+  client is required to store only \(O(1)\) number of blocks.
 \end{theorem}
 
 Note that in the total cost \(O( \alpha\log^{3}N )\), an
-\(\alpha\log N\) factor comes from the bucket size; another \(\log N\)
+$\alpha\log N$ factor comes from the bucket size; another $\log N$
 factor comes from the total height of the tree; and the remaining
-\(\log N\) factor comes from the recursion.
+$\log N$ factor comes from the recursion.
 
-\subsection{Path ORAM}\label{path-oram}
+\section{Path ORAM}\label{path-oram}
 
 The design of the above binary-tree ORAM is a little silly: Whenever we
 visit a triplet of buckets for eviction, we only evict one block. For
@@ -540,9 +537,9 @@ We want to move the blocks as close to the leaf level as possible, but
 \emph{without violating the path invariant}. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM. The
 cost of each access is \(O( \alpha\log^{2}N )\) for an
-arbitarily small superconstant function \(\alpha\).
+arbitrarily small superconstant function $\alpha$.
 
-\subsubsection{Other applications of
+\subsection{Other applications of
 ORAM}\label{other-applications-of-oram}
 
 ORAM promises many potential applications. For instance, in Large
