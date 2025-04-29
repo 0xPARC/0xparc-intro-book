@@ -1,5 +1,4 @@
 \section{What is programmable cryptography?}
-
 Cryptography is everywhere now and needs no introduction.
 \emph{Programmable cryptography} is a term coined by 0xPARC for a second
 generation of cryptographic primitives that has arisen in the last 15 or
@@ -8,16 +7,15 @@ so years.
 To be concrete, let us consider two examples of what protocols designed
 by classical cryptography can do:
 
-\begin{itemize}
-\item
-  \emph{Digital signatures}. RSA and ElGamal are examples of digital
+\begin{description}
+\item[Digital signatures.] RSA and ElGamal are examples of digital
   signature algorithms, where Alice can perform some protocol to prove
   to Bob that she endorses a message. A more complicated example might
   be a group signature scheme,\footurl{https://en.wikipedia.org/wiki/Group\_signature}
   which allows one member of a group to sign a message on behalf of the
   group.
-\item
-  \emph{Confidential computing}. For example, consider
+
+\item[Confidential computing.] For example, consider
   Yao's millionaire problem,\footurl{https://en.wikipedia.org/wiki/Yao\%27s\_Millionaires\%27\_problem}
   where Alice and Bob want to know which of them makes more money
   without learning anything more about each other's incomes. With
@@ -43,7 +41,7 @@ for it.
 
 \begin{remark}{}{}
 The quote on the title page
-("I have a message $M$ such that $\sha(M) = "0x91af3ac..."$")
+(``I have a message $M$ such that $\sha(M) = \mathtt{0x91af3ac}\dots$'')
 is a concrete example.
 The hash function $\sha$ is a particular set of arbitrary instructions,
 yet programmable cryptography promises that such a proof can be made
@@ -58,7 +56,7 @@ wonderful approach to physics exposition. We quickly preview them here.
 
 \subsection{2PC: two-party computation}
 
-In a \emph{two-party computation (2PC)}, two people want to jointly
+In a \alert{two-party computation (2PC)}, two people want to jointly
 compute some known function \[F ( x_{1},x_{2}),\] where the
 $i$-th person only knows the input $x_{i}$, without either person
 learning the other person's input.
@@ -72,7 +70,7 @@ is the $i$-th person's income.
 
 Two-party computation makes a promise that we will be able to do this
 for \emph{any} function $F$ as long as we can implement it in code. It
-generalizes to \emph{multi-party computation (MPC)}, which is one of the
+generalizes to \alert{multi-party computation (MPC)}, which is one of the
 main classes of programmable cryptography.
 
 \subsection{SNARKs: proofs of general statements}
@@ -96,14 +94,12 @@ SNARKs are an active area of research, and many different SNARKs are
 known. We will focus on a particular example, PLONK (Section \ref{plonk}).
 
 \subsection{FHE: fully homomorphic encryption}
-
 Imagine you have some private text that you want to translate into
 another language. While many services today will do this, even for free,
 we can also imagine that you care about security a lot and you really do
-not want the translating service to know anything about your text at
-all.
+not want the translating service to know anything about your text at all.
 
-In \emph{fully homomorphic encryption (FHE)}, one person encrypts some
+In \alert{fully homomorphic encryption (FHE)}, one person encrypts some
 data $x$, and then a second person can perform arbitrary operations on
 the encrypted data $x$ without being able to read $x$.
 
@@ -116,7 +112,6 @@ that the server cannot extract anything meaningful from
 \(\operatorname{Enc}(x)\) without your secret key.
 
 \subsection{ORAM: Oblivious RAM}
-
 You want to perform a private computation on a large database. The
 database is so large that you cannot store it yourself -- and you do not
 trust the server it is stored on.
@@ -128,8 +123,8 @@ frequently, or which records you access at the same time as other
 records. In many applications this is enough for the server to learn
 sensitive information.
 
-\emph{Oblivious RAM (ORAM)} protects against exactly this sort of
-attack. Oblivious RAM is an algorithm you use to ``scramble'' your
+\alert{Oblivious RAM (ORAM)} protects against exactly this sort of attack.
+Oblivious RAM is an algorithm you use to ``scramble'' your
 memory access requests. When you feed your request into the ORAM
 algorithm, the ORAM algorithm sends some scrambled read and write
 requests to the server. Only one of the scrambled requests is the
