@@ -149,9 +149,23 @@
 
 \newcommand{\credits}[1]{\noindent\emph{#1}\vspace{2em}}
 
+\newcommand{\alert}[1]{\textbf{\sffamily\color{blue!60!black}#1}}
+
 \begin{document}
 
 \maketitle
+
+\begin{titlepage}
+  \centering
+  \vspace*{5em}
+  \begin{minipage}{20em}
+  \itshape
+  I can prove to you that I have a message $M$ such that
+  $\sha(M) = \mathtt{0xa91af3ac}\dots$, without revealing $M$.
+  But not just for the hash function $\sha$.
+  I can do this for any function you want.
+  \end{minipage}
+\end{titlepage}
 
 \newpage
 
