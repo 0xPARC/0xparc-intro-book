@@ -88,7 +88,7 @@ proofs of \textbf{arbitrary} statements of the form:
 ``I know $X$ such that \(F(X,Y) = Z\), where $F,Y,Z$ are public,''
 once the statement is encoded as a system of equations. One such
 statement would be ``I know $M$ such that
-\(\operatorname{sha}(M) = Y\).''
+\(\sha(M) = Y\).''
 
 SNARKs are an active area of research, and many different SNARKs are
 known. We will focus on a particular example, PLONK (Section \ref{plonk}).
@@ -104,12 +104,12 @@ data $x$, and then a second person can perform arbitrary operations on
 the encrypted data $x$ without being able to read $x$.
 
 With this technology, you have a solution to your problem! You simply
-encrypt your text \(\operatorname{Enc}(x)\) and send it to your FHE
+encrypt your text \(\Enc(x)\) and send it to your FHE
 machine translation server. The server will faithfully translate it into
-another language and give you \(\operatorname{Enc}(y)\), where $y$ is
+another language and give you \(\Enc(y)\), where $y$ is
 the translation of $x$. You can then decrypt and obtain $y$, knowing
 that the server cannot extract anything meaningful from
-\(\operatorname{Enc}(x)\) without your secret key.
+\(\Enc(x)\) without your secret key.
 
 \subsection{ORAM: Oblivious RAM}
 You want to perform a private computation on a large database. The

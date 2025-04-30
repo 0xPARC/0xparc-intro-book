@@ -55,8 +55,8 @@ So to prove Equation \eqref{permcheck-poly}, the
 following algorithm works:
 
 \begin{algo}{Permutation check}{}
-Suppose Peggy has committed \(\operatorname{Com}(P)\)
-and \(\operatorname{Com}(Q)\).
+Suppose Peggy has committed \(\Com(P)\)
+and \(\Com(Q)\).
 
 \begin{enumerate}
 \item
@@ -65,8 +65,8 @@ and \(\operatorname{Com}(Q)\).
   Peggy interpolates polynomials $F_{P}[T]$ and
   $F_{Q}[T]$ such that
   \(F_{P}( \omega^{k} ) = \prod_{i \leq k}( \lambda + P( \omega^{i} ) )\).
-  Define $F_{Q}$ similarly. Peggy sends \(\operatorname{Com}(F_{P})\)
-  and \(\operatorname{Com}(F_{Q})\).
+  Define $F_{Q}$ similarly. Peggy sends \(\Com(F_{P})\)
+  and \(\Com(F_{Q})\).
 \item
   Peggy uses Algorithm \ref{tcb:root-check} to prove all of the following statements:
 
@@ -247,7 +247,7 @@ To summarize, the copy check goes as follows:
 \setcounter{enumi}{-1}
 \item
   Peggy has already sent the three commitments
-  \(\operatorname{Com}(A),\operatorname{Com}(B),\operatorname{Com}(C)\)
+  \(\Com(A),\Com(B),\Com(C)\)
   to Victor; these commitments bind her to the values of all the
   variables $a_{i}$, $b_{i}$, and $c_{i}$.
 \item

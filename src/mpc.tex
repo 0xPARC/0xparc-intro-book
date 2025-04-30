@@ -93,29 +93,29 @@ Here is a natural approach to make a garbled gate. Choose a
   you think of when you think of plain-vanilla encryption: You use a
   secret key $K$ to encrypt a message $m$, and then you (or someone
   else) need the same secret key $K$ to decrypt it.} encryption scheme
-$\operatorname{Enc}$ and publish the following table:
+$\Enc$ and publish the following table:
 
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\((0,0)\) & \(\operatorname{Enc}_{P_{0,0}}( G(0,0))\) \\
+\((0,0)\) & \(\Enc_{P_{0,0}}( G(0,0))\) \\
 \hline
-\((0,1)\) & \(\operatorname{Enc}_{P_{0,1}}( G(0,1))\) \\
+\((0,1)\) & \(\Enc_{P_{0,1}}( G(0,1))\) \\
 \hline
-\((1,0)\) & \(\operatorname{Enc}_{P_{1,0}}( G(1,0) )\) \\
+\((1,0)\) & \(\Enc_{P_{1,0}}( G(1,0) )\) \\
 \hline
-\((1,1)\) & \(\operatorname{Enc}_{P_{1,1}}( G(1,1))\) \\
+\((1,1)\) & \(\Enc_{P_{1,1}}( G(1,1))\) \\
 \hline
 \end{tabular}
 \end{center}
 
 If you have the values $x$ and $y$, and you know the password
 $P_{x,y}$, you just go to the \((x,y)\) row of the table, look up
-\[\operatorname{Enc}_{P_{x,y}} ( G(x,y) ),\] decrypt it, and
+\[\Enc_{P_{x,y}} ( G(x,y) ),\] decrypt it, and
 learn \(G(x,y)\).
 
 But if you do not know the password $P_{x,y}$, assuming
-$\operatorname{Enc}$ is a suitably secure encryption scheme, you will
+$\Enc$ is a suitably secure encryption scheme, you will
 not learn anything about the value $G_{x,y}$ from its encryption.
 
 \subsection{Chaining garbled gates}
@@ -173,17 +173,17 @@ will need to make two changes to the protocol.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-  \(\operatorname{hash}(P_{0}^{\text{left}},P_{0}^{\text{right}})\) &
-  \(\operatorname{Enc}_{P_{0}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \(\hash(P_{0}^{\text{left}},P_{0}^{\text{right}})\) &
+  \(\Enc_{P_{0}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
   \hline
-  \(\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}})\) &
-  \(\operatorname{Enc}_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \(\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})\) &
+  \(\Enc_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}})\) \\
   \hline
-  \(\operatorname{hash}(P_{1}^{\text{left}},P_{0}^{\text{right}})\) &
-  \(\operatorname{Enc}_{P_{1}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  \(\hash(P_{1}^{\text{left}},P_{0}^{\text{right}})\) &
+  \(\Enc_{P_{1}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
   \hline
-  \(\operatorname{hash}(P_{1}^{\text{left}},P_{1}^{\text{right}})\) &
-  \(\operatorname{Enc}_{P_{1}^{\text{left}},P_{1}^{\text{right}}}( P_{1}^{\text{out}} )\) \\
+  \(\hash(P_{1}^{\text{left}},P_{1}^{\text{right}})\) &
+  \(\Enc_{P_{1}^{\text{left}},P_{1}^{\text{right}}}( P_{1}^{\text{out}} )\) \\
   \hline
   \end{tabular}
 \end{center}
@@ -202,12 +202,12 @@ Let us play through one round of Bob's gate-using protocol.
 \item
   Bob takes the two passwords, concatenates them, and computes a hash.
   Now Bob has
-  \[\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}}).\]
+  \[\hash(P_{0}^{\text{left}},P_{1}^{\text{right}}).\]
 \item
   Bob finds the row of the table indexed by
-  \(\operatorname{hash}(P_{0}^{\text{left}},P_{1}^{\text{right}})\), and
+  \(\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})\), and
   he uses it to look up
-  \[\operatorname{Enc}_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}}).\]
+  \[\Enc_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}}).\]
 \item
   Bob uses the concatenation of the two passwords
   $P_{0}^{\text{left}},P_{1}^{\text{right}}$ to decrypt

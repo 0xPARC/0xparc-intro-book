@@ -18,7 +18,7 @@ Bob. But ``1-of-$n$ OT'' is not any harder, so we will do 1-of-$n$.)
 
 Let us imagine that Alice and Bob have access to some encryption scheme
 that is \emph{commutative}:
-\[\operatorname{Dec}_{b}( \operatorname{Dec}_{a}( \operatorname{Enc}_{b}( \operatorname{Enc}_{a}(x) ) ) ) = x.\]
+\[\Dec_{b}( \Dec_{a}( \Enc_{b}( \Enc_{a}(x) ) ) ) = x.\]
 
 In other words, if Alice encrypts a message, and Bob applies a second
 layer of encryption to the encrypted message, it does not matter which
@@ -64,15 +64,15 @@ Alice has $n$ messages $x_{1}$, \dots, $x_{n}$ which are elements of $G$.
 \item Alice chooses a secret key $a$, encrypts each message,
   and sends all $n$ ciphertexts to Bob in order.
 
-\item Bob takes the $i$-th ciphertext $\operatorname{Enc}_{a}( x_{i} )$,
+\item Bob takes the $i$-th ciphertext $\Enc_{a}( x_{i} )$,
   adds his own layer of encryption onto it,
   and sends the resulting doubly-encrypted message back to Alice:
-  \[ \operatorname{Enc}_{b}( \operatorname{Enc}_{a}( x_{i} ) ).\]
+  \[ \Enc_{b}( \Enc_{a}( x_{i} ) ).\]
 
-\item Alice applies $\operatorname{Dec}_{a}$ to it and sends back to Bob;
+\item Alice applies $\Dec_{a}$ to it and sends back to Bob;
   because the encryption scheme is commutative, this gives
-  \[ \operatorname{Dec}_a( \operatorname{Enc}_{b}( \operatorname{Enc}_{a}( x_{i} ) )) =
-      \operatorname{Enc}_{b}( x_{i} ) \]
+  \[ \Dec_a( \Enc_{b}( \Enc_{a}( x_{i} ) )) =
+      \Enc_{b}( x_{i} ) \]
 
 \item Bob decrypts the message to learn $x_{i}$.
 \end{enumerate}
@@ -81,22 +81,22 @@ Alice has $n$ messages $x_{1}$, \dots, $x_{n}$ which are elements of $G$.
 Let's analyze this a bit more slowly, so we can see why the protocol is secure at each step.
 In the first step, Alice chooses a secret key
 $a$, encrypts each message, and sends all $n$ ciphertexts to Bob:
-\[\operatorname{Enc}_{a}( x_{1}),\ldots,\operatorname{Enc}_{a}( x_{n} ).\]
+\[\Enc_{a}( x_{1}),\ldots,\Enc_{a}( x_{n} ).\]
 Crucially, Alice sends the ciphertexts in order, so Bob knows which is which.
 
 At this point, Bob cannot read any of the messages, because he does not
 know the keys. No problem! Bob just picks out the $i$-th ciphertext
-\(\operatorname{Enc}_{a}( x_{i} )\), adds his own layer of
+\(\Enc_{a}( x_{i} )\), adds his own layer of
 encryption onto it, and sends the resulting doubly-encrypted message
 back to Alice:
-\[\operatorname{Enc}_{b}( \operatorname{Enc}_{a}( x_{i} ) ).\]
+\[\Enc_{b}( \Enc_{a}( x_{i} ) ).\]
 
 Alice does not know Bob's key $b$, so she cannot learn anything about
 the message he encrypted -- even though it originally came from her.
 Nonetheless she can apply her own decryption method
-$\operatorname{Dec}_{a}$ to it. Since the encryption scheme is
+$\Dec_{a}$ to it. Since the encryption scheme is
 commutative, the result of Alice's decryption is simply
-$\operatorname{Enc}_{b}( x_{i} )$, which she sends back to
+$\Enc_{b}( x_{i} )$, which she sends back to
 Bob.  And then Bob decrypts the message to learn $x_{i}$.
 
 \subsection{OT in one step}
@@ -114,7 +114,7 @@ One of the $n$, say $b_{i}$, is a public key for which Bob knows the
 private key. The other $n - 1$ are random garbage.
 
 Alice then uses one key to encrypt each message, and sends back to Bob:
-\[\operatorname{Enc}_{b_{1}}( x_{1} ),\ldots,\operatorname{Enc}_{b_{n}}( x_{n} ).\]
+\[\Enc_{b_{1}}( x_{1} ),\ldots,\Enc_{b_{n}}( x_{n} ).\]
 
 Now Bob uses the private key for $b_{i}$ to decrypt $x_{i}$, and he
 is done.
@@ -130,7 +130,7 @@ Bob would be able to decrypt all $n$ messages $x_{1},\ldots,x_{n}$.
 
 But there is a simple trick to fix it. Bob chooses some ``verifiably
 random'' value $r$; to fix ideas, we could agree to use
-\(r = \operatorname{sha}(1)\). Then we require that the numbers
+\(r = \sha(1)\). Then we require that the numbers
 $b_{1},\ldots,b_{n}$ form an arithmetic progression with common
 difference $r$. Bob chooses $i$, computes a public-private key pair,
 and sets $b_{i}$ equal to that key. Then all the other terms

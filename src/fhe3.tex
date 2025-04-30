@@ -112,7 +112,7 @@ $a_{1}$.
 
 Now suppose we give you the vector \[\mathbf{x} = (9,0,0,0).\] We ask
 you for another vector
-\[\operatorname{Flatten}( \mathbf{x} ) = \mathbf{x}',\] where
+\[\Flatten( \mathbf{x} ) = \mathbf{x}',\] where
 $\mathbf{x}'$ has to have the following two properties:
 
 \begin{itemize}
@@ -140,25 +140,25 @@ in your calculation, it is safe to reduce it mod 11.
 In general, if you know that $\mathbf{v}$ has the form in
 Equation \eqref{fhe-v-form} and you are given some matrix
 $C$ with coefficients in $\ZZ/q\ZZ$, then you can
-compute another matrix \(\operatorname{Flatten}(C)\) such that:
+compute another matrix \(\Flatten(C)\) such that:
 
 \begin{itemize}
 \item
-  \(\operatorname{Flatten}(C)\mathbf{v} = C\mathbf{v}\), and
+  \(\Flatten(C)\mathbf{v} = C\mathbf{v}\), and
 \item
-  All the entries of \(\operatorname{Flatten}(C)\) are either 0 or 1.
+  All the entries of \(\Flatten(C)\) are either 0 or 1.
 \end{itemize}
 
-The $\operatorname{Flatten}$ process is essentially the same binary-expansion
+The $\Flatten$ process is essentially the same binary-expansion
 process we used above to turn $\mathbf{x}$ into $\mathbf{x}'$,
 applied to each $k + 1$ entries of each row of the matrix $C$.
 
-So now, using this $\operatorname{Flatten}$ operation, we can insist that all
+So now, using this $\Flatten$ operation, we can insist that all
 of our ciphertexts $C$ are matrices with coefficients in
 $\{ 0,1 \}$. For example, to multiply two messages
 $\mu_{1}$ and $\mu_{2}$, we first multiply the corresponding
 ciphertexts, then flatten the resulting product:
-\[\operatorname{Flatten}( C_{1}C_{2} ).\]
+\[\Flatten( C_{1}C_{2} ).\]
 
 Of course, revealing that the secret key $\mathbf{v}$ has this special
 form will degrade security. This cryptosystem is as secure as an LWE

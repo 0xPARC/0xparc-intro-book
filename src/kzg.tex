@@ -104,7 +104,7 @@ then:
   Victor verifies by checking
 \begin{equation}
 \label{kzg-verify}
-\operatorname{pair}([Q(s)], [s] - [z]) = \operatorname{pair}([P(s)] - [y], [1])
+\pair([Q(s)], [s] - [z]) = \pair([P(s)] - [y], [1])
 \end{equation}
 and accepts if and only if Equation \eqref{kzg-verify} is true.
 \end{enumerate}
@@ -138,7 +138,7 @@ that
 \[P(X) = Q(X)( (X - 1)(X - 2)\ldots(X - 9) ) + 100X^{2.}\]
 Then Peggy sends $[Q(s)]$ as her proof, and
 the verification equation is that \[\begin{aligned}
-  \operatorname{pair}( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \operatorname{pair}( [P(s)] - 100[s^2], [1] ).
+  \pair( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \pair( [P(s)] - 100[s^2], [1] ).
 \end{aligned}\]
 
 The full generality just replaces the $100X^{2}$ with the polynomial
@@ -160,7 +160,7 @@ this out, suppose Peggy wishes to prove to Victor that
   her proof.
 \item
   Victor verifies
-\[  \operatorname{pair}([Q(s)], [ ( s - z_1 )( s - z_2 )\ldots( s - z_n ) ]) = \operatorname{pair}([P(s)] - [f(s)], [1]). \]
+\[  \pair([Q(s)], [ ( s - z_1 )( s - z_2 )\ldots( s - z_n ) ]) = \pair([P(s)] - [f(s)], [1]). \]
 \end{enumerate}
 \end{algo}
 
@@ -178,7 +178,7 @@ multi-opening protocol for KZG commitments
 \begin{problem}{}{}
 Suppose one had two polynomials $P_1$ and $P_2$,
 and Peggy has given commitments
-$\operatorname{Com}(P_1)$ and $\operatorname{Com}(P_2)$.
+$\Com(P_1)$ and $\Com(P_2)$.
 Peggy would like to prove to Victor that, say,
 the equation $P_1(z) = P_2(z)$ holds for all $z$ in some large finite set $S$.
 \end{problem}
@@ -187,15 +187,15 @@ Peggy just needs to show that $P_{1} - P_{2}$ is divisible by
 \(Z(X) \defeq \prod_{z \in S}(X - z)\). This can be done by committing the
 quotient \[H(X) \defeq \frac{P_{1}(X) - P_{2}(X)}{Z(X)}.\] Victor then gives
 a random challenge $\lambda \in \FF_{q}$, and then Peggy opens
-\(\operatorname{Com}( P_{1} )\),
-\(\operatorname{Com}( P_{2} )\), and \(\operatorname{Com}(H)\) at
+\(\Com( P_{1} )\),
+\(\Com( P_{2} )\), and \(\Com(H)\) at
 $\lambda$.
 
 But we can actually do this more generally with \emph{any} polynomial
 expression $F$ in place of $P_{1} - P_{2}$, as long as Peggy has a
 way to prove the values of $F$ are correct. As an artificial example,
-if Peggy has sent Victor \(\operatorname{Com}( P_{1} )\) through
-\(\operatorname{Com}( P_{6} )\), and wants to show that
+if Peggy has sent Victor \(\Com( P_{1} )\) through
+\(\Com( P_{6} )\), and wants to show that
 \[P_{1}(42) + P_{2}(42)P_{3}(42)^{4} + P_{4}(42)P_{5}(42)P_{6}(42) = 1337,\]
 she could define
 \[F(X) \defeq P_{1}(X) + P_{2}(X)P_{3}(X)^{4} + P_{4}(X)P_{5}(X)P_{6}(X) - 1337\]
@@ -213,7 +213,7 @@ $S \subseteq \FF_{q}$.
 \begin{enumerate}
 \item
   If she has not already done so, Peggy sends to Victor a commitment
-  \(\operatorname{Com}(F)\) to $F$.\footnote{In fact, it is enough for
+  \(\Com(F)\) to $F$.\footnote{In fact, it is enough for
     Peggy to have some way to prove to Victor the values of $F$.
 
     So for example, if $F$ is a product of two polynomials
@@ -221,8 +221,8 @@ $S \subseteq \FF_{q}$.
     $F_{1}$ and $F_{2}$, then there is no need for Peggy to commit
     to $F$.
 
-    Instead, in Step 5 below, Peggy opens \(\operatorname{Com}(F_{1})\)
-    and \(\operatorname{Com}(F_{2})\) at $\lambda$, and that proves to
+    Instead, in Step 5 below, Peggy opens \(\Com(F_{1})\)
+    and \(\Com(F_{2})\) at $\lambda$, and that proves to
     Victor the value of \(F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)\).}
 \item
   Both parties compute the polynomial
@@ -231,10 +231,10 @@ $S \subseteq \FF_{q}$.
   Peggy does polynomial long division to compute
   \(H(X) = \frac{F(X)}{Z(X)}\).
 \item
-  Peggy sends \(\operatorname{Com}(H)\).
+  Peggy sends \(\Com(H)\).
 \item
   Victor picks a random challenge $\lambda \in \FF_{q}$ and
-  asks Peggy to open \(\operatorname{Com}(H)\) at $\lambda$, as well
+  asks Peggy to open \(\Com(H)\) at $\lambda$, as well
   as the value of $F$ at $\lambda$.
 \item
   Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).

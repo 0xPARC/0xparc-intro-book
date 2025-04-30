@@ -284,7 +284,7 @@ Suppose Alice wants to sign a message $\textsf{msg}$.
 \item
   Alice generates a number $n \in \FF_{q}$ by hashing
   $\textsf{msg}$ with all public information, say
-  \[ n \defeq \operatorname{hash}([r],\textsf{msg},[d]). \]
+  \[ n \defeq \hash([r],\textsf{msg},[d]). \]
 \item
   Alice publishes the integer \[ s \defeq (r + dn) \bmod q. \]
 \end{enumerate}
@@ -317,7 +317,7 @@ The number $r$ is called a \emph{blinding factor} because its use
 prevents Bob from stealing Alice's secret key $d$ from the published
 $s$. It is therefore imperative that $r$ is not known to Bob nor
 reused between signatures, and so on. One way to do this would be to
-pick \(r = \operatorname{hash}(d,\textsf{msg})\); this has the
+pick \(r = \hash(d,\textsf{msg})\); this has the
 bonus that it is deterministic as a function of the message and signer.
 
 In Section \ref{kzg} we will use ideas quite similar to this to build the KZG
@@ -328,11 +328,11 @@ commitment scheme.
 
 A \emph{commitment scheme} is a protocol where Alice wants to commit
 some value $x$ to Bob that is later revealed. Typically Alice gives
-Bob some ``commitment'' \(\operatorname{Com}(x)\) and later reveals
+Bob some ``commitment'' \(\Com(x)\) and later reveals
 $x$. What we want is that this protocol is both \emph{binding} (Alice
 cannot change her mind about $x$ depending on Bob's later actions) and
 \emph{hiding} (Bob does not get any information about $x$ from
-\(\operatorname{Com}(x)\)). The KZG scheme we are building towards will
+\(\Com(x)\)). The KZG scheme we are building towards will
 be a commitment scheme for polynomials, but we can already use elliptic
 curves to commit \textbf{numbers} with something called a Pedersen
 commitment, which we will now describe.

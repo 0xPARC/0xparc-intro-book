@@ -69,7 +69,7 @@ curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
 So, the first step in proving a claim like ``I have a message $M$ such
-that \(\operatorname{sha}(M) = \ 0xa91af3ac...\)'' is to translate the
+that \(\sha(M) = \ 0xa91af3ac...\)'' is to translate the
 claim into a system of quadratic equations. This process is called
 ``arithmetization.''
 
@@ -79,7 +79,7 @@ $x_{i}$ (which would then be constrained to be either 0 or 1 by an
 equation $x_{i}^{2} = x_{i}$). In this setup, the value $0xa91af3ac$
 would be represented by 32 public bits $x_{1},\ldots,x_{32}$; the
 unknown message $M$ would be represented by some private variables;
-and the calculation of $\operatorname{sha}$ would introduce a series
+and the calculation of $\sha$ would introduce a series
 of constraints, maybe involving some additional variables.
 
 We will not get into any more details of arithmetization here.
@@ -201,8 +201,8 @@ Then:
   Peggy interpolates $A$, $B$, $C$ as in
   Equation \eqref{plonk-setup}.
 \item
-  Peggy sends \(\operatorname{Com}(A)\), \(\operatorname{Com}(B)\),
-  \(\operatorname{Com}(C)\) to Victor.
+  Peggy sends \(\Com(A)\), \(\Com(B)\),
+  \(\Com(C)\) to Victor.
 \end{enumerate}
 \end{algo}
 
