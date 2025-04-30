@@ -6,7 +6,7 @@ following API:
 \begin{itemize}
 \item
   Peggy has a secret polynomial
-  \(P(X) \in \FF_{q}[ X]\).
+  $P(X) \in \FF_{q}[X]$.
 \item
   Peggy sends a short ``commitment'' to the polynomial (like a hash).
 \item
@@ -34,15 +34,15 @@ the polynomial has.
 
 \subsection{The setup}
 
-Remember the notation $[ n] := n \cdot g \in E$ defined in
+Remember the notation $[n] := n \cdot g \in E$ defined in
 Definition \ref{tcb:armor}. To set up the KZG commitment scheme, a trusted party needs
 to pick a secret scalar $s \in \FF_{q}$ and publish
-\[[ s^{0} ],[ s^{1} ],\ldots,[ s^{M} ]\]
+\[ [s^0], [s^1], \dots, [s^M] \]
 for some large $M$, the maximum degree of a polynomial the scheme
 needs to support. This means anyone can evaluate
-\([ P(s) ]\) for any given polynomial $P$ of
+$[ P(s) ]$ for any given polynomial $P$ of
 degree up to $M$. For example,
-\[[ s^{2} + 8s + 6 ] = [ s^{2} ] + 8[ s] + 6[ 1].\]
+\[ [s^2 + 8s + 6] = [s^2] + 8[s] + 6[1].\]
 Meanwhile, the secret scalar $s$ is never revealed to anyone.
 
 The setup only needs to be done by a trusted party once for the curve
@@ -79,11 +79,11 @@ commit to it:
 \begin{algo}{Creating a KZG commitment}{}
 \begin{enumerate}
 \item
-  Peggy computes and publishes \([ P(s) ]\).
+  Peggy computes and publishes $[P(s)]$.
 \end{enumerate}
 \end{algo}
 
-This computation is possible as $[ s^{i} ]$ are
+This computation is possible as $[s^i]$ are
 globally known.
 
 Now consider an input $z \in \FF_{p}$; Victor wants to know the
@@ -94,17 +94,17 @@ then:
 \begin{enumerate}
 \item
   Peggy does polynomial division to compute
-  \(Q(X) \in \FF_{q}[ X]\) such that
+  $Q(X) \in \FF_{q}[X]$ such that
   \[P(X) - y = (X - z)Q(X).\]
 \item
-  Peggy computes and sends Victor \([ Q(s) ]\),
+  Peggy computes and sends Victor $[Q(s)]$,
   which again she can compute from the globally known
-  $[ s^{i} ]$.
+  $[s^i]$.
 \item
   Victor verifies by checking
 \begin{equation}
 \label{kzg-verify}
-\operatorname{pair}([ Q(s) ],[ s] - [ z]) = \operatorname{pair}([ P(s) ] - [ y],[ 1])
+\operatorname{pair}([Q(s)], [s] - [z]) = \operatorname{pair}([P(s)] - [y], [1])
 \end{equation}
 and accepts if and only if Equation \eqref{kzg-verify} is true.
 \end{enumerate}
@@ -115,7 +115,7 @@ If Peggy is truthful, then Equation \eqref{kzg-verify} will certainly check out.
 If \(y \neq P(z)\), then Peggy cannot do the polynomial long division
 described above. So to cheat Victor, she needs to otherwise find an
 element
-\[\frac{1}{s - x}( [ P(s) ] - [ y] ) \in E.\]
+\[\frac{1}{s - x}( [ P(s) ] - [y] ) \in E.\]
 Since $s$ is a secret nobody knows, there is not any known way to do
 this.
 
@@ -136,9 +136,9 @@ dividing by \((X - 1)(X - 2)\cdots(X - 9)\) and taking the remainder. In
 other words, if Peggy does a polynomial long division, she will find
 that
 \[P(X) = Q(X)( (X - 1)(X - 2)\ldots(X - 9) ) + 100X^{2.}\]
-Then Peggy sends \([ Q(s) ]\) as her proof, and
+Then Peggy sends $[Q(s)]$ as her proof, and
 the verification equation is that \[\begin{aligned}
-  \operatorname{pair}( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \operatorname{pair}( [ P(s) ] - 100[ s^{2} ],[ 1] ).
+  \operatorname{pair}( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \operatorname{pair}( [P(s)] - 100[s^2], [1] ).
 \end{aligned}\]
 
 The full generality just replaces the $100X^{2}$ with the polynomial
@@ -160,7 +160,7 @@ this out, suppose Peggy wishes to prove to Victor that
   her proof.
 \item
   Victor verifies
-\[  \operatorname{pair}([ Q(s) ],[ ( s - z_{1} )( s - z_{2} )\ldots( s - z_{n} ) ]) = \operatorname{pair}([ P(s) ] - [ f(s) ],[ 1]). \]
+\[  \operatorname{pair}([Q(s)], [ ( s - z_1 )( s - z_2 )\ldots( s - z_n ) ]) = \operatorname{pair}([P(s)] - [f(s)], [1]). \]
 \end{enumerate}
 \end{algo}
 
@@ -226,7 +226,7 @@ $S \subseteq \FF_{q}$.
     Victor the value of \(F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)\).}
 \item
   Both parties compute the polynomial
-  \[Z(X) := \prod_{z \in S}(X - z) \in \FF_{q}[ X].\]
+  \[ Z(X) := \prod_{z \in S}(X - z) \in \FF_{q}[X]. \]
 \item
   Peggy does polynomial long division to compute
   \(H(X) = \frac{F(X)}{Z(X)}\).

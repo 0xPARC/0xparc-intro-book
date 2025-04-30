@@ -251,8 +251,8 @@ The hardness of the discrete logarithm means that, given
 $[n]$, we cannot get $n$. You can almost think of the
 notation as an ``armor'' on the integer $n$: It conceals the integer,
 but still allows us to perform (armored) addition:
-\[[ a + b] = [ a] + [ b].\] In other
-words, $n \mapsto [ n]$ viewed as a map
+\[ [a + b] = [a] + [b]. \] In other
+words, $n \mapsto [n]$ viewed as a map
 $\FF_{q} \rightarrow E$ is $\FF_{q}$-linear.
 
 So now suppose Alice wants to set up a signature scheme.
@@ -264,7 +264,7 @@ So now suppose Alice wants to set up a signature scheme.
   \emph{secret key} (a piece of information that she needs to keep
   private for the security of the protocol).
 \item
-  Alice publishes $[ d] \in E$ as her \emph{public key} (a
+  Alice publishes $[d] \in E$ as her \emph{public key} (a
   piece of information which, even when obtained by adversaries, does
   not challenge the security of the protocol).
 \end{enumerate}
@@ -272,7 +272,7 @@ So now suppose Alice wants to set up a signature scheme.
 
 Now suppose Alice wants to prove to Bob that she approves the message
 $\textsf{msg}$, given her published public key
-$[ d]$.
+$[d]$.
 
 \begin{algo}{EdDSA signature generation}{}
 Suppose Alice wants to sign a message $\textsf{msg}$.
@@ -280,36 +280,36 @@ Suppose Alice wants to sign a message $\textsf{msg}$.
 \begin{enumerate}
 \item
   Alice picks a random scalar $r \in \FF_{q}$ (keeping this
-  secret) and publishes $[ r] \in E$.
+  secret) and publishes $[r] \in E$.
 \item
   Alice generates a number $n \in \FF_{q}$ by hashing
   $\textsf{msg}$ with all public information, say
-  \[n := \operatorname{hash}([ r],\textsf{msg},[ d]).\]
+  \[ n := \operatorname{hash}([r],\textsf{msg},[d]). \]
 \item
   Alice publishes the integer \[s := (r + dn)\operatorname{mod}q.\]
 \end{enumerate}
 
 In other words, the signature is the ordered pair
-\(( [ r],s )\).
+\(( [r],s )\).
 \end{algo}
 
 \begin{algo}{EdDSA signature verification}{}
 For Bob to verify a signature
-\(( [ r],s )\) for $\textsf{msg}$:
+\(( [r],s )\) for $\textsf{msg}$:
 
 \begin{enumerate}
 \item
   Bob recomputes $n$ (by also performing the hash) and computes
-  $[ s] \in E$.
+  $[s] \in E$.
 \item
   Bob verifies that
-  $[ r] + n \cdot [ d] = [ s]$.
+  $[r] + n \cdot [d] = [s]$.
 \end{enumerate}
 \end{algo}
 
 An adversary cannot forge the signature even if they know $r$ and
 $n$. Indeed, such an adversary can compute what the point
-$[ s] = [ r] + n[ d]$ should be,
+$[s] = [r] + n[d]$ should be,
 but without knowledge of $d$ they cannot get the integer $s$, due to
 Assumption \ref{tcb:ddh}.
 
