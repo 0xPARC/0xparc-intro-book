@@ -1,6 +1,6 @@
 \section{KZG commitments}\label{kzg}
 
-The goal of a \emph{polynomial commitment scheme} is to have the
+The goal of a \alert{polynomial commitment scheme} is to have the
 following API:
 
 \begin{itemize}
@@ -27,7 +27,7 @@ following API:
   \end{itemize}
 \end{itemize}
 
-The \emph{Kate-Zaverucha-Goldberg (KZG)} commitment scheme is amazingly
+The \alert{Kate-Zaverucha-Goldberg (KZG)} commitment scheme is amazingly
 efficient because both the commitment and proof lengths are a single
 point on $E$, encodable in 256 bits, no matter how many coefficients
 the polynomial has.
@@ -173,7 +173,7 @@ however long it takes to compute the Lagrange interpolation $f$.
 To make PLONK work, we are going to need a small variant of the
 multi-opening protocol for KZG commitments
 (Section \ref{multi-openings}), which we call
-\emph{root check} (not a standard name). Here is the problem statement:
+\alert{root check} (not a standard name). Here is the problem statement:
 
 \begin{problem}{}{}
 Suppose one had two polynomials $P_1$ and $P_2$,

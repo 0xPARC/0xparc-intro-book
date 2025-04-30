@@ -1,46 +1,39 @@
-
 \section{Introduction to SNARKs}
-
 Peggy has done some very difficult calculation. She wants to prove to
 Victor that she did it. Victor wants to check that Peggy did it, but he
 is too lazy to redo the whole calculation himself.
 
 \begin{itemize}
-\item
-  Maybe Peggy wants to keep part of the calculation secret. Maybe her
+\item Maybe Peggy wants to keep part of the calculation secret. Maybe her
   calculation was ``find a solution to this puzzle,'' and she wants to
   prove that she found a solution without saying what the solution is.
-\item
-  Maybe it is just a really long, annoying calculation, and Victor does
+\item Maybe it is just a really long, annoying calculation, and Victor does
   not have the energy to check it all line-by-line.
 \end{itemize}
 
-A \emph{SNARK} lets Peggy (the ``prover'') send Victor (the
-``verifier'') a short proof that she has indeed done the calculation
-correctly. The proof will be much shorter than the original calculation,
-and Victor's verification is much faster. (As a tradeoff, writing a
+A \alert{SNARK} lets Peggy (the ``prover'') send Victor (the ``verifier'')
+a short proof that she has indeed done the calculation correctly.
+The proof will be much shorter than the original calculation,
+and Victor's verification is much faster.
+(As a tradeoff, writing a
 SNARK proof of a calculation is much slower than just doing the
 calculation.)
 
 The name stands for:
-\begin{itemize}
-\item
-  \emph{Succinct}: the proof length is short (in fact, it is a constant
+\begin{description}
+\item[Succinct] The proof length is short (in fact, it is a constant
   length, independent of how long the problem is).
-\item
-  \emph{Non-interactive}: the protocol does not require back-and-forth
+\item[Non-interactive.] The protocol does not require back-and-forth
   communication.
-\item
-  \emph{Argument}: basically a proof. There is a technical difference,
+\item[Argument.] Basically a proof. There is a technical difference,
   but we will not worry about it.
-\item
-  \emph{of Knowledge}: the proof does not just show the system of
+\item[of Knowledge.] The proof does not just show the system of
   equations has a solution; it also shows that the prover knows one.
-\end{itemize}
+\end{description}
 
 We will not discuss it here, but it is also possible and frequently
-useful to make a \emph{zero knowledge (zk)} SNARK. These are typically
-called ``zkSNARKs.'' This gives Peggy a guarantee that Victor will not
+useful to make a \emph{zero knowledge (zk) SNARK}, or \alert{zkSNARK}.
+This gives Peggy a guarantee that Victor will not
 learn anything about the intermediate steps in her calculation, aside
 from any particular steps Peggy chooses to reveal.
 

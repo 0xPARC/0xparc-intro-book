@@ -326,7 +326,7 @@ commitment scheme.
 \subsection{Example application: Pedersen commitments}
 \label{pedersen}
 
-A \emph{commitment scheme} is a protocol where Alice wants to commit
+A \alert{commitment scheme} is a protocol where Alice wants to commit
 some value $x$ to Bob that is later revealed. Typically Alice gives
 Bob some ``commitment'' $\Com(x)$ and later reveals
 $x$. What we want is that this protocol is both \emph{binding} (Alice
@@ -349,7 +349,7 @@ such that
 In these notes, if there is a globally known elliptic curve $E$
 and points $g_1, \ldots, g_n$ have order $q$ and no known nontrivial
 linear dependencies between them,
-we will say they are a \emph{computational basis over $\FF_q$}.
+we will say they are a \alert{computational basis over $\FF_q$}.
 \end{definition}
 
 \begin{remark}{}{}
@@ -374,7 +374,7 @@ Given a vector
 \[ \vec{a} = \langle a_1, \ldots, a_n \rangle \in \FF_q^n \] of scalars,
 the group element
 \[ \sum a_i g_i = a_1 g_1 + \cdots + a_n g_n \in E \]
-is called the \emph{Pedersen commitment} to our vector $\vec{a}$.
+is called the \alert{Pedersen commitment} to our vector $\vec{a}$.
 \end{definition}
 
 The Pedersen commitment is thus a sort of hash function: Given the group

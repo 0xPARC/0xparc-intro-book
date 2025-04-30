@@ -30,7 +30,7 @@ equations. We state this formally as follows.
 
 This leads to the natural question of how a function like SHA-256 can be
 encoded into a system of quadratic equations. This process of encoding a
-problem into algebra is called \emph{arithmetization}. It turns out that
+problem into algebra is called \alert{arithmetization}. It turns out that
 quadratic equations over $\FF_{q}$, viewed as an NP problem
 called Quad-SAT, is \emph{NP-complete}; in other words, any NP problem
 can be rewritten as a system of quadratic equations. If you are not
@@ -63,7 +63,7 @@ But it turns out that Quad-SAT is actually reasonably codeable. This is
 the goal of projects like Circom\footurl{https://docs.circom.io/},
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $\FF_{q}$ that can be used in
-practice. Systems like this are called \emph{arithmetic circuits}, and
+practice. Systems like this are called \alert{arithmetic circuits}, and
 Circom is appropriately short for ``circuit compiler''. If you are
 curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
@@ -93,7 +93,7 @@ very particular form:
 An instance of PLONK consists of two pieces, the \emph{gate constraints}
 and the \emph{copy constraints}.
 
-The \emph{gate constraints} are a system of $n$ equations,
+The \alert{gate constraints} are a system of $n$ equations,
 \[q_{L,i}a_{i} + q_{R,i}b_{i} + q_{O,i}c_{i} + q_{M,i}a_{i}b_{i} + q_{C,i} = 0\]
 for $i = 1,\ldots,n$, in the $3n$ variables $a_{i}$, $b_{i}$,
 $c_{i}$. while the $q_{\ast ,i}$ are coefficients in
@@ -101,7 +101,7 @@ $\FF_{q}$, which are globally known. The confusing choice of
 subscripts stands for ``Left'', ``Right'', ``Output'',
 ``Multiplication'', and ``Constant'', respectively.
 
-The \emph{copy constraints} are a bunch of assertions that some of the
+The \alert{copy constraints} are a bunch of assertions that some of the
 $3n$ variables should be equal to each other, e.g.,
 ``$a_{1} = c_{7}$'', ``$b_{17} = b_{42}$'', and so on.
 \end{definition}
