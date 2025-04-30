@@ -11,7 +11,7 @@ copy check.
 \subsection{Easier case: permutation check}
 
 \begin{problem}{}{}
-Suppose we have polynomials $P,Q \in {\mathbb{F}}_{q}[ X]$
+Suppose we have polynomials $P,Q \in \FF_{q}[ X]$
 which encode two vectors of values \[\begin{aligned}
 \overset{\rightarrow}{p} & = \langle P( \omega^{1} ),P( \omega^{2} ),\ldots,P( \omega^{n} )\rangle \\
 \overset{\rightarrow}{q} & = \langle Q( \omega^{1} ),Q( \omega^{2} ),\ldots,Q( \omega^{n} )\rangle.
@@ -40,16 +40,16 @@ Equation \eqref{permcheck-poly} are extremely small.
 We can then get a proof of
 Equation \eqref{permcheck-poly} using the technique of
 adding an \emph{accumulator polynomial}. The idea is this: Victor picks
-a random challenge $\lambda \in {\mathbb{F}}_{q}$. Peggy then
+a random challenge $\lambda \in \FF_{q}$. Peggy then
 interpolates the polynomial
-$F_{P} \in {\mathbb{F}}_{q}[ T]$ such that
+$F_{P} \in \FF_{q}[ T]$ such that
 \[\begin{aligned}
 F_{P}( \omega^{1} ) & = \lambda + P( \omega^{1} ) \\
 F_{P}( \omega^{2} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) ) \\
  & \vdots \\
 F_{P}( \omega^{n} ) & = ( \lambda + P( \omega^{1} ) )( \lambda + P( \omega^{2} ) )\cdots( \lambda + P( \omega^{n} ) ).
 \end{aligned}\] Then the accumulator
-$F_{Q} \in {\mathbb{F}}_{q}[ T]$ is defined analogously.
+$F_{Q} \in \FF_{q}[ T]$ is defined analogously.
 
 So to prove Equation \eqref{permcheck-poly}, the
 following algorithm works:
@@ -60,7 +60,7 @@ and \(\operatorname{Com}(Q)\).
 
 \begin{enumerate}
 \item
-  Victor sends a random challenge $\lambda \in {\mathbb{F}}_{q}$.
+  Victor sends a random challenge $\lambda \in \FF_{q}$.
 \item
   Peggy interpolates polynomials $F_{P}[ T]$ and
   $F_{Q}[ T]$ such that
@@ -115,11 +115,11 @@ a_{3} & b_{3} & c_{3} \\
 Again, our goal is to make this into a \emph{single} equation. There is
 a really clever way to do this by tagging each entry with
 $+ \eta^{j}\omega^{k}\mu$ in reading order for $j = 0,1,2$ and
-$k = 1,\ldots,n$; here $\eta \in {\mathbb{F}}_{q}$ is any number
+$k = 1,\ldots,n$; here $\eta \in \FF_{q}$ is any number
 such that $\eta^{2}$ does not happen to be a power of $\omega$, so
 all the tags are distinct. Specifically, if
 Equation \eqref{copy1} is true, then for any
-$\mu \in {\mathbb{F}}_{q}$, we also have
+$\mu \in \FF_{q}$, we also have
 \begin{equation}
 \label{copy2}
 \begin{aligned}
@@ -252,11 +252,11 @@ To summarize, the copy check goes as follows:
   variables $a_{i}$, $b_{i}$, and $c_{i}$.
 \item
   Both parties compute the degree $n - 1$ polynomials
-  $\sigma_{a},\sigma_{b},\sigma_{c} \in {\mathbb{F}}_{q}[ X]$
+  $\sigma_{a},\sigma_{b},\sigma_{c} \in \FF_{q}[ X]$
   described above, based on the copy constraints in the problem
   statement.
 \item
-  Victor chooses random challenges $\mu,\lambda \in {\mathbb{F}}_{q}$
+  Victor chooses random challenges $\mu,\lambda \in \FF_{q}$
   and sends them to Peggy.
 \item
   Peggy interpolates the six accumulator polynomials $F_{a}$, \ldots,

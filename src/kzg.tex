@@ -6,17 +6,17 @@ following API:
 \begin{itemize}
 \item
   Peggy has a secret polynomial
-  \(P(X) \in \mathbb{F}_{q}[ X]\).
+  \(P(X) \in \FF_{q}[ X]\).
 \item
   Peggy sends a short ``commitment'' to the polynomial (like a hash).
 \item
   This commitment should have the additional property that Peggy should
-  be able to ``open'' the commitment at any $z \in \mathbb{F}_{q}$.
+  be able to ``open'' the commitment at any $z \in \FF_{q}$.
   Specifically:
 
   \begin{itemize}
   \item
-    Victor has an input $z \in \mathbb{F}_{q}$ and wants to know
+    Victor has an input $z \in \FF_{q}$ and wants to know
     \(P(z)\).
   \item
     Peggy knows $P$ so she can compute \(P(z)\); she sends the
@@ -36,7 +36,7 @@ the polynomial has.
 
 Remember the notation $[ n] := n \cdot g \in E$ defined in
 Definition \ref{tcb:armor}. To set up the KZG commitment scheme, a trusted party needs
-to pick a secret scalar $s \in \mathbb{F}_{q}$ and publish
+to pick a secret scalar $s \in \FF_{q}$ and publish
 \[[ s^{0} ],[ s^{1} ],\ldots,[ s^{M} ]\]
 for some large $M$, the maximum degree of a polynomial the scheme
 needs to support. This means anyone can evaluate
@@ -73,7 +73,7 @@ is if all the ``trusted parties'' collude.
 
 \subsection{The KZG commitment scheme}
 
-Peggy has a polynomial \(P(X) \in \mathbb{F}_{p}[X]\). To
+Peggy has a polynomial \(P(X) \in \FF_{p}[X]\). To
 commit to it:
 
 \begin{algo}{Creating a KZG commitment}{}
@@ -86,7 +86,7 @@ commit to it:
 This computation is possible as $[ s^{i} ]$ are
 globally known.
 
-Now consider an input $z \in \mathbb{F}_{p}$; Victor wants to know the
+Now consider an input $z \in \FF_{p}$; Victor wants to know the
 value of \(P(z)\). If Peggy wishes to convince Victor that \(P(z) = y\),
 then:
 
@@ -94,7 +94,7 @@ then:
 \begin{enumerate}
 \item
   Peggy does polynomial division to compute
-  \(Q(X) \in {\mathbb{F}}_{q}[ X]\) such that
+  \(Q(X) \in \FF_{q}[ X]\) such that
   \[P(X) - y = (X - z)Q(X).\]
 \item
   Peggy computes and sends Victor \([ Q(s) ]\),
@@ -186,7 +186,7 @@ the equation $P_1(z) = P_2(z)$ holds for all $z$ in some large finite set $S$.
 Peggy just needs to show that $P_{1} - P_{2}$ is divisible by
 \(Z(X) := \prod_{z \in S}(X - z)\). This can be done by committing the
 quotient \[H(X) := \frac{P_{1}(X) - P_{2}(X)}{Z(X)}.\] Victor then gives
-a random challenge $\lambda \in \mathbb{F}_{q}$, and then Peggy opens
+a random challenge $\lambda \in \FF_{q}$, and then Peggy opens
 \(\operatorname{Com}( P_{1} )\),
 \(\operatorname{Com}( P_{2} )\), and \(\operatorname{Com}(H)\) at
 $\lambda$.
@@ -206,9 +206,9 @@ To be fully explicit, here is the algorithm:
 
 \begin{algo}{Root check}{root-check}
 Assume that $F$ is a polynomial for which Peggy can
-establish the value of $F$ at any point in ${\mathbb{F}}_{q}$. Peggy
+establish the value of $F$ at any point in $\FF_{q}$. Peggy
 wants to convince Victor that $F$ vanishes on a given finite set
-$S \subseteq {\mathbb{F}}_{q}$.
+$S \subseteq \FF_{q}$.
 
 \begin{enumerate}
 \item
@@ -226,14 +226,14 @@ $S \subseteq {\mathbb{F}}_{q}$.
     Victor the value of \(F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)\).}
 \item
   Both parties compute the polynomial
-  \[Z(X) := \prod_{z \in S}(X - z) \in {\mathbb{F}}_{q}[ X].\]
+  \[Z(X) := \prod_{z \in S}(X - z) \in \FF_{q}[ X].\]
 \item
   Peggy does polynomial long division to compute
   \(H(X) = \frac{F(X)}{Z(X)}\).
 \item
   Peggy sends \(\operatorname{Com}(H)\).
 \item
-  Victor picks a random challenge $\lambda \in {\mathbb{F}}_{q}$ and
+  Victor picks a random challenge $\lambda \in \FF_{q}$ and
   asks Peggy to open \(\operatorname{Com}(H)\) at $\lambda$, as well
   as the value of $F$ at $\lambda$.
 \item

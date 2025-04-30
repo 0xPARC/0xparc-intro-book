@@ -3,7 +3,7 @@
 Before we are ready for KZG, there is one more piece of elliptic curve
 math that we need.
 
-Recall that the map $[ \bullet ]:{\mathbb{F}}_{q} \rightarrow E$ is linear,
+Recall that the map $[ \bullet ]:\FF_{q} \rightarrow E$ is linear,
 meaning that
 $[a + b] = [a] + [b]$, and $[na] = n [a]$.
 But as written we cannot do ``armored multiplication'':
@@ -22,7 +22,7 @@ On the other hand, it \textbf{does} turn out that we know a way to
 
 The technique needed is that one wants to construct a nondegenerate
 bilinear function
-\[ \operatorname{pair} \colon E \times E \rightarrow {\mathbb{Z}}/N{\mathbb{Z}} \]
+\[ \operatorname{pair} \colon E \times E \rightarrow \ZZ/N\ZZ \]
 for some large integer $N$.
 We think this should be called a \emph{bilinear pairing},
 but for some reason everyone just says \alert{pairing} instead.
@@ -101,11 +101,11 @@ is an aside explaining how the embedding degree affects pairing.
 
 The pairing function \(\operatorname{pair}(a,b)\) takes as input two
 points $a,b \in E$ on the elliptic curve, and spits out a value
-\(\operatorname{pair}(a,b) \in {\mathbb{F}}_{p^{k}}^{\times}\) -- in
+\(\operatorname{pair}(a,b) \in \FF_{p^{k}}^{\times}\) -- in
 other words, a nonzero element of the finite field of order $p^{k}$
 (where $k$ is the embedding degree we just defined). In fact, this
 element will always be a $q$-th root of unity in
-${\mathbb{F}}_{p^{k}}$, and it will satisfy
+$\FF_{p^{k}}$, and it will satisfy
 \(\operatorname{pair}([ m],[ n]) = \zeta^{mn}\),
 where $\zeta$ is some fixed $q$-th root of unity. The construction
 of the pairing is based on the Weil pairing\footurl{https://en.wikipedia.org/wiki/Weil\_pairing}

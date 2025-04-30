@@ -20,7 +20,7 @@ small ``error'' $\epsilon$, which will typically be much, much smaller
 than $q$.
 
 As before, our \emph{secret key} will be a vector of length $n$:
-\[\mathbf{v} = ( v_{1},\ldots,v_{n} ) \in ({\mathbb{Z}}/q{\mathbb{Z}})^{n}.\]
+\[\mathbf{v} = ( v_{1},\ldots,v_{n} ) \in (\ZZ/q\ZZ)^{n}.\]
 Suppose we want to encode a message $\mu$ that is just a single bit,
 let us say $\mu \in \{ 0,1 \}$. Our ciphertext will be a
 square $n$-by-$n$ matrix $C$ such that
@@ -139,7 +139,7 @@ in your calculation, it is safe to reduce it mod 11.
 
 In general, if you know that $\mathbf{v}$ has the form in
 Equation \eqref{fhe-v-form} and you are given some matrix
-$C$ with coefficients in ${\mathbb{Z}}/q{\mathbb{Z}}$, then you can
+$C$ with coefficients in $\ZZ/q\ZZ$, then you can
 compute another matrix \(\operatorname{Flatten}(C)\) such that:
 
 \begin{itemize}

@@ -79,8 +79,8 @@ defined over $\FF_p$, where $p \approx 2^{254}$
 is the prime from the BN254 specification.
 \end{definition}
 
-So each point on $E( {\mathbb{F}}_{p} )$ is an ordered pair
-$(X,Y) \in {\mathbb{F}}_{p}^{2}$ satisfying Equation \eqref{bn254eqn}.
+So each point on $E( \FF_{p} )$ is an ordered pair
+$(X,Y) \in \FF_{p}^{2}$ satisfying Equation \eqref{bn254eqn}.
 Okay, actually, that is a white lie: Conventionally, there is one additional
 point $O = (0,\infty)$ called the ``point at infinity'' added in
 (whose purpose we describe in the next section).
@@ -89,7 +89,7 @@ The constants $p$ and $q$ are contrived so that the following holds:
 
 \begin{theorem}{BN254 has prime order}{}
   Let $E$ be the BN254 curve. The number of
-  points in \(E( {\mathbb{F}}_{p} )\), including the point at
+  points in \(E( \FF_{p} )\), including the point at
   infinity $O$, is a prime $q \approx 2^{254}$.
 \end{theorem}
 
@@ -100,13 +100,13 @@ This prime $q \approx 2^{254}$ is affectionately called the \alert{Baby Jubjub p
 It will usually be denoted by $q$ in these notes.
 \end{definition}
 So, at this point, we have a bag of $q$ points denoted
-$E( {\mathbb{F}}_{p} )$.
+$E( \FF_{p} )$.
 However, right now it only has the structure of a set.
 
 The beauty of elliptic curves is that it is possible to define an
 \textbf{addition} operation on the curve; this is called the \alert{group law}
 on the elliptic curve.\footurl{https://en.wikipedia.org/wiki/Elliptic\_curve\#The\_group\_law}
-This addition will make $E( {\mathbb{F}}_{p} )$ into an
+This addition will make $E( \FF_{p} )$ into an
 abelian group whose identity element is the point at infinity $O$.
 
 This group law involves some heavy algebra. It is not important to
@@ -116,26 +116,26 @@ computer to compute it. We provide details in Appendix~\ref{appendix-ec-mult}
 for the interested reader.
 
 In summary, we have endowed the set of points
-$E( {\mathbb{F}}_{p} )$ with the additional structure of an
+$E( \FF_{p} )$ with the additional structure of an
 abelian group, which happens to have exactly $q$ elements. However, an
 abelian group with prime order is necessarily cyclic. In other words:
 
-\begin{theorem}{The group BN254 is isomorphic to $\boldmath{{\mathbb{Z}}/q{\mathbb{Z}}}$}{}
+\begin{theorem}{The group BN254 is isomorphic to $\boldmath{\ZZ/q\ZZ}$}{}
   Let $E$ be the BN254 curve.
   We have the isomorphism of abelian groups
-  \[E( {\mathbb{F}}_{p} ) \cong {\mathbb{Z}}/q{\mathbb{Z}}.\]
+  \[E( \FF_{p} ) \cong \ZZ/q\ZZ.\]
 \end{theorem}
 
 In these notes, this isomorphism will basically be a standing assumption.
 Moving forward, we will abuse notation slightly and just
-write $E$ instead of $E( {\mathbb{F}}_{p} )$.
-In fancy language, $E$ will be a one-dimensional vector space over ${\mathbb{F}}_{q}$.
+write $E$ instead of $E( \FF_{p} )$.
+In fancy language, $E$ will be a one-dimensional vector space over $\FF_{q}$.
 In less fancy language, we will be working with points on $E$ as black boxes.
-We will be able to add them, subtract them, and multiply them by arbitrary scalars from ${\mathbb{F}}_{q}$.
+We will be able to add them, subtract them, and multiply them by arbitrary scalars from $\FF_{q}$.
 
 Consequently --- and this is important --- \textbf{one should think of
-${\mathbb{F}}_{q}$ as the base field for all our cryptographic primitives}
-(despite the fact that the coordinates of our points are in ${\mathbb{F}}_{p}$).
+$\FF_{q}$ as the base field for all our cryptographic primitives}
+(despite the fact that the coordinates of our points are in $\FF_{p}$).
 
 \begin{remark}{}{}
 Whenever we talk about protocols, and there are any sorts of
@@ -166,7 +166,7 @@ The \alert{discrete logarithm assumption} says that no such algorithm exists.
 In other words, if one only sees $g \in E$ and $n \cdot g \in E$,
 one cannot find $n$. For cryptography, we generally assume $g$ has
 order $q$, so we will talk about $n \in {\mathbb{N}}$ and
-$n \in {\mathbb{F}}_{q}$ interchangeably. In other words, $n$ will
+$n \in \FF_{q}$ interchangeably. In other words, $n$ will
 generally be thought of as being up to about $2^{254}$ in size.
 
 \begin{remark}{The name ``discrete log''}{}
@@ -202,26 +202,26 @@ BN254 if they prefer.
 In general, we could have chosen for $E$ any equation of the form
 $Y^{2} = X^{3} + aX + b$ and chosen any prime $p \geq 5$ such that a
 nondegeneracy constraint $4a^{3} + 27b^{2} \not \equiv 0 \pmod p$ holds.
-In such a situation, $E( {\mathbb{F}}_{p} )$ will
+In such a situation, $E( \FF_{p} )$ will
 indeed be an abelian group once the identity element $O = (0,\infty)$ is added in.
 
-How large is $E( {\mathbb{F}}_{p} )$?
+How large is $E( \FF_{p} )$?
 There is a theorem called Hasse's theorem\footurl{https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves}
-that states the number of points in \(E( {\mathbb{F}}_{p} )\)
+that states the number of points in \(E( \FF_{p} )\)
 is between $p + 1 - 2\sqrt{p}$ and $p + 1 + 2\sqrt{p}$. But there is
-no promise that $E( {\mathbb{F}}_{p} )$ will be \emph{prime};
+no promise that $E( \FF_{p} )$ will be \emph{prime};
 consequently, it may not be a cyclic group either.
 So among many other considerations, the choice of constants in BN254 is
 engineered to get a prime order.
 
 There are other curves used in practice for which
-$E( {\mathbb{F}}_{p} )$ is not a prime,
+$E( \FF_{p} )$ is not a prime,
 but rather a small multiple of a prime.
 The popular Curve25519\footurl{https://en.wikipedia.org/wiki/Curve25519}
 is such a curve that is also believed to satisfy Assumption \ref{tcb:ddh}.
 Curve25519 is defined as
 \[ Y^{2} = X^{3} + 486662X^{2} + X \]
-over ${\mathbb{F}}_{p}$ for the
+over $\FF_{p}$ for the
 prime $p \defeq 2^{255} - 19$. Its order is $8$ times a large prime
 \[q' \defeq= 2^{252} + 27742317777372353535851937790883648493. \]
 In that case, to generate a random point on Curve25519 with order $q'$,
@@ -253,14 +253,14 @@ notation as an ``armor'' on the integer $n$: It conceals the integer,
 but still allows us to perform (armored) addition:
 \[[ a + b] = [ a] + [ b].\] In other
 words, $n \mapsto [ n]$ viewed as a map
-${\mathbb{F}}_{q} \rightarrow E$ is ${\mathbb{F}}_{q}$-linear.
+$\FF_{q} \rightarrow E$ is $\FF_{q}$-linear.
 
 So now suppose Alice wants to set up a signature scheme.
 
 \begin{algo}{EdDSA public and secret key}{}
 \begin{enumerate}
 \item
-  Alice picks a random integer $d \in {\mathbb{F}}_{q}$ as her
+  Alice picks a random integer $d \in \FF_{q}$ as her
   \emph{secret key} (a piece of information that she needs to keep
   private for the security of the protocol).
 \item
@@ -279,10 +279,10 @@ Suppose Alice wants to sign a message $\textsf{msg}$.
 
 \begin{enumerate}
 \item
-  Alice picks a random scalar $r \in {\mathbb{F}}_{q}$ (keeping this
+  Alice picks a random scalar $r \in \FF_{q}$ (keeping this
   secret) and publishes $[ r] \in E$.
 \item
-  Alice generates a number $n \in {\mathbb{F}}_{q}$ by hashing
+  Alice generates a number $n \in \FF_{q}$ by hashing
   $\textsf{msg}$ with all public information, say
   \[n := \operatorname{hash}([ r],\textsf{msg},[ d]).\]
 \item
@@ -340,7 +340,7 @@ commitment, which we will now describe.
 A multivariable generalization of Assumption \ref{tcb:ddh} is that if
 $g_{1},\ldots,g_{n} \in E$ are a bunch of randomly chosen points of
 $E$ with order $q$, then it is computationally infeasible to find
-\(( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in {\mathbb{F}}_{q}^{n}\)
+\(( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in \FF_{q}^{n}\)
 such that
 \[a_{1}g_{1} + \cdots + a_{n}g_{n} = b_{1}g_{1} + \cdots + b_{n}g_{n}.\]
 (Remember that $q \approx 2^{256}$ is very large.)

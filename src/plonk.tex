@@ -8,7 +8,7 @@ The promise of programmable cryptography is that we should be able to
 perform proofs for arbitrary functions. That means we need a
 ``programming language'' that we will write our function in. For PLONK,
 the choice that is used is: \textbf{systems of quadratic equations over
-${\mathbb{F}}_{q}$}. In other words, PLONK is going to give us the
+$\FF_{q}$}. In other words, PLONK is going to give us the
 ability to prove that we have solutions to a system of quadratic
 equations. We state this formally as follows.
 
@@ -31,7 +31,7 @@ equations. We state this formally as follows.
 This leads to the natural question of how a function like SHA-256 can be
 encoded into a system of quadratic equations. This process of encoding a
 problem into algebra is called \emph{arithmetization}. It turns out that
-quadratic equations over ${\mathbb{F}}_{q}$, viewed as an NP problem
+quadratic equations over $\FF_{q}$, viewed as an NP problem
 called Quad-SAT, is \emph{NP-complete}; in other words, any NP problem
 can be rewritten as a system of quadratic equations. If you are not
 familiar with this concept, the upshot is that Quad-SAT being
@@ -62,7 +62,7 @@ to engineers and end users.
 But it turns out that Quad-SAT is actually reasonably codeable. This is
 the goal of projects like Circom\footurl{https://docs.circom.io/},
 which gives a high-level language that compiles a function like SHA-256
-into a system of equations over ${\mathbb{F}}_{q}$ that can be used in
+into a system of equations over $\FF_{q}$ that can be used in
 practice. Systems like this are called \emph{arithmetic circuits}, and
 Circom is appropriately short for ``circuit compiler''. If you are
 curious, you can see how SHA-256 is implemented in Circom on
@@ -97,7 +97,7 @@ The \emph{gate constraints} are a system of $n$ equations,
 \[q_{L,i}a_{i} + q_{R,i}b_{i} + q_{O,i}c_{i} + q_{M,i}a_{i}b_{i} + q_{C,i} = 0\]
 for $i = 1,\ldots,n$, in the $3n$ variables $a_{i}$, $b_{i}$,
 $c_{i}$. while the $q_{\ast ,i}$ are coefficients in
-${\mathbb{F}}_{q}$, which are globally known. The confusing choice of
+$\FF_{q}$, which are globally known. The confusing choice of
 subscripts stands for ``Left'', ``Right'', ``Output'',
 ``Multiplication'', and ``Constant'', respectively.
 
@@ -172,11 +172,11 @@ Let us now explain how each step works.
 \subsection{Step 1: the commitment}
 
 In PLONK, we will assume that \(q \equiv 1 (\operatorname{mod}n)\), which
-means that we can fix $\omega \in {\mathbb{F}}_{q}$ to be a primitive
+means that we can fix $\omega \in \FF_{q}$ to be a primitive
 $n$-th root of unity.
 
 Then, by polynomial interpolation, Peggy chooses polynomials \(A(X)\),
-\(B(X)\), and \(C(X)\) in ${\mathbb{F}}_{q}[ X]$ such that
+\(B(X)\), and \(C(X)\) in $\FF_{q}[ X]$ such that
 \begin{equation}
 \label{plonk-setup}
 A( \omega^{i} ) = a_{i},B( \omega^{i} ) = b_{i},C( \omega^{i} ) = c_{i}\text{  for all  }i = 1,2,\ldots,n.
@@ -208,12 +208,12 @@ Then:
 
 To reiterate, each commitment is a single value -- a 256-bit elliptic
 curve point -- that can later be ``opened'' at any value
-$x \in {\mathbb{F}}_{q}$.
+$x \in \FF_{q}$.
 
 \subsection{Step 2: gate check}
 
 Both Peggy and Victor know the PLONK instance, so they can interpolate a
-polynomial \(Q_{L}(X) \in {\mathbb{F}}_{q}[ X]\) of degree
+polynomial \(Q_{L}(X) \in \FF_{q}[ X]\) of degree
 $n - 1$ such that
 \[Q_{L}( \omega^{i} ) = q_{L,i}\quad\text{ for  }i = 1,\ldots,n.\]
 The analogous polynomials $Q_{R}$, $Q_{O}$, $Q_{M}$, $Q_{C}$ are
@@ -236,7 +236,7 @@ application of Algorithm \ref{tcb:root-check}:
 \begin{enumerate}
 \item
 Both parties interpolate five polynomials
-$Q_{\ast} \in {\mathbb{F}}_{q}[X]$ from the $5n$
+$Q_{\ast} \in \FF_{q}[X]$ from the $5n$
  coefficients $q_{\ast}$ (globally known from the PLONK instance).
 \item
 Peggy uses Algorithm \ref{tcb:root-check} to convince Victor that
