@@ -63,10 +63,10 @@
   colframe = red!35!black,
 }{tcb}
 
-\NewTcbTheorem[use counter from = theorem]{problem}{Problem}{
+\NewTcbTheorem[use counter from = theorem]{exercise}{Exercise}{
   theorem base,
-  colback = orange!5,
-  colframe = orange!35!black
+  colback = black!5,
+  colframe = black!65
 }{tcb}
 
 \NewTcbTheorem[use counter from = theorem]{example}{Example}{
@@ -166,6 +166,8 @@
 \newcommand{\credits}[1]{\noindent\emph{#1}\vspace{2em}}
 
 \newcommand{\alert}[1]{\textbf{\sffamily\color{blue!60!black}#1}}
+
+\renewcommand{\thefootnote}{[\arabic{footnote}]}
 
 \begin{document}
 

@@ -2,21 +2,22 @@
 
 Alice has a secret $x$, and Bob has a function $f$. They want to
 compute $f(x)$. Actually, Alice wants Bob to compute $f(x)$ -- but
-she does not want to tell him $x$. What Alice wants is a \emph{fully
-homomorphic encryption (FHE)} protocol, meaning:
+she does not want to tell him $x$.
 
+What Alice wants is a \alert{fully homomorphic encryption (FHE)} protocol,
+meaning she wants a protocal that can support the following:
+
+\begin{goal}{}{}
+FHE should make the following possible:
 \begin{enumerate}
-\item
-  Alice encrypts $x$ and sends Bob $\Enc(x)$.
-\item
-  Bob then ``applies $f$ to the ciphertext'' and obtains
+\item Alice encrypts $x$ and sends Bob $\Enc(x)$.
+\item Bob then ``applies $f$ to the ciphertext'' and obtains
   $\Enc\left( f(x) \right)$, sending it to Alice.
-\item
-  Alice decrypts $\Enc\left( f(x) \right)$ to learn
-  $f(x)$.
+\item Alice decrypts $\Enc\left( f(x) \right)$ to learn $f(x)$.
 \end{enumerate}
+\end{goal}
 
-\emph{Leveled FHE} is a weaker version of FHE. Like FHE, leveled FHE
+\alert{Leveled FHE} is a weaker version of FHE. Like FHE, leveled FHE
 lets you perform operations on encrypted data. But unlike FHE, there
 will be a limit on the number of operations you can perform before the
 data must be decrypted.
@@ -29,7 +30,7 @@ beyond some maximum error tolerance, the message will be lost. So there
 is a limit on how many operations you can do before the error gets too
 big.
 
-As a sort of silly example, imagine your message is a whole number
+As a silly example, imagine your message is a whole number
 between 0 and 10 (so it is one of 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), and
 your ``encryption scheme'' encrypts the message as a real number that is
 very close to the message, and decrypts a real number by ``round to the
@@ -55,9 +56,10 @@ and our operations will be the logic gates AND and NOT. Because any
 logic circuit can be built out of AND and NOT gates, we will be able to
 perform arbitrary calculations within the FHE encryption.
 
-Our protocol uses a cryptosystem built from a problem called ``learning
-with errors.'' ``Learning with errors'' is kind of a strange name; it
-would make more sense to call it ``approximate linear algebra modulo
-$q$.'' Anyway, we will start with the learning-with-errors problem
+Our protocol uses a cryptosystem built from a problem called
+``\alert{learning with errors}.''
+``Learning with errors'' is kind of a strange name; it
+would make more sense to call it ``approximate linear algebra modulo $q$''.
+Anyway, we will start with the learning-with-errors problem
 (Section \ref{lwe}) and how to build cryptography on top of it
 (Section \ref{lwe-crypto}) before we get back to leveled FHE.
