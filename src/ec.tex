@@ -15,24 +15,22 @@ straight to SNARKs into the next chapter.
 The roadmap goes roughly as follows:
 
 \begin{itemize}
-\item
-  In Section \ref{ec} we will define \emph{elliptic curves} and
+\item In Section \ref{ec} we will define \alert{elliptic curves} and
   describe one standard elliptic curve $E$, the \emph{BN254 curve},
   that will be used in these notes.
-\item
-  In Section \ref{discretelog} we describe the
-  \emph{discrete logarithm assumption} (Assumption \ref{tcb:ddh}),
-  which we need to make to provide security to our protocols. As an
-  example, in Section \ref{eddsa} we describe how
+
+\item In Section \ref{discretelog} we describe the
+  \alert{discrete logarithm assumption} (Assumption \ref{tcb:ddh}),
+  which we need to make to provide security to our protocols.
+  As an example, in Section \ref{eddsa} we describe how
   Assumption \ref{tcb:ddh} can be used to construct a signature scheme,
   namely EdDSA.\footurl{https://en.wikipedia.org/wiki/EdDSA}
-\item
-  The EdDSA idea will later grow up to be the KZG commitment scheme in
+
+\item The EdDSA idea will later grow up to be the KZG commitment scheme in
   Section \ref{kzg}.
 \end{itemize}
 
 \section{Elliptic curves}\label{ec}
-
 Every modern cryptosystem rests on a hard problem -- a computationally
 infeasible challenge whose difficulty makes the protocol secure. The
 best-known example is RSA,\footurl{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)}
@@ -45,7 +43,7 @@ Our SNARK protocol will be based on a different hard problem: the
 before we get to the problem, we need to introduce some of the math
 behind elliptic curves.
 
-An \emph{elliptic curve} is a set of points with a group operation. The
+An \alert{elliptic curve} is a set of points with a group operation. The
 set of points is the set of solutions \((x,y)\) to an equation in two
 variables; the group operation is a rule for ``adding'' two of the
 points to get a third point. Our first task will be to understand what
@@ -55,15 +53,15 @@ elliptic curve that can be used for all the protocols we describe later.
 The curve we choose for these notes is the \emph{BN254 curve}.
 
 The BN254 specification fixes a specific\footnote{If you must know, the
- values in the specification are given exactly by \[\begin{aligned}
- x & := & & 4965661367192848881 \\
- p & := & & 36x^{4} + 36x^{3} + 24x^{2} + 6x + 1 \\
- & = & & 218882428718392752222464057452572750886 \\
- & & & 96311157297823662689037894645226208583 \\
- q & := & & 36x^{4} + 36x^{3} + 18x^{2} + 6x + 1 \\
- & = & & 218882428718392752222464057452572750885 \\
- & & & 48364400416034343698204186575808495617.
- \end{aligned}\]}
+  values in the specification are given exactly by
+  \begin{align*}
+  x & \defeq 4965661367192848881 \\
+  p & \defeq 36x^{4} + 36x^{3} + 24x^{2} + 6x + 1 \\
+  & = 218882428718392752222464057452572750886 96311157297823662689037894645226208583 \\
+  q & \defeq 36x^{4} + 36x^{3} + 18x^{2} + 6x + 1 \\
+  & = 218882428718392752222464057452572750885 48364400416034343698204186575808495617.
+  \end{align*}
+}
 large prime $p \approx 2^{254}$ (and a second large
 prime $q \approx 2^{254}$ that we define later) which has been
 specifically engineered to have certain properties (Jonathan Wang has a
@@ -81,10 +79,10 @@ defined over $\FF_p$, where $p \approx 2^{254}$
 is the prime from the BN254 specification.
 \end{definition}
 
-So each point on \(E( {\mathbb{F}}_{p} ))\) is an ordered pair
-\((X,Y) \in {\mathbb{F}}_{p}^{2}\) satisfying Equation \eqref{bn254eqn}. Okay,
-actually, that is a white lie: Conventionally, there is one additional
-point \(O = (0,\infty)\) called the ``point at infinity'' added in
+So each point on $E( {\mathbb{F}}_{p} )$ is an ordered pair
+$(X,Y) \in {\mathbb{F}}_{p}^{2}$ satisfying Equation \eqref{bn254eqn}.
+Okay, actually, that is a white lie: Conventionally, there is one additional
+point $O = (0,\infty)$ called the ``point at infinity'' added in
 (whose purpose we describe in the next section).
 
 The constants $p$ and $q$ are contrived so that the following holds:
@@ -96,126 +94,48 @@ The constants $p$ and $q$ are contrived so that the following holds:
 \end{theorem}
 
 \begin{definition}{Baby Jubjub prime}{}
-This prime $q \approx 2^{254}$ is affectionately called the \emph{Baby Jubjub prime}
+This prime $q \approx 2^{254}$ is affectionately called the \alert{Baby Jubjub prime}
 (a reference to
 \emph{The Hunting of the Snark}\footurl{https://en.wikipedia.org/wiki/The\_Hunting\_of\_the\_Snark}).
 It will usually be denoted by $q$ in these notes.
 \end{definition}
 So, at this point, we have a bag of $q$ points denoted
-\(E( {\mathbb{F}}_{p} )\). However, right now it only has the
-structure of a set.
+$E( {\mathbb{F}}_{p} )$.
+However, right now it only has the structure of a set.
 
 The beauty of elliptic curves is that it is possible to define an
-\textbf{addition} operation on the curve; this is called the group law
+\textbf{addition} operation on the curve; this is called the \alert{group law}
 on the elliptic curve.\footurl{https://en.wikipedia.org/wiki/Elliptic\_curve\#The\_group\_law}
-This addition will make \(E( {\mathbb{F}}_{p} )\) into an
+This addition will make $E( {\mathbb{F}}_{p} )$ into an
 abelian group whose identity element is the point at infinity $O$.
-This addition can be formalized as a \emph{group law}.
 
 This group law involves some heavy algebra. It is not important to
 understand exactly how it works. All you really need to take away from
 this section is that there is some group law, and we can program a
-computer to compute it. We provide details below for the interested
-reader.
-
-\begin{quote}
-
-So, let us get started. The equation of $E$ is cubic -- the
-highest-degree terms have degree $3$. This means that (in general) if
-you take a line $y = mx + b$ and intersect it with $E$, the line
-will meet $E$ in exactly three points. The basic idea behind the group
-law is: If $P,Q,R$ are the three intersection points of a line (any
-line) with the curve $E$, then the group-law addition of the three
-points is \[P + Q + R = O.\]
-
-(You might be wondering how we can do geometry when the coordinates
-$x$ and $y$ are in a finite field. It turns out that all the
-geometric operations we are describing -- like finding the intersection
-of a curve with a line -- can be translated into algebra, and then you
-just do the algebra in your finite field. We will come back to this.)
-
-Why three points? Algebraically, if you take the equations
-$Y^{2} = X^{3} + 3$ and $Y = mX + b$ and try to solve them, you get
-\[(mX + b)^{2} = X^{3} + 3,\] which is a degree-3 polynomial in $X$,
-so it has (at most) three roots. In fact if it has two roots, it is
-guaranteed to have a third (because you can factor out the first two
-roots, and then you are left with a linear factor).
-
-Now given two points $P$ and $Q$, how do we find their sum
-$P + Q$? We can draw the line through the two points. That line --
-like any line -- will intersect $E$ in three points: $P$, $Q$, and
-a third point $R$. Now since $P + Q + R = 0$, we know that
-\[- R = P + Q.\]
-
-So now the question is just: how to find $- R$? Well, it turns out
-that if \(R = ( x_{R},y_{R} )\), then
-\[- R = ( x_{R}, - y_{R} ).\] Why is this? If you take the
-vertical line $X = x_{R}$, and try to intersect it with the curve, it
-looks like there are only two intersection points. After all, we are
-solving \[Y^{2} = x_{R}^{3} + 3,\] and since $x_{R}$ is fixed now,
-this equation is quadratic. The two roots are $Y = \pm y_{R}$.
-
-There are only two intersection points, but we say that the third
-intersection point is ``the point at infinity'' $O$. (The reason for
-this lies in projective geometry, but we will not get into it.) So the
-group law here tells us
-\[( x_{R},y_{R} ) + ( x_{R}, - y_{R} ) + O = O.\]
-And since $O$ is the identity, we get
-\[- R = ( x_{R}, - y_{R} ).\]
-
-So:
-
-\begin{itemize}
-\item
-  Given a point \(P = ( x_{P},y_{P} )\), its negative is just
-  \(- P = ( x_{P}, - y_{P} )\).
-\item
-  To add two points $P$ and $Q$, compute the line through the two
-  points, let $R$ be the third intersection of that line with $E$,
-  and set \[P + Q = - R.\]
-\end{itemize}
-
-We just described the group law as a geometric thing, but there are
-algebraic formulas to compute it as well. They are kind of a mess, but
-here goes.
-
-If \(P = ( x_{P},y_{P} )\) and
-\(Q = ( x_{Q},y_{Q} )\), then the line between the two points
-is $Y = mX + b$, where \[m = \frac{y_{Q} - y_{P}}{x_{Q} - x_{P}}\] and
-\[b = y_{P} - mx_{P}.\]
-
-The third intersection is \(R = ( x_{R},y_{R} )\), where
-\[x_{R} = m^{2} - x_{P} - x_{Q}\] and \[y_{R} = mx_{R} + b.\]
-
-There are separate formulas to deal with various special cases (if
-$P = Q$, you need to compute the tangent line to $E$ at $P$, for
-example), but we will not get into it.
-
-\end{quote}
+computer to compute it. We provide details in Appendix~\ref{appendix-ec-mult}
+for the interested reader.
 
 In summary, we have endowed the set of points
-\(E( {\mathbb{F}}_{p} )\) with the additional structure of an
+$E( {\mathbb{F}}_{p} )$ with the additional structure of an
 abelian group, which happens to have exactly $q$ elements. However, an
 abelian group with prime order is necessarily cyclic. In other words:
 
-\begin{theorem}{The group BN254 is isomorphic to ${\mathbb{Z}}/q{\mathbb{Z}}$}{}
+\begin{theorem}{The group BN254 is isomorphic to $\boldmath{{\mathbb{Z}}/q{\mathbb{Z}}}$}{}
   Let $E$ be the BN254 curve.
   We have the isomorphism of abelian groups
   \[E( {\mathbb{F}}_{p} ) \cong {\mathbb{Z}}/q{\mathbb{Z}}.\]
 \end{theorem}
 
-In these notes, this isomorphism will basically be a standing
-assumption. Moving forward, we will abuse notation slightly and just
-write $E$ instead of \(E( {\mathbb{F}}_{p} )\). In fancy
-language, $E$ will be a one-dimensional vector space over
-${\mathbb{F}}_{q}$. In less fancy language, we will be working with
-points on $E$ as black boxes. We will be able to add them, subtract
-them, and multiply them by arbitrary scalars from ${\mathbb{F}}_{q}$.
+In these notes, this isomorphism will basically be a standing assumption.
+Moving forward, we will abuse notation slightly and just
+write $E$ instead of $E( {\mathbb{F}}_{p} )$.
+In fancy language, $E$ will be a one-dimensional vector space over ${\mathbb{F}}_{q}$.
+In less fancy language, we will be working with points on $E$ as black boxes.
+We will be able to add them, subtract them, and multiply them by arbitrary scalars from ${\mathbb{F}}_{q}$.
 
 Consequently --- and this is important --- \textbf{one should think of
-${\mathbb{F}}_{q}$ as the base field for all our cryptographic
-primitives} (despite the fact that the coordinates of our points are in
-${\mathbb{F}}_{p}$).
+${\mathbb{F}}_{q}$ as the base field for all our cryptographic primitives}
+(despite the fact that the coordinates of our points are in ${\mathbb{F}}_{p}$).
 
 \begin{remark}{}{}
 Whenever we talk about protocols, and there are any sorts of
@@ -230,17 +150,17 @@ while the prime $p$ is unnamed and does not get any screen-time later.
 \section{Discrete logarithm}\label{discretelog}
 
 For our systems to be useful, rather than relying on factoring, we will
-rely on the so-called \emph{discrete logarithm assumption}.
+rely on the so-called \alert{discrete logarithm assumption}.
 
 \begin{assumption}{Discrete logarithm assumption}{ddh}
 Let $E$ be the BN254 curve (or another
 standardized curve). Given arbitrary nonzero $g,g' \in E$, the
-\emph{discrete logarithm problem} asks you to find an integer $n$ such
+\alert{discrete logarithm problem} asks you to find an integer $n$ such
 that $n \cdot g = g'$.
 
-Experience suggests that the discrete logarithm problem is hard: In
-general, we do not know a fast algorithm to solve it. The \emph{discrete
-logarithm assumption} says that no such algorithm exists.
+Experience suggests that the discrete logarithm problem is hard:
+In general, we do not know a fast algorithm to solve it.
+The \alert{discrete logarithm assumption} says that no such algorithm exists.
 \end{assumption}
 
 In other words, if one only sees $g \in E$ and $n \cdot g \in E$,
@@ -275,61 +195,60 @@ consider \(O( \log n )\) operations like this to be quite
 tolerable.
 
 \subsection{Curves other than BN254}
-
 We comment briefly on how the previous definitions adapt to other
 curves, although readers could get away with always assuming $E$ is
 BN254 if they prefer.
 
 In general, we could have chosen for $E$ any equation of the form
 $Y^{2} = X^{3} + aX + b$ and chosen any prime $p \geq 5$ such that a
-nondegeneracy constraint $4a^{3} + 27b^{2} \not \equiv 0\operatorname{mod}p$
-holds. In such a situation, \(E( {\mathbb{F}}_{p} )\) will
-indeed be an abelian group once the identity element \(O = (0,\infty)\)
-is added in.
+nondegeneracy constraint $4a^{3} + 27b^{2} \not \equiv 0 \pmod p$ holds.
+In such a situation, $E( {\mathbb{F}}_{p} )$ will
+indeed be an abelian group once the identity element $O = (0,\infty)$ is added in.
 
-How large is \(E( {\mathbb{F}}_{p} )\)? There is a theorem
-called Hasse's theorem\footurl{https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves}
+How large is $E( {\mathbb{F}}_{p} )$?
+There is a theorem called Hasse's theorem\footurl{https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves}
 that states the number of points in \(E( {\mathbb{F}}_{p} )\)
 is between $p + 1 - 2\sqrt{p}$ and $p + 1 + 2\sqrt{p}$. But there is
-no promise that \(E( {\mathbb{F}}_{p} )\) will be
-\emph{prime}; consequently, it may not be a cyclic group either. So
-among many other considerations, the choice of constants in BN254 is
+no promise that $E( {\mathbb{F}}_{p} )$ will be \emph{prime};
+consequently, it may not be a cyclic group either.
+So among many other considerations, the choice of constants in BN254 is
 engineered to get a prime order.
 
 There are other curves used in practice for which
-\(E( {\mathbb{F}}_{p} )\) is not a prime, but rather a small
-multiple of a prime. The popular Curve25519\footurl{https://en.wikipedia.org/wiki/Curve25519}
-is such a curve that is also believed to satisfy
-Assumption \ref{tcb:ddh}. Curve25519 is defined as
-\[Y^{2} = X^{3} + 486662X^{2} + X\] over ${\mathbb{F}}_{p}$ for the
-prime $p := 2^{255} - 19$. Its order is $8$ times a large prime
-\[q' := 2^{252} + 27742317777372353535851937790883648493.\] In that case,
-to generate a random point on Curve25519 with order $q'$, one will
-usually take a random point on the curve and multiply it by $8$.
+$E( {\mathbb{F}}_{p} )$ is not a prime,
+but rather a small multiple of a prime.
+The popular Curve25519\footurl{https://en.wikipedia.org/wiki/Curve25519}
+is such a curve that is also believed to satisfy Assumption \ref{tcb:ddh}.
+Curve25519 is defined as
+\[ Y^{2} = X^{3} + 486662X^{2} + X \]
+over ${\mathbb{F}}_{p}$ for the
+prime $p \defeq 2^{255} - 19$. Its order is $8$ times a large prime
+\[q' \defeq= 2^{252} + 27742317777372353535851937790883648493. \]
+In that case, to generate a random point on Curve25519 with order $q'$,
+one will usually take a random point on the curve and multiply it by $8$.
 
 BN254 is also engineered to have a property called
 \emph{pairing-friendliness}, which is defined in Section \ref{pairing-friendly} when
 we need it later. (In contrast, Curve25519 does not have this property.)
 
 \subsection{Example application: EdDSA signature scheme}\label{eddsa}
-
 We will show how Assumption \ref{tcb:ddh} can be used to construct a
-signature scheme that replaces RSA. This scheme is called
-EdDSA,\footurl{https://en.wikipedia.org/wiki/EdDSA} and it is used
-quite frequently (e.g., in OpenSSH and GnuPG). One advantage it has over
-RSA is that its key size is much smaller: both the public and private
-key are 256 bits. (In contrast, RSA needs 2048-4096 bit keys for
-comparable security.)
+signature scheme that replaces RSA.
+This scheme is called EdDSA,\footurl{https://en.wikipedia.org/wiki/EdDSA}
+and it is used quite frequently (e.g., in OpenSSH and GnuPG).
+One advantage it has over RSA is that its key size is much smaller:
+both the public and private key are 256 bits.
+(In contrast, RSA needs 2048-4096 bit keys for comparable security.)
 
 \begin{definition}{}{armor}
 Let $E$ be an elliptic curve and let $g \in E$
 be a fixed point on it of prime order $q \approx 2^{254}$.
 For $n \in \ZZ$ (equivalently $n \in \FF_q$) we define
-\[ [n] := n \cdot g \in E. \]
+\[ [n] \defeq n \cdot g \in E. \]
 \end{definition}
 
 The hardness of the discrete logarithm means that, given
-$[ n]$, we cannot get $n$. You can almost think of the
+$[n]$, we cannot get $n$. You can almost think of the
 notation as an ``armor'' on the integer $n$: It conceals the integer,
 but still allows us to perform (armored) addition:
 \[[ a + b] = [ a] + [ b].\] In other
@@ -465,3 +384,76 @@ commitment easily.
 
 We will not use Pedersen commitments in this book, but they will be
 closely related to KZG.
+
+\subsection{Appendix: Elliptic curve multiplication}
+\label{appendix-ec-mult}
+So, let us get started. The equation of $E$ is cubic -- the
+highest-degree terms have degree $3$. This means that (in general) if
+you take a line $y = mx + b$ and intersect it with $E$, the line
+will meet $E$ in exactly three points. The basic idea behind the group
+law is: If $P,Q,R$ are the three intersection points of a line (any
+line) with the curve $E$, then the group-law addition of the three
+points is \[P + Q + R = O.\]
+
+(You might be wondering how we can do geometry when the coordinates
+$x$ and $y$ are in a finite field. It turns out that all the
+geometric operations we are describing -- like finding the intersection
+of a curve with a line -- can be translated into algebra, and then you
+just do the algebra in your finite field. We will come back to this.)
+
+Why three points? Algebraically, if you take the equations
+$Y^{2} = X^{3} + 3$ and $Y = mX + b$ and try to solve them, you get
+\[(mX + b)^{2} = X^{3} + 3,\] which is a degree-3 polynomial in $X$,
+so it has (at most) three roots. In fact if it has two roots, it is
+guaranteed to have a third (because you can factor out the first two
+roots, and then you are left with a linear factor).
+
+Now given two points $P$ and $Q$, how do we find their sum
+$P + Q$? We can draw the line through the two points. That line --
+like any line -- will intersect $E$ in three points: $P$, $Q$, and
+a third point $R$. Now since $P + Q + R = 0$, we know that
+\[- R = P + Q.\]
+
+So now the question is just: how to find $- R$? Well, it turns out
+that if \(R = ( x_{R},y_{R} )\), then
+\[- R = ( x_{R}, - y_{R} ).\] Why is this? If you take the
+vertical line $X = x_{R}$, and try to intersect it with the curve, it
+looks like there are only two intersection points. After all, we are
+solving \[Y^{2} = x_{R}^{3} + 3,\] and since $x_{R}$ is fixed now,
+this equation is quadratic. The two roots are $Y = \pm y_{R}$.
+
+There are only two intersection points, but we say that the third
+intersection point is ``the point at infinity'' $O$. (The reason for
+this lies in projective geometry, but we will not get into it.) So the
+group law here tells us
+\[( x_{R},y_{R} ) + ( x_{R}, - y_{R} ) + O = O.\]
+And since $O$ is the identity, we get
+\[- R = ( x_{R}, - y_{R} ).\]
+
+So:
+
+\begin{itemize}
+\item
+  Given a point \(P = ( x_{P},y_{P} )\), its negative is just
+  \(- P = ( x_{P}, - y_{P} )\).
+\item
+  To add two points $P$ and $Q$, compute the line through the two
+  points, let $R$ be the third intersection of that line with $E$,
+  and set \[P + Q = - R.\]
+\end{itemize}
+
+We just described the group law as a geometric thing, but there are
+algebraic formulas to compute it as well. They are kind of a mess, but
+here goes.
+
+If \(P = ( x_{P},y_{P} )\) and
+\(Q = ( x_{Q},y_{Q} )\), then the line between the two points
+is $Y = mX + b$, where \[m = \frac{y_{Q} - y_{P}}{x_{Q} - x_{P}}\] and
+\[b = y_{P} - mx_{P}.\]
+
+The third intersection is \(R = ( x_{R},y_{R} )\), where
+\[x_{R} = m^{2} - x_{P} - x_{Q}\] and \[y_{R} = mx_{R} + b.\]
+
+There are separate formulas to deal with various special cases (if
+$P = Q$, you need to compute the tangent line to $E$ at $P$, for
+example), but we will not get into it.

@@ -1,5 +1,4 @@
 \section{Garbled circuits}
-
 Imagine Alice and Bob each have some secret values $a$ and $b$, and
 would like to jointly compute some function $f$ over their respective
 inputs. Furthermore, they would like to keep their secret values hidden
@@ -8,42 +7,33 @@ should both end up learning the correct value of \(f(a,b)\), but Alice
 should not learn anything about $b$ (other than what could be learned
 by knowing both $a$ and \(f(a,b)\)), and likewise for Bob.
 
-Yao's garbled circuits is one of the most well-known 2PC protocols. The
-protocol is quite clever, and optimized variants of the protocol are
-being implemented and used today.\footurl{https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble}
-
-\subsection{The problem}\label{the-problem}
-
 Here is our problem setting, slightly more formally:
-
 \begin{itemize}
-\item
-  Alice knows a secret bitstring $a$ of length $m$ bits.
-\item
-  Bob knows a secret bitstring $b$ of length $n$ bits.
-\item
-  $f$ is a binary circuit, which takes in $m + n$ bits, and runs
+\item Alice knows a secret bitstring $a$ of length $m$ bits.
+\item Bob knows a secret bitstring $b$ of length $n$ bits.
+\item $f$ is a binary circuit, which takes in $m + n$ bits, and runs
   them through some $k$ gates. The outputs of some of the gates are
   the public outputs of the circuit. Without loss of generality, let us
   also suppose that each gate in $f$ accepts either $1$ or $2$
   input bits, and outputs a single output bit.
-\item
-  Alice and Bob would like to jointly compute \(f(a,b)\) without
+\item Alice and Bob would like to jointly compute $f(a,b)$ without
   revealing their secrets to each other.
 \end{itemize}
 
-\subsection{Outline of solution}
+Yao's garbled circuits is one of the most well-known 2PC protocols.
+The protocol is quite clever,
+and optimized variants of the protocol are
+being implemented and used today.\footurl{https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble}
 
+\subsection{Outline of solution}
 Our solution will contain two key components:
 
 \begin{itemize}
-\item
-  Alice constructs a \emph{garbled circuit} that takes in the value
-  $b$ (whatever it is) and spits out \(f(a,b)\). A \emph{garbled
-  circuit}, roughly speaking, is an ``encrypted'' circuit that takes
+\item Alice constructs a \alert{garbled circuit} that takes in the value
+  $b$ (whatever it is) and spits out \(f(a,b)\).
+  A garbled circuit, roughly speaking, is an ``encrypted'' circuit that takes
   encrypted input and creates encrypted output.
-\item
-  An \emph{oblivious transfer} is a protocol where Alice has two
+\item An \alert{oblivious transfer} is a protocol where Alice has two
   messages, $m_{0}$ and $m_{1}$. Bob can get exactly one of them,
   $m_{i}$, without letting Alice know what $i$ is. In this context,
   Alice ends up sending Bob a password for his input in a way that Bob
@@ -52,7 +42,6 @@ Our solution will contain two key components:
 \end{itemize}
 
 In slightly more detail:
-
 \begin{enumerate}
 \item
   Whatever the function $f$ is, we will assume that it takes $m + n$
@@ -88,15 +77,15 @@ In slightly more detail:
 We now flesh out this outline, starting with garbled circuits.
 
 \subsection{Garbled gates}
-
-Our garbled circuits are going to be built out of \emph{garbled gates}.
+Our garbled circuits are going to be built out of \alert{garbled gates}.
 A garbled gate is like a traditional gate (like AND, OR, NAND, NOR),
 except its functionality is hidden.
 
 What does that mean? Let us say the gate has two input bits, so there
-are four possible inputs to the gate: \((0,0),(0,1),(1,0),(1,1)\). For
-each of those four inputs \((x,y)\), there is a secret password
-$P_{x,y}$. The gate $G$ will only reveal its value \(G(x,y)\) if you
+are four possible inputs to the gate: $(0,0),(0,1),(1,0),(1,1)$.
+For each of those four inputs $(x,y)$,
+there is a secret password $P_{x,y}$.
+The gate $G$ will only reveal its value $G(x,y)$ if you
 give it the password $P_{x,y}$.
 
 Here is a natural approach to make a garbled gate. Choose a
@@ -154,7 +143,7 @@ will need to make two changes to the protocol.
   This is an easy fix: Instead of having the gate output both the bit
   $z$ and the password $P_{z}$, we will have the gate just output
   $P_{z}$.
-  
+
   \end{enumerate}
 
   But now how does Bob know what values to feed into the next gate? The
@@ -179,7 +168,7 @@ will need to make two changes to the protocol.
   version of our garbled gate. For simplicity, we will assume it is an
   AND gate -- so the outputs will be (the passwords encoding) 0, 0, 0,
   1.
-  
+
 
 \begin{center}
 \begin{tabular}{|c|c|}
