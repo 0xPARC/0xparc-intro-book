@@ -12,7 +12,7 @@ $\FF_{q}$}. In other words, PLONK is going to give us the
 ability to prove that we have solutions to a system of quadratic
 equations. We state this formally as follows.
 
-\begin{proposition}{}{}
+\begin{goal}{}{}
   Suppose we have a system of $m$ equations in $k$ variables $x_{1},\ldots,x_{k}$:
   \begin{align*}
     Q_1( x_{1},\ldots,x_{k} ) & = 0 \\
@@ -26,7 +26,7 @@ equations. We state this formally as follows.
   I know $k - \ell$ values $x_{\ell + 1},\ldots,x_{k}$ such that
   (when you combine them with the $\ell$ public fixed values $x_{1},\ldots,x_{\ell}$)
   the $k$ values $x_{1},\ldots,x_{k}$ satisfy all $m$ quadratic equations.
-\end{proposition}
+\end{goal}
 
 This leads to the natural question of how a function like SHA-256 can be
 encoded into a system of quadratic equations. This process of encoding a
@@ -69,15 +69,14 @@ curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
 So, the first step in proving a claim like ``I have a message $M$ such
-that $\sha(M) = \ 0xa91af3ac...$'' is to translate the
-claim into a system of quadratic equations. This process is called
-``arithmetization.''
+that $\sha(M) = \mathtt{0xa91af3ac}\dots$'' is to translate the
+claim into a system of quadratic equations.
 
 One approach (suggested by Remark \ref{tcb:np-complete}) is
 to represent each bit involved in the calculation by a variable
 $x_{i}$ (which would then be constrained to be either 0 or 1 by an
 equation $x_{i}^{2} = x_{i}$). In this setup, the value $0xa91af3ac$
-would be represented by 32 public bits $x_{1},\ldots,x_{32}$; the
+would be represented by 32 public bits $x_{1}$, \dots, $x_{32}$; the
 unknown message $M$ would be represented by some private variables;
 and the calculation of $\sha$ would introduce a series
 of constraints, maybe involving some additional variables.

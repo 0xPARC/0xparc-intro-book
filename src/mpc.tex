@@ -8,6 +8,7 @@ should not learn anything about $b$ (other than what could be learned
 by knowing both $a$ and $f(a,b)$), and likewise for Bob.
 
 Here is our problem setting, slightly more formally:
+\begin{goal}{}{}
 \begin{itemize}
 \item Alice knows a secret bitstring $a$ of length $m$ bits.
 \item Bob knows a secret bitstring $b$ of length $n$ bits.
@@ -19,6 +20,8 @@ Here is our problem setting, slightly more formally:
 \item Alice and Bob would like to jointly compute $f(a,b)$ without
   revealing their secrets to each other.
 \end{itemize}
+\end{goal}
+
 
 Yao's garbled circuits is one of the most well-known 2PC protocols.
 The protocol is quite clever,

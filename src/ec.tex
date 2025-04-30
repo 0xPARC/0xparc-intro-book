@@ -1,5 +1,3 @@
-
-
 Before we talk about SNARKs (specifically, PLONK), it helps to separate
 out an ingredient that underlies much of programmable cryptography,
 which is the idea of a \emph{polynomial commitment}. Specifically, we
@@ -385,8 +383,13 @@ commitment easily.
 We will not use Pedersen commitments in this book, but they will be
 closely related to KZG.
 
-\subsection{Appendix: Elliptic curve multiplication}
+\subsection{Appendix: The group law of an elliptic curve}
 \label{appendix-ec-mult}
+
+As promised in Section~\ref{ec},
+this optional appendix describes the details of the math
+behind the group law of the elliptic curve.
+
 So, let us get started. The equation of $E$ is cubic -- the
 highest-degree terms have degree $3$. This means that (in general) if
 you take a line $y = mx + b$ and intersect it with $E$, the line
@@ -433,11 +436,9 @@ And since $O$ is the identity, we get
 So:
 
 \begin{itemize}
-\item
-  Given a point $P = ( x_{P},y_{P} )$, its negative is just
+\item Given a point $P = ( x_{P},y_{P} )$, its negative is just
   $- P = ( x_{P}, - y_{P} )$.
-\item
-  To add two points $P$ and $Q$, compute the line through the two
+\item To add two points $P$ and $Q$, compute the line through the two
   points, let $R$ be the third intersection of that line with $E$,
   and set \[P + Q = - R.\]
 \end{itemize}

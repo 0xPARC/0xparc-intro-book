@@ -8,9 +8,9 @@ meaning that
 $[a + b] = [a] + [b]$, and $[na] = n [a]$.
 But as written we cannot do ``armored multiplication'':
 
-\begin{assumption}{}{}
+\begin{claim}{}{}
 As far as we know, given $[a]$ and $[b]$, one cannot easily compute $[a b]$.
-\end{assumption}
+\end{claim}
 
 On the other hand, it \textbf{does} turn out that we know a way to
 \textbf{verify} a claimed answer on certain curves. That is:
@@ -61,43 +61,35 @@ that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
 \end{remark}
 
 \subsection{Verifying more complicated claims}\label{pair-verify}
+We can verify more complicated claims as well by putting things together.
+For example, suppose Peggy wants to convince Victor that $y = x^{3} + 2$, where
+Peggy has sent Victor elliptic curve points $[x]$ and $[y]$.
 
-\begin{example}{}{}
-Suppose Peggy wants to convince Victor that $y = x^{3} + 2$, where
-Peggy has sent Victor elliptic curve points $[x]$ and
-$[y]$. To do this, Peggy additionally sends to Victor
-$[x^2]$ and
-$[x^3]$.
+\begin{example}{}{Verifying $y = x^3+2$ from $[x]$ and $[y]$}
+Peggy additionally sends to Victor $[x^2]$ and $[x^3]$.
 
-Given $[x]$, $[x^2]$,
-$[x^3]$, and $[y]$, Victor
-verifies that:
-
+Then given $[x]$, $[x^2]$, $[x^3]$, and $[y]$, Victor verifies that:
 \begin{itemize}
-\item
-  $\pair([x^{2}],[1]) = \pair([x],[x])$
-\item
-  $\pair([x^{3}],[1]) = \pair([x^2],[x])$
-\item
-  $[y] = [x^3] + 2[1]$.
+\item $\pair([x^{2}],[1]) = \pair([x],[x])$
+\item $\pair([x^{3}],[1]) = \pair([x^2],[x])$
+\item $[y] = [x^3] + 2[1]$.
 \end{itemize}
+\end{example}
 
 The process of verifying this sort of identity is quite general: The
 prover sends intermediate values as needed so that the verifier can
 verify the claim using only pairings and linearity.
-\end{example}
 
 \subsection{So which curves are pairing-friendly?}\label{pairing-friendly}
+This section is an aside explaining how the so-called
+embedding degree affects pairing, and can be skipped safely.
 
 If we chose $E$ to be BN254, the following property holds:
-
-\begin{proposition}{}{}
+\begin{proposition}{BN254 has embedding degree $12$}{}
 For $(p,q)$ as in BN254, the smallest integer $k$ such that $q$
 divides $p^{k} - 1$ is $k = 12$.
 \end{proposition}
-
-This integer $k$ is called the \alert{embedding degree}. This section
-is an aside explaining how the embedding degree affects pairing.
+This integer $k$ is called the \alert{embedding degree}.
 
 The pairing function $\pair(a,b)$ takes as input two
 points $a,b \in E$ on the elliptic curve, and spits out a value

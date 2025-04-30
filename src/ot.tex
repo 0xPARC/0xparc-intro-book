@@ -1,11 +1,15 @@
 \section{Oblivious transfer}\label{ot}
-
-Alice has $n$ messages $x_{1},\ldots,x_{n}$. We will assume the
+Consider this problem:
+\begin{goal}{}{}
+Alice has $n$ messages $x_{1}$, \dots, $x_{n}$. We will assume the
 messages are essentially unrelated to each other (since we could always
-pad them with random bits). Bob wants to request the $i$-th message,
-without letting Alice learn anything about the value of $i$. Alice
-wants to send Bob $x_{i}$, without letting him learn anything about
-the other $n - 1$ messages. An \alert{oblivious transfer (OT)} allows
+pad them with random bits).
+Bob wants to request the $i$-th message,
+without letting Alice learn anything about the value of $i$.
+Alice wants to send Bob $x_{i}$,
+without letting him learn anything about the other $n - 1$ messages.
+\end{goal}
+An \alert{oblivious transfer (OT)} allows
 Alice to transfer a single message to Bob, but she remains oblivious as
 to which message she has transferred. We will see two simple protocols
 to achieve this.
