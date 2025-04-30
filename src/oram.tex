@@ -429,11 +429,11 @@ argue correctness, we must argue why no overflow will ever occur except
 with negligible probability --- as long as the bucket size $Z$ is set
 appropriately.
 
-\begin{claim}{}{bucketsize}
-Bucket size and overflow probability: If the bucket size $Z$ is
+\begin{proposition}{Bucket size and overflow probability}{bucketsize}
+If the bucket size $Z$ is
 super-logarithmic in $N$, then over any polynomially many accesses, no
 bucket overflows except with negligible in $N$ probability.
-\end{claim}
+\end{proposition}
 
 \begin{proof}
 The full proof uses results from queueing theory,\footurl{https://en.wikipedia.org/wiki/Queueing\_theory}

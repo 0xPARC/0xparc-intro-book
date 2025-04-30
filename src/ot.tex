@@ -34,9 +34,9 @@ her lock and send it back to Bob, and then Bob removes his lock and
 recovers the message.
 
 Mathematically, you can get commutative encryption by working in a
-finite group (for example ${\mathbb{F}}_{p}^{\times}$, or an elliptic
-curve).
+finite group (for example ${\mathbb{F}}_{p}^{\times}$, or an elliptic curve).
 
+\begin{algo}{Commutative encryption using a finite group}{}
 \begin{enumerate}
 \item
   Alice's secret key is an integer $a$; she encrypts a message $g$
@@ -50,19 +50,39 @@ curve).
 \item
   Bob takes a $b$-th root, recovering $g$.
 \end{enumerate}
+\end{algo}
 
 \subsection{OT using commutative encryption}
-
 Our first oblivious transfer protocol is built on the commutative
 encryption we just described.
+Supposing, Alice has $n$ messages $x_{1},\ldots,x_{n}$, which we may as well
+assume are elements of the group $G$, here is how it goes:
 
-Alice has $n$ messages $x_{1},\ldots,x_{n}$, which we may as well
-assume are elements of the group $G$. Alice chooses a secret key
+\begin{algo}{OT using commutative encryption}{}
+Alice has $n$ messages $x_{1}$, \dots, $x_{n}$ which are elements of $G$.
+\begin{enumerate}
+\item Alice chooses a secret key $a$, encrypts each message,
+  and sends all $n$ ciphertexts to Bob in order.
+
+\item Bob takes the $i$-th ciphertext $\operatorname{Enc}_{a}( x_{i} )$,
+  adds his own layer of encryption onto it,
+  and sends the resulting doubly-encrypted message back to Alice:
+  \[ \operatorname{Enc}_{b}( \operatorname{Enc}_{a}( x_{i} ) ).\]
+
+\item Alice applies $\operatorname{Dec}_{a}$ to it and sends back to Bob;
+  because the encryption scheme is commutative, this gives
+  \[ \operatorname{Dec}_a( \operatorname{Enc}_{b}( \operatorname{Enc}_{a}( x_{i} ) )) =
+      \operatorname{Enc}_{b}( x_{i} ) \]
+
+\item Bob decrypts the message to learn $x_{i}$.
+\end{enumerate}
+\end{algo}
+
+Let's analyze this a bit more slowly, so we can see why the protocol is secure at each step.
+In the first step, Alice chooses a secret key
 $a$, encrypts each message, and sends all $n$ ciphertexts to Bob:
 \[\operatorname{Enc}_{a}( x_{1}),\ldots,\operatorname{Enc}_{a}( x_{n} ).\]
-
-But crucially, Alice sends the ciphertexts in order, so Bob knows which
-is which.
+Crucially, Alice sends the ciphertexts in order, so Bob knows which is which.
 
 At this point, Bob cannot read any of the messages, because he does not
 know the keys. No problem! Bob just picks out the $i$-th ciphertext
@@ -76,10 +96,8 @@ the message he encrypted -- even though it originally came from her.
 Nonetheless she can apply her own decryption method
 $\operatorname{Dec}_{a}$ to it. Since the encryption scheme is
 commutative, the result of Alice's decryption is simply
-\[\operatorname{Enc}_{b}( x_{i} ),\] which she sends back to
-Bob.
-
-And Bob decrypts the message to learn $x_{i}$.
+$\operatorname{Enc}_{b}( x_{i} )$, which she sends back to
+Bob.  And then Bob decrypts the message to learn $x_{i}$.
 
 \subsection{OT in one step}
 
@@ -130,6 +148,7 @@ that reads in a public key and spits out the corresponding private key.
 (Otherwise, the whole enterprise is doomed.) So Alice is guaranteed that
 Bob only knows how to decrypt (at most) one message.
 
+\begin{remark}{Homomorphic public key}{}
 In fact, some public-key cryptosystems (like ElGamal) have a sort of
 ``homomorphic'' property: If you know the private keys for two different
 public keys $b_{1}$ and $b_{2}$, then you can compute the private
@@ -139,3 +158,4 @@ key.) So, if Bob could dishonestly decrypt two of Alice's messages, he
 could compute the private key for the public key $r$. But $r$ is
 verifiably random, and it is very hard (we assume) for Bob to find a
 private key for a random public key.
+\end{remark}
