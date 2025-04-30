@@ -92,16 +92,16 @@ verify the claim using only pairings and linearity.
 If we chose $E$ to be BN254, the following property holds:
 
 \begin{proposition}{}{}
-For \((p,q)\) as in BN254, the smallest integer $k$ such that $q$
+For $(p,q)$ as in BN254, the smallest integer $k$ such that $q$
 divides $p^{k} - 1$ is $k = 12$.
 \end{proposition}
 
 This integer $k$ is called the \emph{embedding degree}. This section
 is an aside explaining how the embedding degree affects pairing.
 
-The pairing function \(\pair(a,b)\) takes as input two
+The pairing function $\pair(a,b)$ takes as input two
 points $a,b \in E$ on the elliptic curve, and spits out a value
-\(\pair(a,b) \in \FF_{p^{k}}^{\times}\) -- in
+$\pair(a,b) \in \FF_{p^{k}}^{\times}$ -- in
 other words, a nonzero element of the finite field of order $p^{k}$
 (where $k$ is the embedding degree we just defined). In fact, this
 element will always be a $q$-th root of unity in
@@ -115,7 +115,7 @@ work has gone into computing the pairings efficiently. (For more
 details, see these notes.\footurl{https://crypto.stanford.edu/pbc/notes/ep/pairing.html})
 
 The difficulty of computing these pairings is determined by the size of
-$k$: The values \(\pair(a,b)\) will be elements of a
+$k$: The values $\pair(a,b)$ will be elements of a
 field of size $p^{k}$, so they will require $256k$ bits even to
 store. For a curve to be ``pairing-friendly'' -- in order to be able to
 do pairing-based cryptography on it -- we need the value of $k$ to be

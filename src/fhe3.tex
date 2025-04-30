@@ -126,8 +126,8 @@ And you have to find this vector $\mathbf{x}'$ without knowing
 $a_{1}$.
 
 The solution is to use binary expansion: take
-\(\mathbf{x}' = (1,0,0,1)\). You should check for yourself to see why
-this works -- it boils down to the fact that \((1,0,0,1)\) is the binary
+$\mathbf{x}' = (1,0,0,1)$. You should check for yourself to see why
+this works -- it boils down to the fact that $(1,0,0,1)$ is the binary
 expansion of $9$.
 
 \begin{problem}{}{}
@@ -140,13 +140,13 @@ in your calculation, it is safe to reduce it mod 11.
 In general, if you know that $\mathbf{v}$ has the form in
 Equation \eqref{fhe-v-form} and you are given some matrix
 $C$ with coefficients in $\ZZ/q\ZZ$, then you can
-compute another matrix \(\Flatten(C)\) such that:
+compute another matrix $\Flatten(C)$ such that:
 
 \begin{itemize}
 \item
-  \(\Flatten(C)\mathbf{v} = C\mathbf{v}\), and
+  $\Flatten(C)\mathbf{v} = C\mathbf{v}$, and
 \item
-  All the entries of \(\Flatten(C)\) are either 0 or 1.
+  All the entries of $\Flatten(C)$ are either 0 or 1.
 \end{itemize}
 
 The $\Flatten$ process is essentially the same binary-expansion
@@ -194,13 +194,13 @@ $0$-$1$ matrix, and all entries of $\mathbf{\varepsilon}_{2}$ are
 bounded by $B$\ldots{} so the product has all entries bounded by
 $nB$. Adding this to the error for
 $\mu_{2}\mathbf{\varepsilon}_{1}$, we get that the total error in the
-product $C_{1}C_{2}\mathbf{v}$ is bounded by \((n + 1)B\).
+product $C_{1}C_{2}\mathbf{v}$ is bounded by $(n + 1)B$.
 
 In summary: We can start with ciphertexts having a very small error (if
 you think carefully about this protocol, you will see that the error is
 bounded by approximately $n\log q$). Every addition operation will
 double the error bound; every multiplication (AND gate) will multiply it
-by \((n + 1)\). And you cannot allow the error to exceed $q/2$ --
+by $(n + 1)$. And you cannot allow the error to exceed $q/2$ --
 otherwise the message cannot be decrypted. So you can perform
 calculations of up to approximately $\log_{n}q$ steps. (In fact, it is
 a question of \emph{circuit depth}: You can start with many more than

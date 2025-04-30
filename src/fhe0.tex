@@ -1,19 +1,19 @@
 \section{FHE and leveled FHE}\label{fhe-intro}
 
 Alice has a secret $x$, and Bob has a function $f$. They want to
-compute \(f(x)\). Actually, Alice wants Bob to compute \(f(x)\) -- but
+compute $f(x)$. Actually, Alice wants Bob to compute $f(x)$ -- but
 she does not want to tell him $x$. What Alice wants is a \emph{fully
 homomorphic encryption (FHE)} protocol, meaning:
 
 \begin{enumerate}
 \item
-  Alice encrypts $x$ and sends Bob \(\Enc(x)\).
+  Alice encrypts $x$ and sends Bob $\Enc(x)$.
 \item
   Bob then ``applies $f$ to the ciphertext'' and obtains
-  \(\Enc\left( f(x) \right)\), sending it to Alice.
+  $\Enc\left( f(x) \right)$, sending it to Alice.
 \item
-  Alice decrypts \(\Enc\left( f(x) \right)\) to learn
-  \(f(x)\).
+  Alice decrypts $\Enc\left( f(x) \right)$ to learn
+  $f(x)$.
 \end{enumerate}
 
 \emph{Leveled FHE} is a weaker version of FHE. Like FHE, leveled FHE

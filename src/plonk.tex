@@ -69,7 +69,7 @@ curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
 So, the first step in proving a claim like ``I have a message $M$ such
-that \(\sha(M) = \ 0xa91af3ac...\)'' is to translate the
+that $\sha(M) = \ 0xa91af3ac...$'' is to translate the
 claim into a system of quadratic equations. This process is called
 ``arithmetization.''
 
@@ -175,7 +175,7 @@ In PLONK, we will assume that $q \equiv 1 \pmod n$, which
 means that we can fix $\omega \in \FF_{q}$ to be a primitive
 $n$-th root of unity.
 
-Then, by polynomial interpolation, Peggy chooses polynomials \(A(X)\),
+Then, by polynomial interpolation, Peggy chooses polynomials $A(X)$,
 $B(X)$, and $C(X)$ in $\FF_{q}[X]$ such that
 \begin{equation}
 \label{plonk-setup}
@@ -201,8 +201,8 @@ Then:
   Peggy interpolates $A$, $B$, $C$ as in
   Equation \eqref{plonk-setup}.
 \item
-  Peggy sends \(\Com(A)\), \(\Com(B)\),
-  \(\Com(C)\) to Victor.
+  Peggy sends $\Com(A)$, $\Com(B)$,
+  $\Com(C)$ to Victor.
 \end{enumerate}
 \end{algo}
 
@@ -242,7 +242,7 @@ $Q_{\ast} \in \FF_{q}[X]$ from the $5n$
 Peggy uses Algorithm \ref{tcb:root-check} to convince Victor that
 Equation \eqref{plonk-gate} holds for $X = \omega^{i}$
 (that is, the left-hand side is indeed divisible by
-\(Z(X) \defeq X^{n} - 1\)).
+$Z(X) \defeq X^{n} - 1$).
 \end{enumerate}
 \end{algo}
 
@@ -262,8 +262,8 @@ witnesses are the values $a_{i}$, for all $i$ in some set $S$. (If
 some of the $b$`s and $c$`s are also public, we will just do the
 same thing for them.) The prover can interpolate another polynomial,
 $A^{\text{public}}$, such that
-\(A^{\text{public}}( \omega^{i} ) = a_{i}\) if $i \in S$,
-and \(A^{\text{public}}( \omega^{i} ) = 0\) if
+$A^{\text{public}}( \omega^{i} ) = a_{i}$ if $i \in S$,
+and $A^{\text{public}}( \omega^{i} ) = 0$ if
 $i \notin S$. Actually, both the prover and the verifier can compute
 $A^{\text{public}}$, since all the values $a_{i}$ are publicly
 known!

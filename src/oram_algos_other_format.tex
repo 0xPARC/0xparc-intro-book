@@ -3,12 +3,12 @@
 \iffalse
 \begin{algo}
 The procedure
-\(\texttt{Access}(\texttt{op},\texttt{addr},\texttt{data}^{*})\)
+$\texttt{Access}(\texttt{op},\texttt{addr},\texttt{data}^{*})$
 where $\texttt{op} = \texttt{read}$ or
 $\texttt{op} = \texttt{write}$
 
 \textbf{Assume:} Each block is of the form
-\(( \texttt{addr},\texttt{data},l )\) where
+$( \texttt{addr},\texttt{data},l )$ where
 $l$ denotes the block's current designated path.
 
 \begin{enumerate}
@@ -23,7 +23,7 @@ $l$ denotes the block's current designated path.
   \setcounter{enumii}{2}
   \item
     Scan $\texttt{bucket}$, and if
-    \(( \texttt{addr},\texttt{data}_{0},\_ ) \in \texttt{bucket}\)
+    $( \texttt{addr},\texttt{data}_{0},\_ ) \in \texttt{bucket}$
     then let
     $\texttt{data}^{*} \leftarrow \texttt{data}_{0}$ and
     remove this block from $\texttt{bucket}$.
@@ -32,9 +32,9 @@ $l$ denotes the block's current designated path.
   End for
 \item
   If $\texttt{op} = \texttt{read}$ then add
-  \(( \texttt{addr},\texttt{data}^{*},l^{*} )\)
+  $( \texttt{addr},\texttt{data}^{*},l^{*} )$
   to the root bucket; else add
-  \(( \texttt{addr},\texttt{data},l^{*} )\) to
+  $( \texttt{addr},\texttt{data},l^{*} )$ to
   the root bucket.
 \item
   Call the $\texttt{evict}$ subroutine.
@@ -68,7 +68,7 @@ The procedure $\texttt{evict}$
     \item
       $\textsf{block} \defeq$ pop a real block from
       $\textsf{bucket}$ if one exists; else
-      \(\textsf{block} \defeq (\bot,\bot,\bot)\).
+      $\textsf{block} \defeq (\bot,\bot,\bot)$.
     \item
       For each of the two children of $\texttt{bucket}$ in a
       fixed order: scan the child bucket reading and writing every

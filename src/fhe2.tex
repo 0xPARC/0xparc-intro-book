@@ -73,13 +73,13 @@ everybody, and they will not be able to determine the private key.
 Suppose you have a message $m \in \{ 0,5 \}$. (You will see
 in a moment why we insist that $m$ is one of these two values.) The
 ciphertext to encrypt $m$ will be a pair
-\(( \mathbf{x}:y )\), where $x$ is a vector, $y$ is a
+$( \mathbf{x}:y )$, where $x$ is a vector, $y$ is a
 scalar, and $\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m$, where
 $\epsilon$ is ``small''.
 
 How to do the encryption? If you are trying to encrypt, you only have
 access to the public key -- that list of pairs
-\(( \mathbf{x}:y )\) above. You want to make up your own
+$( \mathbf{x}:y )$ above. You want to make up your own
 $\mathbf{x}$, for which you know approximately the value
 $\mathbf{x} \cdot \mathbf{a}$. You could just take one of the vectors
 $\mathbf{x}$ from the table, but that would not be very secure: If I
@@ -95,10 +95,10 @@ $m$ is either $0$ or $5$ (and we are working modulo $q = 11$),
 that is just enough to determine $m$ uniquely.
 
 So, here is the method. You choose at random four (or fewer) rows of the
-table, and add them up to get a pair \(( \mathbf{x}:y_{0} )\)
+table, and add them up to get a pair $( \mathbf{x}:y_{0} )$
 with $\mathbf{x} \cdot \mathbf{a} \approx y_{0}$. Then you take
 $y = y_{0} - m$ (mod $q = 11$ of course), and send the message
-\(( \mathbf{x}:y )\).
+$( \mathbf{x}:y )$.
 
 \subsection{An example}\label{an-example}
 
@@ -175,7 +175,7 @@ $q = 2^{\sqrt{n}}$. In fact, to do FHE, we are going to want to take
 $q$ pretty big, so you should imagine that $q \approx 2^{\sqrt{n}}$.
 
 For security, instead of adding $4$ rows of the public key, we want to
-add at least \(\log( q^{n} ) = n\log q\) rows. To be safe,
+add at least $\log( q^{n} ) = n\log q$ rows. To be safe,
 maybe a little bigger, say $N = 2n\log q$ (of course, for this to
 work, the public key has to have at least $N$ rows). The encryption
 algorithm will be ``select some subset of the rows at random, and add

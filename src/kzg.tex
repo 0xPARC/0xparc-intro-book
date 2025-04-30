@@ -17,10 +17,10 @@ following API:
   \begin{itemize}
   \item
     Victor has an input $z \in \FF_{q}$ and wants to know
-    \(P(z)\).
+    $P(z)$.
   \item
-    Peggy knows $P$ so she can compute \(P(z)\); she sends the
-    resulting number \(y = P(z)\) to Victor.
+    Peggy knows $P$ so she can compute $P(z)$; she sends the
+    resulting number $y = P(z)$ to Victor.
   \item
     Peggy can then send a short ``proof'' convincing Victor that $y$
     is the correct value, without having to reveal $P$.
@@ -73,7 +73,7 @@ is if all the ``trusted parties'' collude.
 
 \subsection{The KZG commitment scheme}
 
-Peggy has a polynomial \(P(X) \in \FF_{p}[X]\). To
+Peggy has a polynomial $P(X) \in \FF_{p}[X]$. To
 commit to it:
 
 \begin{algo}{Creating a KZG commitment}{}
@@ -87,7 +87,7 @@ This computation is possible as $[s^i]$ are
 globally known.
 
 Now consider an input $z \in \FF_{p}$; Victor wants to know the
-value of \(P(z)\). If Peggy wishes to convince Victor that \(P(z) = y\),
+value of $P(z)$. If Peggy wishes to convince Victor that $P(z) = y$,
 then:
 
 \begin{algo}{Opening a KZG commitment}{}
@@ -112,7 +112,7 @@ and accepts if and only if Equation \eqref{kzg-verify} is true.
 
 If Peggy is truthful, then Equation \eqref{kzg-verify} will certainly check out.
 
-If \(y \neq P(z)\), then Peggy cannot do the polynomial long division
+If $y \neq P(z)$, then Peggy cannot do the polynomial long division
 described above. So to cheat Victor, she needs to otherwise find an
 element
 \[\frac{1}{s - x}( [ P(s) ] - [y] ) \in E.\]
@@ -122,17 +122,17 @@ this.
 \subsection{Multi-openings}\label{multi-openings}
 
 To reveal $P$ at a single value $z$, we did polynomial division to
-divide \(P(X)\) by $X - z$. But there is no reason we have to restrict
+divide $P(X)$ by $X - z$. But there is no reason we have to restrict
 ourselves to linear polynomials; this would work equally well with
 higher-degree polynomials, while still using only a single 256-bit curve
 point for the proof.
 
-For example, suppose Peggy wanted to prove that \(P(1) = 100\),
-\(P(2) = 400\), \ldots, \(P(9) = 8100\). (We chose these numbers so that
-\(P(X) = 100X^{2}\) for $X = 1,\ldots,9$.)
+For example, suppose Peggy wanted to prove that $P(1) = 100$,
+$P(2) = 400$, \ldots, $P(9) = 8100$. (We chose these numbers so that
+$P(X) = 100X^{2}$ for $X = 1,\ldots,9$.)
 
 Evaluating a polynomial at $1,2,\ldots,9$ is essentially the same as
-dividing by \((X - 1)(X - 2)\cdots(X - 9)\) and taking the remainder. In
+dividing by $(X - 1)(X - 2)\cdots(X - 9)$ and taking the remainder. In
 other words, if Peggy does a polynomial long division, she will find
 that
 \[P(X) = Q(X)( (X - 1)(X - 2)\ldots(X - 9) ) + 100X^{2.}\]
@@ -145,18 +145,18 @@ The full generality just replaces the $100X^{2}$ with the polynomial
 obtained from Lagrange interpolation\footurl{https://en.wikipedia.org/wiki/Lagrange\_polynomial}
 (there is a unique such polynomial $f$ of degree $n - 1$). To spell
 this out, suppose Peggy wishes to prove to Victor that
-\(P( z_{i} ) = y_{i}\) for $1 \leq i \leq n$.
+$P( z_{i} ) = y_{i}$ for $1 \leq i \leq n$.
 
 \begin{algo}{Opening a KZG commitment at $n$ values}{}
 \begin{enumerate}
 \item
-  By Lagrange interpolation, both parties agree on a polynomial \(f(X)\)
-  such that \(f( z_{i} ) = y_{i}\).
+  By Lagrange interpolation, both parties agree on a polynomial $f(X)$
+  such that $f( z_{i} ) = y_{i}$.
 \item
-  Peggy does polynomial long division to get \(Q(X)\) such that
+  Peggy does polynomial long division to get $Q(X)$ such that
   \[P(X) - f(X) = ( X - z_{1} )( X - z_{2} )\cdots( X - z_{n} ) \cdot Q(X).\]
 \item
-  Peggy sends the single element \([ Q(s) ]\) as
+  Peggy sends the single element $[ Q(s) ]$ as
   her proof.
 \item
   Victor verifies
@@ -184,23 +184,23 @@ the equation $P_1(z) = P_2(z)$ holds for all $z$ in some large finite set $S$.
 \end{problem}
 
 Peggy just needs to show that $P_{1} - P_{2}$ is divisible by
-\(Z(X) \defeq \prod_{z \in S}(X - z)\). This can be done by committing the
+$Z(X) \defeq \prod_{z \in S}(X - z)$. This can be done by committing the
 quotient \[H(X) \defeq \frac{P_{1}(X) - P_{2}(X)}{Z(X)}.\] Victor then gives
 a random challenge $\lambda \in \FF_{q}$, and then Peggy opens
-\(\Com( P_{1} )\),
-\(\Com( P_{2} )\), and \(\Com(H)\) at
+$\Com( P_{1} )$,
+$\Com( P_{2} )$, and $\Com(H)$ at
 $\lambda$.
 
 But we can actually do this more generally with \emph{any} polynomial
 expression $F$ in place of $P_{1} - P_{2}$, as long as Peggy has a
 way to prove the values of $F$ are correct. As an artificial example,
-if Peggy has sent Victor \(\Com( P_{1} )\) through
-\(\Com( P_{6} )\), and wants to show that
+if Peggy has sent Victor $\Com( P_{1} )$ through
+$\Com( P_{6} )$, and wants to show that
 \[P_{1}(42) + P_{2}(42)P_{3}(42)^{4} + P_{4}(42)P_{5}(42)P_{6}(42) = 1337,\]
 she could define
 \[F(X) \defeq P_{1}(X) + P_{2}(X)P_{3}(X)^{4} + P_{4}(X)P_{5}(X)P_{6}(X) - 1337\]
 and run the same protocol with this $F$. This means she does not have
-to reveal any \(P_{i}(42)\), which is great!
+to reveal any $P_{i}(42)$, which is great!
 
 To be fully explicit, here is the algorithm:
 
@@ -213,7 +213,7 @@ $S \subseteq \FF_{q}$.
 \begin{enumerate}
 \item
   If she has not already done so, Peggy sends to Victor a commitment
-  \(\Com(F)\) to $F$.\footnote{In fact, it is enough for
+  $\Com(F)$ to $F$.\footnote{In fact, it is enough for
     Peggy to have some way to prove to Victor the values of $F$.
 
     So for example, if $F$ is a product of two polynomials
@@ -221,22 +221,22 @@ $S \subseteq \FF_{q}$.
     $F_{1}$ and $F_{2}$, then there is no need for Peggy to commit
     to $F$.
 
-    Instead, in Step 5 below, Peggy opens \(\Com(F_{1})\)
-    and \(\Com(F_{2})\) at $\lambda$, and that proves to
-    Victor the value of \(F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)\).}
+    Instead, in Step 5 below, Peggy opens $\Com(F_{1})$
+    and $\Com(F_{2})$ at $\lambda$, and that proves to
+    Victor the value of $F(\lambda) = F_{1}(\lambda)F_{2}(\lambda)$.}
 \item
   Both parties compute the polynomial
   \[ Z(X) \defeq \prod_{z \in S}(X - z) \in \FF_{q}[X]. \]
 \item
   Peggy does polynomial long division to compute
-  \(H(X) = \frac{F(X)}{Z(X)}\).
+  $H(X) = \frac{F(X)}{Z(X)}$.
 \item
-  Peggy sends \(\Com(H)\).
+  Peggy sends $\Com(H)$.
 \item
   Victor picks a random challenge $\lambda \in \FF_{q}$ and
-  asks Peggy to open \(\Com(H)\) at $\lambda$, as well
+  asks Peggy to open $\Com(H)$ at $\lambda$, as well
   as the value of $F$ at $\lambda$.
 \item
-  Victor verifies \(F(\lambda) = Z(\lambda)H(\lambda)\).
+  Victor verifies $F(\lambda) = Z(\lambda)H(\lambda)$.
 \end{enumerate}
 \end{algo}

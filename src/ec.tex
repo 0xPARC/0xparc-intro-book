@@ -44,7 +44,7 @@ before we get to the problem, we need to introduce some of the math
 behind elliptic curves.
 
 An \alert{elliptic curve} is a set of points with a group operation. The
-set of points is the set of solutions \((x,y)\) to an equation in two
+set of points is the set of solutions $(x,y)$ to an equation in two
 variables; the group operation is a rule for ``adding'' two of the
 points to get a third point. Our first task will be to understand what
 all this means. Rather than set up a general definition of elliptic
@@ -89,7 +89,7 @@ The constants $p$ and $q$ are contrived so that the following holds:
 
 \begin{theorem}{BN254 has prime order}{}
   Let $E$ be the BN254 curve. The number of
-  points in \(E( \FF_{p} )\), including the point at
+  points in $E( \FF_{p} )$, including the point at
   infinity $O$, is a prime $q \approx 2^{254}$.
 \end{theorem}
 
@@ -176,7 +176,7 @@ We will never use this multiplicative notation in these notes.
 \end{remark}
 
 On the other hand, given $g \in E$, one can compute $n \cdot g$ in
-just \(O( \log n )\) operations, by repeated
+just $O( \log n )$ operations, by repeated
 squaring.\footurl{https://en.wikipedia.org/wiki/Exponentiation\_by\_squaring}
 For example, to compute $400g$, one only needs to do $10$ additions,
 rather than $400$: One starts with \[\begin{aligned}
@@ -191,7 +191,7 @@ rather than $400$: One starts with \[\begin{aligned}
 \end{aligned}\] and then computes \[400g = 256g + 128g + 16g.\]
 
 Because we think of $n$ as up to $q \approx 2^{254}$-ish in size, we
-consider \(O( \log n )\) operations like this to be quite
+consider $O( \log n )$ operations like this to be quite
 tolerable.
 
 \subsection{Curves other than BN254}
@@ -207,7 +207,7 @@ indeed be an abelian group once the identity element $O = (0,\infty)$ is added i
 
 How large is $E( \FF_{p} )$?
 There is a theorem called Hasse's theorem\footurl{https://en.wikipedia.org/wiki/Hasse's_theorem_on_elliptic_curves}
-that states the number of points in \(E( \FF_{p} )\)
+that states the number of points in $E( \FF_{p} )$
 is between $p + 1 - 2\sqrt{p}$ and $p + 1 + 2\sqrt{p}$. But there is
 no promise that $E( \FF_{p} )$ will be \emph{prime};
 consequently, it may not be a cyclic group either.
@@ -290,12 +290,12 @@ Suppose Alice wants to sign a message $\textsf{msg}$.
 \end{enumerate}
 
 In other words, the signature is the ordered pair
-\(( [r],s )\).
+$( [r],s )$.
 \end{algo}
 
 \begin{algo}{EdDSA signature verification}{}
 For Bob to verify a signature
-\(( [r],s )\) for $\textsf{msg}$:
+$( [r],s )$ for $\textsf{msg}$:
 
 \begin{enumerate}
 \item
@@ -317,7 +317,7 @@ The number $r$ is called a \emph{blinding factor} because its use
 prevents Bob from stealing Alice's secret key $d$ from the published
 $s$. It is therefore imperative that $r$ is not known to Bob nor
 reused between signatures, and so on. One way to do this would be to
-pick \(r = \hash(d,\textsf{msg})\); this has the
+pick $r = \hash(d,\textsf{msg})$; this has the
 bonus that it is deterministic as a function of the message and signer.
 
 In Section \ref{kzg} we will use ideas quite similar to this to build the KZG
@@ -328,11 +328,11 @@ commitment scheme.
 
 A \emph{commitment scheme} is a protocol where Alice wants to commit
 some value $x$ to Bob that is later revealed. Typically Alice gives
-Bob some ``commitment'' \(\Com(x)\) and later reveals
+Bob some ``commitment'' $\Com(x)$ and later reveals
 $x$. What we want is that this protocol is both \emph{binding} (Alice
 cannot change her mind about $x$ depending on Bob's later actions) and
 \emph{hiding} (Bob does not get any information about $x$ from
-\(\Com(x)\)). The KZG scheme we are building towards will
+$\Com(x)$). The KZG scheme we are building towards will
 be a commitment scheme for polynomials, but we can already use elliptic
 curves to commit \textbf{numbers} with something called a Pedersen
 commitment, which we will now describe.
@@ -340,7 +340,7 @@ commitment, which we will now describe.
 A multivariable generalization of Assumption \ref{tcb:ddh} is that if
 $g_{1},\ldots,g_{n} \in E$ are a bunch of randomly chosen points of
 $E$ with order $q$, then it is computationally infeasible to find
-\(( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in \FF_{q}^{n}\)
+$( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in \FF_{q}^{n}$
 such that
 \[a_{1}g_{1} + \cdots + a_{n}g_{n} = b_{1}g_{1} + \cdots + b_{n}g_{n}.\]
 (Remember that $q \approx 2^{256}$ is very large.)
@@ -415,7 +415,7 @@ a third point $R$. Now since $P + Q + R = 0$, we know that
 \[- R = P + Q.\]
 
 So now the question is just: how to find $- R$? Well, it turns out
-that if \(R = ( x_{R},y_{R} )\), then
+that if $R = ( x_{R},y_{R} )$, then
 \[- R = ( x_{R}, - y_{R} ).\] Why is this? If you take the
 vertical line $X = x_{R}$, and try to intersect it with the curve, it
 looks like there are only two intersection points. After all, we are
@@ -434,8 +434,8 @@ So:
 
 \begin{itemize}
 \item
-  Given a point \(P = ( x_{P},y_{P} )\), its negative is just
-  \(- P = ( x_{P}, - y_{P} )\).
+  Given a point $P = ( x_{P},y_{P} )$, its negative is just
+  $- P = ( x_{P}, - y_{P} )$.
 \item
   To add two points $P$ and $Q$, compute the line through the two
   points, let $R$ be the third intersection of that line with $E$,
@@ -446,12 +446,12 @@ We just described the group law as a geometric thing, but there are
 algebraic formulas to compute it as well. They are kind of a mess, but
 here goes.
 
-If \(P = ( x_{P},y_{P} )\) and
-\(Q = ( x_{Q},y_{Q} )\), then the line between the two points
+If $P = ( x_{P},y_{P} )$ and
+$Q = ( x_{Q},y_{Q} )$, then the line between the two points
 is $Y = mX + b$, where \[m = \frac{y_{Q} - y_{P}}{x_{Q} - x_{P}}\] and
 \[b = y_{P} - mx_{P}.\]
 
-The third intersection is \(R = ( x_{R},y_{R} )\), where
+The third intersection is $R = ( x_{R},y_{R} )$, where
 \[x_{R} = m^{2} - x_{P} - x_{Q}\] and \[y_{R} = mx_{R} + b.\]
 
 There are separate formulas to deal with various special cases (if

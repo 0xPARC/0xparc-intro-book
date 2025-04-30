@@ -93,8 +93,8 @@ algorithm will support $N$ blocks of logical memory.
 
 Formally, the user sends to the algorithm a sequence of \emph{logical}
 requests, where each logical request is of the form
-\((\texttt{read},\texttt{addr})\) or
-\((\texttt{write}, \texttt{addr}, \texttt{data})\).
+$(\texttt{read},\texttt{addr})$ or
+$(\texttt{write}, \texttt{addr}, \texttt{data})$.
 
 After each user request, the ORAM algorithm interacts with the server to
 make a sequence of \emph{physical} memory accesses, where each physical
@@ -202,7 +202,7 @@ For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
 somewhat large position map that records the designated path of every
 block. In general, such a position map would require roughly
-\(\Theta( N\log N )\) bits to store --- but later we can
+$\Theta( N\log N )$ bits to store --- but later we can
 recursively outsource the storage of the position map to the server by
 placing position maps in progressively smaller ORAMs.
 
@@ -449,7 +449,7 @@ knowledge.
 \item
   There are $N$ leaf buckets, and $N$ blocks are assigned to them at
   random. We leave it as an exercise to check that the probability that
-  more than \(( \log N )^{2}\) blocks are assigned to any one
+  more than $( \log N )^{2}$ blocks are assigned to any one
   leaf is negligible than $N$ (in other words: decays faster than
   $N^{k}$, for every $k$).
 \item
@@ -497,23 +497,23 @@ we simply store it in a smaller ORAM denoted
 $\textsf{posORAM}_{1}$ on the server. The position map of
 $\textsf{posORAM}_{1}$ will then be stored in an even smaller
 ORAM denoted $\textsf{posORAM}_{2}$ on the server, and so on.
-As long as the block size is at least \(\Omega( \log N )\)
+As long as the block size is at least $\Omega( \log N )$
 bits, every time we recurse, the ORAM's size reduces by a constant
-factor; and thus \(O( \log N )\) levels of recursion would
+factor; and thus $O( \log N )$ levels of recursion would
 suffice.
 
 We can thus conclude with the following theorem.
 \footurl{https://eprint.iacr.org/2011/407.pdf}
 
 \begin{theorem}{Binary-tree ORAM}{}
-  For any super-constant function \(\alpha( \cdot )\), there is an ORAM scheme
-  that achieves \(O( \alpha\log^{3}N )\) cost for each access:
+  For any super-constant function $\alpha( \cdot )$, there is an ORAM scheme
+  that achieves $O( \alpha\log^{3}N )$ cost for each access:
   each logical request will translate to
-  \(O( \alpha\log^{3}N )\) physical accesses; and moreover, the
-  client is required to store only \(O(1)\) number of blocks.
+  $O( \alpha\log^{3}N )$ physical accesses; and moreover, the
+  client is required to store only $O(1)$ number of blocks.
 \end{theorem}
 
-Note that in the total cost \(O( \alpha\log^{3}N )\), an
+Note that in the total cost $O( \alpha\log^{3}N )$, an
 $\alpha\log N$ factor comes from the bucket size; another $\log N$
 factor comes from the total height of the tree; and the remaining
 $\log N$ factor comes from the recursion.
@@ -536,7 +536,7 @@ rearrange the blocks on the path in the most aggressive manner possible:
 We want to move the blocks as close to the leaf level as possible, but
 \emph{without violating the path invariant}. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM. The
-cost of each access is \(O( \alpha\log^{2}N )\) for an
+cost of each access is $O( \alpha\log^{2}N )$ for an
 arbitrarily small superconstant function $\alpha$.
 
 \subsection{Other applications of

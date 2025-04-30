@@ -19,8 +19,8 @@ problem quite intuitive.
 
 \begin{problem}{}{}
 We are working over $\FF_{11}$, and there is some secret vector
-\(a = ( a_{1},\ldots,a_{4} )\). There are two sets of claims.
-Each claim ``\(( x_{1},\ldots,x_{4} ):y\)'' purports the
+$a = ( a_{1},\ldots,a_{4} )$. There are two sets of claims.
+Each claim ``$( x_{1},\ldots,x_{4} ):y$'' purports the
 relationship
 
 \[y = a_{1}x_{1} + a_{2}x_{2} + a_{3}x_{3} + a_{4}x_{4} + \varepsilon,\mspace{6mu}\varepsilon \in \{ 0,1 \}.\]
@@ -29,7 +29,7 @@ relationship
 One of the sets of claims is ``genuine'' and comes from a consistent set
 of $a_{i}$, while the other set is ``fake'' and has randomly generated
 $y$ values. Tell them apart and find the correct secret vector
-\(( a_{1},\ldots,a_{4} )\).
+$( a_{1},\ldots,a_{4} )$.
 
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -78,12 +78,12 @@ would be to define an \emph{information vector}
 \[( x_{1},x_{2},x_{3},x_{4}|y|S ),\] where
 $S \subset \FF_{11}$, to mean the statement
 \[\sum a_{i}x_{i} = y + s,\text{ where }s \in S.\] In particular, a
-purported approximation \(( x_{1},x_{2},x_{3},x_{4} ):y\) in
+purported approximation $( x_{1},x_{2},x_{3},x_{4} ):y$ in
 the LWE protocol corresponds to the information vector
 \[( x_{1},x_{2},x_{3},x_{4}|y|\{ 0, - 1 \} ).\]
 The benefit of this notation is that we can take linear combinations of
-them. Specifically, if \(( X_{1}| y_{1} |S_{1} )\)
-and \(( X_{2}| y_{2} |S_{2} )\) are information
+them. Specifically, if $( X_{1}| y_{1} |S_{1} )$
+and $( X_{2}| y_{2} |S_{2} )$ are information
 vectors (where $X_{i}$ are vectors), then
 
 \[( \alpha X_{1} + \beta X_{2}| \alpha y_{1} + \beta y_{2} |\alpha S_{1} + \beta S_{2} ),\]
@@ -95,9 +95,9 @@ We can observe the following:
 
 \begin{enumerate}
 \item
-  If we obtain two vectors \(( X|y|S_{1} )\) and
-  \(( X|y|S_{2} )\), then we have the information (assuming
-  the vectors are accurate) \(( X|y|S_{1} \cap S_{2} )\). So
+  If we obtain two vectors $( X|y|S_{1} )$ and
+  $( X|y|S_{2} )$, then we have the information (assuming
+  the vectors are accurate) $( X|y|S_{1} \cap S_{2} )$. So
   if we are lucky enough, say, to have
   $| S_{1} \cap S_{2} | = 1$, then we have found an exact
   equation with no error.
@@ -113,10 +113,10 @@ vectors with many $0$'s in the same places.
 \begin{enumerate}
 \item
   Our eyes are drawn to the juicy-looking
-  \(( 0,3,0,0|0|\{ 0, - 1 \} ),\) which
+  $( 0,3,0,0|0|\{ 0, - 1 \} ),$ which
   immediately gives $a_{2} \in \{ 0,7 \}$.
 \item
-  \(( 4,7,0,0|8|\{ 0, - 1 \} )\) gives
+  $( 4,7,0,0|8|\{ 0, - 1 \} )$ gives
   $4a_{1} + 7a_{2} \in \{ 7,8 \}.$ Also, since
   $7a_{2} \in \{ 0,5 \},$
   \[4a_{1} \in \{ 7,8 \} - \{ 0,5 \} = \{ 7,8,2,3 \},\]
@@ -124,7 +124,7 @@ vectors with many $0$'s in the same places.
 \item
   Adding
   \[( 10,4,4,3|1|\{ 0, - 1 \} ) + ( 7,7,7,8|5|\{ 0, - 1 \} )\]
-  gives \(( 6,0,0,0|6|\{ 0, - 1, - 2 \} ),\) which
+  gives $( 6,0,0,0|6|\{ 0, - 1, - 2 \} ),$ which
   is nice because it has 3 zeroes! This gives
   $a_{1} \in \{ 1,8,10 \}.$ Combining with (2), we conclude
   that $a_{1} = 10.$

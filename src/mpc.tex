@@ -3,9 +3,9 @@ Imagine Alice and Bob each have some secret values $a$ and $b$, and
 would like to jointly compute some function $f$ over their respective
 inputs. Furthermore, they would like to keep their secret values hidden
 from each other: if Alice and Bob follow the protocol honestly, they
-should both end up learning the correct value of \(f(a,b)\), but Alice
+should both end up learning the correct value of $f(a,b)$, but Alice
 should not learn anything about $b$ (other than what could be learned
-by knowing both $a$ and \(f(a,b)\)), and likewise for Bob.
+by knowing both $a$ and $f(a,b)$), and likewise for Bob.
 
 Here is our problem setting, slightly more formally:
 \begin{itemize}
@@ -30,7 +30,7 @@ Our solution will contain two key components:
 
 \begin{itemize}
 \item Alice constructs a \alert{garbled circuit} that takes in the value
-  $b$ (whatever it is) and spits out \(f(a,b)\).
+  $b$ (whatever it is) and spits out $f(a,b)$.
   A garbled circuit, roughly speaking, is an ``encrypted'' circuit that takes
   encrypted input and creates encrypted output.
 \item An \alert{oblivious transfer} is a protocol where Alice has two
@@ -56,19 +56,19 @@ In slightly more detail:
 \item
   Now, Alice is going to ``garble'' the circuit $f_{a}$. Once it is
   garbled, Bob will not be able to see how it works. He will only be
-  able to plug his own input \(( b_{1},\ldots,b_{n})\) into
+  able to plug his own input $( b_{1},\ldots,b_{n})$ into
   the circuit.
 \item
   To prevent Bob from plugging other inputs in as well, a garbled
   circuit will require a ``password'' for each input Bob wants to plug
   in -- a different password for every possible input. If Bob has the
-  password for \(( b_{1},\ldots,b_{n})\), he can learn
-  \(f_a( b_{1},\ldots,b_{n}) = f(a,b)\), but he will not
+  password for $( b_{1},\ldots,b_{n})$, he can learn
+  $f_a( b_{1},\ldots,b_{n}) = f(a,b)$, but he will not
   learn anything else about how the circuit works.
 \item
   Now, Alice has all the passwords for all the possible inputs, but how
   can she give Bob the password for
-  \(( b_{1},\ldots,b_{n})\)? Alice does not want to let Bob
+  $( b_{1},\ldots,b_{n})$? Alice does not want to let Bob
   have any other passwords -- and Bob is not willing to tell Alice which
   password he is asking for. This is where we will use the ``oblivious
   transfer.''
@@ -98,21 +98,21 @@ $\Enc$ and publish the following table:
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\((0,0)\) & \(\Enc_{P_{0,0}}( G(0,0))\) \\
+$(0,0)$ & $\Enc_{P_{0,0}}( G(0,0))$ \\
 \hline
-\((0,1)\) & \(\Enc_{P_{0,1}}( G(0,1))\) \\
+$(0,1)$ & $\Enc_{P_{0,1}}( G(0,1))$ \\
 \hline
-\((1,0)\) & \(\Enc_{P_{1,0}}( G(1,0) )\) \\
+$(1,0)$ & $\Enc_{P_{1,0}}( G(1,0) )$ \\
 \hline
-\((1,1)\) & \(\Enc_{P_{1,1}}( G(1,1))\) \\
+$(1,1)$ & $\Enc_{P_{1,1}}( G(1,1))$ \\
 \hline
 \end{tabular}
 \end{center}
 
 If you have the values $x$ and $y$, and you know the password
-$P_{x,y}$, you just go to the \((x,y)\) row of the table, look up
+$P_{x,y}$, you just go to the $(x,y)$ row of the table, look up
 \[\Enc_{P_{x,y}} ( G(x,y) ),\] decrypt it, and
-learn \(G(x,y)\).
+learn $G(x,y)$.
 
 But if you do not know the password $P_{x,y}$, assuming
 $\Enc$ is a suitably secure encryption scheme, you will
@@ -126,7 +126,7 @@ will need to make two changes to the protocol.
 \begin{enumerate}
 \item
   To chain garbled gates together, we need to modify the output of each
-  gate: In addition to outputting the bit \(z = G_{i}(x,y)\), the
+  gate: In addition to outputting the bit $z = G_{i}(x,y)$, the
   $i$-th gate $G_{i}$ will also output a password $P_{z}$ that Bob
   can use at the next step.
 
@@ -149,7 +149,7 @@ will need to make two changes to the protocol.
   But now how does Bob know what values to feed into the next gate? The
   left-hand column of the ``gate table'' needs to be indexed by the
   passwords $P_{x}^{\text{left}}$ and $P_{y}^{\text{right}}$, not by
-  the bits \((x,y)\). But we do not want Bob to learn the other
+  the bits $(x,y)$. But we do not want Bob to learn the other
   passwords from the table!
 
   Let us say this again. We want:
@@ -158,7 +158,7 @@ will need to make two changes to the protocol.
   \item
     If Bob knows both passwords $P_{x}^{\text{left}}$ and
     $P_{y}^{\text{right}}$, Bob can find the row of the table for the
-    input \((x,y)\).
+    input $(x,y)$.
   \item
     If Bob does not know the passwords, he cannot learn them by looking
     at the table.
@@ -173,17 +173,17 @@ will need to make two changes to the protocol.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-  \(\hash(P_{0}^{\text{left}},P_{0}^{\text{right}})\) &
-  \(\Enc_{P_{0}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  $\hash(P_{0}^{\text{left}},P_{0}^{\text{right}})$ &
+  $\Enc_{P_{0}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})$ \\
   \hline
-  \(\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})\) &
-  \(\Enc_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  $\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})$ &
+  $\Enc_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}})$ \\
   \hline
-  \(\hash(P_{1}^{\text{left}},P_{0}^{\text{right}})\) &
-  \(\Enc_{P_{1}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})\) \\
+  $\hash(P_{1}^{\text{left}},P_{0}^{\text{right}})$ &
+  $\Enc_{P_{1}^{\text{left}},P_{0}^{\text{right}}}( P_{0}^{\text{out}})$ \\
   \hline
-  \(\hash(P_{1}^{\text{left}},P_{1}^{\text{right}})\) &
-  \(\Enc_{P_{1}^{\text{left}},P_{1}^{\text{right}}}( P_{1}^{\text{out}} )\) \\
+  $\hash(P_{1}^{\text{left}},P_{1}^{\text{right}})$ &
+  $\Enc_{P_{1}^{\text{left}},P_{1}^{\text{right}}}( P_{1}^{\text{out}} )$ \\
   \hline
   \end{tabular}
 \end{center}
@@ -205,7 +205,7 @@ Let us play through one round of Bob's gate-using protocol.
   \[\hash(P_{0}^{\text{left}},P_{1}^{\text{right}}).\]
 \item
   Bob finds the row of the table indexed by
-  \(\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})\), and
+  $\hash(P_{0}^{\text{left}},P_{1}^{\text{right}})$, and
   he uses it to look up
   \[\Enc_{P_{0}^{\text{left}},P_{1}^{\text{right}}}( P_{0}^{\text{out}}).\]
 \item

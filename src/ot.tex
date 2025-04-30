@@ -43,7 +43,7 @@ finite group (for example $\FF_{p}^{\times}$, or an elliptic curve).
   by raising it to the $a$-th power, and she sends Bob $g^{a}$.
 \item
   Bob encrypts again with his own secret key $b$, and he sends
-  \(( g^{a} )^{b} = g^{ab}\) back to Alice.
+  $( g^{a} )^{b} = g^{ab}$ back to Alice.
 \item
   Now Alice removes her lock by taking an $a$-th root. The result is
   $g^{b}$, which she sends back to Bob.
@@ -86,7 +86,7 @@ Crucially, Alice sends the ciphertexts in order, so Bob knows which is which.
 
 At this point, Bob cannot read any of the messages, because he does not
 know the keys. No problem! Bob just picks out the $i$-th ciphertext
-\(\Enc_{a}( x_{i} )\), adds his own layer of
+$\Enc_{a}( x_{i} )$, adds his own layer of
 encryption onto it, and sends the resulting doubly-encrypted message
 back to Alice:
 \[\Enc_{b}( \Enc_{a}( x_{i} ) ).\]
@@ -130,12 +130,12 @@ Bob would be able to decrypt all $n$ messages $x_{1},\ldots,x_{n}$.
 
 But there is a simple trick to fix it. Bob chooses some ``verifiably
 random'' value $r$; to fix ideas, we could agree to use
-\(r = \sha(1)\). Then we require that the numbers
+$r = \sha(1)$. Then we require that the numbers
 $b_{1},\ldots,b_{n}$ form an arithmetic progression with common
 difference $r$. Bob chooses $i$, computes a public-private key pair,
 and sets $b_{i}$ equal to that key. Then all the other terms
 $b_{1},\ldots,b_{n}$ are determined by the arithmetic progression
-requirement \(b_{j} = b_{i} + (j - i)r\). (Or, if the keys are elements
+requirement $b_{j} = b_{i} + (j - i)r$. (Or, if the keys are elements
 of a group in multiplicative notation, we could write this as
 $b_{j} = r^{j - i} \cdot b_{i}$.)
 
