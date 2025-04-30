@@ -66,9 +66,9 @@ The procedure $\texttt{evict}$
     \begin{enumerate}
     \setcounter{enumiii}{3}
     \item
-      $\textsf{block} :=$ pop a real block from
+      $\textsf{block} \defeq$ pop a real block from
       $\textsf{bucket}$ if one exists; else
-      \(\textsf{block} := (\bot,\bot,\bot)\).
+      \(\textsf{block} \defeq (\bot,\bot,\bot)\).
     \item
       For each of the two children of $\texttt{bucket}$ in a
       fixed order: scan the child bucket reading and writing every

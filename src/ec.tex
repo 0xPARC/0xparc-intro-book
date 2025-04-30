@@ -284,9 +284,9 @@ Suppose Alice wants to sign a message $\textsf{msg}$.
 \item
   Alice generates a number $n \in \FF_{q}$ by hashing
   $\textsf{msg}$ with all public information, say
-  \[ n := \operatorname{hash}([r],\textsf{msg},[d]). \]
+  \[ n \defeq \operatorname{hash}([r],\textsf{msg},[d]). \]
 \item
-  Alice publishes the integer \[s := (r + dn)\operatorname{mod}q.\]
+  Alice publishes the integer \[s \defeq (r + dn)\operatorname{mod}q.\]
 \end{enumerate}
 
 In other words, the signature is the ordered pair

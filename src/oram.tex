@@ -380,8 +380,8 @@ randomly choose $2$ distinct buckets in the level $d$
 (for the root level, pick one bucket).
 \FOR{$\textsf{bucket}$ $\in$ $\{\textsf{bucket}_0, \textsf{bucket}_1\}$}
 \STATE
-$\textsf{block} :=$ pop a real block from $\textsf{bucket}$
-if one exists; else $\textsf{block} := (\bot, \bot, \bot)$.
+$\textsf{block} \defeq$ pop a real block from $\textsf{bucket}$
+if one exists; else $\textsf{block} \defeq (\bot, \bot, \bot)$.
 %pop block $(\addr, \data, l)$ from $\textsf{bucket}$.
 \STATE {for each of the two children of $\textsf{bucket}$ in a fixed order}:
 scan the child bucket reading
