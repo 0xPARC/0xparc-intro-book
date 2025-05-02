@@ -8,10 +8,10 @@ You don't trust the server, so you encrypt the data before you write it to the s
 Are you safe?
 
 No!  If an attacker compromises the server, they can't read your data, but they can still see which addresses you read and write.
-They can learn which addresses you access most frequently, which addresses you access at the same time.
+They can learn which addresses you access most frequently, and which addresses you access at the same time.
 And these access patterns could reveal sensitive information.
 
-Oblivious RAM is a protocol that hides access patterns.
+This is the problem Oblivious RAM sets out to solve.\footnote{ORAM was first proposed by Goldreich and Ostrowsky, in papers in 1987 and 1996.}
 
 If the threat sounds far-fetched, consider the encrypted messaging app Signal.  
 Signal has a contact discovery feature: A user sends Signal her address book,
@@ -28,6 +28,8 @@ The addresses the processor reads (i.e.\ which memory pages are fetched by the e
 exactly who Alice's friends are, even if the data is encrypted!
 
 \begin{remark}{Access pattern leakage from a programming language perspective}{}
+Here's another way to see the problem.
+
 The following program has an
 \texttt{if}-branch dependent on secret inputs. (Maybe the secret input
 is the last bit of a secret key). By observing whether memory location
@@ -61,14 +63,22 @@ definitions}
 \label{oblivious-ram-problem-definitions}
 
 Oblivious RAM (ORAM) is a powerful cryptographic protocol that
-\emph{provably} hides access patterns to sensitive data.
+\emph{provably} hides access patterns to sensitive data.  
+Our security requirement is quite strong:
 
-We would like to ensure a very strong notion of security. In particular,
-no information should be leaked about: 1) which data block is being
-accessed; 2) the age of the data block (when it was last accessed); 3)
-whether a single block is being requested repeatedly (frequency); 4)
-whether data blocks are often being accessed together (co-occurrence);
-or 5) whether each access is a read or a write.
+\begin{goal}{}{}
+We want to hide access patterns from an untrusted storage device.
+No information should be leaked about:
+\begin{enumerate}
+\item which data block is being
+accessed; 
+\item the age of the data block (when it was last accessed); 
+\item whether a single block is being requested repeatedly (frequency); 
+\item whether data blocks are often being accessed together (co-occurrence);
+or 
+\item whether each access is a read or a write.
+\end{enumerate}
+\end{goal}
 
 Let us explain the parts of an ORAM system.
 
@@ -166,7 +176,7 @@ mind when we describe our ORAM scheme later.
 
 We will learn about tree-based ORAMs. Then, we will mention an
 improvement called Path ORAM,\footurl{https://eprint.iacr.org/2013/280.pdf}
-which is the scheme that Signal has deployed.
+which is the scheme that Signal deployed.
 
 \subsection{Server data structure}\label{server-data-structure.}
 
@@ -418,8 +428,8 @@ requests at all.
 
 \subsection{Correctness}\label{correctness.}
 
-Correctness is somewhat trickier to argue. As mentioned earlier, to
-argue correctness, we must argue why no overflow will ever occur except
+Correctness is somewhat trickier to argue. We need to argue that
+no overflow will ever occur except
 with negligible probability --- as long as the bucket size $Z$ is set
 appropriately.
 
@@ -496,8 +506,7 @@ bits, every time we recurse, the ORAM's size reduces by a constant
 factor; and thus $O( \log N )$ levels of recursion would
 suffice.
 
-We can thus conclude with the following theorem.
-\footurl{https://eprint.iacr.org/2011/407.pdf}
+We can thus conclude with the following theorem.\footnote{Proven in 2011 by Elaine Shi, T.-H. Hubert Chan, Emil Stefanov, and Mingfei Li: \url{https://eprint.iacr.org/2011/407.pdf}}
 
 \begin{theorem}{Binary-tree ORAM}{}
   For any super-constant function $\alpha( \cdot )$, there is an ORAM scheme
@@ -520,7 +529,8 @@ this reason, the bucket size needs to be super-logarithmic to get
 negligible failure probability. It turns out that if we instead use a
 more aggressive eviction algorithm, and with a more sophisticated proof,
 the bucket size can be made constant. At this point, we are ready to
-introduce an improved version called Path ORAM.
+introduce an improved version called Path 
+ORAM.\footnote{Path ORAM was introduced in 2013, in this eight-author paper: \url{https://eprint.iacr.org/2013/280.pdf}}
 
 Unlike the above binary-tree ORAM, in Path ORAM, every bucket has
 constant size (maybe 4 or 5), except the root bucket which is

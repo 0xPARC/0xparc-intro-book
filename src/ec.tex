@@ -67,7 +67,7 @@ prime $q \approx 2^{254}$ that we define later) which has been
 specifically engineered to have certain properties (Jonathan Wang has a
 blog post\footurl{https://hackmd.io/@jpw/bn254} about the properties of
 this curve). The name BN stands for Barreto-Naehrig, two mathematicians
-who proposed a family of such curves in 2006.\footurl{https://link.springer.com/content/pdf/10.1007/11693383\_22.pdf}
+who proposed a family of such curves in 2006.\footurl{https://eprint.iacr.org/2005/133.pdf}
 
 \begin{definition}{BN254 curve}{}
 The \emph{BN254 curve} is the elliptic curve
@@ -378,7 +378,7 @@ the group element
 is called the \alert{Pedersen commitment} to our vector $\vec{a}$.
 \end{definition}
 
-The Pedersen commitment is thus a sort of hash function: Given the group
+The Pedersen commitment\footnote{Introduced by Torben Pryds Pedersen in 1992.} is thus a sort of hash function: Given the group
 element above, one cannot recover any of the $a_{i}$; but given the
 entire vector $\overrightarrow{a}$ one can compute the Pedersen
 commitment easily.

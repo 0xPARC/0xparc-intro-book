@@ -11,7 +11,10 @@ is too lazy to redo the whole calculation himself.
   not have the energy to check it all line-by-line.
 \end{itemize}
 
-A \alert{SNARK} lets Peggy (the ``prover'') send Victor (the ``verifier'')
+A \alert{SNARK}\footnote{The first SNARK was introduced by Silvio Micali in 2000.
+We will explain a more recent scheme, PLONK, from 2019. \\
+PLONK: \url{https://eprint.iacr.org/2019/953.pdf}}
+ lets Peggy (the ``prover'') send Victor (the ``verifier'')
 a short proof that she has indeed done the calculation correctly.
 The proof will be much shorter than the original calculation,
 and Victor's verification is much faster.
