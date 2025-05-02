@@ -9,7 +9,7 @@ Are you safe?
 
 No!  If an attacker compromises the server, they can't read your data, but they can still see which addresses you read and write.
 They can learn which addresses you access most frequently, and which addresses you access at the same time.
-And these access patterns could reveal sensitive information.
+And these access patterns could reveal sensitive information.\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
 
 This is the problem Oblivious RAM sets out to solve.\footnote{ORAM was first proposed by Goldreich and Ostrowsky, in papers in 1987 and 1996.}
 
@@ -134,34 +134,42 @@ on hiding the access patterns.
 
 \section{Naive solutions}\label{naive-solutions}
 
-\subsection{Naive solution 1}\label{naive-solution-1.}
+Just to build intuition, let's look at a few simple approaches to the problem.
+We'll see what's wrong with each of them.
 
-One trivial solution is for the client to read all blocks from the
-server upon every logical request. Obviously this scheme leaks nothing
-but would be prohibitively expensive.
+\begin{algo}{Trivial solution 1: Full scan.}{}
+Every time the client wants to access any memory block, 
+the client reads all blocks from the server
+(and then reencrypts each one before writing it back).
 
-\subsection{Naive solution 2}\label{naive-solution-2.}
+This scheme leaks no information, but it is too costly.
+\end{algo}
 
-Another trivial solution is for the client to store all blocks, and thus
-the client need not access the server to answer any memory request. But
-this defeats the numerous advantages of cloud outsourcing in the first
-place. \emph{Henceforth, we require that client store only a small
-amount of blocks} (maybe constant or polylogarithmic in $N$).
+\begin{algo}{Trivial solution 2: Store everything on the client.}{}
+The client stores all blocks and does not use the server at all.
 
-\subsection{Naive solution 3}\label{naive-solution-3.}
+This defeats the numerous advantages of cloud outsourcing in the first
+place: we want an algorithm that will work if the client's memory 
+is much smaller than the data being accessed.
+\end{algo}
 
-Another naive idea is to randomly permute all memory blocks through a
-secret permutation known only to the client. Whenever the client wishes
-to access a block, it will appear to the server to reside at a random
+In light of ``Trivial solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
+
+\begin{algo}{Naive solution 3: Random permutation.}{}
+The client chooses a random permutation of $(1, 2, \ldots, N)$ (where $N$ is the number of data blocks),
+and uses this permutation to shuffle the data blocks in storage.
+When the client requests
+a block, it will appear to the server to reside at a random
 location.
 
-Indeed, this scheme gives a secure \emph{one-time} ORAM scheme: It
-provides security if every block is accessed only once. However, if the
-client needs to access each block multiple times, then the access
-patterns will leak statistical information such as frequency (how often
-the same block is accessed) and co-occurrence (how likely two blocks are
-accessed together). As mentioned earlier, one can leverage\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
-such statistical information to infer sensitive secrets.
+This gives a secure \emph{one-time} ORAM scheme:
+It provides security if every block is accessed only once. 
+
+But if the client needs to access a block more than once, 
+the server will learn sensitive information like frequency and co-occurrence
+(how often the same block is accessed, 
+and which pairs of blocks are accessed together).
+\end{algo}
 
 \subsection{Important observation}\label{important-observation.}
 
@@ -257,11 +265,11 @@ procedure called \emph{eviction} to cope with this problem.
 
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
-except with negligible in $N$ failure probability. Note that if an
+except with negligible in $N$ failure probability. If an
 overflow does happen, the block that leads to the overflow can get lost
 since there is no space to hold it on the server, and this can affect
-the correctness of our ORAM scheme. However, we will guarantee that such
-correctness failure happens only with negligible probability.
+the correctness of our ORAM scheme. However, we will see that this sort of failure
+only happens with negligible probability.
 
 The high-level idea is very simple: Whenever we can, we will try to move
 blocks in the tree closer to the leaves, to allow space to free up in
