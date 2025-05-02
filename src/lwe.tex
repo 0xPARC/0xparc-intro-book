@@ -5,7 +5,8 @@ problems. RSA is based on the difficulty of integer factorization;
 elliptic curve cryptography depends on the discrete log assumption.
 
 Our protocol for leveled FHE relies on a different hard problem: the
-learning with errors problem (LWE). The problem is to solve systems of
+learning with errors problem (LWE)\footnote{Introduced by Oded Regev in 2009: \url{https://arxiv.org/abs/2401.03703}}. 
+The problem is to solve systems of
 linear equations, except that the equations are only approximately true
 -- they permit a small ``error'' -- and instead of solving for rational
 or real numbers, you are solving for integers modulo $q$.

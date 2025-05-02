@@ -82,10 +82,11 @@ Similarly, a group signature can be thought of as a succinct proof that
 ``I know one of Alice, Bob, or Charlie's private keys.''
 
 In the spirit of programmable cryptography, a \emph{SNARK} generalizes
-this concept as a ``proof system'' protocol that produces efficient
-proofs of \textbf{arbitrary} statements of the form:
-
+this concept as a ``proof system'' protocol that can produce an efficient
+proof of an \textbf{arbitrary} statement of the form:
+\begin{quote}
 ``I know $X$ such that $F(X,Y) = Z$, where $F,Y,Z$ are public,''
+\end{quote}
 once the statement is encoded as a system of equations. One such
 statement would be ``I know $M$ such that
 $\sha(M) = Y$.''

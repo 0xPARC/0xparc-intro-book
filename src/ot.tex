@@ -163,3 +163,20 @@ could compute the private key for the public key $r$. But $r$ is
 verifiably random, and it is very hard (we assume) for Bob to find a
 private key for a random public key.
 \end{remark}
+
+\subsection{Summary: the garbled circuits protocol}
+
+\begin{algo}{Two-party computation using garbled circuits}{}
+Both Alice and Bob want to compute some function $f(a, b)$.
+Here $a$ is a bitstring (of some length $m$) that Alice knows,
+$b$ is a bitstring (of some other length $n$) that Bob knows,
+and $f$ is a function that takes $m+n$ input bits and outputs a single bit.
+
+Both Alice and Bob know a circuit that computes $f$.
+\begin{enumerate}
+\item Alice begins by plugging her input $a$ into the circuit, to get a simpler circuit $f_a$ that expects to receive the $n$ bits of $b$ as input.
+\item Alice garbles the circuit $f_a$, and sends the garbled circuit to Bob.  As part of the garbled circuits procedure (Section \ref{section-gc}), Alice chooses two passwords for each of Bob's $n$ bits of input.
+\item For each of Bob's $n$ bits of input ($b_1, \ldots, b_n$), Alice and Bob perform an oblivious transfer.  Bob learns the password for his bit, but not the other password; and Alice does not learn the value of his bit.
+\item Bob evaluates the garbled circuits, using the passwords for his inputs, and learns the result of the computation.
+\end{enumerate}
+\end{algo}

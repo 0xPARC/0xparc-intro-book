@@ -2,40 +2,35 @@
 \newcommand{\addr}{{\texttt{addr}}}
 \newcommand{\data}{{\texttt{data}}}
 
-To motivate Oblivious RAM, let us think of Signal's usage scenario.
-Signal is an encrypted messenger app with billions of users. They want
-to support a private contact discovery application. In contact
-discovery, a user Alice sends her address book to Signal, and Signal
-will look up its user database and return Alice the information about
-her friends. The problem is that many users want to keep their address
-book private, and Signal wants to provide contact discovery without
-learning the users' contacts.
+You are performing a computation on a large dataset, which you want to keep secret.
+The dataset is so large that you can't keep it in your computer's memory, so you store it on an external server.
+You don't trust the server, so you encrypt the data before you write it to the server, and later when you read it, you decrypt it again.
+Are you safe?
 
-A naive solution is to rely on trusted hardware. Suppose Signal has a
-secure processor (like Intel SGX) on its server. One can think of the
-secure processor as providing a hardware sandbox (often referred to as
-an \emph{enclave}). Now, Alice sends her address book in encrypted
-format to the server's enclave; further, the server's database is also
-encrypted as it is stored in memory and on disk. Now, the enclave has a
-secret key that can decrypt the data and perform computation inside. At
-first sight, this seems to solve the privacy problem, since data is
-always encrypted in transit and at rest, and the server cannot see the
-contents.
+No!  If an attacker compromises the server, they can't read your data, but they can still see which addresses you read and write.
+They can learn which addresses you access most frequently, and which addresses you access at the same time.
+And these access patterns could reveal sensitive information.\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
 
-Unfortunately, encryption alone provides little privacy in such
-scenarios. The enclave will need to access encrypted entries stored on
-disk, and the server's operating system can easily observe the
-\emph{access patterns}, i.e., which memory pages are being fetched by
-the enclave. The access patterns leak exactly who Alice's friends are
-even if the data is encrypted!
+This is the problem Oblivious RAM sets out to solve.\footnote{ORAM was first proposed by Goldreich and Ostrowsky, in papers in 1987 and 1996.}
 
-In general, access patterns of a program leak sensitive information
-about your private data. As a simpler example, if you are performing
-binary search over a sorted array, the entries accessed during the
-search would leak your private query.
+If the threat sounds far-fetched, consider the encrypted messaging app Signal.  
+Signal has a contact discovery feature: A user sends Signal her address book,
+and Signal tells her if any of her friends are also on Signal.
 
-We can also think of access pattern leakage through a programming
-language perspective. For example, the following program has an
+Signal does not want to learn the user's contact information; it only wants to provide this simple contact discovery service.
+Signal has a secure processor (like Intel SGX) on its server; you can think of this as a secure hardware sandbox (called an \emph{enclave})
+from which secrets cannot be leaked.
+The user encrypts her address book before sending it to the secure processor; 
+the processor performs the computation and sends the result back to the user.
+
+But the processor will have to access a large database stored on disk.
+The addresses the processor reads (i.e.\ which memory pages are fetched by the enclave) will reveal 
+exactly who Alice's friends are, even if the data is encrypted!
+
+\begin{remark}{Access pattern leakage from a programming language perspective}{}
+Here's another way to see the problem.
+
+The following program has an
 \texttt{if}-branch dependent on secret inputs. (Maybe the secret input
 is the last bit of a secret key). By observing whether memory location
 \texttt{x} or \texttt{y} is accessed, one can infer which branch is
@@ -52,6 +47,7 @@ if (s) {
 \end{verbatim}
 \end{minipage}
 \end{center}
+\end{remark}
 
 Therefore, we want to solve the following challenge:
 
@@ -67,14 +63,22 @@ definitions}
 \label{oblivious-ram-problem-definitions}
 
 Oblivious RAM (ORAM) is a powerful cryptographic protocol that
-\emph{provably} hides access patterns to sensitive data.
+\emph{provably} hides access patterns to sensitive data.  
+Our security requirement is quite strong:
 
-We would like to ensure a very strong notion of security. In particular,
-no information should be leaked about: 1) which data block is being
-accessed; 2) the age of the data block (when it was last accessed); 3)
-whether a single block is being requested repeatedly (frequency); 4)
-whether data blocks are often being accessed together (co-occurrence);
-or 5) whether each access is a read or a write.
+\begin{goal}{}{}
+We want to hide access patterns from an untrusted storage device.
+No information should be leaked about:
+\begin{enumerate}
+\item which data block is being
+accessed; 
+\item the age of the data block (when it was last accessed); 
+\item whether a single block is being requested repeatedly (frequency); 
+\item whether data blocks are often being accessed together (co-occurrence);
+or 
+\item whether each access is a read or a write.
+\end{enumerate}
+\end{goal}
 
 Let us explain the parts of an ORAM system.
 
@@ -130,34 +134,42 @@ on hiding the access patterns.
 
 \section{Naive solutions}\label{naive-solutions}
 
-\subsection{Naive solution 1}\label{naive-solution-1.}
+Just to build intuition, let's look at a few simple approaches to the problem.
+We'll see what's wrong with each of them.
 
-One trivial solution is for the client to read all blocks from the
-server upon every logical request. Obviously this scheme leaks nothing
-but would be prohibitively expensive.
+\begin{algo}{Trivial solution 1: Full scan.}{}
+Every time the client wants to access any memory block, 
+the client reads all blocks from the server
+(and then reencrypts each one before writing it back).
 
-\subsection{Naive solution 2}\label{naive-solution-2.}
+This scheme leaks no information, but it is too costly.
+\end{algo}
 
-Another trivial solution is for the client to store all blocks, and thus
-the client need not access the server to answer any memory request. But
-this defeats the numerous advantages of cloud outsourcing in the first
-place. \emph{Henceforth, we require that client store only a small
-amount of blocks} (maybe constant or polylogarithmic in $N$).
+\begin{algo}{Trivial solution 2: Store everything on the client.}{}
+The client stores all blocks and does not use the server at all.
 
-\subsection{Naive solution 3}\label{naive-solution-3.}
+This defeats the numerous advantages of cloud outsourcing in the first
+place: we want an algorithm that will work if the client's memory 
+is much smaller than the data being accessed.
+\end{algo}
 
-Another naive idea is to randomly permute all memory blocks through a
-secret permutation known only to the client. Whenever the client wishes
-to access a block, it will appear to the server to reside at a random
+In light of ``Trivial solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
+
+\begin{algo}{Naive solution 3: Random permutation.}{}
+The client chooses a random permutation of $(1, 2, \ldots, N)$ (where $N$ is the number of data blocks),
+and uses this permutation to shuffle the data blocks in storage.
+When the client requests
+a block, it will appear to the server to reside at a random
 location.
 
-Indeed, this scheme gives a secure \emph{one-time} ORAM scheme: It
-provides security if every block is accessed only once. However, if the
-client needs to access each block multiple times, then the access
-patterns will leak statistical information such as frequency (how often
-the same block is accessed) and co-occurrence (how likely two blocks are
-accessed together). As mentioned earlier, one can leverage\footurl{https://www.ndss-symposium.org/wp-content/uploads/2017/09/06\_1.pdf}
-such statistical information to infer sensitive secrets.
+This gives a secure \emph{one-time} ORAM scheme:
+It provides security if every block is accessed only once. 
+
+But if the client needs to access a block more than once, 
+the server will learn sensitive information like frequency and co-occurrence
+(how often the same block is accessed, 
+and which pairs of blocks are accessed together).
+\end{algo}
 
 \subsection{Important observation}\label{important-observation.}
 
@@ -172,7 +184,7 @@ mind when we describe our ORAM scheme later.
 
 We will learn about tree-based ORAMs. Then, we will mention an
 improvement called Path ORAM,\footurl{https://eprint.iacr.org/2013/280.pdf}
-which is the scheme that Signal has deployed.
+which is the scheme that Signal deployed.
 
 \subsection{Server data structure}\label{server-data-structure.}
 
@@ -253,11 +265,11 @@ procedure called \emph{eviction} to cope with this problem.
 
 Eviction is a maintenance operation performed upon every data access to
 ensure that none of the buckets in the ORAM tree will ever overflow
-except with negligible in $N$ failure probability. Note that if an
+except with negligible in $N$ failure probability. If an
 overflow does happen, the block that leads to the overflow can get lost
 since there is no space to hold it on the server, and this can affect
-the correctness of our ORAM scheme. However, we will guarantee that such
-correctness failure happens only with negligible probability.
+the correctness of our ORAM scheme. However, we will see that this sort of failure
+only happens with negligible probability.
 
 The high-level idea is very simple: Whenever we can, we will try to move
 blocks in the tree closer to the leaves, to allow space to free up in
@@ -424,8 +436,8 @@ requests at all.
 
 \subsection{Correctness}\label{correctness.}
 
-Correctness is somewhat trickier to argue. As mentioned earlier, to
-argue correctness, we must argue why no overflow will ever occur except
+Correctness is somewhat trickier to argue. We need to argue that
+no overflow will ever occur except
 with negligible probability --- as long as the bucket size $Z$ is set
 appropriately.
 
@@ -502,8 +514,7 @@ bits, every time we recurse, the ORAM's size reduces by a constant
 factor; and thus $O( \log N )$ levels of recursion would
 suffice.
 
-We can thus conclude with the following theorem.
-\footurl{https://eprint.iacr.org/2011/407.pdf}
+We can thus conclude with the following theorem.\footnote{Proven in 2011 by Elaine Shi, T.-H. Hubert Chan, Emil Stefanov, and Mingfei Li: \url{https://eprint.iacr.org/2011/407.pdf}}
 
 \begin{theorem}{Binary-tree ORAM}{}
   For any super-constant function $\alpha( \cdot )$, there is an ORAM scheme
@@ -526,7 +537,8 @@ this reason, the bucket size needs to be super-logarithmic to get
 negligible failure probability. It turns out that if we instead use a
 more aggressive eviction algorithm, and with a more sophisticated proof,
 the bucket size can be made constant. At this point, we are ready to
-introduce an improved version called Path ORAM.
+introduce an improved version called Path 
+ORAM.\footnote{Path ORAM was introduced in 2013, in this eight-author paper: \url{https://eprint.iacr.org/2013/280.pdf}}
 
 Unlike the above binary-tree ORAM, in Path ORAM, every bucket has
 constant size (maybe 4 or 5), except the root bucket which is

@@ -1,4 +1,5 @@
 \section{Garbled circuits}
+\label{section-gc}
 Imagine Alice and Bob each have some secret values $a$ and $b$, and
 would like to jointly compute some function $f$ over their respective
 inputs. Furthermore, they would like to keep their secret values hidden
@@ -7,7 +8,10 @@ should both end up learning the correct value of $f(a,b)$, but Alice
 should not learn anything about $b$ (other than what could be learned
 by knowing both $a$ and $f(a,b)$), and likewise for Bob.
 
-Here is our problem setting, slightly more formally:
+Here is our problem setting, slightly more formally:\footnote{The idea of multiparty computation
+(two-party computation is a special case) 
+goes back to work of Goldreich, Micali, and Wigderson: \\
+ \url{https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/GMW87/GMW87.pdf}}
 \begin{goal}{}{}
 \begin{itemize}
 \item Alice knows a secret bitstring $a$ of length $m$ bits.
@@ -23,7 +27,8 @@ Here is our problem setting, slightly more formally:
 \end{goal}
 
 
-Yao's garbled circuits is one of the most well-known 2PC protocols.
+Yao's garbled circuits\footnote{Introduced by Andrew C.\ Yao in 1982: \\ \url{https://research.cs.wisc.edu/areas/sec/yao1982-ocr.pdf}} 
+leads to one of the most well-known 2PC protocols.
 The protocol is quite clever,
 and optimized variants of the protocol are
 being implemented and used today.\footurl{https://github.com/privacy-scaling-explorations/mpz/tree/dev/crates/mpz-garble}
@@ -36,7 +41,8 @@ Our solution will contain two key components:
   $b$ (whatever it is) and spits out $f(a,b)$.
   A garbled circuit, roughly speaking, is an ``encrypted'' circuit that takes
   encrypted input and creates encrypted output.
-\item An \alert{oblivious transfer} is a protocol where Alice has two
+\item \alert{Oblivious transfer}\footnote{Introduced by Michael Rabin in 1981: \url{https://eprint.iacr.org/2005/187.pdf}} 
+is a protocol where Alice has two
   messages, $m_{0}$ and $m_{1}$. Bob can get exactly one of them,
   $m_{i}$, without letting Alice know what $i$ is. In this context,
   Alice ends up sending Bob a password for his input in a way that Bob
@@ -73,7 +79,7 @@ In slightly more detail:
   can she give Bob the password for
   $( b_{1},\ldots,b_{n})$? Alice does not want to let Bob
   have any other passwords -- and Bob is not willing to tell Alice which
-  password he is asking for. This is where we will use the ``oblivious
+  password he is asking for. This is where we will use ``oblivious
   transfer.''
 \end{enumerate}
 
@@ -124,7 +130,7 @@ not learn anything about the value $G_{x,y}$ from its encryption.
 \subsection{Chaining garbled gates}
 
 The next step is to combine a bunch of garbled gates into a circuit. We
-will need to make two changes to the protocol.
+will need to make some small changes to the protocol.
 
 \begin{enumerate}
 \item
@@ -252,4 +258,4 @@ for just a single bit.
 \end{itemize}
 
 This is where \emph{oblivious transfer} comes in, which we will see in
-(Section \ref{ot}).
+Section \ref{ot}.
