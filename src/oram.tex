@@ -136,7 +136,7 @@ on hiding the access patterns.
 Just to build intuition, let's look at a few simple approaches to the problem.
 We'll see what's wrong with each of them.
 
-\begin{algo}{(Naive solution 1) Full scan.}{}
+\begin{algo}{Full scan. (Naive solution 1.)}{}
 Every time the client wants to access any memory block, 
 the client reads all blocks from the server
 (and then reencrypts each one before writing it back).
@@ -144,7 +144,7 @@ the client reads all blocks from the server
 This scheme leaks no information, but it is too costly.
 \end{algo}
 
-\begin{algo}{Naive solution 2: Store everything on the client.}{}
+\begin{algo}{Store everything on the client. (Naive solution 2.)}{}
 The client stores all blocks and does not use the server at all.
 
 This defeats the numerous advantages of cloud outsourcing in the first
@@ -154,7 +154,7 @@ is much smaller than the data being accessed.
 
 In light of ``Naive solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
 
-\begin{algo}{Naive solution 3: Random permutation.}{}
+\begin{algo}{Random permutation. (Naive solution 3.)}{}
 \label{naive3}
 The client chooses a random permutation of $(1, 2, \ldots, N)$ (where $N$ is the number of data blocks),
 and uses this permutation to shuffle the data blocks in storage.
