@@ -54,6 +54,11 @@
   colback = green!5,
   colframe = green!35!black,
 }{tcb}
+\NewTcbTheorem[use counter from = theorem]{pf}{Proof}{
+  theorem base,
+  colback = green!5,
+  colframe = green!35!black,
+}{tcb}
 \NewTcbTheorem[use counter from = theorem]{claim}{Claim}{
   theorem base,
   colback = green!5,
@@ -149,7 +154,7 @@
 
 
 \title{Programmable Cryptography: \\ Four Easy Pieces}
-\author{Edited by Evan Chen, Brian Lawrence, Yan X Zhang}
+\author{Edited by Evan Chen, Brian Lawrence, Elaine Shi, Yan X Zhang}
 
 \addtokomafont{chapterprefix}{\raggedleft}
 \RedeclareSectionCommand[beforeskip=0.5em]{chapter}
