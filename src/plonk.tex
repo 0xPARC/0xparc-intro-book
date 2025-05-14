@@ -6,8 +6,8 @@
 
 The promise of programmable cryptography is that we should be able to
 perform proofs for arbitrary functions. That means we need a
-``programming language'' that we will write our function in. For PLONK,
-the choice that is used is: \textbf{systems of quadratic equations over
+``programming language'' that we'll write our function in. For PLONK,
+the choice that's used is: \textbf{systems of quadratic equations over
 $\FF_{q}$}. In other words, PLONK is going to give us the
 ability to prove that we have solutions to a system of quadratic
 equations. We state this formally as follows.
@@ -64,7 +64,7 @@ the goal of projects like Circom\footurl{https://docs.circom.io/},
 which gives a high-level language that compiles a function like SHA-256
 into a system of equations over $\FF_{q}$ that can be used in
 practice. Systems like this are called \alert{arithmetic circuits}, and
-Circom is appropriately short for ``circuit compiler''. If you are
+Circom is appropriately short for ``circuit compiler''. If you're
 curious, you can see how SHA-256 is implemented in Circom on
 GitHub.\footurl{https://github.com/iden3/circomlib/blob/master/circuits/sha256/sha256.circom}
 
@@ -81,7 +81,7 @@ unknown message $M$ would be represented by some private variables;
 and the calculation of $\sha$ would introduce a series
 of constraints, maybe involving some additional variables.
 
-We will not get into any more details of arithmetization here.
+We won't get into any more details of arithmetization here.
 
 \subsection{An instance of PLONK}
 
@@ -105,7 +105,7 @@ $3n$ variables should be equal to each other, e.g.,
 ``$a_{1} = c_{7}$'', ``$b_{17} = b_{42}$'', and so on.
 \end{definition}
 
-\begin{remark}{``From Quad-SAT to PLONK''}{}
+\begin{remark}{From Quad-SAT to PLONK}{}
 PLONK might look less general than Quad-SAT,
 but it turns out you can convert any Quad-SAT problem to PLONK.
 
@@ -119,21 +119,21 @@ $\kappa$ is any constant, then
 gives the constraint $a_{i} = \kappa.$
 
 Now imagine we want to encode some quadratic equation like
-$y = x^{2} + 2$ in PLONK. We will break this down into two steps:
+$y = x^{2} + 2$ in PLONK. We'll break this down into two steps:
 \[\begin{aligned}
 x \cdot x & = ( x^{2} )\text{ (multiplication)} \\
 t & = 2\text{ (constant)} \\
 ( x^{2} ) + t & = y\text{ (addition)}.
 \end{aligned}\]
 
-We will assign the variables $a_{i},b_{i},c_{i}$ for these two gates
+We'll assign the variables $a_{i},b_{i},c_{i}$ for these two gates
 by looking at the equations: \[\begin{aligned}
 ( a_{1},b_{1},c_{1} ) & = ( x,x,x^{2} ) \\
 ( a_{2},b_{2},c_{2} ) & = (t = 2,0,0) \\
 ( a_{3},b_{3},c_{3} ) & = ( x^{2},t = 2,y ).
 \end{aligned}\]
 
-And finally, we will assign copy constraints to make sure the variables
+And finally, we'll assign copy constraints to make sure the variables
 are faithfully copied from line to line: \[\begin{aligned}
 a_{1} & = b_{1} \\
 c_{1} & = a_{3} \\
@@ -166,11 +166,11 @@ proceeds:
   the copy constraints.
 \end{enumerate}
 
-Let us now explain how each step works.
+Let's now explain how each step works.
 
 \subsection{Step 1: the commitment}
 
-In PLONK, we will assume that $q \equiv 1 \pmod n$, which
+In PLONK, we'll assume that $q \equiv 1 \pmod n$, which
 means that we can fix $\omega \in \FF_{q}$ to be a primitive
 $n$-th root of unity.
 
@@ -188,9 +188,9 @@ polynomial called $Z$ is just
 \[Z(X) = (X - \omega)\cdots( X - \omega^{n} ) = X^{n} - 1,\]
 which is really nice. In fact, often $n$ is chosen to be a power of
 $2$ so that $A$, $B$, and $C$ are very easy to compute, using a
-fast Fourier transform. (Note: When you are working in a finite field,
+fast Fourier transform. (Note: When you're working in a finite field,
 the fast Fourier transform is sometimes called the ``number theoretic
-transform'' (NTT) even though it is exactly the same as the usual FFT.)
+transform'' (NTT) even though it's exactly the same as the usual FFT.)
 
 Then:
 
@@ -256,9 +256,9 @@ Section \ref{copy-constraints} to it.
 
 The last thing to be done is to reveal the value of public witnesses, so
 the prover can convince the verifier that those values are correct. This
-is simply an application of Algorithm \ref{tcb:root-check}. Let us say the public
+is simply an application of Algorithm \ref{tcb:root-check}. Let's say the public
 witnesses are the values $a_{i}$, for all $i$ in some set $S$. (If
-some of the $b$`s and $c$`s are also public, we will just do the
+some of the $b$'s and $c$'s are also public, we'll just do the
 same thing for them.) The prover can interpolate another polynomial,
 $A^{\text{public}}$, such that
 $A^{\text{public}}( \omega^{i} ) = a_{i}$ if $i \in S$,
@@ -269,4 +269,4 @@ known!
 
 Now the prover runs Algorithm \ref{tcb:root-check} to prove that
 $A - A^{\text{public}}$ vanishes on $S$. (And similarly for $B$
-and $C$, if needed.) And we are done.
+and $C$, if needed.) And we're done.

@@ -81,7 +81,7 @@ is the prime from the BN254 specification.
 
 So each point on $E( \FF_{p} )$ is an ordered pair
 $(X,Y) \in \FF_{p}^{2}$ satisfying Equation \eqref{bn254eqn}.
-Okay, actually, that is a white lie: Conventionally, there is one additional
+Okay, actually, that's a white lie: Conventionally, there is one additional
 point $O = (0,\infty)$ called the ``point at infinity'' added in
 (whose purpose we describe in the next section).
 
@@ -104,13 +104,13 @@ So, at this point, we have a bag of $q$ points denoted
 $E( \FF_{p} )$.
 However, right now it only has the structure of a set.
 
-The beauty of elliptic curves is that it is possible to define an
+The beauty of elliptic curves is that it's possible to define an
 \textbf{addition} operation on the curve; this is called the \alert{group law}
 on the elliptic curve.\footurl{https://en.wikipedia.org/wiki/Elliptic\_curve\#The\_group\_law}
 This addition will make $E( \FF_{p} )$ into an
 abelian group whose identity element is the point at infinity $O$.
 
-This group law involves some heavy algebra. It is not important to
+This group law involves some heavy algebra. It's not important to
 understand exactly how it works. All you really need to take away from
 this section is that there is some group law, and we can program a
 computer to compute it. We provide details in Appendix~\ref{appendix-ec-mult}
@@ -128,11 +128,11 @@ abelian group with prime order is necessarily cyclic. In other words:
 \end{theorem}
 
 In these notes, this isomorphism will basically be a standing assumption.
-Moving forward, we will abuse notation slightly and just
+Moving forward, we'll abuse notation slightly and just
 write $E$ instead of $E( \FF_{p} )$.
 In fancy language, $E$ will be a one-dimensional vector space over $\FF_{q}$.
-In less fancy language, we will be working with points on $E$ as black boxes.
-We will be able to add them, subtract them, and multiply them by arbitrary scalars from $\FF_{q}$.
+In less fancy language, we'll be working with points on $E$ as black boxes.
+We'll be able to add them, subtract them, and multiply them by arbitrary scalars from $\FF_{q}$.
 
 Consequently --- and this is important --- \textbf{one should think of
 $\FF_{q}$ as the base field for all our cryptographic primitives}
@@ -144,8 +144,8 @@ Whenever we talk about protocols, and there are any sorts of
 these scalars are always going to be elements of $\FF_q$.
 Since $q \approx 2^{254}$,
 that means we are doing something like $256$-bit integer arithmetic.
-This is why the baby Jubjub prime $q$ gets a special name,
-while the prime $p$ is unnamed and does not get any screen-time later.
+This is why the Baby Jubjub prime $q$ gets a special name,
+while the prime $p$ is unnamed and doesn't get any screen time later.
 \end{remark}
 
 \section{Discrete logarithm}\label{discretelog}
@@ -160,7 +160,7 @@ standardized curve). Given arbitrary nonzero $g,g' \in E$, the
 that $n \cdot g = g'$.
 
 Experience suggests that the discrete logarithm problem is hard:
-In general, we do not know a fast algorithm to solve it.
+in general, we don't know a fast algorithm to solve it.
 The \alert{discrete logarithm assumption} says that no such algorithm exists.
 \end{assumption}
 
@@ -233,10 +233,10 @@ BN254 is also engineered to have a property called
 we need it later. (In contrast, Curve25519 does not have this property.)
 
 \subsection{Example application: EdDSA signature scheme}\label{eddsa}
-We will show how Assumption \ref{tcb:ddh} can be used to construct a
+We'll show how Assumption \ref{tcb:ddh} can be used to construct a
 signature scheme that replaces RSA.
 This scheme is called EdDSA,\footurl{https://en.wikipedia.org/wiki/EdDSA}
-and it is used quite frequently (e.g., in OpenSSH and GnuPG).
+and it's used quite frequently (e.g., in OpenSSH and GnuPG).
 One advantage it has over RSA is that its key size is much smaller:
 both the public and private key are 256 bits.
 (In contrast, RSA needs 2048-4096 bit keys for comparable security.)
@@ -316,10 +316,10 @@ Assumption \ref{tcb:ddh}.
 
 The number $r$ is called a \emph{blinding factor} because its use
 prevents Bob from stealing Alice's secret key $d$ from the published
-$s$. It is therefore imperative that $r$ is not known to Bob nor
+$s$. It's therefore imperative that $r$ isn't known to Bob nor
 reused between signatures, and so on. One way to do this would be to
 pick $r = \hash(d,\textsf{msg})$; this has the
-bonus that it is deterministic as a function of the message and signer.
+bonus that it's deterministic as a function of the message and signer.
 
 In Section \ref{kzg} we will use ideas quite similar to this to build the KZG
 commitment scheme.
@@ -335,41 +335,41 @@ cannot change her mind about $x$ depending on Bob's later actions) and
 \emph{hiding} (Bob does not get any information about $x$ from
 $\Com(x)$). The KZG scheme we are building towards will
 be a commitment scheme for polynomials, but we can already use elliptic
-curves to commit \textbf{numbers} with something called a Pedersen
-commitment, which we will now describe.
+curves to commit \textbf{numbers} with something called a \emph{Pedersen
+commitment}, which we will now describe.
 
 A multivariable generalization of Assumption \ref{tcb:ddh} is that if
 $g_{1},\ldots,g_{n} \in E$ are a bunch of randomly chosen points of
-$E$ with order $q$, then it is computationally infeasible to find
+$E$ with order $q$, then it's computationally infeasible to find
 $( a_{1},\ldots,a_{n} ) \neq ( b_{1},\ldots,b_{n} ) \in \FF_{q}^{n}$
 such that
 \[a_{1}g_{1} + \cdots + a_{n}g_{n} = b_{1}g_{1} + \cdots + b_{n}g_{n}.\]
 (Remember that $q \approx 2^{256}$ is very large.)
 
 \begin{definition}{Computational basis}{comp}
-In these notes, if there is a globally known elliptic curve $E$
+In these notes, if there's a globally known elliptic curve $E$
 and points $g_1, \ldots, g_n$ have order $q$ and no known nontrivial
 linear dependencies between them,
-we will say they are a \alert{computational basis over $\FF_q$}.
+we'll say they're a \alert{computational basis over $\FF_q$}.
 \end{definition}
 
 \begin{remark}{}{}
-This may horrify pure mathematicians because we are pretending the map
+This may horrify pure mathematicians because we're pretending the map
 \[ \FF_q^n \rightarrow \FF_q \text{ by } (a_1, \ldots, a_n) \mapsto \sum_1^n a_i g_i \]
 is injective,
 even though the domain is an $n$-dimensional $\FF_q$-vector space
 and the codomain is one-dimensional.
 This can feel weird because our instincts from linear algebra in pure math
 are wrong now. This map, while not injective in theory,
-ends up being injective \emph{in practice} (because we cannot find collisions).
+ends up being injective \emph{in practice} (because we can't find collisions).
 And this is a critical standing assumption for this entire framework!
 \end{remark}
 
 This injectivity gives us a sort of hash function on vectors (with
-``linearly independent'' now being phrased as ``we cannot find a
+``linearly independent'' now being phrased as ``we can't find a
 collision''). To spell this out:
 
-\begin{definition}{Pedersen comittment}{}
+\begin{definition}{Pedersen commitment}{}
 Let $g_1, \ldots, g_n \in E$ be a computational basis over $\FF_q$.
 Given a vector
 \[ \vec{a} = \langle a_1, \ldots, a_n \rangle \in \FF_q^n \] of scalars,
@@ -378,12 +378,12 @@ the group element
 is called the \alert{Pedersen commitment} to our vector $\vec{a}$.
 \end{definition}
 
-The Pedersen commitment\footnote{Introduced by Torben Pryds Pedersen in 1992.} is thus a sort of hash function: Given the group
+The Pedersen commitment\footnote{Introduced by Torben Pryds Pedersen in 1992.} is thus a sort of hash function: given the group
 element above, one cannot recover any of the $a_{i}$; but given the
 entire vector $\overrightarrow{a}$ one can compute the Pedersen
 commitment easily.
 
-We will not use Pedersen commitments in this book, but they will be
+We won't use Pedersen commitments in this book, but they will be
 closely related to KZG.
 
 \subsection{Appendix: The group law of an elliptic curve}
@@ -393,26 +393,26 @@ As promised in Section~\ref{ec},
 this optional appendix describes the details of the math
 behind the group law of the elliptic curve.
 
-So, let us get started. The equation of $E$ is cubic -- the
+So, let's get started. The equation of $E$ is cubic -- the
 highest-degree terms have degree $3$. This means that (in general) if
 you take a line $y = mx + b$ and intersect it with $E$, the line
 will meet $E$ in exactly three points. The basic idea behind the group
-law is: If $P,Q,R$ are the three intersection points of a line (any
+law is: if $P,Q,R$ are the three intersection points of a line (any
 line) with the curve $E$, then the group-law addition of the three
 points is \[P + Q + R = O.\]
 
 (You might be wondering how we can do geometry when the coordinates
 $x$ and $y$ are in a finite field. It turns out that all the
-geometric operations we are describing -- like finding the intersection
+geometric operations we're describing -- like finding the intersection
 of a curve with a line -- can be translated into algebra, and then you
 just do the algebra in your finite field. We will come back to this.)
 
 Why three points? Algebraically, if you take the equations
 $Y^{2} = X^{3} + 3$ and $Y = mX + b$ and try to solve them, you get
 \[(mX + b)^{2} = X^{3} + 3,\] which is a degree-3 polynomial in $X$,
-so it has (at most) three roots. In fact if it has two roots, it is
+so it has (at most) three roots. In fact if it has two roots, it's
 guaranteed to have a third (because you can factor out the first two
-roots, and then you are left with a linear factor).
+roots, and then you're left with a linear factor).
 
 Now given two points $P$ and $Q$, how do we find their sum
 $P + Q$? We can draw the line through the two points. That line --
@@ -424,13 +424,13 @@ So now the question is just: how to find $- R$? Well, it turns out
 that if $R = ( x_{R},y_{R} )$, then
 \[- R = ( x_{R}, - y_{R} ).\] Why is this? If you take the
 vertical line $X = x_{R}$, and try to intersect it with the curve, it
-looks like there are only two intersection points. After all, we are
+looks like there are only two intersection points. After all, we're
 solving \[Y^{2} = x_{R}^{3} + 3,\] and since $x_{R}$ is fixed now,
 this equation is quadratic. The two roots are $Y = \pm y_{R}$.
 
 There are only two intersection points, but we say that the third
 intersection point is ``the point at infinity'' $O$. (The reason for
-this lies in projective geometry, but we will not get into it.) So the
+this lies in projective geometry, but we won't get into it.) So the
 group law here tells us
 \[( x_{R},y_{R} ) + ( x_{R}, - y_{R} ) + O = O.\]
 And since $O$ is the identity, we get
@@ -460,4 +460,4 @@ The third intersection is $R = ( x_{R},y_{R} )$, where
 
 There are separate formulas to deal with various special cases (if
 $P = Q$, you need to compute the tangent line to $E$ at $P$, for
-example), but we will not get into it.
+example), but we won't get into it.

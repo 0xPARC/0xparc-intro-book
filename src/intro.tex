@@ -4,7 +4,7 @@ Cryptography is everywhere now and needs no introduction.
 generation of cryptographic primitives that has arisen in the last 15 or
 so years.
 
-To be concrete, let us consider two examples of what protocols designed
+To be concrete, let's consider two examples of what protocols designed
 by classical cryptography can do:
 
 \begin{description}
@@ -34,7 +34,7 @@ We want cryptography that can be ``programmed'' to work on
 protocols on a per-problem or per-function basis.
 \end{quote}
 
-To draw an analogy, it is like going from single-purpose hardware (like
+To draw an analogy, it's like going from single-purpose hardware (like
 a digital alarm clock or thermostat) to a general-purpose device (like a
 smartphone) which can do any computation so long as someone writes code
 for it.
@@ -68,7 +68,7 @@ case where $F$ is the comparison function
 $x_{2} > x_{1}$, and $0$ if the two inputs are equal), and $x_{i}$
 is the $i$-th person's income.
 
-Two-party computation makes a promise that we will be able to do this
+Two-party computation makes a promise that we'll be able to do this
 for \emph{any} function $F$ as long as we can implement it in code. It
 generalizes to \alert{multi-party computation (MPC)}, which is one of the
 main classes of programmable cryptography.
@@ -97,8 +97,8 @@ known. We will focus on a particular example, PLONK (Section \ref{plonk}).
 \subsection{FHE: fully homomorphic encryption}
 Imagine you have some private text that you want to translate into
 another language. While many services today will do this, even for free,
-we can also imagine that you care about security a lot and you really do
-not want the translating service to know anything about your text at all.
+we can also imagine that you care about security a lot and you really don't
+ want the translating service to know anything about your text at all.
 
 In \alert{fully homomorphic encryption (FHE)}, one person encrypts some
 data $x$, and then a second person can perform arbitrary operations on
@@ -112,12 +112,12 @@ the translation of $x$. You can then decrypt and obtain $y$, knowing
 that the server cannot extract anything meaningful from
 $\Enc(x)$ without your secret key.
 
-\subsection{ORAM: Oblivious RAM}
+\subsection{ORAM: oblivious RAM}
 You want to perform a private computation on a large database. The
-database is so large that you cannot store it yourself -- and you do not
-trust the server it is stored on.
+database is so large that you can't store it yourself -- and you don't
+trust the server it's stored on.
 
-First off, you will encrypt the data, so the server cannot read it. But
+First off, you'll encrypt the data, so the server can't read it. But
 the server still has an attack: They can study your \emph{access
 patterns}. For example, they can see which records you access most
 frequently, or which records you access at the same time as other
@@ -161,7 +161,7 @@ the Internet today offers free search and civilization-scale
 repositories of information to everyone, but is also used for plenty of
 frivolous or even antisocial activity.
 
-No matter what the future actually holds, one thing is clear - it is up
+No matter what the future actually holds, one thing is clear -- it is up
 to people who are capable, curious, and optimistic to guide the next
 stage of the evolution of cryptography-based systems. We hope that these
 ``easy pieces'' will inspire you to read, imagine, and build.

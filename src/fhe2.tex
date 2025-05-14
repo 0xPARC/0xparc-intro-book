@@ -6,8 +6,8 @@ should imagine that $n$ and $q$ are much bigger -- maybe $n$ is in
 the range $100 \leq n \leq 1000$, and $q$ could be anywhere from
 $n^{2}$ to $2^{\sqrt{n}}$, say.
 
-As an example of how LWE can be used, let us see how to turn LWE into a
-public-key cryptosystem. We will use the same numbers from the ``blue
+As an example of how LWE can be used, let's see how to turn LWE into a
+public-key cryptosystem. We'll use the same numbers from the ``blue
 set'' in Section \ref{lwe-small}. In fact, that ``blue set'' will be exactly the
 public key.
 
@@ -70,14 +70,14 @@ everybody, and they will not be able to determine the private key.
 
 \subsection{Encryption}\label{how-to-encrypt-mu}
 
-Suppose you have a message $m \in \{ 0,5 \}$. (You will see
+Suppose you have a message $m \in \{ 0,5 \}$. (You'll see
 in a moment why we insist that $m$ is one of these two values.) The
 ciphertext to encrypt $m$ will be a pair
 $( \mathbf{x}:y )$, where $x$ is a vector, $y$ is a
 scalar, and $\mathbf{x} \cdot \mathbf{a} + \epsilon = y + m$, where
 $\epsilon$ is ``small''.
 
-How to do the encryption? If you are trying to encrypt, you only have
+How to do the encryption? If you're trying to encrypt, you only have
 access to the public key -- that list of pairs
 $( \mathbf{x}:y )$ above. You want to make up your own
 $\mathbf{x}$, for which you know approximately the value
@@ -87,14 +87,14 @@ see your ciphertext, I can find that $\mathbf{x}$ in the table and use
 it to decrypt $m$.
 
 Instead, you are going to combine several rows of the table to get your
-vector $\mathbf{x}$. Now you have to be careful: When you combine rows
-of the table, the errors will add up. We are guaranteed that each row of
+vector $\mathbf{x}$. Now you have to be careful: when you combine rows
+of the table, the errors will add up. We're guaranteed that each row of
 the table has $\epsilon$ either $0$ or $1$. So if you add at most
 four rows, then the total $\epsilon$ will be at most $4$. Since
-$m$ is either $0$ or $5$ (and we are working modulo $q = 11$),
+$m$ is either $0$ or $5$ (and we're working modulo $q = 11$),
 that is just enough to determine $m$ uniquely.
 
-So, here is the method. You choose at random four (or fewer) rows of the
+So, here's the method: You choose at random four (or fewer) rows of the
 table, and add them up to get a pair $( \mathbf{x}:y_{0} )$
 with $\mathbf{x} \cdot \mathbf{a} \approx y_{0}$. Then you take
 $y = y_{0} - m$ (mod $q = 11$ of course), and send the message
@@ -102,7 +102,7 @@ $( \mathbf{x}:y )$.
 
 \subsection{An example}\label{an-example}
 
-Let us say you randomly choose the four rows:
+Let's say you randomly choose the four rows:
 
 \begin{center}
 \begin{tabular}{|c|}
@@ -136,7 +136,7 @@ $\mathbf{x}:y_{0}$ \\
 (For reference, the actual value is $4$, so our accumulated error is
 $2$.)
 
-Finally, let us say your message is $m = 5$. So you set
+Finally, let's say your message is $m = 5$. So you set
 $y = y_{0} - m = 6 - 5 = 1$, and send the ciphertext:
 
 \begin{center}
@@ -159,9 +159,9 @@ Plugging in $\mathbf{x}$ and $\mathbf{a}$, the decryptor computes
 \[\mathbf{x} \cdot \mathbf{a} = 4.\] Plugging in $y = 1$, we see that
 \[4 + \epsilon = 1 + m.\]
 
-Now it is a simple ``rounding'' problem. We know that $\epsilon$ is
+Now it's a simple ``rounding'' problem. We know that $\epsilon$ is
 small and positive, so $1 + m$ is either $4$ or \ldots{} a little
-more. (In fact, it is one of $4,5,6,7,8$.) On the other hand, since
+more. (In fact, it's one of $4,5,6,7,8$.) On the other hand, since
 $m$ is 0 or 5, $1 + m$ had better be 1 or 6, so the only possibility
 is that $m = 5$ (so $1 + m = 6$).
 
@@ -171,7 +171,7 @@ general?}\label{how-does-this-work-in-general}
 In practice, $n$ and $q$ are often much larger. Maybe $n$ is in
 the hundreds, and $q$ could be anywhere from ``a little bigger than
 $n$'' to ``almost exponentially large in $n$,'' say
-$q = 2^{\sqrt{n}}$. In fact, to do FHE, we are going to want to take
+$q = 2^{\sqrt{n}}$. In fact, to do FHE, we're going to want to take
 $q$ pretty big, so you should imagine that $q \approx 2^{\sqrt{n}}$.
 
 For security, instead of adding $4$ rows of the public key, we want to
@@ -195,8 +195,8 @@ $r$ is bigger than the error bound, which
 allows you to encode a message space of size $q/r$ rather than just a
 single bit.
 
-When we do FHE, we are going to apply many operations to a ciphertext,
-and each is going to cause the error to grow. We are going to have to
+When we do FHE, we're going to apply many operations to a ciphertext,
+and each is going to cause the error to grow. We're going to have to
 put some effort into keeping the error under control, and the size of
 $q/r$ will determine how many operations we can do before the error
 grows too big.

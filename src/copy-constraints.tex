@@ -1,7 +1,7 @@
 \section{Copy constraints in PLONK}
 \label{copy-constraints}
 
-Now we elaborate on Step 3 which we deferred back in
+Now we elaborate on Step 3, which we deferred back in
 Section \ref{copy-constraint-deferred}. As an example, the constraints might be:
 \[a_{1} = a_{4} = c_{4}\quad\text{and }\quad b_{2} = c_{1.}\] Before we
 show how to check this, we provide a solution to a ``simpler'' problem
@@ -31,7 +31,7 @@ to be true, in the sense that both sides are the same polynomial in a
 single formal variable $T$. And for that, it is sufficient that a
 single random challenge $T = \lambda$ passes
 Equation \eqref{permcheck-poly}: If the two sides of
-Equation \eqref{permcheck-poly} are not the same
+Equation \eqref{permcheck-poly} aren't the same
 polynomial, then the two sides can have at most $n - 1$ common values.
 So for a randomly chosen $\lambda$ (chosen from a field with
 $q \approx 2^{256}$ elements), the chances that $T = \lambda$ passes
@@ -88,13 +88,13 @@ and $\Com(Q)$.
 
 \subsection{Copy check}
 
-Moving on to copy check, let us look at a concrete example where
+Moving on to copy check, let's look at a concrete example where
 $n = 4$. Suppose that our copy constraints were
 \[ \redoval{(a_{1})} =
 \redoval{(a_{4})} =
 \redoval{(c_{4})}
 \quad\text{and }\quad \bluerect{(b_{2})} = \bluerect{(c_{1})}.\]
-(We have colored the variables that will move around for
+(We've colored the variables that will move around for
 readability.) So, the copy constraint means we want the following
 equality of matrices:
 \begin{equation}
@@ -112,11 +112,11 @@ a_{3} & b_{3} & c_{3} \\
 \end{pmatrix}.
 \end{equation}
 
-Again, our goal is to make this into a \emph{single} equation. There is
+Again, our goal is to make this into a \emph{single} equation. There's
 a really clever way to do this by tagging each entry with
 $+ \eta^{j}\omega^{k}\mu$ in reading order for $j = 0,1,2$ and
 $k = 1,\ldots,n$; here $\eta \in \FF_{q}$ is any number
-such that $\eta^{2}$ does not happen to be a power of $\omega$, so
+such that $\eta^{2}$ doesn't happen to be a power of $\omega$, so
 all the tags are distinct. Specifically, if
 Equation \eqref{copy1} is true, then for any
 $\mu \in \FF_{q}$, we also have
@@ -145,7 +145,7 @@ that the twelve matrix entries of the matrix on the left are a
 permutation of the twelve matrix entries of the matrix on the right.
 
 The reader should check that this is correct! If the prover starts with
-values $a_{i}$, $b_{i}$, and $c_{i}$ that do not satisfy all the
+values $a_{i}$, $b_{i}$, and $c_{i}$ that don't satisfy all the
 copy constraints, then a randomly selected $\mu$ is very unlikely to
 satisfy this permutation check. The right-hand side will not be a
 permutation of the left-hand side, and the check will fail.
@@ -185,8 +185,8 @@ encode the weird coefficients row-by-row:
 \end{pmatrix}.
 \]
 Then the prover can start defining accumulator
-polynomials, after re-introducing the random challenge $\lambda$ from
-permutation check. We are going to need six in all, three for each side
+polynomials, after reintroducing the random challenge $\lambda$ from
+permutation check. We're going to need six in all, three for each side
 of Equation \eqref{copy3}: We call them $F_{a}$, $F_{b}$,
 $F_{c}$, $F'_{a}$, $F'_{b}$, $F'_{c}$. The ones on the left-hand
 side are interpolated so that
