@@ -4,7 +4,7 @@
 
 You are performing a computation on a large dataset, which you want to keep secret.
 The dataset is so large that you can't keep it in your computer's memory, so you store it on an external server.
-You don't trust the server, so you encrypt the data before you write it to the server, and later when you read it, you decrypt it again.
+You don't trust the server, so you encrypt the data before you write it to the server, and later, when you read it, you decrypt it again.
 Are you safe?
 
 No!  If an attacker compromises the server, they can't read your data, but they can still see which addresses you read and write.
@@ -14,7 +14,7 @@ And these access patterns could reveal sensitive information.\footurl{https://ww
 This is the problem \alert{Oblivious RAM} sets out to solve.\footnote{ORAM was first proposed by Goldreich and Ostrowsky.}
 
 If the threat sounds far-fetched, consider the encrypted messaging app Signal.  
-Signal has a contact discovery feature: A user sends Signal her address book,
+Signal has a contact discovery feature: a user sends Signal her address book,
 and Signal tells her if any of her friends are also on Signal.
 
 Signal does not want to learn the user's contact information; it only wants to provide this simple contact discovery service.
@@ -24,7 +24,7 @@ The user encrypts her address book before sending it to the secure processor;
 the processor performs the computation and sends the result back to the user.
 
 But the processor will have to access a large database stored on disk.
-The addresses the processor reads (i.e.\ which memory pages are fetched by the enclave) will reveal 
+The addresses the processor reads (i.e.,\ which memory pages are fetched by the enclave) will reveal 
 exactly who Alice's friends are, even if the data is encrypted!
 
 \begin{remark}{Access pattern leakage from a programming language perspective}{}
@@ -56,7 +56,7 @@ Therefore, we want to solve the following challenge:
 \end{quote}
 
 The solution Signal eventually deployed is an algorithmic technique
-called Oblivious RAM (ORAM).
+called Oblivious RAM.
 
 \section{Problem definitions}
 \label{oblivious-ram-problem-definitions}
@@ -83,7 +83,7 @@ Let us explain the parts of an ORAM system.
 
 An ORAM algorithm (the \alert{client}) sits between a \alert{user} who
 wants to access memory and a \alert{server} that has memory capabilities.
-At the server-ORAM interface, the server simply acts as a memory: The
+At the server-ORAM interface, the server simply acts as a memory: the
 ORAM client sends read and write requests to the server, and the server
 responds. Between the ORAM and the user, the user submits \emph{logical}
 read and write requests to the ORAM client, and the client will reply to
@@ -119,7 +119,7 @@ indistinguishable.
 \begin{remark}{}{}
 In this security requirement, we require that the server learn nothing
 from observing only the list of physical addresses, and whether each
-physical access is a read or write. We do not say anything about the
+physical access is a read or write. We don't say anything about the
 data that is written to physical memory.
 
 In practice, we need to use encryption to hide the contents of the
@@ -127,7 +127,7 @@ blocks. If we read a block and then write it back, we should re-encrypt
 it with a different ciphertext, or else the server would recognize it as
 the same block.
 
-From now on we will simply assume secure encryption as given, and focus
+From now on, we will simply assume secure encryption as given, and focus
 on hiding the access patterns.
 \end{remark}
 
@@ -136,7 +136,7 @@ on hiding the access patterns.
 Just to build intuition, let's look at a few simple approaches to the problem.
 We'll see what's wrong with each of them.
 
-\begin{algo}{Full scan. (Naive solution 1.)}{}
+\begin{algo}{Full scan (naive solution 1)}{}
 Every time the client wants to access any memory block, 
 the client reads all blocks from the server
 (and then reencrypts each one before writing it back).
@@ -144,7 +144,8 @@ the client reads all blocks from the server
 This scheme leaks no information, but it is too costly.
 \end{algo}
 
-\begin{algo}{Store everything on the client. (Naive solution 2.)}{}
+\begin{algo}{Store everything on the client (naive solution 2)}{}
+\label{naive2}
 The client stores all blocks and does not use the server at all.
 
 This defeats the numerous advantages of cloud outsourcing in the first
@@ -152,9 +153,9 @@ place: we want an algorithm that will work if the client's memory
 is much smaller than the data being accessed.
 \end{algo}
 
-In light of ``Naive solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
+In light of Algorithm \ref{naive2}, we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
 
-\begin{algo}{Random permutation. (Naive solution 3.)}{}
+\begin{algo}{Random permutation (naive solution 3)}{}
 \label{naive3}
 The client chooses a random permutation of $(1, 2, \ldots, N)$ (where $N$ is the number of data blocks),
 and uses this permutation to shuffle the data blocks in storage.
@@ -163,7 +164,7 @@ a block, it will appear to the server to reside at a random
 location.
 
 This gives a secure \emph{one-time} ORAM scheme:
-It provides security if every block is accessed only once. 
+it provides security if every block is accessed only once. 
 
 But if the client needs to access a block more than once, 
 the server will learn sensitive information like frequency and co-occurrence
@@ -173,9 +174,9 @@ and which pairs of blocks are accessed together).
 
 \subsection{Important observation}\label{important-observation.}
 
-The above naive solution 3 (Algorithm \ref{naive3}) gives us the following useful insight:
-Informally, if we want a ``non-trivial'' ORAM scheme, it appears that we
-may have to relocate a block after it is accessed --- otherwise, if the
+The above naive solution 3, Algorithm \ref{naive3}, gives us the following useful insight:
+informally, if we want a ``non-trivial'' ORAM scheme, it appears that we
+may have to relocate a block after it is accessed -- otherwise, if the
 next access to the same block goes back to the same location, we can
 thus leak statistical information. It helps to keep this observation in
 mind when we describe our ORAM scheme later.
@@ -192,11 +193,11 @@ The server stores a binary tree with $N$ leaves. (If necessary,
 replace $N$ with the next larger power of $2$.)
 
 Each node is called a \alert{bucket}, and each bucket is a finite array
-that can hold up to $Z$ number of blocks --- for now, think of $Z$
+that can hold up to $Z$ number of blocks -- for now, think of $Z$
 as being relatively small (maybe polylogarithmic in $N$); we will
 describe how to parametrize $Z$ later. Some of the blocks stored by
 the server are \alert{real}; other blocks are \alert{dummy}. As will be
-clear later, these dummy blocks are introduced for security: We do not
+clear later, these dummy blocks are introduced for security: we do not
 want the server to learn which buckets hold real blocks.
 
 \subsection{Main path invariant}\label{main-path-invariant.}
@@ -204,7 +205,7 @@ want the server to learn which buckets hold real blocks.
 The most important invariant is that at any point of time, each block is
 mapped to a random path in the tree (also referred to as the block's
 designated path), where a path begins from the root and ends at some
-leaf node --- and thus a path can be specified by the corresponding leaf
+leaf node -- and thus a path can be specified by the corresponding leaf
 node's identifier. When a block is mapped to a path, it means that the
 block can legitimately reside anywhere along the path.
 
@@ -214,7 +215,7 @@ For the time being, we will rely on the following cheat (an assumption
 that we can get rid of later). We assume that the client can store a
 somewhat large position map that records the designated path of every
 block. In general, such a position map would require roughly
-$\Theta( N\log N )$ bits to store --- but later we can
+$\Theta( N\log N )$ bits to store -- but later we can
 recursively outsource the storage of the position map to the server by
 placing position maps in progressively smaller ORAMs.
 
@@ -234,7 +235,7 @@ guaranteed to find the desired block.
 
 Recall that earlier, we have gained the informal insight that whenever a
 block is accessed, it should relocate. Here, whenever we access a block,
-we must remap it to a randomly chosen new path --- otherwise, we would
+we must remap it to a randomly chosen new path -- otherwise, we would
 end up going back to the same path if the block is requested again, thus
 leaking statistical information.
 
@@ -271,7 +272,7 @@ since there is no space to hold it on the server, and this can affect
 the correctness of our ORAM scheme. However, we will see that this sort of failure
 only happens with negligible probability.
 
-The high-level idea is very simple: Whenever we can, we will try to move
+The high-level idea is very simple: whenever we can, we will try to move
 blocks in the tree closer to the leaves, to allow space to free up in
 smaller levels of the tree (levels closer to the root). There are a few
 important considerations when performing such eviction:
@@ -293,7 +294,7 @@ important considerations when performing such eviction:
   overflows are less likely to happen. On the other hand, we also do not
   want the eviction cost to be too expensive. Therefore, another tricky
   issue is how we can design an eviction algorithm that achieves the
-  best of both worlds: With a small number of eviction operations, we
+  best of both worlds: with a small number of eviction operations, we
   want to keep the probability of overflow very small (technically:
   negligible in $N$).
 \end{itemize}
@@ -324,11 +325,11 @@ informal analysis of the scheme later:
 
 Note that depending on the chosen block's designated path, there is only
 one child where the block can legitimately go. We must take precautions
-to hide where this block is going: Thus for the remaining child that
+to hide where this block is going: thus for the remaining child that
 does not receive a block, we can perform a ``dummy'' eviction.
 Additionally, if the bucket chosen for eviction is empty (does not
 contain any real blocks), then we make a dummy eviction for both
-children --- this way we avoid leaking the information that the chosen
+children -- this way we avoid leaking the information that the chosen
 bucket is empty.
 
 More specifically, to write an intended block to a child bucket, we
@@ -339,7 +340,7 @@ basically reading every block sequentially and writing the original
 contents back.
 
 So far, we have not argued why any bucket that receives a block always
-has space for this block --- we will give an informal analysis later to
+has space for this block -- we will give an informal analysis later to
 show that this is indeed the case.
 
 \subsection{Algorithm pseudo-code}\label{algorithm-pseudo-code.}
@@ -350,7 +351,7 @@ and \ref{tcb:evict}.
 \begin{algo}{The procedure $\texttt{Access}(\texttt{op}, \texttt{addr}, \texttt{data}^*)$ where $\texttt{op} = \texttt{read}$ or $\texttt{op} = \texttt{write}$}{access}
 
 \textbf{Assume:}
-Each block is of the form $(\addr, \data, l)$
+each block is of the form $(\addr, \data, l)$
 where $l$ denotes the block's current designated path.
 
 %\begin{figure*}[t]
@@ -438,7 +439,7 @@ requests at all.
 
 Correctness is somewhat trickier to argue. We need to argue that
 no overflow will ever occur except
-with negligible probability --- as long as the bucket size $Z$ is set
+with negligible probability -- as long as the bucket size $Z$ is set
 appropriately.
 
 \begin{proposition}{Bucket size and overflow probability}{bucketsize}
@@ -450,7 +451,7 @@ bucket overflows except with negligible in $N$ probability.
 \begin{proof}
 The full proof uses results from queueing theory,\footurl{https://en.wikipedia.org/wiki/Queueing\_theory}
 in particular \alert{Burke's theorem}.\footurl{https://en.wikipedia.org/wiki/Burke\%27s\_theorem}
-We will give a heuristic argument that does not require any specialized
+We will give a heuristic argument that doesn't require any specialized
 knowledge.
 
 \begin{itemize}
@@ -485,14 +486,14 @@ probability. This situation is well-known in queueing theory as the
 \end{itemize}
 
 Since the bucket is drained (on average) twice as fast as it is filled,
-we expect that it is very unlikely for a lot of blocks to accumulate in
+we expect that it's very unlikely for a lot of blocks to accumulate in
 any one bucket.
 
 Indeed, one can prove an exponential bound on the probability that any
 one bucket gets too full:
 \[\Pr [\mathrm{\text{number of items in queue}} > R] \leq \exp( \Omega( - R) ).\]
 
-Unfortunately, this does not quite finish our analysis of the ORAM tree.
+Unfortunately, this doesn't quite finish our analysis of the ORAM tree.
 The reason is that the buckets in the ORAM tree are not independent, and
 our informal argument above ignored possible dependence between buckets.
 It turns out that this gap can be filled using Burke's theorem. But at
@@ -504,7 +505,7 @@ least quite plausible.
 
 So far, we have cheated and pretended that the client can store a large
 position map. We now describe how to get rid of this position map. The
-idea is simple: Instead of storing the position map on the client side,
+idea is simple: instead of storing the position map on the client side,
 we simply store it in a smaller ORAM denoted
 $\textsf{posORAM}_{1}$ on the server. The position map of
 $\textsf{posORAM}_{1}$ will then be stored in an even smaller
@@ -531,21 +532,21 @@ $\log N$ factor comes from the recursion.
 
 \section{Path ORAM}\label{path-oram}
 
-The design of the above binary-tree ORAM is a little silly: Whenever we
+The design of the above binary-tree ORAM is a little silly: whenever we
 visit a triplet of buckets for eviction, we only evict one block. For
 this reason, the bucket size needs to be super-logarithmic to get
 negligible failure probability. It turns out that if we instead use a
 more aggressive eviction algorithm, and with a more sophisticated proof,
 the bucket size can be made constant. At this point, we are ready to
 introduce an improved version called \alert{Path 
-ORAM}.\footnote{Path ORAM was introduced in 2013, in this eight-author paper: \url{https://eprint.iacr.org/2013/280.pdf}}
+ORAM}.\footnote{Path ORAM was introduced in 2013 in this eight-author paper: \url{https://eprint.iacr.org/2013/280.pdf}}
 
-Unlike the above binary-tree ORAM, in Path ORAM, every bucket has
-constant size (maybe 4 or 5), except the root bucket which is
+Unlike the above binary-tree ORAM, in Path ORAM, every bucket is
+constant in size (maybe 4 or 5), except the root bucket which is
 super-logarithmic in size. Every time we access some path to fetch a
 block, we also perform eviction on the same path. In particular, we will
 rearrange the blocks on the path in the most aggressive manner possible:
-We want to move the blocks as close to the leaf level as possible, but
+we want to move the blocks as close to the leaf level as possible, but
 \emph{without violating the path invariant}. With Path ORAM, every
 access operation touches a single path, hence the name Path ORAM. The
 cost of each access is $O( \alpha\log^{2}N )$ for an
@@ -572,7 +573,7 @@ linear (in the memory size) cost for each memory access! For example, a
 binary search in a sorted database requires only logarithmic time on a
 RAM, but it requires linear cost when expressed as a circuit.
 Fortunately, ORAM again comes to our rescue. There is a line of work on
-RAM-model MPC, and the idea is that we first translate the RAM to an
+RAM-model MPC, and the idea is that we first translate the RAM into an
 Oblivious RAM, and at this point all the memory accesses are safe to
 reveal. At this moment, we can use MPC to securely emulate a ``secure
 processor'' that performs computation while accessing memory

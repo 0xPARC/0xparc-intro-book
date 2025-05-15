@@ -82,7 +82,7 @@ access to the public key -- that list of pairs
 $( \mathbf{x}:y )$ above. You want to make up your own
 $\mathbf{x}$, for which you know approximately the value
 $\mathbf{x} \cdot \mathbf{a}$. You could just take one of the vectors
-$\mathbf{x}$ from the table, but that would not be very secure: If I
+$\mathbf{x}$ from the table, but that wouldn't be very secure: If I
 see your ciphertext, I can find that $\mathbf{x}$ in the table and use
 it to decrypt $m$.
 
@@ -92,7 +92,7 @@ of the table, the errors will add up. We're guaranteed that each row of
 the table has $\epsilon$ either $0$ or $1$. So if you add at most
 four rows, then the total $\epsilon$ will be at most $4$. Since
 $m$ is either $0$ or $5$ (and we're working modulo $q = 11$),
-that is just enough to determine $m$ uniquely.
+that's just enough to determine $m$ uniquely.
 
 So, here's the method: You choose at random four (or fewer) rows of the
 table, and add them up to get a pair $( \mathbf{x}:y_{0} )$
