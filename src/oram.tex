@@ -145,7 +145,6 @@ This scheme leaks no information, but it is too costly.
 \end{algo}
 
 \begin{algo}{Store everything on the client (naive solution 2)}{}
-\label{naive2}
 The client stores all blocks and does not use the server at all.
 
 This defeats the numerous advantages of cloud outsourcing in the first
@@ -153,7 +152,7 @@ place: we want an algorithm that will work if the client's memory
 is much smaller than the data being accessed.
 \end{algo}
 
-In light of Algorithm \ref{naive2}, we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
+In light of the ``naive solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
 
 \begin{algo}{Random permutation (naive solution 3)}{}
 \label{naive3}
@@ -174,7 +173,7 @@ and which pairs of blocks are accessed together).
 
 \subsection{Important observation}\label{important-observation.}
 
-The above naive solution 3, Algorithm \ref{naive3}, gives us the following useful insight:
+The above naive solution 3 gives us the following useful insight:
 informally, if we want a ``non-trivial'' ORAM scheme, it appears that we
 may have to relocate a block after it is accessed -- otherwise, if the
 next access to the same block goes back to the same location, we can
