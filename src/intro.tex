@@ -76,14 +76,14 @@ main classes of programmable cryptography.
 \subsection{SNARKs: proofs of general statements}
 
 A powerful way of thinking about a signature scheme is that it is a
-\textbf{proof}. Specifically, Alice's signature is a proof that ``I
+\emph{proof}. Specifically, Alice's signature is a proof that ``I
 [the person who generated the signature] know Alice's private key.''
 Similarly, a group signature can be thought of as a succinct proof that
 ``I know one of Alice, Bob, or Charlie's private keys.''
 
-In the spirit of programmable cryptography, a \emph{SNARK} generalizes
+In the spirit of programmable cryptography, a \alert{SNARK} generalizes
 this concept as a ``proof system'' protocol that can produce an efficient
-proof of an \textbf{arbitrary} statement of the form:
+proof of an \emph{arbitrary} statement of the form:
 \begin{quote}
 ``I know $X$ such that $F(X,Y) = Z$, where $F,Y,Z$ are public,''
 \end{quote}
