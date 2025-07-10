@@ -108,17 +108,17 @@ and accepts if and only if Equation \eqref{kzg-verify} is true.
 
 If Peggy is truthful, then Equation \eqref{kzg-verify} will certainly check out.
 
-If $y \neq P(z)$, then Peggy cannot do the polynomial long division
+If $y \neq P(z)$, then Peggy can't do the polynomial long division
 described above. So to cheat Victor, she needs to otherwise find an
 element
 \[\frac{1}{s - x}( [ P(s) ] - [y] ) \in E.\]
-Since $s$ is a secret nobody knows, there is not any known way to do
+Since $s$ is a secret nobody knows, there isn't any known way to do
 this.
 
 \subsection{Multi-openings}\label{multi-openings}
 
 To reveal $P$ at a single value $z$, we did polynomial division to
-divide $P(X)$ by $X - z$. But there is no reason we have to restrict
+divide $P(X)$ by $X - z$. But there's no reason we have to restrict
 ourselves to linear polynomials; this would work equally well with
 higher-degree polynomials, while still using only a single 256-bit curve
 point for the proof.
@@ -165,10 +165,10 @@ single 256-bit proof. The verification runtime is a single pairing plus
 however long it takes to compute the Lagrange interpolation $f$.
 
 \subsection{Root check}
-To make PLONK work, we are going to need a small variant of the
+To make PLONK work, we're going to need a small variant of the
 multi-opening protocol for KZG commitments
 (Section \ref{multi-openings}), which we call
-\alert{root check} (not a standard name). Here is the problem statement:
+\alert{root check} (not a standard name). Here's the problem statement:
 
 \begin{goal}{}{}
 Suppose one had two polynomials $P_1$ and $P_2$,
@@ -194,7 +194,7 @@ $\Com( P_{6} )$, and wants to show that
 \[P_{1}(42) + P_{2}(42)P_{3}(42)^{4} + P_{4}(42)P_{5}(42)P_{6}(42) = 1337,\]
 she could define
 \[F(X) \defeq P_{1}(X) + P_{2}(X)P_{3}(X)^{4} + P_{4}(X)P_{5}(X)P_{6}(X) - 1337\]
-and run the same protocol with this $F$. This means she does not have
+and run the same protocol with this $F$. This means she doesn't have
 to reveal any $P_{i}(42)$, which is great!
 
 To be fully explicit, here is the algorithm:

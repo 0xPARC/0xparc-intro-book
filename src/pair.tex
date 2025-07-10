@@ -6,7 +6,7 @@ math that we need.
 Recall that the map $[ \bullet ]:\FF_{q} \rightarrow E$ is linear,
 meaning that
 $[a + b] = [a] + [b]$, and $[na] = n [a]$.
-But as written we cannot do ``armored multiplication'':
+But as written we can't do ``armored multiplication'':
 
 \begin{claim}{}{}
 As far as we know, given $[a]$ and $[b]$, one cannot easily compute $[a b]$.
@@ -33,8 +33,8 @@ this pairing can be computed reasonably quickly
 This construction actually uses some really deep number theory
 (heavier than all the math in Section \ref{ec})
 that is well beyond the scope of this modest book.
-Fortunately, we will not need the details of how it works;
-but we will comment briefly in Section \ref{pairing-friendly} on what curves it
+Fortunately, we won't need the details of how it works;
+but we 'll comment briefly in Section \ref{pairing-friendly} on what curves it
 can be done on.
 And this pairing algorithm needs to be worked out just
 once for the curve $E$;
@@ -47,14 +47,14 @@ $mn \pair([1], [1])$.
 So this gives us a way to \textbf{verify} two-by-two multiplication.
 
 \begin{remark}{}{}
-The last sentence is worth bearing in mind: In all the protocols we will see,
+The last sentence is worth bearing in mind: in all the protocols we'll see,
 the pairing is only used by the verifier Victor, never by the prover Peggy.
 \end{remark}
 
 \begin{remark}{}{}
-On the other hand, we currently do not seem to know a good
+On the other hand, we currently don't seem to know a good
 way to do \emph{multilinear} pairings.
-For example, we do not know a good trilinear map
+For example, we don't know a good trilinear map
 $E \times E \times E \rightarrow \ZZ / N \ZZ$
 that would allow us to compare $[a b c]$, $[a]$, $[b]$, $[c]$
 (without knowing one of $[a b]$, $[b c]$, $[c a]$).
@@ -76,13 +76,13 @@ Then given $[x]$, $[x^2]$, $[x^3]$, and $[y]$, Victor verifies that:
 \end{itemize}
 \end{example}
 
-The process of verifying this sort of identity is quite general: The
+The process of verifying this sort of identity is quite general: the
 prover sends intermediate values as needed so that the verifier can
 verify the claim using only pairings and linearity.
 
 \subsection{So which curves are pairing-friendly?}\label{pairing-friendly}
 This section is an aside explaining how the so-called
-embedding degree affects pairing, and can be skipped safely.
+``embedding degree'' affects pairing, and can be skipped safely.
 
 If we chose $E$ to be BN254, the following property holds:
 \begin{proposition}{BN254 has embedding degree $12$}{}
@@ -100,7 +100,7 @@ element will always be a $q$-th root of unity in
 $\FF_{p^{k}}$, and it will satisfy
 $\pair([m],[n]) = \zeta^{mn}$,
 where $\zeta$ is some fixed $q$-th root of unity. The construction
-of the pairing is based on the Weil pairing\footnote{\url{https://en.wikipedia.org/wiki/Weil\_pairing}.\\
+of the pairing is based on the \emph{Weil pairing}\footnote{\url{https://en.wikipedia.org/wiki/Weil\_pairing}.\\
 The idea to use the Weil pairing in cryptography goes back to Dan Boneh and Matthew Franklin: \\
 \url{https://crypto.stanford.edu/~dabo/papers/bfibe.pdf}}
 in algebraic geometry. How to compute these pairings is well beyond the

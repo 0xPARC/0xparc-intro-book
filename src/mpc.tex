@@ -2,13 +2,13 @@
 \label{section-gc}
 Imagine Alice and Bob each have some secret values $a$ and $b$, and
 would like to jointly compute some function $f$ over their respective
-inputs. Furthermore, they would like to keep their secret values hidden
+inputs. Furthermore, they'd like to keep their secret values hidden
 from each other: if Alice and Bob follow the protocol honestly, they
 should both end up learning the correct value of $f(a,b)$, but Alice
-should not learn anything about $b$ (other than what could be learned
+shouldn't learn anything about $b$ (other than what could be learned
 by knowing both $a$ and $f(a,b)$), and likewise for Bob.
 
-Here is our problem setting, slightly more formally:\footnote{The idea of multiparty computation
+Here is our problem setting, slightly more formally:\footnote{The idea of multi-party computation
 (two-party computation is a special case) 
 goes back to work of Goldreich, Micali, and Wigderson: \\
  \url{https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/GMW87/GMW87.pdf}}
@@ -18,7 +18,7 @@ goes back to work of Goldreich, Micali, and Wigderson: \\
 \item Bob knows a secret bitstring $b$ of length $n$ bits.
 \item $f$ is a binary circuit, which takes in $m + n$ bits, and runs
   them through some $k$ gates. The outputs of some of the gates are
-  the public outputs of the circuit. Without loss of generality, let us
+  the public outputs of the circuit. Without loss of generality, let's
   also suppose that each gate in $f$ accepts either $1$ or $2$
   input bits, and outputs a single output bit.
 \item Alice and Bob would like to jointly compute $f(a,b)$ without
@@ -46,16 +46,16 @@ is a protocol where Alice has two
   messages, $m_{0}$ and $m_{1}$. Bob can get exactly one of them,
   $m_{i}$, without letting Alice know what $i$ is. In this context,
   Alice ends up sending Bob a password for his input in a way that Bob
-  does not learn the passwords for any other inputs, and Alice does not
+  doesn't learn the passwords for any other inputs, and Alice doesn't
   find out which password she sent to Bob.
 \end{itemize}
 
 In slightly more detail:
 \begin{enumerate}
 \item
-  Whatever the function $f$ is, we will assume that it takes $m + n$
+  Whatever the function $f$ is, we'll assume that it takes $m + n$
   bits of input $a_{1},\ldots,a_{m}$ and $b_{1},\ldots,b_{n}$, and
-  that it is computed by some sort of circuit made of AND, OR and NOT
+  that it's computed by some sort of circuit made of AND, OR and NOT
   gates.
 \item
   Alice's first task is to ``plug her own inputs into this circuit
@@ -63,8 +63,8 @@ In slightly more detail:
   $f_{a}$) that has just $n$ input slots for Bob's $n$ bits
   $b_{1},\ldots,b_{n}$.
 \item
-  Now, Alice is going to ``garble'' the circuit $f_{a}$. Once it is
-  garbled, Bob will not be able to see how it works. He will only be
+  Now, Alice is going to ``garble'' the circuit $f_{a}$. Once it's
+  garbled, Bob won't be able to see how it works. He'll only be
   able to plug his own input $( b_{1},\ldots,b_{n})$ into
   the circuit.
 \item
@@ -72,13 +72,13 @@ In slightly more detail:
   circuit will require a ``password'' for each input Bob wants to plug
   in -- a different password for every possible input. If Bob has the
   password for $( b_{1},\ldots,b_{n})$, he can learn
-  $f_a( b_{1},\ldots,b_{n}) = f(a,b)$, but he will not
+  $f_a( b_{1},\ldots,b_{n}) = f(a,b)$, but he won't
   learn anything else about how the circuit works.
 \item
   Now, Alice has all the passwords for all the possible inputs, but how
   can she give Bob the password for
-  $( b_{1},\ldots,b_{n})$? Alice does not want to let Bob
-  have any other passwords -- and Bob is not willing to tell Alice which
+  $( b_{1},\ldots,b_{n})$? Alice doesn't want to let Bob
+  have any other passwords -- and Bob isn't willing to tell Alice which
   password he is asking for. This is where we will use ``oblivious
   transfer.''
 \end{enumerate}
@@ -90,7 +90,7 @@ Our garbled circuits are going to be built out of \alert{garbled gates}.
 A garbled gate is like a traditional gate (like AND, OR, NAND, NOR),
 except its functionality is hidden.
 
-What does that mean? Let us say the gate has two input bits, so there
+What does that mean? Let's say the gate has two input bits, so there
 are four possible inputs to the gate: $(0,0),(0,1),(1,0),(1,1)$.
 For each of those four inputs $(x,y)$,
 there is a secret password $P_{x,y}$.
@@ -123,19 +123,18 @@ $P_{x,y}$, you just go to the $(x,y)$ row of the table, look up
 \[\Enc_{P_{x,y}} ( G(x,y) ),\] decrypt it, and
 learn $G(x,y)$.
 
-But if you do not know the password $P_{x,y}$, assuming
-$\Enc$ is a suitably secure encryption scheme, you will
-not learn anything about the value $G_{x,y}$ from its encryption.
+But if you don't know the password $P_{x,y}$, assuming
+$\Enc$ is a suitably secure encryption scheme, you won't 
+learn anything about the value $G_{x,y}$ from its encryption.
 
 \subsection{Chaining garbled gates}
 
-The next step is to combine a bunch of garbled gates into a circuit. We
-will need to make some small changes to the protocol.
+The next step is to combine a bunch of garbled gates into a circuit. We'll need to make some small changes to the protocol.
 
 \begin{enumerate}
 \item
   To chain garbled gates together, we need to modify the output of each
-  gate: In addition to outputting the bit $z = G_{i}(x,y)$, the
+  gate: in addition to outputting the bit $z = G_{i}(x,y)$, the
   $i$-th gate $G_{i}$ will also output a password $P_{z}$ that Bob
   can use at the next step.
 
@@ -145,12 +144,12 @@ will need to make some small changes to the protocol.
   To get the combined password $P_{x,y}$, Bob concatenates the two
   passwords $P_{x}^{\text{left}}$ and $P_{y}^{\text{right}}$.
 \item
-  To keep the functionality of the circuit hidden, we do not want Bob to
+  To keep the functionality of the circuit hidden, we don't want Bob to
   learn anything about the structure of the individual gates -- even the
   single bit he gets as output.
 
-  This is an easy fix: Instead of having the gate output both the bit
-  $z$ and the password $P_{z}$, we will have the gate just output
+  This is an easy fix: instead of having the gate output both the bit
+  $z$ and the password $P_{z}$, we'll have the gate just output
   $P_{z}$.
 
   \end{enumerate}
@@ -158,10 +157,10 @@ will need to make some small changes to the protocol.
   But now how does Bob know what values to feed into the next gate? The
   left-hand column of the ``gate table'' needs to be indexed by the
   passwords $P_{x}^{\text{left}}$ and $P_{y}^{\text{right}}$, not by
-  the bits $(x,y)$. But we do not want Bob to learn the other
+  the bits $(x,y)$. But we don't want Bob to learn the other
   passwords from the table!
 
-  Let us say this again. We want:
+  Let's say this again. We want:
 
   \begin{itemize}
   \item
@@ -169,12 +168,12 @@ will need to make some small changes to the protocol.
     $P_{y}^{\text{right}}$, Bob can find the row of the table for the
     input $(x,y)$.
   \item
-    If Bob does not know the passwords, he cannot learn them by looking
+    If Bob doesn't know the passwords, he can't learn them by looking
     at the table.
   \end{itemize}
 
   Of course, the solution is to use a hash function! So here is the new
-  version of our garbled gate. For simplicity, we will assume it is an
+  version of our garbled gate. For simplicity, we'll assume it's an
   AND gate -- so the outputs will be (the passwords encoding) 0, 0, 0,
   1.
 
@@ -200,12 +199,12 @@ will need to make some small changes to the protocol.
 
 \subsection{How Bob uses one gate}
 
-Let us play through one round of Bob's gate-using protocol.
+Let's play through one round of Bob's gate-using protocol.
 
 \begin{enumerate}
 \item
   Suppose Bob's input bits are 0 (on the left) and 1 (on the right). Bob
-  does not know he has 0 and 1 (but we do!). Bob knows his left password
+  doesn't know he has 0 and 1 (but we do!). Bob knows his left password
   is some value $P_{0}^{\text{left}}$, and his right password is some
   other value $P_{1}^{\text{right}}$.
 \item
@@ -223,11 +222,11 @@ Let us play through one round of Bob's gate-using protocol.
   $P_{0}^{\text{out}}.$
 \item
   Now Bob has the password for the bit 0 to feed into the next gate --
-  but he does not know his bit is 0.
+  but he doesn't know his bit is 0.
 \end{enumerate}
 
 So Bob is exactly where he started: he knows the password for his bit,
-but he does not know his bit. So we can chain together as many of these
+but he doesn't know his bit. So we can chain together as many of these
 garbled gates as we like to make a full garbled circuit.
 
 \subsection{How the circuit ends}
@@ -241,7 +240,7 @@ bit in plain text.
 \subsection{How the circuit starts}
 
 This is trickier. At the beginning of the computation, Bob needs to
-learn the passwords for all of his input bits. Let us frame the problem
+learn the passwords for all of his input bits. Let's frame the problem
 for just a single bit.
 
 \begin{itemize}
@@ -257,5 +256,5 @@ for just a single bit.
   Alice does not want Bob to learn the other password.
 \end{itemize}
 
-This is where \emph{oblivious transfer} comes in, which we will see in
+This is where \emph{oblivious transfer} comes in, which we'll see in
 Section \ref{ot}.
