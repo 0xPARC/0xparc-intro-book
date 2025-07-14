@@ -55,8 +55,8 @@ Fiat-Shamir turns it into the following noninteractive protocol.
 
   \begin{enumerate}
   \item Peggy sends $\Com(F)$ and $\Com(H)$.
-  \item Peggy computes $\lambda \in \FF_{q}$ by
-    $\lambda = \hash(\Com(F),\Com(H))$.
+  \item Peggy computes
+    $\lambda = \hash(\Com(F),\Com(H)) \in \FF_{q}$.
   \item Peggy opens both $\Com(F)$ and $\Com(H)$ at $\lambda$.
   \item Victor verifies that $\lambda = \hash(\Com(F),\Com(H))$
     and $F(\lambda) = Z(\lambda)H(\lambda)$.

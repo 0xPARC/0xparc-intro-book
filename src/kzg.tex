@@ -21,8 +21,8 @@ following API:
 \end{itemize}
 \end{goal}
 
-The \alert{Kate-Zaverucha-Goldberg (KZG)} commitment scheme\footnote{Introduced, 
-of course, by Kate, Zaverucha, and Goldberg: \\ \url{https://www.iacr.org/archive/asiacrypt2010/6477178/6477178.pdf}} 
+The \alert{Kate-Zaverucha-Goldberg (KZG)} commitment scheme\footnote{Introduced,
+of course, by Kate, Zaverucha, and Goldberg: \\ \url{https://www.iacr.org/archive/asiacrypt2010/6477178/6477178.pdf}}
 is amazingly
 efficient because both the commitment and proof lengths are a single
 point on $E$, encodable in 256 bits, no matter how many coefficients
@@ -133,9 +133,11 @@ other words, if Peggy does a polynomial long division, she will find
 that
 \[P(X) = Q(X)( (X - 1)(X - 2)\ldots(X - 9) ) + 100X^{2.}\]
 Then Peggy sends $[Q(s)]$ as her proof, and
-the verification equation is that \[\begin{aligned}
-  \pair( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] )  = \pair( [P(s)] - 100[s^2], [1] ).
-\end{aligned}\]
+the verification equation is that
+\begin{align*}
+  &\pair( [Q(s)], [ (s - 1)(s - 2)\ldots(s - 9) ] ) \\
+  &\quad = \pair( [P(s)] - 100[s^2], [1] ).
+\end{align*}
 
 The full generality just replaces the $100X^{2}$ with the polynomial
 obtained from Lagrange interpolation\footurl{https://en.wikipedia.org/wiki/Lagrange\_polynomial}
@@ -150,13 +152,16 @@ $P( z_{i} ) = y_{i}$ for $1 \leq i \leq n$.
   such that $f( z_{i} ) = y_{i}$.
 \item
   Peggy does polynomial long division to get $Q(X)$ such that
-  \[P(X) - f(X) = ( X - z_{1} )( X - z_{2} )\cdots( X - z_{n} ) \cdot Q(X).\]
+  \[P(X) - f(X) = ( X - z_{1} )\cdots( X - z_{n} ) \cdot Q(X).\]
 \item
   Peggy sends the single element $[ Q(s) ]$ as
   her proof.
 \item
   Victor verifies
-\[  \pair([Q(s)], [ ( s - z_1 )( s - z_2 )\ldots( s - z_n ) ]) = \pair([P(s)] - [f(s)], [1]). \]
+\begin{align*}
+    &\pair([Q(s)], [ ( s - z_1 )( s - z_2 )\ldots( s - z_n ) ]) \\
+    &\quad = \pair([P(s)] - [f(s)], [1]).
+\end{align*}
 \end{enumerate}
 \end{algo}
 

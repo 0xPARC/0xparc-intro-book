@@ -1,12 +1,22 @@
 % !TeX TS-program = pdflatexmk
-\documentclass{scrreprt}
+\documentclass[twoside]{scrreprt}
 \usepackage{amsfonts, amsmath, amsthm, graphicx, xcolor}
 \usepackage[colorlinks]{hyperref}
 \usepackage{mathtools}
+\usepackage[paperwidth=5.5in, paperheight=8in, top=0.625in, bottom=0.875in, inner=0.875in, outer=0.625in]{geometry}
+
+% Center page numbers
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\cfoot*{\pagemark}
+% Move page numbers up by adjusting footer height
 
 \usepackage{algorithm,algorithmic}
 %\usepackage[backend=biber, style=verbose]{biblatex}
-%\addbibresource{crypto.bib} 
+%\addbibresource{crypto.bib}
+
+\setlength{\emergencystretch}{3em} % to break lines with overfull boxes
+\widowpenalty=10000 % Widow control
 
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
 
@@ -92,6 +102,10 @@
 \NewTcbTheorem[use counter from = theorem]{algo}{Algorithm}{
   theorem base,
   enhanced,
+  breakable,
+  skin first=enhanced,
+  skin middle=enhanced,
+  skin last=enhanced,
   frame empty,
   colframe = blue,
   coltitle = blue,
@@ -121,6 +135,10 @@
 \tcbset{
   takeaways/.style={
     enhanced,
+    breakable,
+    skin first=enhanced,
+    skin middle=enhanced,
+    skin last=enhanced,
     colback=yellow!5!white,
     colframe=yellow!50!black,
     coltitle=black,
@@ -154,7 +172,7 @@
 
 
 \title{Programmable Cryptography: \\ Four Easy Pieces}
-\author{Edited by Evan Chen, Brian Lawrence, Elaine Shi, Yan X Zhang}
+\author{\parbox{3.5in}{\centering Edited by Evan Chen, Brian Lawrence, Elaine Shi, Yan X Zhang}}
 
 \addtokomafont{chapterprefix}{\raggedleft}
 \RedeclareSectionCommand[beforeskip=0.5em]{chapter}
@@ -198,7 +216,7 @@
 \tableofcontents
 
 \chapter{Introduction}
-\credits{Brian Gu and Yan X Zhang}
+\credits{Evan Chen and Yan X Zhang}
 \input{src/intro}
 
 \chapter{Two-Party Computation}
