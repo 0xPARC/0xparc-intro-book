@@ -18,6 +18,7 @@
 
 \setlength{\emergencystretch}{3em} % to break lines with overfull boxes
 \widowpenalty=10000 % Widow control
+\raggedbottom
 
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
 
@@ -84,8 +85,16 @@
 
 \NewTcbTheorem[use counter from = theorem]{exercise}{Exercise}{
   theorem base,
-  colback = black!5,
-  colframe = black!65
+  enhanced,
+  breakable,
+  boxrule = 0pt,
+  frame hidden,
+  borderline west = {4pt}{0pt}{black},
+  coltitle = black,
+  colback = green!5,
+  colbacktitle = green!5,
+  toptitle = 2mm,
+  % sharp corners,
 }{tcb}
 
 \NewTcbTheorem[use counter from = theorem]{example}{Example}{
@@ -104,9 +113,6 @@
   theorem base,
   enhanced,
   breakable,
-  skin first=enhanced,
-  skin middle=enhanced,
-  skin last=enhanced,
   frame empty,
   colframe = blue,
   coltitle = blue,
@@ -203,7 +209,7 @@
 \begin{titlepage}
   \centering
   \vspace*{5em}
-  \begin{minipage}{20em}
+  \begin{minipage}{18em}
   \itshape
   I can prove to you that I have a message $M$ such that
   $\sha(M) = \mathtt{0xa91af3ac}\dots$, without revealing $M$.

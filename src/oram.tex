@@ -13,18 +13,18 @@ And these access patterns could reveal sensitive information.\footurl{https://ww
 
 This is the problem \alert{Oblivious RAM} sets out to solve.\footnote{ORAM was first proposed by Goldreich and Ostrowsky.}
 
-If the threat sounds far-fetched, consider the encrypted messaging app Signal.  
+If the threat sounds far-fetched, consider the encrypted messaging app Signal.
 Signal has a contact discovery feature: a user sends Signal her address book,
 and Signal tells her if any of her friends are also on Signal.
 
 Signal does not want to learn the user's contact information; it only wants to provide this simple contact discovery service.
 Signal has a secure processor (like Intel SGX) on its server; you can think of this as a secure hardware sandbox (called an \alert{enclave})
 from which secrets cannot be leaked.
-The user encrypts her address book before sending it to the secure processor; 
+The user encrypts her address book before sending it to the secure processor;
 the processor performs the computation and sends the result back to the user.
 
 But the processor will have to access a large database stored on disk.
-The addresses the processor reads (i.e.,\ which memory pages are fetched by the enclave) will reveal 
+The addresses the processor reads (i.e.,\ which memory pages are fetched by the enclave) will reveal
 exactly who Alice's friends are, even if the data is encrypted!
 
 \begin{remark}{Access pattern leakage from a programming language perspective}{}
@@ -62,7 +62,7 @@ called Oblivious RAM.
 \label{oblivious-ram-problem-definitions}
 
 Oblivious RAM (ORAM) is a powerful cryptographic protocol that
-\emph{provably} hides access patterns to sensitive data.  
+\emph{provably} hides access patterns to sensitive data.
 Our security requirement is quite strong:
 
 \begin{goal}{}{}
@@ -70,11 +70,11 @@ We want to hide access patterns from an untrusted storage device.
 No information should be leaked about:
 \begin{enumerate}
 \item which data block is being
-accessed; 
-\item the age of the data block (when it was last accessed); 
-\item whether a single block is being requested repeatedly (frequency); 
+accessed;
+\item the age of the data block (when it was last accessed);
+\item whether a single block is being requested repeatedly (frequency);
 \item whether data blocks are often being accessed together (co-occurrence);
-or 
+or
 \item whether each access is a read or a write.
 \end{enumerate}
 \end{goal}
@@ -137,24 +137,24 @@ Just to build intuition, let's look at a few simple approaches to the problem.
 We'll see what's wrong with each of them.
 
 \begin{algo}{Full scan (naive solution 1)}{}
-Every time the client wants to access any memory block, 
+Every time the client wants to access any memory block,
 the client reads all blocks from the server
 (and then reencrypts each one before writing it back).
 
 This scheme leaks no information, but it is too costly.
 \end{algo}
 
-\begin{algo}{Store everything on the client (naive solution 2)}{}
+\begin{algo}{Store everything on \\ the client (naive solution 2)}{}
 The client stores all blocks and does not use the server at all.
 
 This defeats the numerous advantages of cloud outsourcing in the first
-place: we want an algorithm that will work if the client's memory 
+place: we want an algorithm that will work if the client's memory
 is much smaller than the data being accessed.
 \end{algo}
 
 In light of the ``naive solution 2,'' we will require that the client store only a small amount of data (constant or polylogarithmic in $N$).
 
-\begin{algo}{Random permutation (naive solution 3)}{}
+\begin{algo}{Random permutation \\ (naive solution 3)}{}
 \label{naive3}
 The client chooses a random permutation of $(1, 2, \ldots, N)$ (where $N$ is the number of data blocks),
 and uses this permutation to shuffle the data blocks in storage.
@@ -163,11 +163,11 @@ a block, it will appear to the server to reside at a random
 location.
 
 This gives a secure \emph{one-time} ORAM scheme:
-it provides security if every block is accessed only once. 
+it provides security if every block is accessed only once.
 
-But if the client needs to access a block more than once, 
+But if the client needs to access a block more than once,
 the server will learn sensitive information like frequency and co-occurrence
-(how often the same block is accessed, 
+(how often the same block is accessed,
 and which pairs of blocks are accessed together).
 \end{algo}
 
@@ -537,7 +537,7 @@ this reason, the bucket size needs to be super-logarithmic to get
 negligible failure probability. It turns out that if we instead use a
 more aggressive eviction algorithm, and with a more sophisticated proof,
 the bucket size can be made constant. At this point, we are ready to
-introduce an improved version called \alert{Path 
+introduce an improved version called \alert{Path
 ORAM}.\footnote{Path ORAM was introduced in 2013 in this eight-author paper: \url{https://eprint.iacr.org/2013/280.pdf}}
 
 Unlike the above binary-tree ORAM, in Path ORAM, every bucket is

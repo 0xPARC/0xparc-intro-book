@@ -182,7 +182,9 @@ On the other hand, given $g \in E$, one can compute $n \cdot g$ in
 just $O( \log n )$ operations, by repeated
 squaring.\footurl{https://en.wikipedia.org/wiki/Exponentiation\_by\_squaring}
 For example, to compute $400g$, one only needs to do $10$ additions,
-rather than $400$: One starts with \[\begin{aligned}
+rather than $400$: One starts with
+
+\[\begin{aligned}
 2g & = g + g \\
 4g & = 2g + 2g \\
 8g & = 4g + 4g \\
@@ -252,7 +254,7 @@ For $n \in \ZZ$ (equivalently $n \in \FF_q$) we define
 
 The hardness of the discrete logarithm means that, given
 $[n]$, we cannot get $n$. You can almost think of the
-notation as an ``armor'' on the integer $n$: It conceals the integer,
+notation as an ``armor'' on the integer $n$. It conceals the integer,
 but still allows us to perform (armored) addition:
 \[ [a + b] = [a] + [b]. \] In other
 words, $n \mapsto [n]$ viewed as a map
