@@ -3,11 +3,12 @@ name: LaTeX compiler
 on:
   push:
     branches: ["main"]
+    tags: ["v*.*.*"]
   pull_request:
     branches: ["*"]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   spellcheck:
@@ -60,3 +61,36 @@ jobs:
         with:
           path: main.pdf
           name: main.pdf
+
+  release:
+    runs-on: ubuntu-latest
+    name: "Create GitHub Release"
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: main.pdf
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: "Release ${{ steps.version.outputs.VERSION }}"
+          body: |
+            ## 📖 Programmable Cryptography: Four Easy Pieces
+
+            Release ${{ steps.version.outputs.VERSION }} of the cryptography textbook.
+
+            ### 📥 Download
+            - **[main.pdf](./main.pdf)** - Complete textbook PDF
+
+            Generated from commit: ${{ github.sha }}
+          files: main.pdf
+          draft: false
+          prerelease: false
