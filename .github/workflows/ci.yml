@@ -85,10 +85,7 @@ jobs:
           body: |
             ## 📖 Programmable Cryptography: Four Easy Pieces
 
-            Release ${{ steps.version.outputs.VERSION }} of the cryptography textbook.
-
-            ### 📥 Download
-            - **[main.pdf](./main.pdf)** - Complete textbook PDF
+            Release ${{ steps.version.outputs.VERSION }} of the Four Easy Pieces textbook.
 
             Generated from commit: ${{ github.sha }}
           files: main.pdf
